@@ -1,3 +1,6 @@
+Erik Sombroek
+Adding depthMask to this version of Pixi.
+__________________________________________
 PixiJS — The HTML5 Creation Engine
 =============
 
