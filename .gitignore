@@ -30,8 +30,6 @@ docs
 coverage
 .nyc_output
 lib
-dist
-bundles/*/*.d.ts
 
 # jetBrains IDE ignores
 .idea

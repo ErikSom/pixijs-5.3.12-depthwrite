@@ -42,9 +42,7 @@
     "lintfix"
   ],
   "engines": {
-    "node": "^10",
-    "yarn": "please-use-npm",
-    "npm": "^6"
+
   },
   "devDependencies": {
     "@lerna/batch-packages": "^3.13.0",
