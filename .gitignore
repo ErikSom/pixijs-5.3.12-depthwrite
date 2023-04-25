@@ -29,7 +29,6 @@ node_modules
 docs
 coverage
 .nyc_output
-lib
 
 # jetBrains IDE ignores
 .idea
