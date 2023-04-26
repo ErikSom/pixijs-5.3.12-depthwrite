@@ -41,7 +41,7 @@
     "@pixi/accessibility": "5.3.12",
     "@pixi/app": "5.3.12",
     "@pixi/constants": "5.3.12",
-    "@pixi/core": "5.3.12",
+    "@pixi/core": "https://gitpkg.now.sh/ErikSom/pixijs-5.3.12-depthwrite/packages/core?v5.3.x",
     "@pixi/display": "5.3.12",
     "@pixi/extract": "5.3.12",
     "@pixi/filter-alpha": "5.3.12",
