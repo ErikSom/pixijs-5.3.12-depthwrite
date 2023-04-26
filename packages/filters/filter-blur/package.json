@@ -25,7 +25,7 @@
     "dist"
   ],
   "dependencies": {
-    "@pixi/core": "5.3.12",
+    "@pixi/core": "https://gitpkg.now.sh/ErikSom/pixijs-5.3.12-depthwrite/packages/core?poki/v5.3.x",
     "@pixi/settings": "5.3.12"
   }
 }
