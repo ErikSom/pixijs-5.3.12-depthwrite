@@ -4690,6 +4690,11 @@ declare namespace PIXI {
          */
         depthTest: boolean;
         /**
+         * Enables or disables writing to the depth buffer.
+         * @default true
+         */
+        depthMask: any;
+        /**
          * Specifies whether or not front or back-facing polygons can be culled.
          * @member {boolean}
          * @default false
@@ -5803,6 +5808,11 @@ declare namespace PIXI {
              * @param {boolean} value - Turn on or off webgl depth testing.
              */
             setDepthTest(value: boolean): void;
+            /**
+             * Sets whether to enable or disable depth mask.
+             * @param value - Turn on or off webgl depth mask.
+             */
+            setDepthMask(value: any): void;
             /**
              * Sets whether to enable or disable cull face.
              *

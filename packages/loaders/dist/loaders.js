@@ -1,306 +1,253 @@
-/* !
+/*!
  * @pixi/loaders - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/loaders is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
 this.PIXI = this.PIXI || {};
-const _pixi_loaders = (function (exports, core)
-{
-    const src = function (str, opts)
-    {
-        if (opts === void 0) opts = {};
+var _pixi_loaders = (function (exports, core) {
+  'use strict';
 
-        if (!str) { return undefined; }
+  'use strict';
 
-        const o = {
-            key: [
-                'source',
-                'protocol',
-                'authority',
-                'userInfo',
-                'user',
-                'password',
-                'host',
-                'port',
-                'relative',
-                'path',
-                'directory',
-                'file',
-                'query',
-                'anchor'
-            ],
-            q: {
-                name: 'queryKey',
-                parser: /(?:^|&)([^&=]*)=?([^&]*)/g
-            },
-            parser: {
-                strict: /^(?:([^:/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:/?#]*)(?::(\d*))?))?((((?:[^?#/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-                loose: /^(?:(?![^:@]+:[^:@/]*@)([^:/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#/]*\.[^?#/.]+(?:[?#]|$)))*\/?)?([^?#/]*))(?:\?([^#]*))?(?:#(.*))?)/
-            }
-        };
+  var src = function (str, opts) {
+    if ( opts === void 0 ) opts = {};
 
-        const m = o.parser[opts.strictMode ? 'strict' : 'loose'].exec(str);
-        const uri = {};
-        let i = 14;
+    if (!str) { return undefined }
 
-        while (i--) { uri[o.key[i]] = m[i] || ''; }
-
-        uri[o.q.name] = {};
-        uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2)
-        {
-            if ($1) { uri[o.q.name][$1] = $2; }
-        });
-
-        return uri;
+    var o = {
+      key: [
+        'source',
+        'protocol',
+        'authority',
+        'userInfo',
+        'user',
+        'password',
+        'host',
+        'port',
+        'relative',
+        'path',
+        'directory',
+        'file',
+        'query',
+        'anchor'
+      ],
+      q: {
+        name: 'queryKey',
+        parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+      },
+      parser: {
+        strict: /^(?:([^:/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:/?#]*)(?::(\d*))?))?((((?:[^?#/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+        loose: /^(?:(?![^:@]+:[^:@/]*@)([^:/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#/]*\.[^?#/.]+(?:[?#]|$)))*\/?)?([^?#/]*))(?:\?([^#]*))?(?:#(.*))?)/
+      }
     };
 
-    const commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+    var m = o.parser[opts.strictMode ? 'strict' : 'loose'].exec(str);
+    var uri = {};
+    var i = 14;
 
-    function commonjsRequire()
-    {
-  	throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
-    }
+    while (i--) { uri[o.key[i]] = m[i] || ''; }
 
-    function unwrapExports(x)
-    {
-  	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
-    }
-
-    function createCommonjsModule(fn, module)
-    {
-  	return module = { exports: {} }, fn(module, module.exports), module.exports;
-    }
-
-    function getCjsExportFromNamespace(n)
-    {
-  	return n && n.default || n;
-    }
-
-    const miniSignals = createCommonjsModule(function (module, exports)
-    {
-        Object.defineProperty(exports, '__esModule', {
-            value: true
-        });
-
-        const _createClass = (function ()
-        {
-            function defineProperties(target, props)
-            {
-                for (let i = 0; i < props.length; i++)
-                {
-                    const descriptor = props[i];
-
-                    descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) { descriptor.writable = true; } Object.defineProperty(target, descriptor.key, descriptor);
-                }
-            }
-
-            return function (Constructor, protoProps, staticProps)
-            {
-                if (protoProps) { defineProperties(Constructor.prototype, protoProps); } if (staticProps) { defineProperties(Constructor, staticProps); }
-
-                return Constructor;
-            };
-        })();
-
-        function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-        const MiniSignalBinding = (function ()
-        {
-            function MiniSignalBinding(fn, once, thisArg)
-            {
-                if (once === undefined) { once = false; }
-
-                _classCallCheck(this, MiniSignalBinding);
-
-                this._fn = fn;
-                this._once = once;
-                this._thisArg = thisArg;
-                this._next = this._prev = this._owner = null;
-            }
-
-            _createClass(MiniSignalBinding, [{
-                key: 'detach',
-                value: function detach()
-                {
-                    if (this._owner === null) { return false; }
-                    this._owner.detach(this);
-
-                    return true;
-                }
-            }]);
-
-            return MiniSignalBinding;
-        })();
-
-        function _addMiniSignalBinding(self, node)
-        {
-            if (!self._head)
-            {
-                self._head = node;
-                self._tail = node;
-            }
-            else
-            {
-                self._tail._next = node;
-                node._prev = self._tail;
-                self._tail = node;
-            }
-
-            node._owner = self;
-
-            return node;
-        }
-
-        const MiniSignal = (function ()
-        {
-            function MiniSignal()
-            {
-                _classCallCheck(this, MiniSignal);
-
-                this._head = this._tail = undefined;
-            }
-
-            _createClass(MiniSignal, [{
-                key: 'handlers',
-                value: function handlers()
-                {
-                    const exists = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
-
-                    let node = this._head;
-
-                    if (exists) { return !!node; }
-
-                    const ee = [];
-
-                    while (node)
-                    {
-                        ee.push(node);
-                        node = node._next;
-                    }
-
-                    return ee;
-                }
-            }, {
-                key: 'has',
-                value: function has(node)
-                {
-                    if (!(node instanceof MiniSignalBinding))
-                    {
-                        throw new Error('MiniSignal#has(): First arg must be a MiniSignalBinding object.');
-                    }
-
-                    return node._owner === this;
-                }
-            }, {
-                key: 'dispatch',
-                value: function dispatch()
-                {
-                    const arguments$1 = arguments;
-
-                    let node = this._head;
-
-                    if (!node) { return false; }
-
-                    while (node)
-                    {
-                        if (node._once) { this.detach(node); }
-                        node._fn.apply(node._thisArg, arguments$1);
-                        node = node._next;
-                    }
-
-                    return true;
-                }
-            }, {
-                key: 'add',
-                value: function add(fn)
-                {
-                    const thisArg = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-                    if (typeof fn !== 'function')
-                    {
-                        throw new Error('MiniSignal#add(): First arg must be a Function.');
-                    }
-
-                    return _addMiniSignalBinding(this, new MiniSignalBinding(fn, false, thisArg));
-                }
-            }, {
-                key: 'once',
-                value: function once(fn)
-                {
-                    const thisArg = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-                    if (typeof fn !== 'function')
-                    {
-                        throw new Error('MiniSignal#once(): First arg must be a Function.');
-                    }
-
-                    return _addMiniSignalBinding(this, new MiniSignalBinding(fn, true, thisArg));
-                }
-            }, {
-                key: 'detach',
-                value: function detach(node)
-                {
-                    if (!(node instanceof MiniSignalBinding))
-                    {
-                        throw new Error('MiniSignal#detach(): First arg must be a MiniSignalBinding object.');
-                    }
-                    if (node._owner !== this) { return this; }
-
-                    if (node._prev) { node._prev._next = node._next; }
-                    if (node._next) { node._next._prev = node._prev; }
-
-                    if (node === this._head)
-                    {
-                        this._head = node._next;
-                        if (node._next === null)
-                        {
-                            this._tail = null;
-                        }
-                    }
-                    else if (node === this._tail)
-                    {
-                        this._tail = node._prev;
-                        this._tail._next = null;
-                    }
-
-                    node._owner = null;
-
-                    return this;
-                }
-            }, {
-                key: 'detachAll',
-                value: function detachAll()
-                {
-                    let node = this._head;
-
-                    if (!node) { return this; }
-
-                    this._head = this._tail = null;
-
-                    while (node)
-                    {
-                        node._owner = null;
-                        node = node._next;
-                    }
-
-                    return this;
-                }
-            }]);
-
-            return MiniSignal;
-        })();
-
-        MiniSignal.MiniSignalBinding = MiniSignalBinding;
-
-        exports.default = MiniSignal;
-        module.exports = exports.default;
+    uri[o.q.name] = {};
+    uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+      if ($1) { uri[o.q.name][$1] = $2; }
     });
 
-    const Signal = unwrapExports(miniSignals);
+    return uri
+  };
 
-    /* !
+  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+  function commonjsRequire () {
+  	throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
+  }
+
+  function unwrapExports (x) {
+  	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+  }
+
+  function createCommonjsModule(fn, module) {
+  	return module = { exports: {} }, fn(module, module.exports), module.exports;
+  }
+
+  function getCjsExportFromNamespace (n) {
+  	return n && n['default'] || n;
+  }
+
+  var miniSignals = createCommonjsModule(function (module, exports) {
+  'use strict';
+
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+
+  var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) { descriptor.writable = true; } Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) { defineProperties(Constructor.prototype, protoProps); } if (staticProps) { defineProperties(Constructor, staticProps); } return Constructor; }; })();
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+  var MiniSignalBinding = (function () {
+    function MiniSignalBinding(fn, once, thisArg) {
+      if (once === undefined) { once = false; }
+
+      _classCallCheck(this, MiniSignalBinding);
+
+      this._fn = fn;
+      this._once = once;
+      this._thisArg = thisArg;
+      this._next = this._prev = this._owner = null;
+    }
+
+    _createClass(MiniSignalBinding, [{
+      key: 'detach',
+      value: function detach() {
+        if (this._owner === null) { return false; }
+        this._owner.detach(this);
+        return true;
+      }
+    }]);
+
+    return MiniSignalBinding;
+  })();
+
+  function _addMiniSignalBinding(self, node) {
+    if (!self._head) {
+      self._head = node;
+      self._tail = node;
+    } else {
+      self._tail._next = node;
+      node._prev = self._tail;
+      self._tail = node;
+    }
+
+    node._owner = self;
+
+    return node;
+  }
+
+  var MiniSignal = (function () {
+    function MiniSignal() {
+      _classCallCheck(this, MiniSignal);
+
+      this._head = this._tail = undefined;
+    }
+
+    _createClass(MiniSignal, [{
+      key: 'handlers',
+      value: function handlers() {
+        var exists = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+
+        var node = this._head;
+
+        if (exists) { return !!node; }
+
+        var ee = [];
+
+        while (node) {
+          ee.push(node);
+          node = node._next;
+        }
+
+        return ee;
+      }
+    }, {
+      key: 'has',
+      value: function has(node) {
+        if (!(node instanceof MiniSignalBinding)) {
+          throw new Error('MiniSignal#has(): First arg must be a MiniSignalBinding object.');
+        }
+
+        return node._owner === this;
+      }
+    }, {
+      key: 'dispatch',
+      value: function dispatch() {
+        var arguments$1 = arguments;
+
+        var node = this._head;
+
+        if (!node) { return false; }
+
+        while (node) {
+          if (node._once) { this.detach(node); }
+          node._fn.apply(node._thisArg, arguments$1);
+          node = node._next;
+        }
+
+        return true;
+      }
+    }, {
+      key: 'add',
+      value: function add(fn) {
+        var thisArg = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+        if (typeof fn !== 'function') {
+          throw new Error('MiniSignal#add(): First arg must be a Function.');
+        }
+        return _addMiniSignalBinding(this, new MiniSignalBinding(fn, false, thisArg));
+      }
+    }, {
+      key: 'once',
+      value: function once(fn) {
+        var thisArg = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+        if (typeof fn !== 'function') {
+          throw new Error('MiniSignal#once(): First arg must be a Function.');
+        }
+        return _addMiniSignalBinding(this, new MiniSignalBinding(fn, true, thisArg));
+      }
+    }, {
+      key: 'detach',
+      value: function detach(node) {
+        if (!(node instanceof MiniSignalBinding)) {
+          throw new Error('MiniSignal#detach(): First arg must be a MiniSignalBinding object.');
+        }
+        if (node._owner !== this) { return this; }
+
+        if (node._prev) { node._prev._next = node._next; }
+        if (node._next) { node._next._prev = node._prev; }
+
+        if (node === this._head) {
+          this._head = node._next;
+          if (node._next === null) {
+            this._tail = null;
+          }
+        } else if (node === this._tail) {
+          this._tail = node._prev;
+          this._tail._next = null;
+        }
+
+        node._owner = null;
+        return this;
+      }
+    }, {
+      key: 'detachAll',
+      value: function detachAll() {
+        var node = this._head;
+        if (!node) { return this; }
+
+        this._head = this._tail = null;
+
+        while (node) {
+          node._owner = null;
+          node = node._next;
+        }
+        return this;
+      }
+    }]);
+
+    return MiniSignal;
+  })();
+
+  MiniSignal.MiniSignalBinding = MiniSignalBinding;
+
+  exports['default'] = MiniSignal;
+  module.exports = exports['default'];
+  });
+
+  var Signal = unwrapExports(miniSignals);
+
+  /*!
    * resource-loader - v3.0.1
    * https://github.com/pixijs/pixi-sound
    * Compiled Tue, 02 Jul 2019 14:06:18 UTC
@@ -309,23 +256,23 @@ const _pixi_loaders = (function (exports, core)
    * http://www.opensource.org/licenses/mit-license
    */
 
-    /**
+  /**
    * Smaller version of the async library constructs.
    *
    * @namespace async
    */
 
-    /**
+  /**
    * Noop function
    *
    * @ignore
    * @function
    * @memberof async
    */
-    function _noop() {}
-    /* empty */
+  function _noop() {}
+  /* empty */
 
-    /**
+  /**
    * Iterates an array in series.
    *
    * @memberof async
@@ -336,37 +283,30 @@ const _pixi_loaders = (function (exports, core)
    * @param {boolean} [deferNext=false] - Break synchronous each loop by calling next with a setTimeout of 1.
    */
 
-    function eachSeries(array, iterator, callback, deferNext)
-    {
-        let i = 0;
-        const len = array.length;
 
-        (function next(err)
-        {
-            if (err || i === len)
-            {
-                if (callback)
-                {
-                    callback(err);
-                }
+  function eachSeries(array, iterator, callback, deferNext) {
+    var i = 0;
+    var len = array.length;
 
-                return;
-            }
+    (function next(err) {
+      if (err || i === len) {
+        if (callback) {
+          callback(err);
+        }
 
-            if (deferNext)
-            {
-                setTimeout(function ()
-                {
-                    iterator(array[i++], next);
-                }, 1);
-            }
-            else
-            {
-                iterator(array[i++], next);
-            }
-        })();
-    }
-    /**
+        return;
+      }
+
+      if (deferNext) {
+        setTimeout(function () {
+          iterator(array[i++], next);
+        }, 1);
+      } else {
+        iterator(array[i++], next);
+      }
+    })();
+  }
+  /**
    * Ensures a function is only called once.
    *
    * @ignore
@@ -375,22 +315,18 @@ const _pixi_loaders = (function (exports, core)
    * @return {function} The wrapping function.
    */
 
-    function onlyOnce(fn)
-    {
-        return function onceWrapper()
-        {
-            if (fn === null)
-            {
-                throw new Error('Callback was already called.');
-            }
+  function onlyOnce(fn) {
+    return function onceWrapper() {
+      if (fn === null) {
+        throw new Error('Callback was already called.');
+      }
 
-            const callFn = fn;
-
-            fn = null;
-            callFn.apply(this, arguments);
-        };
-    }
-    /**
+      var callFn = fn;
+      fn = null;
+      callFn.apply(this, arguments);
+    };
+  }
+  /**
    * Async queue implementation,
    *
    * @memberof async
@@ -400,184 +336,152 @@ const _pixi_loaders = (function (exports, core)
    * @return {*} The async queue object.
    */
 
-    function queue(worker, concurrency)
-    {
-        if (concurrency == null)
-        {
-            // eslint-disable-line no-eq-null,eqeqeq
-            concurrency = 1;
-        }
-        else if (concurrency === 0)
-        {
-            throw new Error('Concurrency must not be zero');
-        }
 
-        let workers = 0;
-        var q = {
-            _tasks: [],
-            concurrency,
-            saturated: _noop,
-            unsaturated: _noop,
-            buffer: concurrency / 4,
-            empty: _noop,
-            drain: _noop,
-            error: _noop,
-            started: false,
-            paused: false,
-            push: function push(data, callback)
-            {
-                _insert(data, false, callback);
-            },
-            kill: function kill()
-            {
-                workers = 0;
-                q.drain = _noop;
-                q.started = false;
-                q._tasks = [];
-            },
-            unshift: function unshift(data, callback)
-            {
-                _insert(data, true, callback);
-            },
-            process: function process()
-            {
-                while (!q.paused && workers < q.concurrency && q._tasks.length)
-                {
-                    const task = q._tasks.shift();
-
-                    if (q._tasks.length === 0)
-                    {
-                        q.empty();
-                    }
-
-                    workers += 1;
-
-                    if (workers === q.concurrency)
-                    {
-                        q.saturated();
-                    }
-
-                    worker(task.data, onlyOnce(_next(task)));
-                }
-            },
-            length: function length()
-            {
-                return q._tasks.length;
-            },
-            running: function running()
-            {
-                return workers;
-            },
-            idle: function idle()
-            {
-                return q._tasks.length + workers === 0;
-            },
-            pause: function pause()
-            {
-                if (q.paused === true)
-                {
-                    return;
-                }
-
-                q.paused = true;
-            },
-            resume: function resume()
-            {
-                if (q.paused === false)
-                {
-                    return;
-                }
-
-                q.paused = false; // Need to call q.process once per concurrent
-                // worker to preserve full concurrency after pause
-
-                for (let w = 1; w <= q.concurrency; w++)
-                {
-                    q.process();
-                }
-            }
-        };
-
-        function _insert(data, insertAtFront, callback)
-        {
-            if (callback != null && typeof callback !== 'function')
-            {
-                // eslint-disable-line no-eq-null,eqeqeq
-                throw new Error('task callback must be a function');
-            }
-
-            q.started = true;
-
-            if (data == null && q.idle())
-            {
-                // eslint-disable-line no-eq-null,eqeqeq
-                // call drain immediately if there are no tasks
-                setTimeout(function ()
-                {
-                    return q.drain();
-                }, 1);
-
-                return;
-            }
-
-            const item = {
-                data,
-                callback: typeof callback === 'function' ? callback : _noop
-            };
-
-            if (insertAtFront)
-            {
-                q._tasks.unshift(item);
-            }
-            else
-            {
-                q._tasks.push(item);
-            }
-
-            setTimeout(function ()
-            {
-                return q.process();
-            }, 1);
-        }
-
-        function _next(task)
-        {
-            return function next()
-            {
-                workers -= 1;
-                task.callback.apply(task, arguments);
-
-                if (arguments[0] != null)
-                {
-                    // eslint-disable-line no-eq-null,eqeqeq
-                    q.error(arguments[0], task.data);
-                }
-
-                if (workers <= q.concurrency - q.buffer)
-                {
-                    q.unsaturated();
-                }
-
-                if (q.idle())
-                {
-                    q.drain();
-                }
-
-                q.process();
-            };
-        }
-
-        return q;
+  function queue(worker, concurrency) {
+    if (concurrency == null) {
+      // eslint-disable-line no-eq-null,eqeqeq
+      concurrency = 1;
+    } else if (concurrency === 0) {
+      throw new Error('Concurrency must not be zero');
     }
 
-    const async = ({
-        eachSeries,
-        queue
-    });
+    var workers = 0;
+    var q = {
+      _tasks: [],
+      concurrency: concurrency,
+      saturated: _noop,
+      unsaturated: _noop,
+      buffer: concurrency / 4,
+      empty: _noop,
+      drain: _noop,
+      error: _noop,
+      started: false,
+      paused: false,
+      push: function push(data, callback) {
+        _insert(data, false, callback);
+      },
+      kill: function kill() {
+        workers = 0;
+        q.drain = _noop;
+        q.started = false;
+        q._tasks = [];
+      },
+      unshift: function unshift(data, callback) {
+        _insert(data, true, callback);
+      },
+      process: function process() {
+        while (!q.paused && workers < q.concurrency && q._tasks.length) {
+          var task = q._tasks.shift();
 
-    // a simple in-memory cache for resources
-    const cache = {};
-    /**
+          if (q._tasks.length === 0) {
+            q.empty();
+          }
+
+          workers += 1;
+
+          if (workers === q.concurrency) {
+            q.saturated();
+          }
+
+          worker(task.data, onlyOnce(_next(task)));
+        }
+      },
+      length: function length() {
+        return q._tasks.length;
+      },
+      running: function running() {
+        return workers;
+      },
+      idle: function idle() {
+        return q._tasks.length + workers === 0;
+      },
+      pause: function pause() {
+        if (q.paused === true) {
+          return;
+        }
+
+        q.paused = true;
+      },
+      resume: function resume() {
+        if (q.paused === false) {
+          return;
+        }
+
+        q.paused = false; // Need to call q.process once per concurrent
+        // worker to preserve full concurrency after pause
+
+        for (var w = 1; w <= q.concurrency; w++) {
+          q.process();
+        }
+      }
+    };
+
+    function _insert(data, insertAtFront, callback) {
+      if (callback != null && typeof callback !== 'function') {
+        // eslint-disable-line no-eq-null,eqeqeq
+        throw new Error('task callback must be a function');
+      }
+
+      q.started = true;
+
+      if (data == null && q.idle()) {
+        // eslint-disable-line no-eq-null,eqeqeq
+        // call drain immediately if there are no tasks
+        setTimeout(function () {
+          return q.drain();
+        }, 1);
+        return;
+      }
+
+      var item = {
+        data: data,
+        callback: typeof callback === 'function' ? callback : _noop
+      };
+
+      if (insertAtFront) {
+        q._tasks.unshift(item);
+      } else {
+        q._tasks.push(item);
+      }
+
+      setTimeout(function () {
+        return q.process();
+      }, 1);
+    }
+
+    function _next(task) {
+      return function next() {
+        workers -= 1;
+        task.callback.apply(task, arguments);
+
+        if (arguments[0] != null) {
+          // eslint-disable-line no-eq-null,eqeqeq
+          q.error(arguments[0], task.data);
+        }
+
+        if (workers <= q.concurrency - q.buffer) {
+          q.unsaturated();
+        }
+
+        if (q.idle()) {
+          q.drain();
+        }
+
+        q.process();
+      };
+    }
+
+    return q;
+  }
+
+  var async = ({
+      eachSeries: eachSeries,
+      queue: queue
+  });
+
+  // a simple in-memory cache for resources
+  var cache = {};
+  /**
    * A simple in-memory cache for resource.
    *
    * @memberof middleware
@@ -590,95 +494,84 @@ const _pixi_loaders = (function (exports, core)
    * @param {function} next - Callback when complete
    */
 
-    function caching(resource, next)
-    {
-        const _this = this;
+  function caching(resource, next) {
+    var _this = this;
 
-        // if cached, then set data and complete the resource
-        if (cache[resource.url])
-        {
-            resource.data = cache[resource.url];
-            resource.complete(); // marks resource load complete and stops processing before middlewares
-        } // if not cached, wait for complete and store it in the cache.
-        else
-        {
-            resource.onComplete.once(function ()
-            {
-                return cache[_this.url] = _this.data;
-            });
-        }
+    // if cached, then set data and complete the resource
+    if (cache[resource.url]) {
+      resource.data = cache[resource.url];
+      resource.complete(); // marks resource load complete and stops processing before middlewares
+    } // if not cached, wait for complete and store it in the cache.
+    else {
+        resource.onComplete.once(function () {
+          return cache[_this.url] = _this.data;
+        });
+      }
 
-        next();
+    next();
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) { descriptor.writable = true; }
+      Object.defineProperty(target, descriptor.key, descriptor);
     }
+  }
 
-    function _defineProperties(target, props)
-    {
-        for (let i = 0; i < props.length; i++)
-        {
-            const descriptor = props[i];
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) { _defineProperties(Constructor.prototype, protoProps); }
+    if (staticProps) { _defineProperties(Constructor, staticProps); }
+    return Constructor;
+  }
 
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ('value' in descriptor) { descriptor.writable = true; }
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
+  var useXdr = !!(window.XDomainRequest && !('withCredentials' in new XMLHttpRequest()));
+  var tempAnchor = null; // some status constants
 
-    function _createClass(Constructor, protoProps, staticProps)
-    {
-        if (protoProps) { _defineProperties(Constructor.prototype, protoProps); }
-        if (staticProps) { _defineProperties(Constructor, staticProps); }
+  var STATUS_NONE = 0;
+  var STATUS_OK = 200;
+  var STATUS_EMPTY = 204;
+  var STATUS_IE_BUG_EMPTY = 1223;
+  var STATUS_TYPE_OK = 2; // noop
 
-        return Constructor;
-    }
+  function _noop$1() {}
+  /* empty */
 
-    const useXdr = !!(window.XDomainRequest && !('withCredentials' in new XMLHttpRequest()));
-    let tempAnchor = null; // some status constants
-
-    const STATUS_NONE = 0;
-    const STATUS_OK = 200;
-    const STATUS_EMPTY = 204;
-    const STATUS_IE_BUG_EMPTY = 1223;
-    const STATUS_TYPE_OK = 2; // noop
-
-    function _noop$1() {}
-    /* empty */
-
-    /**
+  /**
    * Manages the state and loading of a resource and all child resources.
    *
    * @class
    */
 
-    const Resource
-  /* #__PURE__*/
-  = (function ()
-  {
-      /**
+
+  var Resource =
+  /*#__PURE__*/
+  function () {
+    /**
      * Sets the load type to be used for a specific extension.
      *
      * @static
      * @param {string} extname - The extension to set the type for, e.g. "png" or "fnt"
      * @param {Resource.LOAD_TYPE} loadType - The load type to set it to.
      */
-      Resource.setExtensionLoadType = function setExtensionLoadType(extname, loadType)
-      {
-          setExtMap(Resource._loadTypeMap, extname, loadType);
-      }
-      /**
+    Resource.setExtensionLoadType = function setExtensionLoadType(extname, loadType) {
+      setExtMap(Resource._loadTypeMap, extname, loadType);
+    }
+    /**
      * Sets the load type to be used for a specific extension.
      *
      * @static
      * @param {string} extname - The extension to set the type for, e.g. "png" or "fnt"
      * @param {Resource.XHR_RESPONSE_TYPE} xhrType - The xhr type to set it to.
      */
-      ;
+    ;
 
-      Resource.setExtensionXhrType = function setExtensionXhrType(extname, xhrType)
-      {
-          setExtMap(Resource._xhrTypeMap, extname, xhrType);
-      }
-      /**
+    Resource.setExtensionXhrType = function setExtensionXhrType(extname, xhrType) {
+      setExtMap(Resource._xhrTypeMap, extname, xhrType);
+    }
+    /**
      * @param {string} name - The name of the resource to load.
      * @param {string|string[]} url - The url for this resource, for audio/video loads you can pass
      *      an array of sources.
@@ -694,65 +587,64 @@ const _pixi_loaders = (function (exports, core)
      *      should the data being loaded be interpreted when using XHR?
      * @param {Resource.IMetadata} [options.metadata] - Extra configuration for middleware and the Resource object.
      */
-      ;
+    ;
 
-      function Resource(name, url, options)
-      {
-          if (typeof name !== 'string' || typeof url !== 'string')
-          {
-              throw new Error('Both name and url are required for constructing a resource.');
-          }
+    function Resource(name, url, options) {
+      if (typeof name !== 'string' || typeof url !== 'string') {
+        throw new Error('Both name and url are required for constructing a resource.');
+      }
 
-          options = options || {};
-          /**
+      options = options || {};
+      /**
        * The state flags of this resource.
        *
        * @private
        * @member {number}
        */
 
-          this._flags = 0; // set data url flag, needs to be set early for some _determineX checks to work.
+      this._flags = 0; // set data url flag, needs to be set early for some _determineX checks to work.
 
-          this._setFlag(Resource.STATUS_FLAGS.DATA_URL, url.indexOf('data:') === 0);
-          /**
+      this._setFlag(Resource.STATUS_FLAGS.DATA_URL, url.indexOf('data:') === 0);
+      /**
        * The name of this resource.
        *
        * @readonly
        * @member {string}
        */
 
-          this.name = name;
-          /**
+
+      this.name = name;
+      /**
        * The url used to load this resource.
        *
        * @readonly
        * @member {string}
        */
 
-          this.url = url;
-          /**
+      this.url = url;
+      /**
        * The extension used to load this resource.
        *
        * @readonly
        * @member {string}
        */
 
-          this.extension = this._getExtension();
-          /**
+      this.extension = this._getExtension();
+      /**
        * The data that was loaded by the resource.
        *
        * @member {any}
        */
 
-          this.data = null;
-          /**
+      this.data = null;
+      /**
        * Is this request cross-origin? If unset, determined automatically.
        *
        * @member {string}
        */
 
-          this.crossOrigin = options.crossOrigin === true ? 'anonymous' : options.crossOrigin;
-          /**
+      this.crossOrigin = options.crossOrigin === true ? 'anonymous' : options.crossOrigin;
+      /**
        * A timeout in milliseconds for the load. If the load takes longer than this time
        * it is cancelled and the load is considered a failure. If this value is set to `0`
        * then there is no explicit timeout.
@@ -760,22 +652,22 @@ const _pixi_loaders = (function (exports, core)
        * @member {number}
        */
 
-          this.timeout = options.timeout || 0;
-          /**
+      this.timeout = options.timeout || 0;
+      /**
        * The method of loading to use for this resource.
        *
        * @member {Resource.LOAD_TYPE}
        */
 
-          this.loadType = options.loadType || this._determineLoadType();
-          /**
+      this.loadType = options.loadType || this._determineLoadType();
+      /**
        * The type used to load the resource via XHR. If unset, determined automatically.
        *
        * @member {string}
        */
 
-          this.xhrType = options.xhrType;
-          /**
+      this.xhrType = options.xhrType;
+      /**
        * Extra info for middleware, and controlling specifics about how the resource loads.
        *
        * Note that if you pass in a `loadElement`, the Resource class takes ownership of it.
@@ -784,16 +676,16 @@ const _pixi_loaders = (function (exports, core)
        * @member {Resource.IMetadata}
        */
 
-          this.metadata = options.metadata || {};
-          /**
+      this.metadata = options.metadata || {};
+      /**
        * The error that occurred while loading (if any).
        *
        * @readonly
        * @member {Error}
        */
 
-          this.error = null;
-          /**
+      this.error = null;
+      /**
        * The XHR object that was used to load this resource. This is only set
        * when `loadType` is `Resource.LOAD_TYPE.XHR`.
        *
@@ -801,32 +693,32 @@ const _pixi_loaders = (function (exports, core)
        * @member {XMLHttpRequest}
        */
 
-          this.xhr = null;
-          /**
+      this.xhr = null;
+      /**
        * The child resources this resource owns.
        *
        * @readonly
        * @member {Resource[]}
        */
 
-          this.children = [];
-          /**
+      this.children = [];
+      /**
        * The resource type.
        *
        * @readonly
        * @member {Resource.TYPE}
        */
 
-          this.type = Resource.TYPE.UNKNOWN;
-          /**
+      this.type = Resource.TYPE.UNKNOWN;
+      /**
        * The progress chunk owned by this resource.
        *
        * @readonly
        * @member {number}
        */
 
-          this.progressChunk = 0;
-          /**
+      this.progressChunk = 0;
+      /**
        * The `dequeue` method that will be used a storage place for the async queue dequeue method
        * used privately by the loader.
        *
@@ -834,61 +726,61 @@ const _pixi_loaders = (function (exports, core)
        * @member {function}
        */
 
-          this._dequeue = _noop$1;
-          /**
+      this._dequeue = _noop$1;
+      /**
        * Used a storage place for the on load binding used privately by the loader.
        *
        * @private
        * @member {function}
        */
 
-          this._onLoadBinding = null;
-          /**
+      this._onLoadBinding = null;
+      /**
        * The timer for element loads to check if they timeout.
        *
        * @private
        * @member {number}
        */
 
-          this._elementTimer = 0;
-          /**
+      this._elementTimer = 0;
+      /**
        * The `complete` function bound to this resource's context.
        *
        * @private
        * @member {function}
        */
 
-          this._boundComplete = this.complete.bind(this);
-          /**
+      this._boundComplete = this.complete.bind(this);
+      /**
        * The `_onError` function bound to this resource's context.
        *
        * @private
        * @member {function}
        */
 
-          this._boundOnError = this._onError.bind(this);
-          /**
+      this._boundOnError = this._onError.bind(this);
+      /**
        * The `_onProgress` function bound to this resource's context.
        *
        * @private
        * @member {function}
        */
 
-          this._boundOnProgress = this._onProgress.bind(this);
-          /**
+      this._boundOnProgress = this._onProgress.bind(this);
+      /**
        * The `_onTimeout` function bound to this resource's context.
        *
        * @private
        * @member {function}
        */
 
-          this._boundOnTimeout = this._onTimeout.bind(this); // xhr callbacks
+      this._boundOnTimeout = this._onTimeout.bind(this); // xhr callbacks
 
-          this._boundXhrOnError = this._xhrOnError.bind(this);
-          this._boundXhrOnTimeout = this._xhrOnTimeout.bind(this);
-          this._boundXhrOnAbort = this._xhrOnAbort.bind(this);
-          this._boundXhrOnLoad = this._xhrOnLoad.bind(this);
-          /**
+      this._boundXhrOnError = this._xhrOnError.bind(this);
+      this._boundXhrOnTimeout = this._xhrOnTimeout.bind(this);
+      this._boundXhrOnAbort = this._xhrOnAbort.bind(this);
+      this._boundXhrOnLoad = this._xhrOnLoad.bind(this);
+      /**
        * Dispatched when the resource beings to load.
        *
        * The callback looks like {@link Resource.OnStartSignal}.
@@ -896,8 +788,8 @@ const _pixi_loaders = (function (exports, core)
        * @member {Signal<Resource.OnStartSignal>}
        */
 
-          this.onStart = new Signal();
-          /**
+      this.onStart = new Signal();
+      /**
        * Dispatched each time progress of this resource load updates.
        * Not all resources types and loader systems can support this event
        * so sometimes it may not be available. If the resource
@@ -909,8 +801,8 @@ const _pixi_loaders = (function (exports, core)
        * @member {Signal<Resource.OnProgressSignal>}
        */
 
-          this.onProgress = new Signal();
-          /**
+      this.onProgress = new Signal();
+      /**
        * Dispatched once this resource has loaded, if there was an error it will
        * be in the `error` property.
        *
@@ -919,8 +811,8 @@ const _pixi_loaders = (function (exports, core)
        * @member {Signal<Resource.OnCompleteSignal>}
        */
 
-          this.onComplete = new Signal();
-          /**
+      this.onComplete = new Signal();
+      /**
        * Dispatched after this resource has had all the *after* middleware run on it.
        *
        * The callback looks like {@link Resource.OnCompleteSignal}.
@@ -928,9 +820,9 @@ const _pixi_loaders = (function (exports, core)
        * @member {Signal<Resource.OnCompleteSignal>}
        */
 
-          this.onAfterMiddleware = new Signal();
-      }
-      /**
+      this.onAfterMiddleware = new Signal();
+    }
+    /**
      * When the resource starts to load.
      *
      * @memberof Resource
@@ -938,7 +830,7 @@ const _pixi_loaders = (function (exports, core)
      * @param {Resource} resource - The resource that the event happened on.
      */
 
-      /**
+    /**
      * When the resource reports loading progress.
      *
      * @memberof Resource
@@ -947,7 +839,7 @@ const _pixi_loaders = (function (exports, core)
      * @param {number} percentage - The progress of the load in the range [0, 1].
      */
 
-      /**
+    /**
      * When the resource finishes loading.
      *
      * @memberof Resource
@@ -955,7 +847,7 @@ const _pixi_loaders = (function (exports, core)
      * @param {Resource} resource - The resource that the event happened on.
      */
 
-      /**
+    /**
      * @memberof Resource
      * @typedef {object} IMetadata
      * @property {HTMLImageElement|HTMLAudioElement|HTMLVideoElement} [loadElement=null] - The
@@ -967,423 +859,359 @@ const _pixi_loaders = (function (exports, core)
      *      where each index is the mime type to use for the corresponding url index.
      */
 
-      /**
+    /**
      * Stores whether or not this url is a data url.
      *
      * @readonly
      * @member {boolean}
      */
 
-      const _proto = Resource.prototype;
 
-      /**
+    var _proto = Resource.prototype;
+
+    /**
      * Marks the resource as complete.
      *
      */
-      _proto.complete = function complete()
-      {
-          this._clearEvents();
+    _proto.complete = function complete() {
+      this._clearEvents();
 
-          this._finish();
-      }
-      /**
+      this._finish();
+    }
+    /**
      * Aborts the loading of this resource, with an optional message.
      *
      * @param {string} message - The message to use for the error
      */
-      ;
+    ;
 
-      _proto.abort = function abort(message)
-      {
+    _proto.abort = function abort(message) {
       // abort can be called multiple times, ignore subsequent calls.
-          if (this.error)
-          {
-              return;
-          } // store error
+      if (this.error) {
+        return;
+      } // store error
 
-          this.error = new Error(message); // clear events before calling aborts
 
-          this._clearEvents(); // abort the actual loading
+      this.error = new Error(message); // clear events before calling aborts
 
-          if (this.xhr)
-          {
-              this.xhr.abort();
+      this._clearEvents(); // abort the actual loading
+
+
+      if (this.xhr) {
+        this.xhr.abort();
+      } else if (this.xdr) {
+        this.xdr.abort();
+      } else if (this.data) {
+        // single source
+        if (this.data.src) {
+          this.data.src = Resource.EMPTY_GIF;
+        } // multi-source
+        else {
+            while (this.data.firstChild) {
+              this.data.removeChild(this.data.firstChild);
+            }
           }
-          else if (this.xdr)
-          {
-              this.xdr.abort();
-          }
-          else if (this.data)
-          {
-              // single source
-              if (this.data.src)
-              {
-                  this.data.src = Resource.EMPTY_GIF;
-              } // multi-source
-              else
-              {
-                  while (this.data.firstChild)
-                  {
-                      this.data.removeChild(this.data.firstChild);
-                  }
-              }
-          } // done now.
+      } // done now.
 
-          this._finish();
-      }
-      /**
+
+      this._finish();
+    }
+    /**
      * Kicks off loading of this resource. This method is asynchronous.
      *
      * @param {Resource.OnCompleteSignal} [cb] - Optional callback to call once the resource is loaded.
      */
-      ;
+    ;
 
-      _proto.load = function load(cb)
-      {
-          const _this = this;
+    _proto.load = function load(cb) {
+      var _this = this;
 
-          if (this.isLoading)
-          {
-              return;
-          }
-
-          if (this.isComplete)
-          {
-              if (cb)
-              {
-                  setTimeout(function ()
-                  {
-                      return cb(_this);
-                  }, 1);
-              }
-
-              return;
-          }
-          else if (cb)
-          {
-              this.onComplete.once(cb);
-          }
-
-          this._setFlag(Resource.STATUS_FLAGS.LOADING, true);
-
-          this.onStart.dispatch(this); // if unset, determine the value
-
-          if (this.crossOrigin === false || typeof this.crossOrigin !== 'string')
-          {
-              this.crossOrigin = this._determineCrossOrigin(this.url);
-          }
-
-          switch (this.loadType)
-          {
-              case Resource.LOAD_TYPE.IMAGE:
-                  this.type = Resource.TYPE.IMAGE;
-
-                  this._loadElement('image');
-
-                  break;
-
-              case Resource.LOAD_TYPE.AUDIO:
-                  this.type = Resource.TYPE.AUDIO;
-
-                  this._loadSourceElement('audio');
-
-                  break;
-
-              case Resource.LOAD_TYPE.VIDEO:
-                  this.type = Resource.TYPE.VIDEO;
-
-                  this._loadSourceElement('video');
-
-                  break;
-
-              case Resource.LOAD_TYPE.XHR:
-                  /* falls through */
-
-              default:
-                  if (useXdr && this.crossOrigin)
-                  {
-                      this._loadXdr();
-                  }
-                  else
-                  {
-                      this._loadXhr();
-                  }
-
-                  break;
-          }
+      if (this.isLoading) {
+        return;
       }
-      /**
+
+      if (this.isComplete) {
+        if (cb) {
+          setTimeout(function () {
+            return cb(_this);
+          }, 1);
+        }
+
+        return;
+      } else if (cb) {
+        this.onComplete.once(cb);
+      }
+
+      this._setFlag(Resource.STATUS_FLAGS.LOADING, true);
+
+      this.onStart.dispatch(this); // if unset, determine the value
+
+      if (this.crossOrigin === false || typeof this.crossOrigin !== 'string') {
+        this.crossOrigin = this._determineCrossOrigin(this.url);
+      }
+
+      switch (this.loadType) {
+        case Resource.LOAD_TYPE.IMAGE:
+          this.type = Resource.TYPE.IMAGE;
+
+          this._loadElement('image');
+
+          break;
+
+        case Resource.LOAD_TYPE.AUDIO:
+          this.type = Resource.TYPE.AUDIO;
+
+          this._loadSourceElement('audio');
+
+          break;
+
+        case Resource.LOAD_TYPE.VIDEO:
+          this.type = Resource.TYPE.VIDEO;
+
+          this._loadSourceElement('video');
+
+          break;
+
+        case Resource.LOAD_TYPE.XHR:
+        /* falls through */
+
+        default:
+          if (useXdr && this.crossOrigin) {
+            this._loadXdr();
+          } else {
+            this._loadXhr();
+          }
+
+          break;
+      }
+    }
+    /**
      * Checks if the flag is set.
      *
      * @private
      * @param {number} flag - The flag to check.
      * @return {boolean} True if the flag is set.
      */
-      ;
+    ;
 
-      _proto._hasFlag = function _hasFlag(flag)
-      {
-          return (this._flags & flag) !== 0;
-      }
-      /**
+    _proto._hasFlag = function _hasFlag(flag) {
+      return (this._flags & flag) !== 0;
+    }
+    /**
      * (Un)Sets the flag.
      *
      * @private
      * @param {number} flag - The flag to (un)set.
      * @param {boolean} value - Whether to set or (un)set the flag.
      */
-      ;
+    ;
 
-      _proto._setFlag = function _setFlag(flag, value)
-      {
-          this._flags = value ? this._flags | flag : this._flags & ~flag;
-      }
-      /**
+    _proto._setFlag = function _setFlag(flag, value) {
+      this._flags = value ? this._flags | flag : this._flags & ~flag;
+    }
+    /**
      * Clears all the events from the underlying loading source.
      *
      * @private
      */
-      ;
+    ;
 
-      _proto._clearEvents = function _clearEvents()
-      {
-          clearTimeout(this._elementTimer);
+    _proto._clearEvents = function _clearEvents() {
+      clearTimeout(this._elementTimer);
 
-          if (this.data && this.data.removeEventListener)
-          {
-              this.data.removeEventListener('error', this._boundOnError, false);
-              this.data.removeEventListener('load', this._boundComplete, false);
-              this.data.removeEventListener('progress', this._boundOnProgress, false);
-              this.data.removeEventListener('canplaythrough', this._boundComplete, false);
-          }
-
-          if (this.xhr)
-          {
-              if (this.xhr.removeEventListener)
-              {
-                  this.xhr.removeEventListener('error', this._boundXhrOnError, false);
-                  this.xhr.removeEventListener('timeout', this._boundXhrOnTimeout, false);
-                  this.xhr.removeEventListener('abort', this._boundXhrOnAbort, false);
-                  this.xhr.removeEventListener('progress', this._boundOnProgress, false);
-                  this.xhr.removeEventListener('load', this._boundXhrOnLoad, false);
-              }
-              else
-              {
-                  this.xhr.onerror = null;
-                  this.xhr.ontimeout = null;
-                  this.xhr.onprogress = null;
-                  this.xhr.onload = null;
-              }
-          }
+      if (this.data && this.data.removeEventListener) {
+        this.data.removeEventListener('error', this._boundOnError, false);
+        this.data.removeEventListener('load', this._boundComplete, false);
+        this.data.removeEventListener('progress', this._boundOnProgress, false);
+        this.data.removeEventListener('canplaythrough', this._boundComplete, false);
       }
-      /**
+
+      if (this.xhr) {
+        if (this.xhr.removeEventListener) {
+          this.xhr.removeEventListener('error', this._boundXhrOnError, false);
+          this.xhr.removeEventListener('timeout', this._boundXhrOnTimeout, false);
+          this.xhr.removeEventListener('abort', this._boundXhrOnAbort, false);
+          this.xhr.removeEventListener('progress', this._boundOnProgress, false);
+          this.xhr.removeEventListener('load', this._boundXhrOnLoad, false);
+        } else {
+          this.xhr.onerror = null;
+          this.xhr.ontimeout = null;
+          this.xhr.onprogress = null;
+          this.xhr.onload = null;
+        }
+      }
+    }
+    /**
      * Finalizes the load.
      *
      * @private
      */
-      ;
+    ;
 
-      _proto._finish = function _finish()
-      {
-          if (this.isComplete)
-          {
-              throw new Error('Complete called again for an already completed resource.');
-          }
-
-          this._setFlag(Resource.STATUS_FLAGS.COMPLETE, true);
-
-          this._setFlag(Resource.STATUS_FLAGS.LOADING, false);
-
-          this.onComplete.dispatch(this);
+    _proto._finish = function _finish() {
+      if (this.isComplete) {
+        throw new Error('Complete called again for an already completed resource.');
       }
-      /**
+
+      this._setFlag(Resource.STATUS_FLAGS.COMPLETE, true);
+
+      this._setFlag(Resource.STATUS_FLAGS.LOADING, false);
+
+      this.onComplete.dispatch(this);
+    }
+    /**
      * Loads this resources using an element that has a single source,
      * like an HTMLImageElement.
      *
      * @private
      * @param {string} type - The type of element to use.
      */
-      ;
+    ;
 
-      _proto._loadElement = function _loadElement(type)
-      {
-          if (this.metadata.loadElement)
-          {
-              this.data = this.metadata.loadElement;
-          }
-          else if (type === 'image' && typeof window.Image !== 'undefined')
-          {
-              this.data = new Image();
-          }
-          else
-          {
-              this.data = document.createElement(type);
-          }
-
-          if (this.crossOrigin)
-          {
-              this.data.crossOrigin = this.crossOrigin;
-          }
-
-          if (!this.metadata.skipSource)
-          {
-              this.data.src = this.url;
-          }
-
-          this.data.addEventListener('error', this._boundOnError, false);
-          this.data.addEventListener('load', this._boundComplete, false);
-          this.data.addEventListener('progress', this._boundOnProgress, false);
-
-          if (this.timeout)
-          {
-              this._elementTimer = setTimeout(this._boundOnTimeout, this.timeout);
-          }
+    _proto._loadElement = function _loadElement(type) {
+      if (this.metadata.loadElement) {
+        this.data = this.metadata.loadElement;
+      } else if (type === 'image' && typeof window.Image !== 'undefined') {
+        this.data = new Image();
+      } else {
+        this.data = document.createElement(type);
       }
-      /**
+
+      if (this.crossOrigin) {
+        this.data.crossOrigin = this.crossOrigin;
+      }
+
+      if (!this.metadata.skipSource) {
+        this.data.src = this.url;
+      }
+
+      this.data.addEventListener('error', this._boundOnError, false);
+      this.data.addEventListener('load', this._boundComplete, false);
+      this.data.addEventListener('progress', this._boundOnProgress, false);
+
+      if (this.timeout) {
+        this._elementTimer = setTimeout(this._boundOnTimeout, this.timeout);
+      }
+    }
+    /**
      * Loads this resources using an element that has multiple sources,
      * like an HTMLAudioElement or HTMLVideoElement.
      *
      * @private
      * @param {string} type - The type of element to use.
      */
-      ;
+    ;
 
-      _proto._loadSourceElement = function _loadSourceElement(type)
-      {
-          if (this.metadata.loadElement)
-          {
-              this.data = this.metadata.loadElement;
-          }
-          else if (type === 'audio' && typeof window.Audio !== 'undefined')
-          {
-              this.data = new Audio();
-          }
-          else
-          {
-              this.data = document.createElement(type);
-          }
-
-          if (this.data === null)
-          {
-              this.abort(`Unsupported element: ${type}`);
-
-              return;
-          }
-
-          if (this.crossOrigin)
-          {
-              this.data.crossOrigin = this.crossOrigin;
-          }
-
-          if (!this.metadata.skipSource)
-          {
-              // support for CocoonJS Canvas+ runtime, lacks document.createElement('source')
-              if (navigator.isCocoonJS)
-              {
-                  this.data.src = Array.isArray(this.url) ? this.url[0] : this.url;
-              }
-              else if (Array.isArray(this.url))
-              {
-                  const mimeTypes = this.metadata.mimeType;
-
-                  for (let i = 0; i < this.url.length; ++i)
-                  {
-                      this.data.appendChild(this._createSource(type, this.url[i], Array.isArray(mimeTypes) ? mimeTypes[i] : mimeTypes));
-                  }
-              }
-              else
-              {
-                  const _mimeTypes = this.metadata.mimeType;
-
-                  this.data.appendChild(this._createSource(type, this.url, Array.isArray(_mimeTypes) ? _mimeTypes[0] : _mimeTypes));
-              }
-          }
-
-          this.data.addEventListener('error', this._boundOnError, false);
-          this.data.addEventListener('load', this._boundComplete, false);
-          this.data.addEventListener('progress', this._boundOnProgress, false);
-          this.data.addEventListener('canplaythrough', this._boundComplete, false);
-          this.data.load();
-
-          if (this.timeout)
-          {
-              this._elementTimer = setTimeout(this._boundOnTimeout, this.timeout);
-          }
+    _proto._loadSourceElement = function _loadSourceElement(type) {
+      if (this.metadata.loadElement) {
+        this.data = this.metadata.loadElement;
+      } else if (type === 'audio' && typeof window.Audio !== 'undefined') {
+        this.data = new Audio();
+      } else {
+        this.data = document.createElement(type);
       }
-      /**
+
+      if (this.data === null) {
+        this.abort("Unsupported element: " + type);
+        return;
+      }
+
+      if (this.crossOrigin) {
+        this.data.crossOrigin = this.crossOrigin;
+      }
+
+      if (!this.metadata.skipSource) {
+        // support for CocoonJS Canvas+ runtime, lacks document.createElement('source')
+        if (navigator.isCocoonJS) {
+          this.data.src = Array.isArray(this.url) ? this.url[0] : this.url;
+        } else if (Array.isArray(this.url)) {
+          var mimeTypes = this.metadata.mimeType;
+
+          for (var i = 0; i < this.url.length; ++i) {
+            this.data.appendChild(this._createSource(type, this.url[i], Array.isArray(mimeTypes) ? mimeTypes[i] : mimeTypes));
+          }
+        } else {
+          var _mimeTypes = this.metadata.mimeType;
+          this.data.appendChild(this._createSource(type, this.url, Array.isArray(_mimeTypes) ? _mimeTypes[0] : _mimeTypes));
+        }
+      }
+
+      this.data.addEventListener('error', this._boundOnError, false);
+      this.data.addEventListener('load', this._boundComplete, false);
+      this.data.addEventListener('progress', this._boundOnProgress, false);
+      this.data.addEventListener('canplaythrough', this._boundComplete, false);
+      this.data.load();
+
+      if (this.timeout) {
+        this._elementTimer = setTimeout(this._boundOnTimeout, this.timeout);
+      }
+    }
+    /**
      * Loads this resources using an XMLHttpRequest.
      *
      * @private
      */
-      ;
+    ;
 
-      _proto._loadXhr = function _loadXhr()
-      {
+    _proto._loadXhr = function _loadXhr() {
       // if unset, determine the value
-          if (typeof this.xhrType !== 'string')
-          {
-              this.xhrType = this._determineXhrType();
-          }
-
-          const xhr = this.xhr = new XMLHttpRequest(); // set the request type and url
-
-          xhr.open('GET', this.url, true);
-          xhr.timeout = this.timeout; // load json as text and parse it ourselves. We do this because some browsers
-          // *cough* safari *cough* can't deal with it.
-
-          if (this.xhrType === Resource.XHR_RESPONSE_TYPE.JSON || this.xhrType === Resource.XHR_RESPONSE_TYPE.DOCUMENT)
-          {
-              xhr.responseType = Resource.XHR_RESPONSE_TYPE.TEXT;
-          }
-          else
-          {
-              xhr.responseType = this.xhrType;
-          }
-
-          xhr.addEventListener('error', this._boundXhrOnError, false);
-          xhr.addEventListener('timeout', this._boundXhrOnTimeout, false);
-          xhr.addEventListener('abort', this._boundXhrOnAbort, false);
-          xhr.addEventListener('progress', this._boundOnProgress, false);
-          xhr.addEventListener('load', this._boundXhrOnLoad, false);
-          xhr.send();
+      if (typeof this.xhrType !== 'string') {
+        this.xhrType = this._determineXhrType();
       }
-      /**
+
+      var xhr = this.xhr = new XMLHttpRequest(); // set the request type and url
+
+      xhr.open('GET', this.url, true);
+      xhr.timeout = this.timeout; // load json as text and parse it ourselves. We do this because some browsers
+      // *cough* safari *cough* can't deal with it.
+
+      if (this.xhrType === Resource.XHR_RESPONSE_TYPE.JSON || this.xhrType === Resource.XHR_RESPONSE_TYPE.DOCUMENT) {
+        xhr.responseType = Resource.XHR_RESPONSE_TYPE.TEXT;
+      } else {
+        xhr.responseType = this.xhrType;
+      }
+
+      xhr.addEventListener('error', this._boundXhrOnError, false);
+      xhr.addEventListener('timeout', this._boundXhrOnTimeout, false);
+      xhr.addEventListener('abort', this._boundXhrOnAbort, false);
+      xhr.addEventListener('progress', this._boundOnProgress, false);
+      xhr.addEventListener('load', this._boundXhrOnLoad, false);
+      xhr.send();
+    }
+    /**
      * Loads this resources using an XDomainRequest. This is here because we need to support IE9 (gross).
      *
      * @private
      */
-      ;
+    ;
 
-      _proto._loadXdr = function _loadXdr()
-      {
+    _proto._loadXdr = function _loadXdr() {
       // if unset, determine the value
-          if (typeof this.xhrType !== 'string')
-          {
-              this.xhrType = this._determineXhrType();
-          }
-
-          const xdr = this.xhr = new XDomainRequest(); // eslint-disable-line no-undef
-          // XDomainRequest has a few quirks. Occasionally it will abort requests
-          // A way to avoid this is to make sure ALL callbacks are set even if not used
-          // More info here: http://stackoverflow.com/questions/15786966/xdomainrequest-aborts-post-on-ie-9
-
-          xdr.timeout = this.timeout || 5000; // XDR needs a timeout value or it breaks in IE9
-
-          xdr.onerror = this._boundXhrOnError;
-          xdr.ontimeout = this._boundXhrOnTimeout;
-          xdr.onprogress = this._boundOnProgress;
-          xdr.onload = this._boundXhrOnLoad;
-          xdr.open('GET', this.url, true); // Note: The xdr.send() call is wrapped in a timeout to prevent an
-          // issue with the interface where some requests are lost if multiple
-          // XDomainRequests are being sent at the same time.
-          // Some info here: https://github.com/photonstorm/phaser/issues/1248
-
-          setTimeout(function ()
-          {
-              return xdr.send();
-          }, 1);
+      if (typeof this.xhrType !== 'string') {
+        this.xhrType = this._determineXhrType();
       }
-      /**
+
+      var xdr = this.xhr = new XDomainRequest(); // eslint-disable-line no-undef
+      // XDomainRequest has a few quirks. Occasionally it will abort requests
+      // A way to avoid this is to make sure ALL callbacks are set even if not used
+      // More info here: http://stackoverflow.com/questions/15786966/xdomainrequest-aborts-post-on-ie-9
+
+      xdr.timeout = this.timeout || 5000; // XDR needs a timeout value or it breaks in IE9
+
+      xdr.onerror = this._boundXhrOnError;
+      xdr.ontimeout = this._boundXhrOnTimeout;
+      xdr.onprogress = this._boundOnProgress;
+      xdr.onload = this._boundXhrOnLoad;
+      xdr.open('GET', this.url, true); // Note: The xdr.send() call is wrapped in a timeout to prevent an
+      // issue with the interface where some requests are lost if multiple
+      // XDomainRequests are being sent at the same time.
+      // Some info here: https://github.com/photonstorm/phaser/issues/1248
+
+      setTimeout(function () {
+        return xdr.send();
+      }, 1);
+    }
+    /**
      * Creates a source used in loading via an element.
      *
      * @private
@@ -1392,195 +1220,157 @@ const _pixi_loaders = (function (exports, core)
      * @param {string} [mime] - The mime type of the video
      * @return {HTMLSourceElement} The source element.
      */
-      ;
+    ;
 
-      _proto._createSource = function _createSource(type, url, mime)
-      {
-          if (!mime)
-          {
-              mime = `${type}/${this._getExtension(url)}`;
-          }
-
-          const source = document.createElement('source');
-
-          source.src = url;
-          source.type = mime;
-
-          return source;
+    _proto._createSource = function _createSource(type, url, mime) {
+      if (!mime) {
+        mime = type + "/" + this._getExtension(url);
       }
-      /**
+
+      var source = document.createElement('source');
+      source.src = url;
+      source.type = mime;
+      return source;
+    }
+    /**
      * Called if a load errors out.
      *
      * @param {Event} event - The error event from the element that emits it.
      * @private
      */
-      ;
+    ;
 
-      _proto._onError = function _onError(event)
-      {
-          this.abort(`Failed to load element using: ${event.target.nodeName}`);
-      }
-      /**
+    _proto._onError = function _onError(event) {
+      this.abort("Failed to load element using: " + event.target.nodeName);
+    }
+    /**
      * Called if a load progress event fires for an element or xhr/xdr.
      *
      * @private
      * @param {XMLHttpRequestProgressEvent|Event} event - Progress event.
      */
-      ;
+    ;
 
-      _proto._onProgress = function _onProgress(event)
-      {
-          if (event && event.lengthComputable)
-          {
-              this.onProgress.dispatch(this, event.loaded / event.total);
-          }
+    _proto._onProgress = function _onProgress(event) {
+      if (event && event.lengthComputable) {
+        this.onProgress.dispatch(this, event.loaded / event.total);
       }
-      /**
+    }
+    /**
      * Called if a timeout event fires for an element.
      *
      * @private
      */
-      ;
+    ;
 
-      _proto._onTimeout = function _onTimeout()
-      {
-          this.abort('Load timed out.');
-      }
-      /**
+    _proto._onTimeout = function _onTimeout() {
+      this.abort("Load timed out.");
+    }
+    /**
      * Called if an error event fires for xhr/xdr.
      *
      * @private
      */
-      ;
+    ;
 
-      _proto._xhrOnError = function _xhrOnError()
-      {
-          const xhr = this.xhr;
-
-          this.abort(`${reqType(xhr)} Request failed. Status: ${xhr.status}, text: "${xhr.statusText}"`);
-      }
-      /**
+    _proto._xhrOnError = function _xhrOnError() {
+      var xhr = this.xhr;
+      this.abort(reqType(xhr) + " Request failed. Status: " + xhr.status + ", text: \"" + xhr.statusText + "\"");
+    }
+    /**
      * Called if an error event fires for xhr/xdr.
      *
      * @private
      */
-      ;
+    ;
 
-      _proto._xhrOnTimeout = function _xhrOnTimeout()
-      {
-          const xhr = this.xhr;
-
-          this.abort(`${reqType(xhr)} Request timed out.`);
-      }
-      /**
+    _proto._xhrOnTimeout = function _xhrOnTimeout() {
+      var xhr = this.xhr;
+      this.abort(reqType(xhr) + " Request timed out.");
+    }
+    /**
      * Called if an abort event fires for xhr/xdr.
      *
      * @private
      */
-      ;
+    ;
 
-      _proto._xhrOnAbort = function _xhrOnAbort()
-      {
-          const xhr = this.xhr;
-
-          this.abort(`${reqType(xhr)} Request was aborted by the user.`);
-      }
-      /**
+    _proto._xhrOnAbort = function _xhrOnAbort() {
+      var xhr = this.xhr;
+      this.abort(reqType(xhr) + " Request was aborted by the user.");
+    }
+    /**
      * Called when data successfully loads from an xhr/xdr request.
      *
      * @private
      * @param {XMLHttpRequestLoadEvent|Event} event - Load event
      */
-      ;
+    ;
 
-      _proto._xhrOnLoad = function _xhrOnLoad()
-      {
-          const xhr = this.xhr;
-          let text = '';
-          let status = typeof xhr.status === 'undefined' ? STATUS_OK : xhr.status; // XDR has no `.status`, assume 200.
-          // responseText is accessible only if responseType is '' or 'text' and on older browsers
+    _proto._xhrOnLoad = function _xhrOnLoad() {
+      var xhr = this.xhr;
+      var text = '';
+      var status = typeof xhr.status === 'undefined' ? STATUS_OK : xhr.status; // XDR has no `.status`, assume 200.
+      // responseText is accessible only if responseType is '' or 'text' and on older browsers
 
-          if (xhr.responseType === '' || xhr.responseType === 'text' || typeof xhr.responseType === 'undefined')
-          {
-              text = xhr.responseText;
-          } // status can be 0 when using the `file://` protocol so we also check if a response is set.
-          // If it has a response, we assume 200; otherwise a 0 status code with no contents is an aborted request.
+      if (xhr.responseType === '' || xhr.responseType === 'text' || typeof xhr.responseType === 'undefined') {
+        text = xhr.responseText;
+      } // status can be 0 when using the `file://` protocol so we also check if a response is set.
+      // If it has a response, we assume 200; otherwise a 0 status code with no contents is an aborted request.
 
-          if (status === STATUS_NONE && (text.length > 0 || xhr.responseType === Resource.XHR_RESPONSE_TYPE.BUFFER))
-          {
-              status = STATUS_OK;
-          } // handle IE9 bug: http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
-          else if (status === STATUS_IE_BUG_EMPTY)
-          {
-              status = STATUS_EMPTY;
-          }
 
-          const statusType = status / 100 | 0;
+      if (status === STATUS_NONE && (text.length > 0 || xhr.responseType === Resource.XHR_RESPONSE_TYPE.BUFFER)) {
+        status = STATUS_OK;
+      } // handle IE9 bug: http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
+      else if (status === STATUS_IE_BUG_EMPTY) {
+          status = STATUS_EMPTY;
+        }
 
-          if (statusType === STATUS_TYPE_OK)
-          {
-              // if text, just return it
-              if (this.xhrType === Resource.XHR_RESPONSE_TYPE.TEXT)
-              {
-                  this.data = text;
-                  this.type = Resource.TYPE.TEXT;
-              } // if json, parse into json object
-              else if (this.xhrType === Resource.XHR_RESPONSE_TYPE.JSON)
-              {
-                  try
-                  {
-                      this.data = JSON.parse(text);
-                      this.type = Resource.TYPE.JSON;
-                  }
-                  catch (e)
-                  {
-                      this.abort(`Error trying to parse loaded json: ${e}`);
+      var statusType = status / 100 | 0;
 
-                      return;
-                  }
-              } // if xml, parse into an xml document or div element
-              else if (this.xhrType === Resource.XHR_RESPONSE_TYPE.DOCUMENT)
-              {
-                  try
-                  {
-                      if (window.DOMParser)
-                      {
-                          const domparser = new DOMParser();
-
-                          this.data = domparser.parseFromString(text, 'text/xml');
-                      }
-                      else
-                      {
-                          const div = document.createElement('div');
-
-                          div.innerHTML = text;
-                          this.data = div;
-                      }
-
-                      this.type = Resource.TYPE.XML;
-                  }
-                  catch (e)
-                  {
-                      this.abort(`Error trying to parse loaded xml: ${e}`);
-
-                      return;
-                  }
-              } // other types just return the response
-              else
-              {
-                  this.data = xhr.response || text;
-              }
-          }
-          else
-          {
-              this.abort(`[${xhr.status}] ${xhr.statusText}: ${xhr.responseURL}`);
-
+      if (statusType === STATUS_TYPE_OK) {
+        // if text, just return it
+        if (this.xhrType === Resource.XHR_RESPONSE_TYPE.TEXT) {
+          this.data = text;
+          this.type = Resource.TYPE.TEXT;
+        } // if json, parse into json object
+        else if (this.xhrType === Resource.XHR_RESPONSE_TYPE.JSON) {
+            try {
+              this.data = JSON.parse(text);
+              this.type = Resource.TYPE.JSON;
+            } catch (e) {
+              this.abort("Error trying to parse loaded json: " + e);
               return;
-          }
+            }
+          } // if xml, parse into an xml document or div element
+          else if (this.xhrType === Resource.XHR_RESPONSE_TYPE.DOCUMENT) {
+              try {
+                if (window.DOMParser) {
+                  var domparser = new DOMParser();
+                  this.data = domparser.parseFromString(text, 'text/xml');
+                } else {
+                  var div = document.createElement('div');
+                  div.innerHTML = text;
+                  this.data = div;
+                }
 
-          this.complete();
+                this.type = Resource.TYPE.XML;
+              } catch (e) {
+                this.abort("Error trying to parse loaded xml: " + e);
+                return;
+              }
+            } // other types just return the response
+            else {
+                this.data = xhr.response || text;
+              }
+      } else {
+        this.abort("[" + xhr.status + "] " + xhr.statusText + ": " + xhr.responseURL);
+        return;
       }
-      /**
+
+      this.complete();
+    }
+    /**
      * Sets the `crossOrigin` property for this resource based on if the url
      * for this resource is cross-origin. If crossOrigin was manually set, this
      * function does nothing.
@@ -1590,104 +1380,94 @@ const _pixi_loaders = (function (exports, core)
      * @param {object} [loc=window.location] - The location object to test against.
      * @return {string} The crossOrigin value to use (or empty string for none).
      */
-      ;
+    ;
 
-      _proto._determineCrossOrigin = function _determineCrossOrigin(url, loc)
-      {
+    _proto._determineCrossOrigin = function _determineCrossOrigin(url, loc) {
       // data: and javascript: urls are considered same-origin
-          if (url.indexOf('data:') === 0)
-          {
-              return '';
-          } // A sandboxed iframe without the 'allow-same-origin' attribute will have a special
-          // origin designed not to match window.location.origin, and will always require
-          // crossOrigin requests regardless of whether the location matches.
+      if (url.indexOf('data:') === 0) {
+        return '';
+      } // A sandboxed iframe without the 'allow-same-origin' attribute will have a special
+      // origin designed not to match window.location.origin, and will always require
+      // crossOrigin requests regardless of whether the location matches.
 
-          if (window.origin !== window.location.origin)
-          {
-              return 'anonymous';
-          } // default is window.location
 
-          loc = loc || window.location;
+      if (window.origin !== window.location.origin) {
+        return 'anonymous';
+      } // default is window.location
 
-          if (!tempAnchor)
-          {
-              tempAnchor = document.createElement('a');
-          } // let the browser determine the full href for the url of this resource and then
-          // parse with the node url lib, we can't use the properties of the anchor element
-          // because they don't work in IE9 :(
 
-          tempAnchor.href = url;
-          url = src(tempAnchor.href, {
-              strictMode: true
-          });
-          const samePort = !url.port && loc.port === '' || url.port === loc.port;
-          const protocol = url.protocol ? `${url.protocol}:` : ''; // if cross origin
+      loc = loc || window.location;
 
-          if (url.host !== loc.hostname || !samePort || protocol !== loc.protocol)
-          {
-              return 'anonymous';
-          }
+      if (!tempAnchor) {
+        tempAnchor = document.createElement('a');
+      } // let the browser determine the full href for the url of this resource and then
+      // parse with the node url lib, we can't use the properties of the anchor element
+      // because they don't work in IE9 :(
 
-          return '';
+
+      tempAnchor.href = url;
+      url = src(tempAnchor.href, {
+        strictMode: true
+      });
+      var samePort = !url.port && loc.port === '' || url.port === loc.port;
+      var protocol = url.protocol ? url.protocol + ":" : ''; // if cross origin
+
+      if (url.host !== loc.hostname || !samePort || protocol !== loc.protocol) {
+        return 'anonymous';
       }
-      /**
+
+      return '';
+    }
+    /**
      * Determines the responseType of an XHR request based on the extension of the
      * resource being loaded.
      *
      * @private
      * @return {Resource.XHR_RESPONSE_TYPE} The responseType to use.
      */
-      ;
+    ;
 
-      _proto._determineXhrType = function _determineXhrType()
-      {
-          return Resource._xhrTypeMap[this.extension] || Resource.XHR_RESPONSE_TYPE.TEXT;
-      }
-      /**
+    _proto._determineXhrType = function _determineXhrType() {
+      return Resource._xhrTypeMap[this.extension] || Resource.XHR_RESPONSE_TYPE.TEXT;
+    }
+    /**
      * Determines the loadType of a resource based on the extension of the
      * resource being loaded.
      *
      * @private
      * @return {Resource.LOAD_TYPE} The loadType to use.
      */
-      ;
+    ;
 
-      _proto._determineLoadType = function _determineLoadType()
-      {
-          return Resource._loadTypeMap[this.extension] || Resource.LOAD_TYPE.XHR;
-      }
-      /**
+    _proto._determineLoadType = function _determineLoadType() {
+      return Resource._loadTypeMap[this.extension] || Resource.LOAD_TYPE.XHR;
+    }
+    /**
      * Extracts the extension (sans '.') of the file being loaded by the resource.
      *
      * @private
      * @return {string} The extension.
      */
-      ;
+    ;
 
-      _proto._getExtension = function _getExtension()
-      {
-          let url = this.url;
-          let ext = '';
+    _proto._getExtension = function _getExtension() {
+      var url = this.url;
+      var ext = '';
 
-          if (this.isDataUrl)
-          {
-              const slashIndex = url.indexOf('/');
-
-              ext = url.substring(slashIndex + 1, url.indexOf(';', slashIndex));
-          }
-          else
-          {
-              const queryStart = url.indexOf('?');
-              const hashStart = url.indexOf('#');
-              const index = Math.min(queryStart > -1 ? queryStart : url.length, hashStart > -1 ? hashStart : url.length);
-
-              url = url.substring(0, index);
-              ext = url.substring(url.lastIndexOf('.') + 1);
-          }
-
-          return ext.toLowerCase();
+      if (this.isDataUrl) {
+        var slashIndex = url.indexOf('/');
+        ext = url.substring(slashIndex + 1, url.indexOf(';', slashIndex));
+      } else {
+        var queryStart = url.indexOf('?');
+        var hashStart = url.indexOf('#');
+        var index = Math.min(queryStart > -1 ? queryStart : url.length, hashStart > -1 ? hashStart : url.length);
+        url = url.substring(0, index);
+        ext = url.substring(url.lastIndexOf('.') + 1);
       }
-      /**
+
+      return ext.toLowerCase();
+    }
+    /**
      * Determines the mime type of an XHR request based on the responseType of
      * resource being loaded.
      *
@@ -1695,40 +1475,37 @@ const _pixi_loaders = (function (exports, core)
      * @param {Resource.XHR_RESPONSE_TYPE} type - The type to get a mime type for.
      * @return {string} The mime type to use.
      */
-      ;
+    ;
 
-      _proto._getMimeFromXhrType = function _getMimeFromXhrType(type)
-      {
-          switch (type)
-          {
-              case Resource.XHR_RESPONSE_TYPE.BUFFER:
-                  return 'application/octet-binary';
+    _proto._getMimeFromXhrType = function _getMimeFromXhrType(type) {
+      switch (type) {
+        case Resource.XHR_RESPONSE_TYPE.BUFFER:
+          return 'application/octet-binary';
 
-              case Resource.XHR_RESPONSE_TYPE.BLOB:
-                  return 'application/blob';
+        case Resource.XHR_RESPONSE_TYPE.BLOB:
+          return 'application/blob';
 
-              case Resource.XHR_RESPONSE_TYPE.DOCUMENT:
-                  return 'application/xml';
+        case Resource.XHR_RESPONSE_TYPE.DOCUMENT:
+          return 'application/xml';
 
-              case Resource.XHR_RESPONSE_TYPE.JSON:
-                  return 'application/json';
+        case Resource.XHR_RESPONSE_TYPE.JSON:
+          return 'application/json';
 
-              case Resource.XHR_RESPONSE_TYPE.DEFAULT:
-              case Resource.XHR_RESPONSE_TYPE.TEXT:
-                  /* falls through */
+        case Resource.XHR_RESPONSE_TYPE.DEFAULT:
+        case Resource.XHR_RESPONSE_TYPE.TEXT:
+        /* falls through */
 
-              default:
-                  return 'text/plain';
-          }
-      };
+        default:
+          return 'text/plain';
+      }
+    };
 
-      _createClass(Resource, [{
-          key: 'isDataUrl',
-          get: function get()
-          {
-              return this._hasFlag(Resource.STATUS_FLAGS.DATA_URL);
-          }
-          /**
+    _createClass(Resource, [{
+      key: "isDataUrl",
+      get: function get() {
+        return this._hasFlag(Resource.STATUS_FLAGS.DATA_URL);
+      }
+      /**
        * Describes if this resource has finished loading. Is true when the resource has completely
        * loaded.
        *
@@ -1736,13 +1513,12 @@ const _pixi_loaders = (function (exports, core)
        * @member {boolean}
        */
 
-      }, {
-          key: 'isComplete',
-          get: function get()
-          {
-              return this._hasFlag(Resource.STATUS_FLAGS.COMPLETE);
-          }
-          /**
+    }, {
+      key: "isComplete",
+      get: function get() {
+        return this._hasFlag(Resource.STATUS_FLAGS.COMPLETE);
+      }
+      /**
        * Describes if this resource is currently loading. Is true when the resource starts loading,
        * and is false again when complete.
        *
@@ -1750,17 +1526,16 @@ const _pixi_loaders = (function (exports, core)
        * @member {boolean}
        */
 
-      }, {
-          key: 'isLoading',
-          get: function get()
-          {
-              return this._hasFlag(Resource.STATUS_FLAGS.LOADING);
-          }
-      }]);
+    }, {
+      key: "isLoading",
+      get: function get() {
+        return this._hasFlag(Resource.STATUS_FLAGS.LOADING);
+      }
+    }]);
 
-      return Resource;
-  })();
-    /**
+    return Resource;
+  }();
+  /**
    * The types of resources a resource could represent.
    *
    * @static
@@ -1768,13 +1543,14 @@ const _pixi_loaders = (function (exports, core)
    * @enum {number}
    */
 
-    Resource.STATUS_FLAGS = {
-        NONE: 0,
-        DATA_URL: 1 << 0,
-        COMPLETE: 1 << 1,
-        LOADING: 1 << 2
-    };
-    /**
+
+  Resource.STATUS_FLAGS = {
+    NONE: 0,
+    DATA_URL: 1 << 0,
+    COMPLETE: 1 << 1,
+    LOADING: 1 << 2
+  };
+  /**
    * The types of resources a resource could represent.
    *
    * @static
@@ -1782,16 +1558,16 @@ const _pixi_loaders = (function (exports, core)
    * @enum {number}
    */
 
-    Resource.TYPE = {
-        UNKNOWN: 0,
-        JSON: 1,
-        XML: 2,
-        IMAGE: 3,
-        AUDIO: 4,
-        VIDEO: 5,
-        TEXT: 6
-    };
-    /**
+  Resource.TYPE = {
+    UNKNOWN: 0,
+    JSON: 1,
+    XML: 2,
+    IMAGE: 3,
+    AUDIO: 4,
+    VIDEO: 5,
+    TEXT: 6
+  };
+  /**
    * The types of loading a resource can use.
    *
    * @static
@@ -1799,20 +1575,20 @@ const _pixi_loaders = (function (exports, core)
    * @enum {number}
    */
 
-    Resource.LOAD_TYPE = {
+  Resource.LOAD_TYPE = {
     /** Uses XMLHttpRequest to load the resource. */
-        XHR: 1,
+    XHR: 1,
 
-        /** Uses an `Image` object to load the resource. */
-        IMAGE: 2,
+    /** Uses an `Image` object to load the resource. */
+    IMAGE: 2,
 
-        /** Uses an `Audio` object to load the resource. */
-        AUDIO: 3,
+    /** Uses an `Audio` object to load the resource. */
+    AUDIO: 3,
 
-        /** Uses a `Video` object to load the resource. */
-        VIDEO: 4
-    };
-    /**
+    /** Uses a `Video` object to load the resource. */
+    VIDEO: 4
+  };
+  /**
    * The XHR ready states, used internally.
    *
    * @static
@@ -1820,81 +1596,81 @@ const _pixi_loaders = (function (exports, core)
    * @enum {string}
    */
 
-    Resource.XHR_RESPONSE_TYPE = {
+  Resource.XHR_RESPONSE_TYPE = {
     /** string */
-        DEFAULT: 'text',
+    DEFAULT: 'text',
 
-        /** ArrayBuffer */
-        BUFFER: 'arraybuffer',
+    /** ArrayBuffer */
+    BUFFER: 'arraybuffer',
 
-        /** Blob */
-        BLOB: 'blob',
+    /** Blob */
+    BLOB: 'blob',
 
-        /** Document */
-        DOCUMENT: 'document',
+    /** Document */
+    DOCUMENT: 'document',
 
-        /** Object */
-        JSON: 'json',
+    /** Object */
+    JSON: 'json',
 
-        /** String */
-        TEXT: 'text'
-    };
-    Resource._loadTypeMap = {
+    /** String */
+    TEXT: 'text'
+  };
+  Resource._loadTypeMap = {
     // images
-        gif: Resource.LOAD_TYPE.IMAGE,
-        png: Resource.LOAD_TYPE.IMAGE,
-        bmp: Resource.LOAD_TYPE.IMAGE,
-        jpg: Resource.LOAD_TYPE.IMAGE,
-        jpeg: Resource.LOAD_TYPE.IMAGE,
-        tif: Resource.LOAD_TYPE.IMAGE,
-        tiff: Resource.LOAD_TYPE.IMAGE,
-        webp: Resource.LOAD_TYPE.IMAGE,
-        tga: Resource.LOAD_TYPE.IMAGE,
-        svg: Resource.LOAD_TYPE.IMAGE,
-        'svg+xml': Resource.LOAD_TYPE.IMAGE,
-        // for SVG data urls
-        // audio
-        mp3: Resource.LOAD_TYPE.AUDIO,
-        ogg: Resource.LOAD_TYPE.AUDIO,
-        wav: Resource.LOAD_TYPE.AUDIO,
-        // videos
-        mp4: Resource.LOAD_TYPE.VIDEO,
-        webm: Resource.LOAD_TYPE.VIDEO
-    };
-    Resource._xhrTypeMap = {
+    gif: Resource.LOAD_TYPE.IMAGE,
+    png: Resource.LOAD_TYPE.IMAGE,
+    bmp: Resource.LOAD_TYPE.IMAGE,
+    jpg: Resource.LOAD_TYPE.IMAGE,
+    jpeg: Resource.LOAD_TYPE.IMAGE,
+    tif: Resource.LOAD_TYPE.IMAGE,
+    tiff: Resource.LOAD_TYPE.IMAGE,
+    webp: Resource.LOAD_TYPE.IMAGE,
+    tga: Resource.LOAD_TYPE.IMAGE,
+    svg: Resource.LOAD_TYPE.IMAGE,
+    'svg+xml': Resource.LOAD_TYPE.IMAGE,
+    // for SVG data urls
+    // audio
+    mp3: Resource.LOAD_TYPE.AUDIO,
+    ogg: Resource.LOAD_TYPE.AUDIO,
+    wav: Resource.LOAD_TYPE.AUDIO,
+    // videos
+    mp4: Resource.LOAD_TYPE.VIDEO,
+    webm: Resource.LOAD_TYPE.VIDEO
+  };
+  Resource._xhrTypeMap = {
     // xml
-        xhtml: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-        html: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-        htm: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-        xml: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-        tmx: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-        svg: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-        // This was added to handle Tiled Tileset XML, but .tsx is also a TypeScript React Component.
-        // Since it is way less likely for people to be loading TypeScript files instead of Tiled files,
-        // this should probably be fine.
-        tsx: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
-        // images
-        gif: Resource.XHR_RESPONSE_TYPE.BLOB,
-        png: Resource.XHR_RESPONSE_TYPE.BLOB,
-        bmp: Resource.XHR_RESPONSE_TYPE.BLOB,
-        jpg: Resource.XHR_RESPONSE_TYPE.BLOB,
-        jpeg: Resource.XHR_RESPONSE_TYPE.BLOB,
-        tif: Resource.XHR_RESPONSE_TYPE.BLOB,
-        tiff: Resource.XHR_RESPONSE_TYPE.BLOB,
-        webp: Resource.XHR_RESPONSE_TYPE.BLOB,
-        tga: Resource.XHR_RESPONSE_TYPE.BLOB,
-        // json
-        json: Resource.XHR_RESPONSE_TYPE.JSON,
-        // text
-        text: Resource.XHR_RESPONSE_TYPE.TEXT,
-        txt: Resource.XHR_RESPONSE_TYPE.TEXT,
-        // fonts
-        ttf: Resource.XHR_RESPONSE_TYPE.BUFFER,
-        otf: Resource.XHR_RESPONSE_TYPE.BUFFER
-    }; // We can't set the `src` attribute to empty string, so on abort we set it to this 1px transparent gif
+    xhtml: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
+    html: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
+    htm: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
+    xml: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
+    tmx: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
+    svg: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
+    // This was added to handle Tiled Tileset XML, but .tsx is also a TypeScript React Component.
+    // Since it is way less likely for people to be loading TypeScript files instead of Tiled files,
+    // this should probably be fine.
+    tsx: Resource.XHR_RESPONSE_TYPE.DOCUMENT,
+    // images
+    gif: Resource.XHR_RESPONSE_TYPE.BLOB,
+    png: Resource.XHR_RESPONSE_TYPE.BLOB,
+    bmp: Resource.XHR_RESPONSE_TYPE.BLOB,
+    jpg: Resource.XHR_RESPONSE_TYPE.BLOB,
+    jpeg: Resource.XHR_RESPONSE_TYPE.BLOB,
+    tif: Resource.XHR_RESPONSE_TYPE.BLOB,
+    tiff: Resource.XHR_RESPONSE_TYPE.BLOB,
+    webp: Resource.XHR_RESPONSE_TYPE.BLOB,
+    tga: Resource.XHR_RESPONSE_TYPE.BLOB,
+    // json
+    json: Resource.XHR_RESPONSE_TYPE.JSON,
+    // text
+    text: Resource.XHR_RESPONSE_TYPE.TEXT,
+    txt: Resource.XHR_RESPONSE_TYPE.TEXT,
+    // fonts
+    ttf: Resource.XHR_RESPONSE_TYPE.BUFFER,
+    otf: Resource.XHR_RESPONSE_TYPE.BUFFER
+  }; // We can't set the `src` attribute to empty string, so on abort we set it to this 1px transparent gif
 
-    Resource.EMPTY_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
-    /**
+  Resource.EMPTY_GIF = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+  /**
    * Quick helper to set a value on one of the extension maps. Ensures there is no
    * dot at the start of the extension.
    *
@@ -1904,21 +1680,18 @@ const _pixi_loaders = (function (exports, core)
    * @param {number} val - The value to set.
    */
 
-    function setExtMap(map, extname, val)
-    {
-        if (extname && extname.indexOf('.') === 0)
-        {
-            extname = extname.substring(1);
-        }
-
-        if (!extname)
-        {
-            return;
-        }
-
-        map[extname] = val;
+  function setExtMap(map, extname, val) {
+    if (extname && extname.indexOf('.') === 0) {
+      extname = extname.substring(1);
     }
-    /**
+
+    if (!extname) {
+      return;
+    }
+
+    map[extname] = val;
+  }
+  /**
    * Quick helper to get string xhr type.
    *
    * @ignore
@@ -1926,13 +1699,13 @@ const _pixi_loaders = (function (exports, core)
    * @return {string} The type.
    */
 
-    function reqType(xhr)
-    {
-        return xhr.toString().replace('object ', '');
-    }
 
-    const _keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-    /**
+  function reqType(xhr) {
+    return xhr.toString().replace('object ', '');
+  }
+
+  var _keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+  /**
    * Encodes binary into base64.
    *
    * @function encodeBinary
@@ -1940,72 +1713,66 @@ const _pixi_loaders = (function (exports, core)
    * @returns {string} The encoded base64 string
    */
 
-    function encodeBinary(input)
-    {
-        let output = '';
-        let inx = 0;
+  function encodeBinary(input) {
+    var output = '';
+    var inx = 0;
 
-        while (inx < input.length)
-        {
-            // Fill byte buffer array
-            const bytebuffer = [0, 0, 0];
-            const encodedCharIndexes = [0, 0, 0, 0];
+    while (inx < input.length) {
+      // Fill byte buffer array
+      var bytebuffer = [0, 0, 0];
+      var encodedCharIndexes = [0, 0, 0, 0];
 
-            for (let jnx = 0; jnx < bytebuffer.length; ++jnx)
-            {
-                if (inx < input.length)
-                {
-                    // throw away high-order byte, as documented at:
-                    // https://developer.mozilla.org/En/Using_XMLHttpRequest#Handling_binary_data
-                    bytebuffer[jnx] = input.charCodeAt(inx++) & 0xff;
-                }
-                else
-                {
-                    bytebuffer[jnx] = 0;
-                }
-            } // Get each encoded character, 6 bits at a time
-            // index 1: first 6 bits
-
-            encodedCharIndexes[0] = bytebuffer[0] >> 2; // index 2: second 6 bits (2 least significant bits from input byte 1 + 4 most significant bits from byte 2)
-
-            encodedCharIndexes[1] = (bytebuffer[0] & 0x3) << 4 | bytebuffer[1] >> 4; // index 3: third 6 bits (4 least significant bits from input byte 2 + 2 most significant bits from byte 3)
-
-            encodedCharIndexes[2] = (bytebuffer[1] & 0x0f) << 2 | bytebuffer[2] >> 6; // index 3: forth 6 bits (6 least significant bits from input byte 3)
-
-            encodedCharIndexes[3] = bytebuffer[2] & 0x3f; // Determine whether padding happened, and adjust accordingly
-
-            const paddingBytes = inx - (input.length - 1);
-
-            switch (paddingBytes)
-            {
-                case 2:
-                    // Set last 2 characters to padding char
-                    encodedCharIndexes[3] = 64;
-                    encodedCharIndexes[2] = 64;
-                    break;
-
-                case 1:
-                    // Set last character to padding char
-                    encodedCharIndexes[3] = 64;
-                    break;
-
-                default:
-                    break;
-        // No padding - proceed
-            } // Now we will grab each appropriate character out of our keystring
-            // based on our index array and append it to the output string
-
-            for (let _jnx = 0; _jnx < encodedCharIndexes.length; ++_jnx)
-            {
-                output += _keyStr.charAt(encodedCharIndexes[_jnx]);
-            }
+      for (var jnx = 0; jnx < bytebuffer.length; ++jnx) {
+        if (inx < input.length) {
+          // throw away high-order byte, as documented at:
+          // https://developer.mozilla.org/En/Using_XMLHttpRequest#Handling_binary_data
+          bytebuffer[jnx] = input.charCodeAt(inx++) & 0xff;
+        } else {
+          bytebuffer[jnx] = 0;
         }
+      } // Get each encoded character, 6 bits at a time
+      // index 1: first 6 bits
 
-        return output;
+
+      encodedCharIndexes[0] = bytebuffer[0] >> 2; // index 2: second 6 bits (2 least significant bits from input byte 1 + 4 most significant bits from byte 2)
+
+      encodedCharIndexes[1] = (bytebuffer[0] & 0x3) << 4 | bytebuffer[1] >> 4; // index 3: third 6 bits (4 least significant bits from input byte 2 + 2 most significant bits from byte 3)
+
+      encodedCharIndexes[2] = (bytebuffer[1] & 0x0f) << 2 | bytebuffer[2] >> 6; // index 3: forth 6 bits (6 least significant bits from input byte 3)
+
+      encodedCharIndexes[3] = bytebuffer[2] & 0x3f; // Determine whether padding happened, and adjust accordingly
+
+      var paddingBytes = inx - (input.length - 1);
+
+      switch (paddingBytes) {
+        case 2:
+          // Set last 2 characters to padding char
+          encodedCharIndexes[3] = 64;
+          encodedCharIndexes[2] = 64;
+          break;
+
+        case 1:
+          // Set last character to padding char
+          encodedCharIndexes[3] = 64;
+          break;
+
+        default:
+          break;
+        // No padding - proceed
+      } // Now we will grab each appropriate character out of our keystring
+      // based on our index array and append it to the output string
+
+
+      for (var _jnx = 0; _jnx < encodedCharIndexes.length; ++_jnx) {
+        output += _keyStr.charAt(encodedCharIndexes[_jnx]);
+      }
     }
 
-    const Url = window.URL || window.webkitURL;
-    /**
+    return output;
+  }
+
+  var Url = window.URL || window.webkitURL;
+  /**
    * A middleware for transforming XHR loaded Blobs into more useful objects
    *
    * @memberof middleware
@@ -2018,123 +1785,112 @@ const _pixi_loaders = (function (exports, core)
    * @param {function} next - Callback when complete
    */
 
-    function parsing(resource, next)
-    {
-        if (!resource.data)
-        {
+  function parsing(resource, next) {
+    if (!resource.data) {
+      next();
+      return;
+    } // if this was an XHR load of a blob
+
+
+    if (resource.xhr && resource.xhrType === Resource.XHR_RESPONSE_TYPE.BLOB) {
+      // if there is no blob support we probably got a binary string back
+      if (!window.Blob || typeof resource.data === 'string') {
+        var type = resource.xhr.getResponseHeader('content-type'); // this is an image, convert the binary string into a data url
+
+        if (type && type.indexOf('image') === 0) {
+          resource.data = new Image();
+          resource.data.src = "data:" + type + ";base64," + encodeBinary(resource.xhr.responseText);
+          resource.type = Resource.TYPE.IMAGE; // wait until the image loads and then callback
+
+          resource.data.onload = function () {
+            resource.data.onload = null;
             next();
+          }; // next will be called on load
 
-            return;
-        } // if this was an XHR load of a blob
 
-        if (resource.xhr && resource.xhrType === Resource.XHR_RESPONSE_TYPE.BLOB)
-        {
-            // if there is no blob support we probably got a binary string back
-            if (!window.Blob || typeof resource.data === 'string')
-            {
-                const type = resource.xhr.getResponseHeader('content-type'); // this is an image, convert the binary string into a data url
-
-                if (type && type.indexOf('image') === 0)
-                {
-                    resource.data = new Image();
-                    resource.data.src = `data:${type};base64,${encodeBinary(resource.xhr.responseText)}`;
-                    resource.type = Resource.TYPE.IMAGE; // wait until the image loads and then callback
-
-                    resource.data.onload = function ()
-                    {
-                        resource.data.onload = null;
-                        next();
-                    }; // next will be called on load
-
-                    return;
-                }
-            } // if content type says this is an image, then we should transform the blob into an Image object
-            else if (resource.data.type.indexOf('image') === 0)
-            {
-                const src = Url.createObjectURL(resource.data);
-
-                resource.blob = resource.data;
-                resource.data = new Image();
-                resource.data.src = src;
-                resource.type = Resource.TYPE.IMAGE; // cleanup the no longer used blob after the image loads
-                // TODO: Is this correct? Will the image be invalid after revoking?
-
-                resource.data.onload = function ()
-                {
-                    Url.revokeObjectURL(src);
-                    resource.data.onload = null;
-                    next();
-                }; // next will be called on load.
-
-                return;
-            }
+          return;
         }
+      } // if content type says this is an image, then we should transform the blob into an Image object
+      else if (resource.data.type.indexOf('image') === 0) {
+          var src = Url.createObjectURL(resource.data);
+          resource.blob = resource.data;
+          resource.data = new Image();
+          resource.data.src = src;
+          resource.type = Resource.TYPE.IMAGE; // cleanup the no longer used blob after the image loads
+          // TODO: Is this correct? Will the image be invalid after revoking?
 
-        next();
+          resource.data.onload = function () {
+            Url.revokeObjectURL(src);
+            resource.data.onload = null;
+            next();
+          }; // next will be called on load.
+
+
+          return;
+        }
     }
 
-    /**
+    next();
+  }
+
+  /**
    * @namespace middleware
    */
 
-    const index = ({
-        caching,
-        parsing
-    });
+  var index = ({
+      caching: caching,
+      parsing: parsing
+  });
 
-    const MAX_PROGRESS = 100;
-    const rgxExtractUrlHash = /(#[\w-]+)?$/;
-    /**
+  var MAX_PROGRESS = 100;
+  var rgxExtractUrlHash = /(#[\w-]+)?$/;
+  /**
    * Manages the state and loading of multiple resources to load.
    *
    * @class
    */
 
-    const Loader
-  /* #__PURE__*/
-  = (function ()
-  {
-      /**
+  var Loader =
+  /*#__PURE__*/
+  function () {
+    /**
      * @param {string} [baseUrl=''] - The base url for all resources loaded by this loader.
      * @param {number} [concurrency=10] - The number of resources to load concurrently.
      */
-      function Loader(baseUrl, concurrency)
-      {
-          const _this = this;
+    function Loader(baseUrl, concurrency) {
+      var _this = this;
 
-          if (baseUrl === void 0)
-          {
-              baseUrl = '';
-          }
+      if (baseUrl === void 0) {
+        baseUrl = '';
+      }
 
-          if (concurrency === void 0)
-          {
-              concurrency = 10;
-          }
+      if (concurrency === void 0) {
+        concurrency = 10;
+      }
 
-          /**
+      /**
        * The base url for all resources loaded by this loader.
        *
        * @member {string}
        */
-          this.baseUrl = baseUrl;
-          /**
+      this.baseUrl = baseUrl;
+      /**
        * The progress percent of the loader going through the queue.
        *
        * @member {number}
        * @default 0
        */
 
-          this.progress = 0;
-          /**
+      this.progress = 0;
+      /**
        * Loading state of the loader, true if it is currently loading resources.
        *
        * @member {boolean}
        * @default false
        */
 
-          this.loading = false;
-          /**
+      this.loading = false;
+      /**
        * A querystring to append to every URL added to the loader.
        *
        * This should be a valid query string *without* the question-mark (`?`). The loader will
@@ -2158,32 +1914,32 @@ const _pixi_loaders = (function (exports, core)
        * @default ''
        */
 
-          this.defaultQueryString = '';
-          /**
+      this.defaultQueryString = '';
+      /**
        * The middleware to run before loading each resource.
        *
        * @private
        * @member {function[]}
        */
 
-          this._beforeMiddleware = [];
-          /**
+      this._beforeMiddleware = [];
+      /**
        * The middleware to run after loading each resource.
        *
        * @private
        * @member {function[]}
        */
 
-          this._afterMiddleware = [];
-          /**
+      this._afterMiddleware = [];
+      /**
        * The tracks the resources we are currently completing parsing for.
        *
        * @private
        * @member {Resource[]}
        */
 
-          this._resourcesParsing = [];
-          /**
+      this._resourcesParsing = [];
+      /**
        * The `_loadResource` function bound with this object context.
        *
        * @private
@@ -2193,28 +1949,29 @@ const _pixi_loaders = (function (exports, core)
        * @return {undefined}
        */
 
-          this._boundLoadResource = function (r, d)
-          {
-              return _this._loadResource(r, d);
-          };
-          /**
+      this._boundLoadResource = function (r, d) {
+        return _this._loadResource(r, d);
+      };
+      /**
        * The resources waiting to be loaded.
        *
        * @private
        * @member {Resource[]}
        */
 
-          this._queue = queue(this._boundLoadResource, concurrency);
 
-          this._queue.pause();
-          /**
+      this._queue = queue(this._boundLoadResource, concurrency);
+
+      this._queue.pause();
+      /**
        * All the resources for this loader keyed by name.
        *
        * @member {object<string, Resource>}
        */
 
-          this.resources = {};
-          /**
+
+      this.resources = {};
+      /**
        * Dispatched once per loaded or errored resource.
        *
        * The callback looks like {@link Loader.OnProgressSignal}.
@@ -2222,8 +1979,8 @@ const _pixi_loaders = (function (exports, core)
        * @member {Signal<Loader.OnProgressSignal>}
        */
 
-          this.onProgress = new Signal();
-          /**
+      this.onProgress = new Signal();
+      /**
        * Dispatched once per errored resource.
        *
        * The callback looks like {@link Loader.OnErrorSignal}.
@@ -2231,8 +1988,8 @@ const _pixi_loaders = (function (exports, core)
        * @member {Signal<Loader.OnErrorSignal>}
        */
 
-          this.onError = new Signal();
-          /**
+      this.onError = new Signal();
+      /**
        * Dispatched once per loaded resource.
        *
        * The callback looks like {@link Loader.OnLoadSignal}.
@@ -2240,8 +1997,8 @@ const _pixi_loaders = (function (exports, core)
        * @member {Signal<Loader.OnLoadSignal>}
        */
 
-          this.onLoad = new Signal();
-          /**
+      this.onLoad = new Signal();
+      /**
        * Dispatched when the loader begins to process the queue.
        *
        * The callback looks like {@link Loader.OnStartSignal}.
@@ -2249,8 +2006,8 @@ const _pixi_loaders = (function (exports, core)
        * @member {Signal<Loader.OnStartSignal>}
        */
 
-          this.onStart = new Signal();
-          /**
+      this.onStart = new Signal();
+      /**
        * Dispatched when the queued resources all load.
        *
        * The callback looks like {@link Loader.OnCompleteSignal}.
@@ -2258,19 +2015,18 @@ const _pixi_loaders = (function (exports, core)
        * @member {Signal<Loader.OnCompleteSignal>}
        */
 
-          this.onComplete = new Signal(); // Add default before middleware
+      this.onComplete = new Signal(); // Add default before middleware
 
-          for (let i = 0; i < Loader._defaultBeforeMiddleware.length; ++i)
-          {
-              this.pre(Loader._defaultBeforeMiddleware[i]);
-          } // Add default after middleware
+      for (var i = 0; i < Loader._defaultBeforeMiddleware.length; ++i) {
+        this.pre(Loader._defaultBeforeMiddleware[i]);
+      } // Add default after middleware
 
-          for (let _i = 0; _i < Loader._defaultAfterMiddleware.length; ++_i)
-          {
-              this.use(Loader._defaultAfterMiddleware[_i]);
-          }
+
+      for (var _i = 0; _i < Loader._defaultAfterMiddleware.length; ++_i) {
+        this.use(Loader._defaultAfterMiddleware[_i]);
       }
-      /**
+    }
+    /**
      * When the progress changes the loader and resource are disaptched.
      *
      * @memberof Loader
@@ -2279,7 +2035,7 @@ const _pixi_loaders = (function (exports, core)
      * @param {Resource} resource - The resource that has completed or failed to cause the progress to advance.
      */
 
-      /**
+    /**
      * When an error occurrs the loader and resource are disaptched.
      *
      * @memberof Loader
@@ -2288,7 +2044,7 @@ const _pixi_loaders = (function (exports, core)
      * @param {Resource} resource - The resource that caused the error.
      */
 
-      /**
+    /**
      * When a load completes the loader and resource are disaptched.
      *
      * @memberof Loader
@@ -2297,7 +2053,7 @@ const _pixi_loaders = (function (exports, core)
      * @param {Resource} resource - The resource that has completed loading.
      */
 
-      /**
+    /**
      * When the loader starts loading resources it dispatches this callback.
      *
      * @memberof Loader
@@ -2305,7 +2061,7 @@ const _pixi_loaders = (function (exports, core)
      * @param {Loader} loader - The loader that has started loading resources.
      */
 
-      /**
+    /**
      * When the loader completes loading resources it dispatches this callback.
      *
      * @memberof Loader
@@ -2313,7 +2069,7 @@ const _pixi_loaders = (function (exports, core)
      * @param {Loader} loader - The loader that has finished loading resources.
      */
 
-      /**
+    /**
      * Options for a call to `.add()`.
      *
      * @see Loader#add
@@ -2336,9 +2092,9 @@ const _pixi_loaders = (function (exports, core)
      * @property {Resource.IMetadata} [metadata] - Extra configuration for middleware and the Resource object.
      */
 
-      /* eslint-disable require-jsdoc,valid-jsdoc */
+    /* eslint-disable require-jsdoc,valid-jsdoc */
 
-      /**
+    /**
      * Adds a resource (or multiple resources) to the loader queue.
      *
      * This function can take a wide variety of different parameters. The only thing that is always
@@ -2390,7 +2146,7 @@ const _pixi_loaders = (function (exports, core)
      * @return {this} Returns itself.
      */
 
-      /**
+    /**
     * @function
     * @variation 2
     * @param {string} name - The name of the resource to load.
@@ -2400,7 +2156,7 @@ const _pixi_loaders = (function (exports, core)
     * @return {this} Returns itself.
     */
 
-      /**
+    /**
     * @function
     * @variation 3
     * @param {string} url - The url for this resource, relative to the baseUrl of this loader.
@@ -2408,7 +2164,7 @@ const _pixi_loaders = (function (exports, core)
     * @return {this} Returns itself.
     */
 
-      /**
+    /**
     * @function
     * @variation 4
     * @param {string} url - The url for this resource, relative to the baseUrl of this loader.
@@ -2417,7 +2173,7 @@ const _pixi_loaders = (function (exports, core)
     * @return {this} Returns itself.
     */
 
-      /**
+    /**
     * @function
     * @variation 5
     * @param {IAddOptions} options - The options for the load. This object must contain a `url` property.
@@ -2425,7 +2181,7 @@ const _pixi_loaders = (function (exports, core)
     * @return {this} Returns itself.
     */
 
-      /**
+    /**
     * @function
     * @variation 6
     * @param {Array<IAddOptions|string>} resources - An array of resources to load, where each is
@@ -2434,388 +2190,350 @@ const _pixi_loaders = (function (exports, core)
     * @return {this} Returns itself.
     */
 
-      const _proto = Loader.prototype;
 
-      _proto.add = function add(name, url, options, cb)
-      {
+    var _proto = Loader.prototype;
+
+    _proto.add = function add(name, url, options, cb) {
       // special case of an array of objects or urls
-          if (Array.isArray(name))
-          {
-              for (let i = 0; i < name.length; ++i)
-              {
-                  this.add(name[i]);
-              }
+      if (Array.isArray(name)) {
+        for (var i = 0; i < name.length; ++i) {
+          this.add(name[i]);
+        }
 
-              return this;
-          } // if an object is passed instead of params
+        return this;
+      } // if an object is passed instead of params
 
-          if (typeof name === 'object')
-          {
-              cb = url || name.callback || name.onComplete;
-              options = name;
-              url = name.url;
-              name = name.name || name.key || name.url;
-          } // case where no name is passed shift all args over by one.
 
-          if (typeof url !== 'string')
-          {
-              cb = options;
-              options = url;
-              url = name;
-          } // now that we shifted make sure we have a proper url.
+      if (typeof name === 'object') {
+        cb = url || name.callback || name.onComplete;
+        options = name;
+        url = name.url;
+        name = name.name || name.key || name.url;
+      } // case where no name is passed shift all args over by one.
 
-          if (typeof url !== 'string')
-          {
-              throw new Error('No url passed to add resource to loader.');
-          } // options are optional so people might pass a function and no options
 
-          if (typeof options === 'function')
-          {
-              cb = options;
-              options = null;
-          } // if loading already you can only add resources that have a parent.
+      if (typeof url !== 'string') {
+        cb = options;
+        options = url;
+        url = name;
+      } // now that we shifted make sure we have a proper url.
 
-          if (this.loading && (!options || !options.parentResource))
-          {
-              throw new Error('Cannot add resources while the loader is running.');
-          } // check if resource already exists.
 
-          if (this.resources[name])
-          {
-              throw new Error(`Resource named "${name}" already exists.`);
-          } // add base url if this isn't an absolute url
+      if (typeof url !== 'string') {
+        throw new Error('No url passed to add resource to loader.');
+      } // options are optional so people might pass a function and no options
 
-          url = this._prepareUrl(url); // create the store the resource
 
-          this.resources[name] = new Resource(name, url, options);
+      if (typeof options === 'function') {
+        cb = options;
+        options = null;
+      } // if loading already you can only add resources that have a parent.
 
-          if (typeof cb === 'function')
-          {
-              this.resources[name].onAfterMiddleware.once(cb);
-          } // if actively loading, make sure to adjust progress chunks for that parent and its children
 
-          if (this.loading)
-          {
-              const parent = options.parentResource;
-              const incompleteChildren = [];
+      if (this.loading && (!options || !options.parentResource)) {
+        throw new Error('Cannot add resources while the loader is running.');
+      } // check if resource already exists.
 
-              for (let _i2 = 0; _i2 < parent.children.length; ++_i2)
-              {
-                  if (!parent.children[_i2].isComplete)
-                  {
-                      incompleteChildren.push(parent.children[_i2]);
-                  }
-              }
 
-              const fullChunk = parent.progressChunk * (incompleteChildren.length + 1); // +1 for parent
+      if (this.resources[name]) {
+        throw new Error("Resource named \"" + name + "\" already exists.");
+      } // add base url if this isn't an absolute url
 
-              const eachChunk = fullChunk / (incompleteChildren.length + 2); // +2 for parent & new child
 
-              parent.children.push(this.resources[name]);
-              parent.progressChunk = eachChunk;
+      url = this._prepareUrl(url); // create the store the resource
 
-              for (let _i3 = 0; _i3 < incompleteChildren.length; ++_i3)
-              {
-                  incompleteChildren[_i3].progressChunk = eachChunk;
-              }
+      this.resources[name] = new Resource(name, url, options);
 
-              this.resources[name].progressChunk = eachChunk;
-          } // add the resource to the queue
+      if (typeof cb === 'function') {
+        this.resources[name].onAfterMiddleware.once(cb);
+      } // if actively loading, make sure to adjust progress chunks for that parent and its children
 
-          this._queue.push(this.resources[name]);
 
-          return this;
-      }
-      /* eslint-enable require-jsdoc,valid-jsdoc */
+      if (this.loading) {
+        var parent = options.parentResource;
+        var incompleteChildren = [];
 
-      /**
+        for (var _i2 = 0; _i2 < parent.children.length; ++_i2) {
+          if (!parent.children[_i2].isComplete) {
+            incompleteChildren.push(parent.children[_i2]);
+          }
+        }
+
+        var fullChunk = parent.progressChunk * (incompleteChildren.length + 1); // +1 for parent
+
+        var eachChunk = fullChunk / (incompleteChildren.length + 2); // +2 for parent & new child
+
+        parent.children.push(this.resources[name]);
+        parent.progressChunk = eachChunk;
+
+        for (var _i3 = 0; _i3 < incompleteChildren.length; ++_i3) {
+          incompleteChildren[_i3].progressChunk = eachChunk;
+        }
+
+        this.resources[name].progressChunk = eachChunk;
+      } // add the resource to the queue
+
+
+      this._queue.push(this.resources[name]);
+
+      return this;
+    }
+    /* eslint-enable require-jsdoc,valid-jsdoc */
+
+    /**
      * Sets up a middleware function that will run *before* the
      * resource is loaded.
      *
      * @param {function} fn - The middleware function to register.
      * @return {this} Returns itself.
      */
-      ;
+    ;
 
-      _proto.pre = function pre(fn)
-      {
-          this._beforeMiddleware.push(fn);
+    _proto.pre = function pre(fn) {
+      this._beforeMiddleware.push(fn);
 
-          return this;
-      }
-      /**
+      return this;
+    }
+    /**
      * Sets up a middleware function that will run *after* the
      * resource is loaded.
      *
      * @param {function} fn - The middleware function to register.
      * @return {this} Returns itself.
      */
-      ;
+    ;
 
-      _proto.use = function use(fn)
-      {
-          this._afterMiddleware.push(fn);
+    _proto.use = function use(fn) {
+      this._afterMiddleware.push(fn);
 
-          return this;
-      }
-      /**
+      return this;
+    }
+    /**
      * Resets the queue of the loader to prepare for a new load.
      *
      * @return {this} Returns itself.
      */
-      ;
+    ;
 
-      _proto.reset = function reset()
-      {
-          this.progress = 0;
-          this.loading = false;
+    _proto.reset = function reset() {
+      this.progress = 0;
+      this.loading = false;
 
-          this._queue.kill();
+      this._queue.kill();
 
-          this._queue.pause(); // abort all resource loads
+      this._queue.pause(); // abort all resource loads
 
-          for (const k in this.resources)
-          {
-              const res = this.resources[k];
 
-              if (res._onLoadBinding)
-              {
-                  res._onLoadBinding.detach();
-              }
+      for (var k in this.resources) {
+        var res = this.resources[k];
 
-              if (res.isLoading)
-              {
-                  res.abort();
-              }
-          }
+        if (res._onLoadBinding) {
+          res._onLoadBinding.detach();
+        }
 
-          this.resources = {};
-
-          return this;
+        if (res.isLoading) {
+          res.abort();
+        }
       }
-      /**
+
+      this.resources = {};
+      return this;
+    }
+    /**
      * Starts loading the queued resources.
      *
      * @param {function} [cb] - Optional callback that will be bound to the `complete` event.
      * @return {this} Returns itself.
      */
-      ;
+    ;
 
-      _proto.load = function load(cb)
-      {
+    _proto.load = function load(cb) {
       // register complete callback if they pass one
-          if (typeof cb === 'function')
-          {
-              this.onComplete.once(cb);
-          } // if the queue has already started we are done here
+      if (typeof cb === 'function') {
+        this.onComplete.once(cb);
+      } // if the queue has already started we are done here
 
-          if (this.loading)
-          {
-              return this;
-          }
 
-          if (this._queue.idle())
-          {
-              this._onStart();
-
-              this._onComplete();
-          }
-          else
-          {
-              // distribute progress chunks
-              const numTasks = this._queue._tasks.length;
-              const chunk = MAX_PROGRESS / numTasks;
-
-              for (let i = 0; i < this._queue._tasks.length; ++i)
-              {
-                  this._queue._tasks[i].data.progressChunk = chunk;
-              } // notify we are starting
-
-              this._onStart(); // start loading
-
-              this._queue.resume();
-          }
-
-          return this;
+      if (this.loading) {
+        return this;
       }
-      /**
+
+      if (this._queue.idle()) {
+        this._onStart();
+
+        this._onComplete();
+      } else {
+        // distribute progress chunks
+        var numTasks = this._queue._tasks.length;
+        var chunk = MAX_PROGRESS / numTasks;
+
+        for (var i = 0; i < this._queue._tasks.length; ++i) {
+          this._queue._tasks[i].data.progressChunk = chunk;
+        } // notify we are starting
+
+
+        this._onStart(); // start loading
+
+
+        this._queue.resume();
+      }
+
+      return this;
+    }
+    /**
      * The number of resources to load concurrently.
      *
      * @member {number}
      * @default 10
      */
-      ;
+    ;
 
-      /**
+    /**
      * Prepares a url for usage based on the configuration of this object
      *
      * @private
      * @param {string} url - The url to prepare.
      * @return {string} The prepared url.
      */
-      _proto._prepareUrl = function _prepareUrl(url)
-      {
-          const parsedUrl = src(url, {
-              strictMode: true
-          });
-          let result; // absolute url, just use it as is.
+    _proto._prepareUrl = function _prepareUrl(url) {
+      var parsedUrl = src(url, {
+        strictMode: true
+      });
+      var result; // absolute url, just use it as is.
 
-          if (parsedUrl.protocol || !parsedUrl.path || url.indexOf('//') === 0)
-          {
-              result = url;
-          } // if baseUrl doesn't end in slash and url doesn't start with slash, then add a slash inbetween
-          else if (this.baseUrl.length && this.baseUrl.lastIndexOf('/') !== this.baseUrl.length - 1 && url.charAt(0) !== '/')
-          {
-              result = `${this.baseUrl}/${url}`;
-          }
-          else
-          {
-              result = this.baseUrl + url;
-          } // if we need to add a default querystring, there is a bit more work
+      if (parsedUrl.protocol || !parsedUrl.path || url.indexOf('//') === 0) {
+        result = url;
+      } // if baseUrl doesn't end in slash and url doesn't start with slash, then add a slash inbetween
+      else if (this.baseUrl.length && this.baseUrl.lastIndexOf('/') !== this.baseUrl.length - 1 && url.charAt(0) !== '/') {
+          result = this.baseUrl + "/" + url;
+        } else {
+          result = this.baseUrl + url;
+        } // if we need to add a default querystring, there is a bit more work
 
-          if (this.defaultQueryString)
-          {
-              const hash = rgxExtractUrlHash.exec(result)[0];
 
-              result = result.substr(0, result.length - hash.length);
+      if (this.defaultQueryString) {
+        var hash = rgxExtractUrlHash.exec(result)[0];
+        result = result.substr(0, result.length - hash.length);
 
-              if (result.indexOf('?') !== -1)
-              {
-                  result += `&${this.defaultQueryString}`;
-              }
-              else
-              {
-                  result += `?${this.defaultQueryString}`;
-              }
+        if (result.indexOf('?') !== -1) {
+          result += "&" + this.defaultQueryString;
+        } else {
+          result += "?" + this.defaultQueryString;
+        }
 
-              result += hash;
-          }
-
-          return result;
+        result += hash;
       }
-      /**
+
+      return result;
+    }
+    /**
      * Loads a single resource.
      *
      * @private
      * @param {Resource} resource - The resource to load.
      * @param {function} dequeue - The function to call when we need to dequeue this item.
      */
-      ;
+    ;
 
-      _proto._loadResource = function _loadResource(resource, dequeue)
-      {
-          const _this2 = this;
+    _proto._loadResource = function _loadResource(resource, dequeue) {
+      var _this2 = this;
 
-          resource._dequeue = dequeue; // run before middleware
+      resource._dequeue = dequeue; // run before middleware
 
-          eachSeries(this._beforeMiddleware, function (fn, next)
-          {
-              fn.call(_this2, resource, function ()
-              {
-                  // if the before middleware marks the resource as complete,
-                  // break and don't process any more before middleware
-                  next(resource.isComplete ? {} : null);
-              });
-          }, function ()
-          {
-              if (resource.isComplete)
-              {
-                  _this2._onLoad(resource);
-              }
-              else
-              {
-                  resource._onLoadBinding = resource.onComplete.once(_this2._onLoad, _this2);
-                  resource.load();
-              }
-          }, true);
-      }
-      /**
+      eachSeries(this._beforeMiddleware, function (fn, next) {
+        fn.call(_this2, resource, function () {
+          // if the before middleware marks the resource as complete,
+          // break and don't process any more before middleware
+          next(resource.isComplete ? {} : null);
+        });
+      }, function () {
+        if (resource.isComplete) {
+          _this2._onLoad(resource);
+        } else {
+          resource._onLoadBinding = resource.onComplete.once(_this2._onLoad, _this2);
+          resource.load();
+        }
+      }, true);
+    }
+    /**
      * Called once loading has started.
      *
      * @private
      */
-      ;
+    ;
 
-      _proto._onStart = function _onStart()
-      {
-          this.progress = 0;
-          this.loading = true;
-          this.onStart.dispatch(this);
-      }
-      /**
+    _proto._onStart = function _onStart() {
+      this.progress = 0;
+      this.loading = true;
+      this.onStart.dispatch(this);
+    }
+    /**
      * Called once each resource has loaded.
      *
      * @private
      */
-      ;
+    ;
 
-      _proto._onComplete = function _onComplete()
-      {
-          this.progress = MAX_PROGRESS;
-          this.loading = false;
-          this.onComplete.dispatch(this, this.resources);
-      }
-      /**
+    _proto._onComplete = function _onComplete() {
+      this.progress = MAX_PROGRESS;
+      this.loading = false;
+      this.onComplete.dispatch(this, this.resources);
+    }
+    /**
      * Called each time a resources is loaded.
      *
      * @private
      * @param {Resource} resource - The resource that was loaded
      */
-      ;
+    ;
 
-      _proto._onLoad = function _onLoad(resource)
-      {
-          const _this3 = this;
+    _proto._onLoad = function _onLoad(resource) {
+      var _this3 = this;
 
-          resource._onLoadBinding = null; // remove this resource from the async queue, and add it to our list of resources that are being parsed
+      resource._onLoadBinding = null; // remove this resource from the async queue, and add it to our list of resources that are being parsed
 
-          this._resourcesParsing.push(resource);
+      this._resourcesParsing.push(resource);
 
-          resource._dequeue(); // run all the after middleware for this resource
+      resource._dequeue(); // run all the after middleware for this resource
 
-          eachSeries(this._afterMiddleware, function (fn, next)
-          {
-              fn.call(_this3, resource, next);
-          }, function ()
-          {
-              resource.onAfterMiddleware.dispatch(resource);
-              _this3.progress = Math.min(MAX_PROGRESS, _this3.progress + resource.progressChunk);
 
-              _this3.onProgress.dispatch(_this3, resource);
+      eachSeries(this._afterMiddleware, function (fn, next) {
+        fn.call(_this3, resource, next);
+      }, function () {
+        resource.onAfterMiddleware.dispatch(resource);
+        _this3.progress = Math.min(MAX_PROGRESS, _this3.progress + resource.progressChunk);
 
-              if (resource.error)
-              {
-                  _this3.onError.dispatch(resource.error, _this3, resource);
-              }
-              else
-              {
-                  _this3.onLoad.dispatch(_this3, resource);
-              }
+        _this3.onProgress.dispatch(_this3, resource);
 
-              _this3._resourcesParsing.splice(_this3._resourcesParsing.indexOf(resource), 1); // do completion check
+        if (resource.error) {
+          _this3.onError.dispatch(resource.error, _this3, resource);
+        } else {
+          _this3.onLoad.dispatch(_this3, resource);
+        }
 
-              if (_this3._queue.idle() && _this3._resourcesParsing.length === 0)
-              {
-                  _this3._onComplete();
-              }
-          }, true);
-      };
+        _this3._resourcesParsing.splice(_this3._resourcesParsing.indexOf(resource), 1); // do completion check
 
-      _createClass(Loader, [{
-          key: 'concurrency',
-          get: function get()
-          {
-              return this._queue.concurrency;
-          }, // eslint-disable-next-line require-jsdoc
-          set: function set(concurrency)
-          {
-              this._queue.concurrency = concurrency;
-          }
-      }]);
 
-      return Loader;
-  })();
-    /**
+        if (_this3._queue.idle() && _this3._resourcesParsing.length === 0) {
+          _this3._onComplete();
+        }
+      }, true);
+    };
+
+    _createClass(Loader, [{
+      key: "concurrency",
+      get: function get() {
+        return this._queue.concurrency;
+      } // eslint-disable-next-line require-jsdoc
+      ,
+      set: function set(concurrency) {
+        this._queue.concurrency = concurrency;
+      }
+    }]);
+
+    return Loader;
+  }();
+  /**
    * A default array of middleware to run before loading each resource.
    * Each of these middlewares are added to any new Loader instances when they are created.
    *
@@ -2823,8 +2541,9 @@ const _pixi_loaders = (function (exports, core)
    * @member {function[]}
    */
 
-    Loader._defaultBeforeMiddleware = [];
-    /**
+
+  Loader._defaultBeforeMiddleware = [];
+  /**
    * A default array of middleware to run after loading each resource.
    * Each of these middlewares are added to any new Loader instances when they are created.
    *
@@ -2832,8 +2551,8 @@ const _pixi_loaders = (function (exports, core)
    * @member {function[]}
    */
 
-    Loader._defaultAfterMiddleware = [];
-    /**
+  Loader._defaultAfterMiddleware = [];
+  /**
    * Sets up a middleware function that will run *before* the
    * resource is loaded.
    *
@@ -2842,13 +2561,12 @@ const _pixi_loaders = (function (exports, core)
    * @return {Loader} Returns itself.
    */
 
-    Loader.pre = function LoaderPreStatic(fn)
-    {
-        Loader._defaultBeforeMiddleware.push(fn);
+  Loader.pre = function LoaderPreStatic(fn) {
+    Loader._defaultBeforeMiddleware.push(fn);
 
-        return Loader;
-    };
-    /**
+    return Loader;
+  };
+  /**
    * Sets up a middleware function that will run *after* the
    * resource is loaded.
    *
@@ -2857,23 +2575,23 @@ const _pixi_loaders = (function (exports, core)
    * @return {Loader} Returns itself.
    */
 
-    Loader.use = function LoaderUseStatic(fn)
-    {
-        Loader._defaultAfterMiddleware.push(fn);
 
-        return Loader;
-    };
+  Loader.use = function LoaderUseStatic(fn) {
+    Loader._defaultAfterMiddleware.push(fn);
 
-    /**
+    return Loader;
+  };
+
+  /**
   * Reference to **{@link https://github.com/englercj/resource-loader
   * resource-loader}**'s Resource class.
   * @see http://englercj.github.io/resource-loader/Resource.html
   * @class LoaderResource
   * @memberof PIXI
   */
-    const LoaderResource = Resource;
+  var LoaderResource = Resource;
 
-    /* ! *****************************************************************************
+  /*! *****************************************************************************
   Copyright (c) Microsoft Corporation. All rights reserved.
   Licensed under the Apache License, Version 2.0 (the "License"); you may not use
   this file except in compliance with the License. You may obtain a copy of the
@@ -2887,307 +2605,209 @@ const _pixi_loaders = (function (exports, core)
   See the Apache Version 2.0 License for specific language governing permissions
   and limitations under the License.
   ***************************************************************************** */
-    /* global Reflect, Promise */
+  /* global Reflect, Promise */
 
-    var extendStatics = function (d, b)
-    {
-        extendStatics = Object.setPrototypeOf
-          || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
-          || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+  var extendStatics = function(d, b) {
+      extendStatics = Object.setPrototypeOf ||
+          ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+          function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+      return extendStatics(d, b);
+  };
 
-        return extendStatics(d, b);
-    };
+  function __extends(d, b) {
+      extendStatics(d, b);
+      function __() { this.constructor = d; }
+      d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  }
 
-    function __extends(d, b)
-    {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    }
+  var __assign = function() {
+      __assign = Object.assign || function __assign(t) {
+          var arguments$1 = arguments;
 
-    var __assign = function ()
-    {
-        __assign = Object.assign || function __assign(t)
-        {
-            const arguments$1 = arguments;
+          for (var s, i = 1, n = arguments.length; i < n; i++) {
+              s = arguments$1[i];
+              for (var p in s) { if (Object.prototype.hasOwnProperty.call(s, p)) { t[p] = s[p]; } }
+          }
+          return t;
+      };
+      return __assign.apply(this, arguments);
+  };
 
-            for (var s, i = 1, n = arguments.length; i < n; i++)
-            {
-                s = arguments$1[i];
-                for (const p in s) { if (Object.prototype.hasOwnProperty.call(s, p)) { t[p] = s[p]; } }
-            }
+  function __rest(s, e) {
+      var t = {};
+      for (var p in s) { if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+          { t[p] = s[p]; } }
+      if (s != null && typeof Object.getOwnPropertySymbols === "function")
+          { for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) { if (e.indexOf(p[i]) < 0)
+              { t[p[i]] = s[p[i]]; } } }
+      return t;
+  }
 
-            return t;
-        };
+  function __decorate(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if (typeof Reflect === "object" && typeof Reflect.decorate === "function") { r = Reflect.decorate(decorators, target, key, desc); }
+      else { for (var i = decorators.length - 1; i >= 0; i--) { if (d = decorators[i]) { r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r; } } }
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+  }
 
-        return __assign.apply(this, arguments);
-    };
+  function __param(paramIndex, decorator) {
+      return function (target, key) { decorator(target, key, paramIndex); }
+  }
 
-    function __rest(s, e)
-    {
-        const t = {};
+  function __metadata(metadataKey, metadataValue) {
+      if (typeof Reflect === "object" && typeof Reflect.metadata === "function") { return Reflect.metadata(metadataKey, metadataValue); }
+  }
 
-        for (var p in s)
-        {
-            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            { t[p] = s[p]; }
-        }
-        if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-        {
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++)
-            {
-                if (e.indexOf(p[i]) < 0)
-                { t[p[i]] = s[p[i]]; }
-            }
-        }
+  function __awaiter(thisArg, _arguments, P, generator) {
+      return new (P || (P = Promise))(function (resolve, reject) {
+          function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+          function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+          function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+          step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+  }
 
-        return t;
-    }
+  function __generator(thisArg, body) {
+      var _ = { label: 0, sent: function() { if (t[0] & 1) { throw t[1]; } return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+      return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+      function verb(n) { return function (v) { return step([n, v]); }; }
+      function step(op) {
+          if (f) { throw new TypeError("Generator is already executing."); }
+          while (_) { try {
+              if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) { return t; }
+              if (y = 0, t) { op = [op[0] & 2, t.value]; }
+              switch (op[0]) {
+                  case 0: case 1: t = op; break;
+                  case 4: _.label++; return { value: op[1], done: false };
+                  case 5: _.label++; y = op[1]; op = [0]; continue;
+                  case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                  default:
+                      if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                      if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                      if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                      if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                      if (t[2]) { _.ops.pop(); }
+                      _.trys.pop(); continue;
+              }
+              op = body.call(thisArg, _);
+          } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; } }
+          if (op[0] & 5) { throw op[1]; } return { value: op[0] ? op[1] : void 0, done: true };
+      }
+  }
 
-    function __decorate(decorators, target, key, desc)
-    {
-        const c = arguments.length; let r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc; let
-            d;
+  function __exportStar(m, exports) {
+      for (var p in m) { if (!exports.hasOwnProperty(p)) { exports[p] = m[p]; } }
+  }
 
-        if (typeof Reflect === 'object' && typeof Reflect.decorate === 'function') { r = Reflect.decorate(decorators, target, key, desc); }
-        else { for (let i = decorators.length - 1; i >= 0; i--) { if (d = decorators[i]) { r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r; } } }
+  function __values(o) {
+      var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+      if (m) { return m.call(o); }
+      return {
+          next: function () {
+              if (o && i >= o.length) { o = void 0; }
+              return { value: o && o[i++], done: !o };
+          }
+      };
+  }
 
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-    }
+  function __read(o, n) {
+      var m = typeof Symbol === "function" && o[Symbol.iterator];
+      if (!m) { return o; }
+      var i = m.call(o), r, ar = [], e;
+      try {
+          while ((n === void 0 || n-- > 0) && !(r = i.next()).done) { ar.push(r.value); }
+      }
+      catch (error) { e = { error: error }; }
+      finally {
+          try {
+              if (r && !r.done && (m = i["return"])) { m.call(i); }
+          }
+          finally { if (e) { throw e.error; } }
+      }
+      return ar;
+  }
 
-    function __param(paramIndex, decorator)
-    {
-        return function (target, key) { decorator(target, key, paramIndex); };
-    }
+  function __spread() {
+      var arguments$1 = arguments;
 
-    function __metadata(metadataKey, metadataValue)
-    {
-        if (typeof Reflect === 'object' && typeof Reflect.metadata === 'function') { return Reflect.metadata(metadataKey, metadataValue); }
-    }
+      for (var ar = [], i = 0; i < arguments.length; i++)
+          { ar = ar.concat(__read(arguments$1[i])); }
+      return ar;
+  }
 
-    function __awaiter(thisArg, _arguments, P, generator)
-    {
-        return new (P || (P = Promise))(function (resolve, reject)
-        {
-            function fulfilled(value)
-            {
-                try { step(generator.next(value)); }
-                catch (e) { reject(e); }
-            }
-            function rejected(value)
-            {
-                try { step(generator.throw(value)); }
-                catch (e) { reject(e); }
-            }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-    }
+  function __await(v) {
+      return this instanceof __await ? (this.v = v, this) : new __await(v);
+  }
 
-    function __generator(thisArg, body)
-    {
-        let _ = { label: 0, sent()
-        {
-            if (t[0] & 1) { throw t[1]; }
+  function __asyncGenerator(thisArg, _arguments, generator) {
+      if (!Symbol.asyncIterator) { throw new TypeError("Symbol.asyncIterator is not defined."); }
+      var g = generator.apply(thisArg, _arguments || []), i, q = [];
+      return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+      function verb(n) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; } }
+      function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+      function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+      function fulfill(value) { resume("next", value); }
+      function reject(value) { resume("throw", value); }
+      function settle(f, v) { if (f(v), q.shift(), q.length) { resume(q[0][0], q[0][1]); } }
+  }
 
-            return t[1];
-        }, trys: [], ops: [] }; let f; let y; let t; let
-            g;
+  function __asyncDelegator(o) {
+      var i, p;
+      return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+      function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+  }
 
-        return g = { next: verb(0), throw: verb(1), return: verb(2) }, typeof Symbol === 'function' && (g[Symbol.iterator] = function () { return this; }), g;
-        function verb(n) { return function (v) { return step([n, v]); }; }
-        function step(op)
-        {
-            if (f) { throw new TypeError('Generator is already executing.'); }
-            while (_)
-            {
-                try
-                {
-                    if (f = 1, y && (t = op[0] & 2 ? y.return : op[0] ? y.throw || ((t = y.return) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) { return t; }
-                    if (y = 0, t) { op = [op[0] & 2, t.value]; }
-                    switch (op[0])
-                    {
-                        case 0: case 1: t = op; break;
-                        case 4: _.label++;
+  function __asyncValues(o) {
+      if (!Symbol.asyncIterator) { throw new TypeError("Symbol.asyncIterator is not defined."); }
+      var m = o[Symbol.asyncIterator], i;
+      return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+      function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+      function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+  }
 
-                            return { value: op[1], done: false };
-                        case 5: _.label++; y = op[1]; op = [0]; continue;
-                        case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                        default:
-                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                            if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                            if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                            if (t[2]) { _.ops.pop(); }
-                            _.trys.pop(); continue;
-                    }
-                    op = body.call(thisArg, _);
-                }
-                catch (e) { op = [6, e]; y = 0; }
-                finally { f = t = 0; }
-            }
-            if (op[0] & 5) { throw op[1]; }
+  function __makeTemplateObject(cooked, raw) {
+      if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+      return cooked;
+  };
 
-            return { value: op[0] ? op[1] : void 0, done: true };
-        }
-    }
+  function __importStar(mod) {
+      if (mod && mod.__esModule) { return mod; }
+      var result = {};
+      if (mod != null) { for (var k in mod) { if (Object.hasOwnProperty.call(mod, k)) { result[k] = mod[k]; } } }
+      result.default = mod;
+      return result;
+  }
 
-    function __exportStar(m, exports)
-    {
-        for (const p in m) { if (!exports.hasOwnProperty(p)) { exports[p] = m[p]; } }
-    }
+  function __importDefault(mod) {
+      return (mod && mod.__esModule) ? mod : { default: mod };
+  }
 
-    function __values(o)
-    {
-        const m = typeof Symbol === 'function' && o[Symbol.iterator]; let
-            i = 0;
-
-        if (m) { return m.call(o); }
-
-        return {
-            next()
-            {
-                if (o && i >= o.length) { o = void 0; }
-
-                return { value: o && o[i++], done: !o };
-            }
-        };
-    }
-
-    function __read(o, n)
-    {
-        let m = typeof Symbol === 'function' && o[Symbol.iterator];
-
-        if (!m) { return o; }
-        const i = m.call(o); let r; const ar = []; let
-            e;
-
-        try
-        {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) { ar.push(r.value); }
-        }
-        catch (error) { e = { error }; }
-        finally
-        {
-            try
-            {
-                if (r && !r.done && (m = i.return)) { m.call(i); }
-            }
-            finally { if (e) { throw e.error; } }
-        }
-
-        return ar;
-    }
-
-    function __spread()
-    {
-        const arguments$1 = arguments;
-
-        for (var ar = [], i = 0; i < arguments.length; i++)
-        { ar = ar.concat(__read(arguments$1[i])); }
-
-        return ar;
-    }
-
-    function __await(v)
-    {
-        return this instanceof __await ? (this.v = v, this) : new __await(v);
-    }
-
-    function __asyncGenerator(thisArg, _arguments, generator)
-    {
-        if (!Symbol.asyncIterator) { throw new TypeError('Symbol.asyncIterator is not defined.'); }
-        const g = generator.apply(thisArg, _arguments || []); let i; const
-            q = [];
-
-        return i = {}, verb('next'), verb('throw'), verb('return'), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; } }
-        function resume(n, v)
-        {
-            try { step(g[n](v)); }
-            catch (e) { settle(q[0][3], e); }
-        }
-        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-        function fulfill(value) { resume('next', value); }
-        function reject(value) { resume('throw', value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) { resume(q[0][0], q[0][1]); } }
-    }
-
-    function __asyncDelegator(o)
-    {
-        let i; let
-            p;
-
-        return i = {}, verb('next'), verb('throw', function (e) { throw e; }), verb('return'), i[Symbol.iterator] = function () { return this; }, i;
-        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === 'return' } : f ? f(v) : v; } : f; }
-    }
-
-    function __asyncValues(o)
-    {
-        if (!Symbol.asyncIterator) { throw new TypeError('Symbol.asyncIterator is not defined.'); }
-        const m = o[Symbol.asyncIterator]; let
-            i;
-
-        return m ? m.call(o) : (o = typeof __values === 'function' ? __values(o) : o[Symbol.iterator](), i = {}, verb('next'), verb('throw'), verb('return'), i[Symbol.asyncIterator] = function () { return this; }, i);
-        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function (v) { resolve({ value: v, done: d }); }, reject); }
-    }
-
-    function __makeTemplateObject(cooked, raw)
-    {
-        if (Object.defineProperty) { Object.defineProperty(cooked, 'raw', { value: raw }); }
-        else { cooked.raw = raw; }
-
-        return cooked;
-    }
-
-    function __importStar(mod)
-    {
-        if (mod && mod.__esModule) { return mod; }
-        const result = {};
-
-        if (mod != null) { for (const k in mod) { if (Object.hasOwnProperty.call(mod, k)) { result[k] = mod[k]; } } }
-        result.default = mod;
-
-        return result;
-    }
-
-    function __importDefault(mod)
-    {
-        return (mod && mod.__esModule) ? mod : { default: mod };
-    }
-
-    /**
+  /**
    * Loader plugin for handling Texture resources.
    * @class
    * @memberof PIXI
    * @implements PIXI.ILoaderPlugin
    */
-    const TextureLoader = /** @class */ (function ()
-    {
-        function TextureLoader()
-        {
-        }
-        /**
+  var TextureLoader = /** @class */ (function () {
+      function TextureLoader() {
+      }
+      /**
        * Called after a resource is loaded.
        * @see PIXI.Loader.loaderMiddleware
        * @param {PIXI.LoaderResource} resource
        * @param {function} next
        */
-        TextureLoader.use = function (resource, next)
-        {
-            // create a new texture if the data is an Image object
-            if (resource.data && resource.type === Resource.TYPE.IMAGE)
-            {
-                resource.texture = core.Texture.fromLoader(resource.data, resource.url, resource.name);
-            }
-            next();
-        };
+      TextureLoader.use = function (resource, next) {
+          // create a new texture if the data is an Image object
+          if (resource.data && resource.type === Resource.TYPE.IMAGE) {
+              resource.texture = core.Texture.fromLoader(resource.data, resource.url, resource.name);
+          }
+          next();
+      };
+      return TextureLoader;
+  }());
 
-        return TextureLoader;
-    })();
-
-    /**
+  /**
    * The new loader, extends Resource Loader by Chad Engler: https://github.com/englercj/resource-loader
    *
    * ```js
@@ -3238,76 +2858,61 @@ const _pixi_loaders = (function (exports, core)
    * @param {string} [baseUrl=''] - The base url for all resources loaded by this loader.
    * @param {number} [concurrency=10] - The number of resources to load concurrently.
    */
-    const Loader$1 = /** @class */ (function (_super)
-    {
-        __extends(Loader, _super);
-        function Loader(baseUrl, concurrency)
-        {
-            const _this = _super.call(this, baseUrl, concurrency) || this;
-
-            for (let i = 0; i < Loader._plugins.length; ++i)
-            {
-                const plugin = Loader._plugins[i];
-                const pre = plugin.pre; const
-                    use = plugin.use;
-
-                if (pre)
-                {
-                    _this.pre(pre);
-                }
-                if (use)
-                {
-                    _this.use(use);
-                }
-            }
-            /**
+  var Loader$1 = /** @class */ (function (_super) {
+      __extends(Loader, _super);
+      function Loader(baseUrl, concurrency) {
+          var _this = _super.call(this, baseUrl, concurrency) || this;
+          for (var i = 0; i < Loader._plugins.length; ++i) {
+              var plugin = Loader._plugins[i];
+              var pre = plugin.pre, use = plugin.use;
+              if (pre) {
+                  _this.pre(pre);
+              }
+              if (use) {
+                  _this.use(use);
+              }
+          }
+          /**
            * If this loader cannot be destroyed.
            * @member {boolean}
            * @default false
            * @private
            */
-            _this._protected = false;
-
-            return _this;
-        }
-        /**
+          _this._protected = false;
+          return _this;
+      }
+      /**
        * Destroy the loader, removes references.
        * @memberof PIXI.Loader#
        * @method destroy
        * @public
        */
-        Loader.prototype.destroy = function ()
-        {
-            if (!this._protected)
-            {
-                this.reset();
-            }
-        };
-        Object.defineProperty(Loader, 'shared', {
-            /**
+      Loader.prototype.destroy = function () {
+          if (!this._protected) {
+              this.reset();
+          }
+      };
+      Object.defineProperty(Loader, "shared", {
+          /**
            * A premade instance of the loader that can be used to load resources.
            * @name shared
            * @type {PIXI.Loader}
            * @static
            * @memberof PIXI.Loader
            */
-            get()
-            {
-                let shared = Loader._shared;
-
-                if (!shared)
-                {
-                    shared = new Loader();
-                    shared._protected = true;
-                    Loader._shared = shared;
-                }
-
-                return shared;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        /**
+          get: function () {
+              var shared = Loader._shared;
+              if (!shared) {
+                  shared = new Loader();
+                  shared._protected = true;
+                  Loader._shared = shared;
+              }
+              return shared;
+          },
+          enumerable: false,
+          configurable: true
+      });
+      /**
        * Adds a Loader plugin for the global shared loader and all
        * new Loader instances created.
        *
@@ -3317,17 +2922,14 @@ const _pixi_loaders = (function (exports, core)
        * @param {PIXI.ILoaderPlugin} plugin - The plugin to add
        * @return {PIXI.Loader} Reference to PIXI.Loader for chaining
        */
-        Loader.registerPlugin = function (plugin)
-        {
-            Loader._plugins.push(plugin);
-            if (plugin.add)
-            {
-                plugin.add();
-            }
-
-            return Loader;
-        };
-        /**
+      Loader.registerPlugin = function (plugin) {
+          Loader._plugins.push(plugin);
+          if (plugin.add) {
+              plugin.add();
+          }
+          return Loader;
+      };
+      /**
        * Collection of all installed `use` middleware for Loader.
        *
        * @static
@@ -3335,16 +2937,14 @@ const _pixi_loaders = (function (exports, core)
        * @memberof PIXI.Loader
        * @private
        */
-        Loader._plugins = [];
-
-        return Loader;
-    })(Loader);
-    // parse any blob into more usable objects (e.g. Image)
-
-    Loader$1.registerPlugin({ use: index.parsing });
-    // parse any Image objects into textures
-    Loader$1.registerPlugin(TextureLoader);
-    /**
+      Loader._plugins = [];
+      return Loader;
+  }(Loader));
+  // parse any blob into more usable objects (e.g. Image)
+  Loader$1.registerPlugin({ use: index.parsing });
+  // parse any Image objects into textures
+  Loader$1.registerPlugin(TextureLoader);
+  /**
    * Plugin to be installed for handling specific Loader resources.
    *
    * @memberof PIXI
@@ -3355,62 +2955,62 @@ const _pixi_loaders = (function (exports, core)
    * @property {PIXI.Loader.loaderMiddleware} [use] - Middleware function to run after load, the
    *           arguments for this are `(resource, next)`
    */
-    /**
+  /**
    * @memberof PIXI.Loader
    * @typedef {object} ICallbackID
    */
-    /**
+  /**
    * @memberof PIXI.Loader
    * @typedef {function} ISignalCallback
    * @param {function} callback - Callback function
    * @param {object} [context] - Context
    * @returns {ICallbackID} - CallbackID
    */
-    /**
+  /**
    * @memberof PIXI.Loader
    * @typedef {function} ISignalDetach
    * @param {ICallbackID} id - CallbackID returned by `add`/`once` methods
    */
-    /**
+  /**
    * @memberof PIXI.Loader
    * @typedef ILoaderSignal
    * @property {ISignalCallback} add - Register callback
    * @property {ISignalCallback} once - Register oneshot callback
    * @property {ISignalDetach} detach - Detach specific callback by ID
    */
-    /**
+  /**
    * @memberof PIXI.Loader
    * @callback loaderMiddleware
    * @param {PIXI.LoaderResource} resource
    * @param {function} next
    */
-    /**
+  /**
    * @memberof PIXI.Loader#
    * @description Dispatched when the loader begins to loading process.
    * @member {PIXI.Loader.ILoaderSignal} onStart
    */
-    /**
+  /**
    * @memberof PIXI.Loader#
    * @description Dispatched once per loaded or errored resource.
    * @member {PIXI.Loader.ILoaderSignal} onProgress
    */
-    /**
+  /**
    * @memberof PIXI.Loader#
    * @description Dispatched once per errored resource.
    * @member {PIXI.Loader.ILoaderSignal} onError
    */
-    /**
+  /**
    * @memberof PIXI.Loader#
    * @description Dispatched once per loaded resource.
    * @member {PIXI.Loader.ILoaderSignal} onLoad
    */
-    /**
+  /**
    * @memberof PIXI.Loader#
    * @description Dispatched when completely loaded all resources.
    * @member {PIXI.Loader.ILoaderSignal} onComplete
    */
 
-    /**
+  /**
    * Application plugin for supporting loader option. Installing the LoaderPlugin
    * is not necessary if using **pixi.js** or **pixi.js-legacy**.
    * @example
@@ -3420,52 +3020,46 @@ const _pixi_loaders = (function (exports, core)
    * @class
    * @memberof PIXI
    */
-    const AppLoaderPlugin = /** @class */ (function ()
-    {
-        function AppLoaderPlugin()
-        {
-        }
-        /**
+  var AppLoaderPlugin = /** @class */ (function () {
+      function AppLoaderPlugin() {
+      }
+      /**
        * Called on application constructor
        * @param {object} options
        * @private
        */
-        AppLoaderPlugin.init = function (options)
-        {
-            options = Object.assign({
-                sharedLoader: false,
-            }, options);
-            /**
+      AppLoaderPlugin.init = function (options) {
+          options = Object.assign({
+              sharedLoader: false,
+          }, options);
+          /**
            * Loader instance to help with asset loading.
            * @name PIXI.Application#loader
            * @type {PIXI.Loader}
            * @readonly
            */
-            this.loader = options.sharedLoader ? Loader$1.shared : new Loader$1();
-        };
-        /**
+          this.loader = options.sharedLoader ? Loader$1.shared : new Loader$1();
+      };
+      /**
        * Called when application destroyed
        * @private
        */
-        AppLoaderPlugin.destroy = function ()
-        {
-            if (this.loader)
-            {
-                this.loader.destroy();
-                this.loader = null;
-            }
-        };
+      AppLoaderPlugin.destroy = function () {
+          if (this.loader) {
+              this.loader.destroy();
+              this.loader = null;
+          }
+      };
+      return AppLoaderPlugin;
+  }());
 
-        return AppLoaderPlugin;
-    })();
+  exports.AppLoaderPlugin = AppLoaderPlugin;
+  exports.Loader = Loader$1;
+  exports.LoaderResource = LoaderResource;
+  exports.TextureLoader = TextureLoader;
 
-    exports.AppLoaderPlugin = AppLoaderPlugin;
-    exports.Loader = Loader$1;
-    exports.LoaderResource = LoaderResource;
-    exports.TextureLoader = TextureLoader;
+  return exports;
 
-    return exports;
-})({}, PIXI);
-
+}({}, PIXI));
 Object.assign(this.PIXI, _pixi_loaders);
-// # sourceMappingURL=loaders.js.map
+//# sourceMappingURL=loaders.js.map

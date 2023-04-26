@@ -7,6 +7,7 @@ const OFFSET = 1;
 const CULLING = 2;
 const DEPTH_TEST = 3;
 const WINDING = 4;
+const DEPTH_MASK = 5;
 
 /**
  * This is a WebGL state, and is is passed The WebGL StateManager.
@@ -31,7 +32,7 @@ export class State
         this.polygonOffset = 0;
 
         this.blend = true;
-        //  this.depthTest = true;
+        this.depthMask = true;
     }
 
     /**
@@ -106,6 +107,23 @@ export class State
         if (!!(this.data & (1 << DEPTH_TEST)) !== value)
         {
             this.data ^= (1 << DEPTH_TEST);
+        }
+    }
+
+    /**
+     * Enables or disables writing to the depth buffer.
+     * @default true
+     */
+    get depthMask(): boolean
+    {
+        return !!(this.data & (1 << DEPTH_MASK));
+    }
+
+    set depthMask(value: boolean)
+    {
+        if (!!(this.data & (1 << DEPTH_MASK)) !== value)
+        {
+            this.data ^= (1 << DEPTH_MASK);
         }
     }
 

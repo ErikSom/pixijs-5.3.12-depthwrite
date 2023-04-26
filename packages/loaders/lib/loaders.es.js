@@ -1,6 +1,6 @@
-/* !
+/*!
  * @pixi/loaders - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/loaders is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -15,9 +15,9 @@ import { Texture } from '@pixi/core';
 * @class LoaderResource
 * @memberof PIXI
 */
-const LoaderResource = Resource;
+var LoaderResource = Resource;
 
-/* ! *****************************************************************************
+/*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -33,17 +33,14 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function (d, b)
-{
-    extendStatics = Object.setPrototypeOf
-        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
-        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
-
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
     return extendStatics(d, b);
 };
 
-function __extends(d, b)
-{
+function __extends(d, b) {
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -55,10 +52,8 @@ function __extends(d, b)
  * @memberof PIXI
  * @implements PIXI.ILoaderPlugin
  */
-const TextureLoader = /** @class */ (function ()
-{
-    function TextureLoader()
-    {
+var TextureLoader = /** @class */ (function () {
+    function TextureLoader() {
     }
     /**
      * Called after a resource is loaded.
@@ -66,18 +61,15 @@ const TextureLoader = /** @class */ (function ()
      * @param {PIXI.LoaderResource} resource
      * @param {function} next
      */
-    TextureLoader.use = function (resource, next)
-    {
+    TextureLoader.use = function (resource, next) {
         // create a new texture if the data is an Image object
-        if (resource.data && resource.type === Resource.TYPE.IMAGE)
-        {
+        if (resource.data && resource.type === Resource.TYPE.IMAGE) {
             resource.texture = Texture.fromLoader(resource.data, resource.url, resource.name);
         }
         next();
     };
-
     return TextureLoader;
-})();
+}());
 
 /**
  * The new loader, extends Resource Loader by Chad Engler: https://github.com/englercj/resource-loader
@@ -130,25 +122,17 @@ const TextureLoader = /** @class */ (function ()
  * @param {string} [baseUrl=''] - The base url for all resources loaded by this loader.
  * @param {number} [concurrency=10] - The number of resources to load concurrently.
  */
-const Loader = /** @class */ (function (_super)
-{
+var Loader = /** @class */ (function (_super) {
     __extends(Loader, _super);
-    function Loader(baseUrl, concurrency)
-    {
-        const _this = _super.call(this, baseUrl, concurrency) || this;
-
-        for (let i = 0; i < Loader._plugins.length; ++i)
-        {
-            const plugin = Loader._plugins[i];
-            const pre = plugin.pre; const
-                use = plugin.use;
-
-            if (pre)
-            {
+    function Loader(baseUrl, concurrency) {
+        var _this = _super.call(this, baseUrl, concurrency) || this;
+        for (var i = 0; i < Loader._plugins.length; ++i) {
+            var plugin = Loader._plugins[i];
+            var pre = plugin.pre, use = plugin.use;
+            if (pre) {
                 _this.pre(pre);
             }
-            if (use)
-            {
+            if (use) {
                 _this.use(use);
             }
         }
@@ -159,7 +143,6 @@ const Loader = /** @class */ (function (_super)
          * @private
          */
         _this._protected = false;
-
         return _this;
     }
     /**
@@ -168,14 +151,12 @@ const Loader = /** @class */ (function (_super)
      * @method destroy
      * @public
      */
-    Loader.prototype.destroy = function ()
-    {
-        if (!this._protected)
-        {
+    Loader.prototype.destroy = function () {
+        if (!this._protected) {
             this.reset();
         }
     };
-    Object.defineProperty(Loader, 'shared', {
+    Object.defineProperty(Loader, "shared", {
         /**
          * A premade instance of the loader that can be used to load resources.
          * @name shared
@@ -183,17 +164,13 @@ const Loader = /** @class */ (function (_super)
          * @static
          * @memberof PIXI.Loader
          */
-        get()
-        {
-            let shared = Loader._shared;
-
-            if (!shared)
-            {
+        get: function () {
+            var shared = Loader._shared;
+            if (!shared) {
                 shared = new Loader();
                 shared._protected = true;
                 Loader._shared = shared;
             }
-
             return shared;
         },
         enumerable: false,
@@ -209,14 +186,11 @@ const Loader = /** @class */ (function (_super)
      * @param {PIXI.ILoaderPlugin} plugin - The plugin to add
      * @return {PIXI.Loader} Reference to PIXI.Loader for chaining
      */
-    Loader.registerPlugin = function (plugin)
-    {
+    Loader.registerPlugin = function (plugin) {
         Loader._plugins.push(plugin);
-        if (plugin.add)
-        {
+        if (plugin.add) {
             plugin.add();
         }
-
         return Loader;
     };
     /**
@@ -228,11 +202,9 @@ const Loader = /** @class */ (function (_super)
      * @private
      */
     Loader._plugins = [];
-
     return Loader;
-})(Loader$1);
+}(Loader$1));
 // parse any blob into more usable objects (e.g. Image)
-
 Loader.registerPlugin({ use: middleware.parsing });
 // parse any Image objects into textures
 Loader.registerPlugin(TextureLoader);
@@ -312,18 +284,15 @@ Loader.registerPlugin(TextureLoader);
  * @class
  * @memberof PIXI
  */
-const AppLoaderPlugin = /** @class */ (function ()
-{
-    function AppLoaderPlugin()
-    {
+var AppLoaderPlugin = /** @class */ (function () {
+    function AppLoaderPlugin() {
     }
     /**
      * Called on application constructor
      * @param {object} options
      * @private
      */
-    AppLoaderPlugin.init = function (options)
-    {
+    AppLoaderPlugin.init = function (options) {
         options = Object.assign({
             sharedLoader: false,
         }, options);
@@ -339,17 +308,14 @@ const AppLoaderPlugin = /** @class */ (function ()
      * Called when application destroyed
      * @private
      */
-    AppLoaderPlugin.destroy = function ()
-    {
-        if (this.loader)
-        {
+    AppLoaderPlugin.destroy = function () {
+        if (this.loader) {
             this.loader.destroy();
             this.loader = null;
         }
     };
-
     return AppLoaderPlugin;
-})();
+}());
 
 export { AppLoaderPlugin, Loader, LoaderResource, TextureLoader };
-// # sourceMappingURL=loaders.es.js.map
+//# sourceMappingURL=loaders.es.js.map

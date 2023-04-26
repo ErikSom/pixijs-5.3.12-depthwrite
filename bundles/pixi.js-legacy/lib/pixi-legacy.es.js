@@ -1,6 +1,6 @@
-/* !
+/*!
  * pixi.js-legacy - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * pixi.js-legacy is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -31,4 +31,4 @@ CanvasRenderer.registerPlugin('interaction', InteractionManager);
 CanvasRenderer.registerPlugin('mesh', CanvasMeshRenderer);
 CanvasRenderer.registerPlugin('prepare', CanvasPrepare);
 CanvasRenderer.registerPlugin('sprite', CanvasSpriteRenderer);
-// # sourceMappingURL=pixi-legacy.es.js.map
+//# sourceMappingURL=pixi-legacy.es.js.map

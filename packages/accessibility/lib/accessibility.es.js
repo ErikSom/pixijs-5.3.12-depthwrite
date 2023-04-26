@@ -1,6 +1,6 @@
-/* !
+/*!
  * @pixi/accessibility - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/accessibility is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -24,7 +24,7 @@ import { isMobile, removeItems } from '@pixi/utils';
  *          PIXI.accessibleTarget
  *      );
  */
-const accessibleTarget = {
+var accessibleTarget = {
     /**
      *  Flag for if the object is accessible. If true AccessibilityManager will overlay a
      *   shadow div with attributes set
@@ -99,15 +99,15 @@ const accessibleTarget = {
 
 // add some extra variables to the container..
 DisplayObject.mixin(accessibleTarget);
-const KEY_CODE_TAB = 9;
-const DIV_TOUCH_SIZE = 100;
-const DIV_TOUCH_POS_X = 0;
-const DIV_TOUCH_POS_Y = 0;
-const DIV_TOUCH_ZINDEX = 2;
-const DIV_HOOK_SIZE = 1;
-const DIV_HOOK_POS_X = -1000;
-const DIV_HOOK_POS_Y = -1000;
-const DIV_HOOK_ZINDEX = 2;
+var KEY_CODE_TAB = 9;
+var DIV_TOUCH_SIZE = 100;
+var DIV_TOUCH_POS_X = 0;
+var DIV_TOUCH_POS_Y = 0;
+var DIV_TOUCH_ZINDEX = 2;
+var DIV_HOOK_SIZE = 1;
+var DIV_HOOK_POS_X = -1000;
+var DIV_HOOK_POS_Y = -1000;
+var DIV_HOOK_ZINDEX = 2;
 /**
  * The Accessibility manager recreates the ability to tab and have content read by screen readers.
  * This is very important as it can possibly help people with disabilities access PixiJS content.
@@ -120,30 +120,26 @@ const DIV_HOOK_ZINDEX = 2;
  * @class
  * @memberof PIXI
  */
-const AccessibilityManager = /** @class */ (function ()
-{
+var AccessibilityManager = /** @class */ (function () {
     /**
      * @param {PIXI.CanvasRenderer|PIXI.Renderer} renderer - A reference to the current renderer
      */
-    function AccessibilityManager(renderer)
-    {
+    function AccessibilityManager(renderer) {
         /**
          * @type {?HTMLElement}
          * @private
          */
         this._hookDiv = null;
-        if (isMobile.tablet || isMobile.phone)
-        {
+        if (isMobile.tablet || isMobile.phone) {
             this.createTouchHook();
         }
         // first we create a div that will sit over the PixiJS element. This is where the div overlays will go.
-        const div = document.createElement('div');
-
-        div.style.width = `${DIV_TOUCH_SIZE}px`;
-        div.style.height = `${DIV_TOUCH_SIZE}px`;
+        var div = document.createElement('div');
+        div.style.width = DIV_TOUCH_SIZE + "px";
+        div.style.height = DIV_TOUCH_SIZE + "px";
         div.style.position = 'absolute';
-        div.style.top = `${DIV_TOUCH_POS_X}px`;
-        div.style.left = `${DIV_TOUCH_POS_Y}px`;
+        div.style.top = DIV_TOUCH_POS_X + "px";
+        div.style.left = DIV_TOUCH_POS_Y + "px";
         div.style.zIndex = DIV_TOUCH_ZINDEX.toString();
         /**
          * This is the dom element that will sit over the PixiJS element. This is where the div overlays will go.
@@ -215,27 +211,25 @@ const AccessibilityManager = /** @class */ (function ()
         // let listen for tab.. once pressed we can fire up and show the accessibility layer
         window.addEventListener('keydown', this._onKeyDown, false);
     }
-    Object.defineProperty(AccessibilityManager.prototype, 'isActive', {
+    Object.defineProperty(AccessibilityManager.prototype, "isActive", {
         /**
          * A flag
          * @member {boolean}
          * @readonly
          */
-        get()
-        {
+        get: function () {
             return this._isActive;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(AccessibilityManager.prototype, 'isMobileAccessibility', {
+    Object.defineProperty(AccessibilityManager.prototype, "isMobileAccessibility", {
         /**
          * A flag
          * @member {boolean}
          * @readonly
          */
-        get()
-        {
+        get: function () {
             return this._isMobileAccessibility;
         },
         enumerable: false,
@@ -246,21 +240,18 @@ const AccessibilityManager = /** @class */ (function ()
      *
      * @private
      */
-    AccessibilityManager.prototype.createTouchHook = function ()
-    {
-        const _this = this;
-        const hookDiv = document.createElement('button');
-
-        hookDiv.style.width = `${DIV_HOOK_SIZE}px`;
-        hookDiv.style.height = `${DIV_HOOK_SIZE}px`;
+    AccessibilityManager.prototype.createTouchHook = function () {
+        var _this = this;
+        var hookDiv = document.createElement('button');
+        hookDiv.style.width = DIV_HOOK_SIZE + "px";
+        hookDiv.style.height = DIV_HOOK_SIZE + "px";
         hookDiv.style.position = 'absolute';
-        hookDiv.style.top = `${DIV_HOOK_POS_X}px`;
-        hookDiv.style.left = `${DIV_HOOK_POS_Y}px`;
+        hookDiv.style.top = DIV_HOOK_POS_X + "px";
+        hookDiv.style.left = DIV_HOOK_POS_Y + "px";
         hookDiv.style.zIndex = DIV_HOOK_ZINDEX.toString();
         hookDiv.style.backgroundColor = '#FF0000';
         hookDiv.title = 'select to enable accessability for this content';
-        hookDiv.addEventListener('focus', function ()
-        {
+        hookDiv.addEventListener('focus', function () {
             _this._isMobileAccessibility = true;
             _this.activate();
             _this.destroyTouchHook();
@@ -273,10 +264,8 @@ const AccessibilityManager = /** @class */ (function ()
      *
      * @private
      */
-    AccessibilityManager.prototype.destroyTouchHook = function ()
-    {
-        if (!this._hookDiv)
-        {
+    AccessibilityManager.prototype.destroyTouchHook = function () {
+        if (!this._hookDiv) {
             return;
         }
         document.body.removeChild(this._hookDiv);
@@ -288,10 +277,8 @@ const AccessibilityManager = /** @class */ (function ()
      *
      * @private
      */
-    AccessibilityManager.prototype.activate = function ()
-    {
-        if (this._isActive)
-        {
+    AccessibilityManager.prototype.activate = function () {
+        if (this._isActive) {
             return;
         }
         this._isActive = true;
@@ -299,8 +286,7 @@ const AccessibilityManager = /** @class */ (function ()
         window.removeEventListener('keydown', this._onKeyDown, false);
         // TODO: Remove casting when CanvasRenderer is converted
         this.renderer.on('postrender', this.update, this);
-        if (this.renderer.view.parentNode)
-        {
+        if (this.renderer.view.parentNode) {
             this.renderer.view.parentNode.appendChild(this.div);
         }
     };
@@ -310,10 +296,8 @@ const AccessibilityManager = /** @class */ (function ()
      *
      * @private
      */
-    AccessibilityManager.prototype.deactivate = function ()
-    {
-        if (!this._isActive || this._isMobileAccessibility)
-        {
+    AccessibilityManager.prototype.deactivate = function () {
+        if (!this._isActive || this._isMobileAccessibility) {
             return;
         }
         this._isActive = false;
@@ -321,8 +305,7 @@ const AccessibilityManager = /** @class */ (function ()
         window.addEventListener('keydown', this._onKeyDown, false);
         // TODO: Remove casting when CanvasRenderer is converted
         this.renderer.off('postrender', this.update);
-        if (this.div.parentNode)
-        {
+        if (this.div.parentNode) {
             this.div.parentNode.removeChild(this.div);
         }
     };
@@ -332,24 +315,18 @@ const AccessibilityManager = /** @class */ (function ()
      * @private
      * @param {PIXI.Container} displayObject - The DisplayObject to check.
      */
-    AccessibilityManager.prototype.updateAccessibleObjects = function (displayObject)
-    {
-        if (!displayObject.visible || !displayObject.accessibleChildren)
-        {
+    AccessibilityManager.prototype.updateAccessibleObjects = function (displayObject) {
+        if (!displayObject.visible || !displayObject.accessibleChildren) {
             return;
         }
-        if (displayObject.accessible && displayObject.interactive)
-        {
-            if (!displayObject._accessibleActive)
-            {
+        if (displayObject.accessible && displayObject.interactive) {
+            if (!displayObject._accessibleActive) {
                 this.addChild(displayObject);
             }
             displayObject.renderId = this.renderId;
         }
-        const children = displayObject.children;
-
-        for (let i = 0; i < children.length; i++)
-        {
+        var children = displayObject.children;
+        for (var i = 0; i < children.length; i++) {
             this.updateAccessibleObjects(children[i]);
         }
     };
@@ -358,45 +335,36 @@ const AccessibilityManager = /** @class */ (function ()
      *
      * @private
      */
-    AccessibilityManager.prototype.update = function ()
-    {
+    AccessibilityManager.prototype.update = function () {
         /* On Android default web browser, tab order seems to be calculated by position rather than tabIndex,
         *  moving buttons can cause focus to flicker between two buttons making it hard/impossible to navigate,
         *  so I am just running update every half a second, seems to fix it.
         */
-        const now = performance.now();
-
-        if (isMobile.android.device && now < this.androidUpdateCount)
-        {
+        var now = performance.now();
+        if (isMobile.android.device && now < this.androidUpdateCount) {
             return;
         }
         this.androidUpdateCount = now + this.androidUpdateFrequency;
-        if (!this.renderer.renderingToScreen)
-        {
+        if (!this.renderer.renderingToScreen) {
             return;
         }
         // update children...
-        if (this.renderer._lastObjectRendered)
-        {
+        if (this.renderer._lastObjectRendered) {
             this.updateAccessibleObjects(this.renderer._lastObjectRendered);
         }
         // TODO: Remove casting when CanvasRenderer is converted
-        const rect = this.renderer.view.getBoundingClientRect();
-        const resolution = this.renderer.resolution;
-        const sx = (rect.width / this.renderer.width) * resolution;
-        const sy = (rect.height / this.renderer.height) * resolution;
-        let div = this.div;
-
-        div.style.left = `${rect.left}px`;
-        div.style.top = `${rect.top}px`;
-        div.style.width = `${this.renderer.width}px`;
-        div.style.height = `${this.renderer.height}px`;
-        for (let i = 0; i < this.children.length; i++)
-        {
-            const child = this.children[i];
-
-            if (child.renderId !== this.renderId)
-            {
+        var rect = this.renderer.view.getBoundingClientRect();
+        var resolution = this.renderer.resolution;
+        var sx = (rect.width / this.renderer.width) * resolution;
+        var sy = (rect.height / this.renderer.height) * resolution;
+        var div = this.div;
+        div.style.left = rect.left + "px";
+        div.style.top = rect.top + "px";
+        div.style.width = this.renderer.width + "px";
+        div.style.height = this.renderer.height + "px";
+        for (var i = 0; i < this.children.length; i++) {
+            var child = this.children[i];
+            if (child.renderId !== this.renderId) {
                 child._accessibleActive = false;
                 removeItems(this.children, i, 1);
                 this.div.removeChild(child._accessibleDiv);
@@ -404,46 +372,39 @@ const AccessibilityManager = /** @class */ (function ()
                 child._accessibleDiv = null;
                 i--;
             }
-            else
-            {
+            else {
                 // map div to display..
                 div = child._accessibleDiv;
-                let hitArea = child.hitArea;
-                const wt = child.worldTransform;
-
-                if (child.hitArea)
-                {
-                    div.style.left = `${(wt.tx + (hitArea.x * wt.a)) * sx}px`;
-                    div.style.top = `${(wt.ty + (hitArea.y * wt.d)) * sy}px`;
-                    div.style.width = `${hitArea.width * wt.a * sx}px`;
-                    div.style.height = `${hitArea.height * wt.d * sy}px`;
+                var hitArea = child.hitArea;
+                var wt = child.worldTransform;
+                if (child.hitArea) {
+                    div.style.left = (wt.tx + (hitArea.x * wt.a)) * sx + "px";
+                    div.style.top = (wt.ty + (hitArea.y * wt.d)) * sy + "px";
+                    div.style.width = hitArea.width * wt.a * sx + "px";
+                    div.style.height = hitArea.height * wt.d * sy + "px";
                 }
-                else
-                {
+                else {
                     hitArea = child.getBounds();
                     this.capHitArea(hitArea);
-                    div.style.left = `${hitArea.x * sx}px`;
-                    div.style.top = `${hitArea.y * sy}px`;
-                    div.style.width = `${hitArea.width * sx}px`;
-                    div.style.height = `${hitArea.height * sy}px`;
+                    div.style.left = hitArea.x * sx + "px";
+                    div.style.top = hitArea.y * sy + "px";
+                    div.style.width = hitArea.width * sx + "px";
+                    div.style.height = hitArea.height * sy + "px";
                     // update button titles and hints if they exist and they've changed
-                    if (div.title !== child.accessibleTitle && child.accessibleTitle !== null)
-                    {
+                    if (div.title !== child.accessibleTitle && child.accessibleTitle !== null) {
                         div.title = child.accessibleTitle;
                     }
                     if (div.getAttribute('aria-label') !== child.accessibleHint
-                        && child.accessibleHint !== null)
-                    {
+                        && child.accessibleHint !== null) {
                         div.setAttribute('aria-label', child.accessibleHint);
                     }
                 }
                 // the title or index may have changed, if so lets update it!
-                if (child.accessibleTitle !== div.title || child.tabIndex !== div.tabIndex)
-                {
+                if (child.accessibleTitle !== div.title || child.tabIndex !== div.tabIndex) {
                     div.title = child.accessibleTitle;
                     div.tabIndex = child.tabIndex;
                     if (this.debug)
-                    { this.updateDebugHTML(div); }
+                        { this.updateDebugHTML(div); }
                 }
             }
         }
@@ -456,34 +417,28 @@ const AccessibilityManager = /** @class */ (function ()
      *
      * @param {HTMLElement} div
      */
-    AccessibilityManager.prototype.updateDebugHTML = function (div)
-    {
-        div.innerHTML = `type: ${div.type}</br> title : ${div.title}</br> tabIndex: ${div.tabIndex}`;
+    AccessibilityManager.prototype.updateDebugHTML = function (div) {
+        div.innerHTML = "type: " + div.type + "</br> title : " + div.title + "</br> tabIndex: " + div.tabIndex;
     };
     /**
      * Adjust the hit area based on the bounds of a display object
      *
      * @param {PIXI.Rectangle} hitArea - Bounds of the child
      */
-    AccessibilityManager.prototype.capHitArea = function (hitArea)
-    {
-        if (hitArea.x < 0)
-        {
+    AccessibilityManager.prototype.capHitArea = function (hitArea) {
+        if (hitArea.x < 0) {
             hitArea.width += hitArea.x;
             hitArea.x = 0;
         }
-        if (hitArea.y < 0)
-        {
+        if (hitArea.y < 0) {
             hitArea.height += hitArea.y;
             hitArea.y = 0;
         }
         // TODO: Remove casting when CanvasRenderer is converted
-        if (hitArea.x + hitArea.width > this.renderer.width)
-        {
+        if (hitArea.x + hitArea.width > this.renderer.width) {
             hitArea.width = this.renderer.width - hitArea.x;
         }
-        if (hitArea.y + hitArea.height > this.renderer.height)
-        {
+        if (hitArea.y + hitArea.height > this.renderer.height) {
             hitArea.height = this.renderer.height - hitArea.y;
         }
     };
@@ -493,37 +448,30 @@ const AccessibilityManager = /** @class */ (function ()
      * @private
      * @param {PIXI.DisplayObject} displayObject - The child to make accessible.
      */
-    AccessibilityManager.prototype.addChild = function (displayObject)
-    {
+    AccessibilityManager.prototype.addChild = function (displayObject) {
         //    this.activate();
-        let div = this.pool.pop();
-
-        if (!div)
-        {
+        var div = this.pool.pop();
+        if (!div) {
             div = document.createElement('button');
-            div.style.width = `${DIV_TOUCH_SIZE}px`;
-            div.style.height = `${DIV_TOUCH_SIZE}px`;
+            div.style.width = DIV_TOUCH_SIZE + "px";
+            div.style.height = DIV_TOUCH_SIZE + "px";
             div.style.backgroundColor = this.debug ? 'rgba(255,255,255,0.5)' : 'transparent';
             div.style.position = 'absolute';
             div.style.zIndex = DIV_TOUCH_ZINDEX.toString();
             div.style.borderStyle = 'none';
             // ARIA attributes ensure that button title and hint updates are announced properly
-            if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1)
-            {
+            if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
                 // Chrome doesn't need aria-live to work as intended; in fact it just gets more confused.
                 div.setAttribute('aria-live', 'off');
             }
-            else
-            {
+            else {
                 div.setAttribute('aria-live', 'polite');
             }
-            if (navigator.userAgent.match(/rv:.*Gecko\//))
-            {
+            if (navigator.userAgent.match(/rv:.*Gecko\//)) {
                 // FireFox needs this to announce only the new button name
                 div.setAttribute('aria-relevant', 'additions');
             }
-            else
-            {
+            else {
                 // required by IE, other browsers don't much care
                 div.setAttribute('aria-relevant', 'text');
             }
@@ -535,22 +483,19 @@ const AccessibilityManager = /** @class */ (function ()
         div.style.pointerEvents = displayObject.accessiblePointerEvents;
         // set the type, this defaults to button!
         div.type = displayObject.accessibleType;
-        if (displayObject.accessibleTitle && displayObject.accessibleTitle !== null)
-        {
+        if (displayObject.accessibleTitle && displayObject.accessibleTitle !== null) {
             div.title = displayObject.accessibleTitle;
         }
         else if (!displayObject.accessibleHint
-            || displayObject.accessibleHint === null)
-        {
-            div.title = `displayObject ${displayObject.tabIndex}`;
+            || displayObject.accessibleHint === null) {
+            div.title = "displayObject " + displayObject.tabIndex;
         }
         if (displayObject.accessibleHint
-            && displayObject.accessibleHint !== null)
-        {
+            && displayObject.accessibleHint !== null) {
             div.setAttribute('aria-label', displayObject.accessibleHint);
         }
         if (this.debug)
-        { this.updateDebugHTML(div); }
+            { this.updateDebugHTML(div); }
         displayObject._accessibleActive = true;
         displayObject._accessibleDiv = div;
         div.displayObject = displayObject;
@@ -564,11 +509,9 @@ const AccessibilityManager = /** @class */ (function ()
      * @private
      * @param {MouseEvent} e - The click event.
      */
-    AccessibilityManager.prototype._onClick = function (e)
-    {
+    AccessibilityManager.prototype._onClick = function (e) {
         // TODO: Remove casting when CanvasRenderer is converted
-        const interactionManager = this.renderer.plugins.interaction;
-
+        var interactionManager = this.renderer.plugins.interaction;
         interactionManager.dispatchEvent(e.target.displayObject, 'click', interactionManager.eventData);
         interactionManager.dispatchEvent(e.target.displayObject, 'pointertap', interactionManager.eventData);
         interactionManager.dispatchEvent(e.target.displayObject, 'tap', interactionManager.eventData);
@@ -579,15 +522,12 @@ const AccessibilityManager = /** @class */ (function ()
      * @private
      * @param {FocusEvent} e - The focus event.
      */
-    AccessibilityManager.prototype._onFocus = function (e)
-    {
-        if (!e.target.getAttribute('aria-live'))
-        {
+    AccessibilityManager.prototype._onFocus = function (e) {
+        if (!e.target.getAttribute('aria-live')) {
             e.target.setAttribute('aria-live', 'assertive');
         }
         // TODO: Remove casting when CanvasRenderer is converted
-        const interactionManager = this.renderer.plugins.interaction;
-
+        var interactionManager = this.renderer.plugins.interaction;
         interactionManager.dispatchEvent(e.target.displayObject, 'mouseover', interactionManager.eventData);
     };
     /**
@@ -596,15 +536,12 @@ const AccessibilityManager = /** @class */ (function ()
      * @private
      * @param {FocusEvent} e - The focusout event.
      */
-    AccessibilityManager.prototype._onFocusOut = function (e)
-    {
-        if (!e.target.getAttribute('aria-live'))
-        {
+    AccessibilityManager.prototype._onFocusOut = function (e) {
+        if (!e.target.getAttribute('aria-live')) {
             e.target.setAttribute('aria-live', 'polite');
         }
         // TODO: Remove casting when CanvasRenderer is converted
-        const interactionManager = this.renderer.plugins.interaction;
-
+        var interactionManager = this.renderer.plugins.interaction;
         interactionManager.dispatchEvent(e.target.displayObject, 'mouseout', interactionManager.eventData);
     };
     /**
@@ -613,10 +550,8 @@ const AccessibilityManager = /** @class */ (function ()
      * @private
      * @param {KeyboardEvent} e - The keydown event.
      */
-    AccessibilityManager.prototype._onKeyDown = function (e)
-    {
-        if (e.keyCode !== KEY_CODE_TAB)
-        {
+    AccessibilityManager.prototype._onKeyDown = function (e) {
+        if (e.keyCode !== KEY_CODE_TAB) {
             return;
         }
         this.activate();
@@ -627,10 +562,8 @@ const AccessibilityManager = /** @class */ (function ()
      * @private
      * @param {MouseEvent} e - The mouse event.
      */
-    AccessibilityManager.prototype._onMouseMove = function (e)
-    {
-        if (e.movementX === 0 && e.movementY === 0)
-        {
+    AccessibilityManager.prototype._onMouseMove = function (e) {
+        if (e.movementX === 0 && e.movementY === 0) {
             return;
         }
         this.deactivate();
@@ -639,8 +572,7 @@ const AccessibilityManager = /** @class */ (function ()
      * Destroys the accessibility manager
      *
      */
-    AccessibilityManager.prototype.destroy = function ()
-    {
+    AccessibilityManager.prototype.destroy = function () {
         this.destroyTouchHook();
         this.div = null;
         window.document.removeEventListener('mousemove', this._onMouseMove, true);
@@ -649,9 +581,8 @@ const AccessibilityManager = /** @class */ (function ()
         this.children = null;
         this.renderer = null;
     };
-
     return AccessibilityManager;
-})();
+}());
 
 export { AccessibilityManager, accessibleTarget };
-// # sourceMappingURL=accessibility.es.js.map
+//# sourceMappingURL=accessibility.es.js.map

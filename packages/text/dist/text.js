@@ -1,14 +1,15 @@
-/* !
+/*!
  * @pixi/text - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/text is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
 this.PIXI = this.PIXI || {};
-const _pixi_text = (function (exports, sprite, core, settings, math, utils)
-{
-    /* ! *****************************************************************************
+var _pixi_text = (function (exports, sprite, core, settings, math, utils) {
+    'use strict';
+
+    /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use
     this file except in compliance with the License. You may obtain a copy of the
@@ -24,271 +25,178 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
     ***************************************************************************** */
     /* global Reflect, Promise */
 
-    var extendStatics = function (d, b)
-    {
-        extendStatics = Object.setPrototypeOf
-            || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
-            || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
-
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
         return extendStatics(d, b);
     };
 
-    function __extends(d, b)
-    {
+    function __extends(d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
-    var __assign = function ()
-    {
-        __assign = Object.assign || function __assign(t)
-        {
-            const arguments$1 = arguments;
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            var arguments$1 = arguments;
 
-            for (var s, i = 1, n = arguments.length; i < n; i++)
-            {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
                 s = arguments$1[i];
-                for (const p in s) { if (Object.prototype.hasOwnProperty.call(s, p)) { t[p] = s[p]; } }
+                for (var p in s) { if (Object.prototype.hasOwnProperty.call(s, p)) { t[p] = s[p]; } }
             }
-
             return t;
         };
-
         return __assign.apply(this, arguments);
     };
 
-    function __rest(s, e)
-    {
-        const t = {};
-
-        for (var p in s)
-        {
-            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            { t[p] = s[p]; }
-        }
-        if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-        {
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++)
-            {
-                if (e.indexOf(p[i]) < 0)
-                { t[p[i]] = s[p[i]]; }
-            }
-        }
-
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) { if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            { t[p] = s[p]; } }
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            { for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) { if (e.indexOf(p[i]) < 0)
+                { t[p[i]] = s[p[i]]; } } }
         return t;
     }
 
-    function __decorate(decorators, target, key, desc)
-    {
-        const c = arguments.length; let r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc; let
-            d;
-
-        if (typeof Reflect === 'object' && typeof Reflect.decorate === 'function') { r = Reflect.decorate(decorators, target, key, desc); }
-        else { for (let i = decorators.length - 1; i >= 0; i--) { if (d = decorators[i]) { r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r; } } }
-
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") { r = Reflect.decorate(decorators, target, key, desc); }
+        else { for (var i = decorators.length - 1; i >= 0; i--) { if (d = decorators[i]) { r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r; } } }
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     }
 
-    function __param(paramIndex, decorator)
-    {
-        return function (target, key) { decorator(target, key, paramIndex); };
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
     }
 
-    function __metadata(metadataKey, metadataValue)
-    {
-        if (typeof Reflect === 'object' && typeof Reflect.metadata === 'function') { return Reflect.metadata(metadataKey, metadataValue); }
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") { return Reflect.metadata(metadataKey, metadataValue); }
     }
 
-    function __awaiter(thisArg, _arguments, P, generator)
-    {
-        return new (P || (P = Promise))(function (resolve, reject)
-        {
-            function fulfilled(value)
-            {
-                try { step(generator.next(value)); }
-                catch (e) { reject(e); }
-            }
-            function rejected(value)
-            {
-                try { step(generator.throw(value)); }
-                catch (e) { reject(e); }
-            }
+    function __awaiter(thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
             function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
 
-    function __generator(thisArg, body)
-    {
-        let _ = { label: 0, sent()
-        {
-            if (t[0] & 1) { throw t[1]; }
-
-            return t[1];
-        }, trys: [], ops: [] }; let f; let y; let t; let
-            g;
-
-        return g = { next: verb(0), throw: verb(1), return: verb(2) }, typeof Symbol === 'function' && (g[Symbol.iterator] = function () { return this; }), g;
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) { throw t[1]; } return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
-        function step(op)
-        {
-            if (f) { throw new TypeError('Generator is already executing.'); }
-            while (_)
-            {
-                try
-                {
-                    if (f = 1, y && (t = op[0] & 2 ? y.return : op[0] ? y.throw || ((t = y.return) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) { return t; }
-                    if (y = 0, t) { op = [op[0] & 2, t.value]; }
-                    switch (op[0])
-                    {
-                        case 0: case 1: t = op; break;
-                        case 4: _.label++;
-
-                            return { value: op[1], done: false };
-                        case 5: _.label++; y = op[1]; op = [0]; continue;
-                        case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                        default:
-                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                            if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                            if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                            if (t[2]) { _.ops.pop(); }
-                            _.trys.pop(); continue;
-                    }
-                    op = body.call(thisArg, _);
+        function step(op) {
+            if (f) { throw new TypeError("Generator is already executing."); }
+            while (_) { try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) { return t; }
+                if (y = 0, t) { op = [op[0] & 2, t.value]; }
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) { _.ops.pop(); }
+                        _.trys.pop(); continue;
                 }
-                catch (e) { op = [6, e]; y = 0; }
-                finally { f = t = 0; }
-            }
-            if (op[0] & 5) { throw op[1]; }
-
-            return { value: op[0] ? op[1] : void 0, done: true };
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; } }
+            if (op[0] & 5) { throw op[1]; } return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
 
-    function __exportStar(m, exports)
-    {
-        for (const p in m) { if (!exports.hasOwnProperty(p)) { exports[p] = m[p]; } }
+    function __exportStar(m, exports) {
+        for (var p in m) { if (!exports.hasOwnProperty(p)) { exports[p] = m[p]; } }
     }
 
-    function __values(o)
-    {
-        const m = typeof Symbol === 'function' && o[Symbol.iterator]; let
-            i = 0;
-
+    function __values(o) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
         if (m) { return m.call(o); }
-
         return {
-            next()
-            {
+            next: function () {
                 if (o && i >= o.length) { o = void 0; }
-
                 return { value: o && o[i++], done: !o };
             }
         };
     }
 
-    function __read(o, n)
-    {
-        let m = typeof Symbol === 'function' && o[Symbol.iterator];
-
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
         if (!m) { return o; }
-        const i = m.call(o); let r; const ar = []; let
-            e;
-
-        try
-        {
+        var i = m.call(o), r, ar = [], e;
+        try {
             while ((n === void 0 || n-- > 0) && !(r = i.next()).done) { ar.push(r.value); }
         }
-        catch (error) { e = { error }; }
-        finally
-        {
-            try
-            {
-                if (r && !r.done && (m = i.return)) { m.call(i); }
+        catch (error) { e = { error: error }; }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"])) { m.call(i); }
             }
             finally { if (e) { throw e.error; } }
         }
-
         return ar;
     }
 
-    function __spread()
-    {
-        const arguments$1 = arguments;
+    function __spread() {
+        var arguments$1 = arguments;
 
         for (var ar = [], i = 0; i < arguments.length; i++)
-        { ar = ar.concat(__read(arguments$1[i])); }
-
+            { ar = ar.concat(__read(arguments$1[i])); }
         return ar;
     }
 
-    function __await(v)
-    {
+    function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
 
-    function __asyncGenerator(thisArg, _arguments, generator)
-    {
-        if (!Symbol.asyncIterator) { throw new TypeError('Symbol.asyncIterator is not defined.'); }
-        const g = generator.apply(thisArg, _arguments || []); let i; const
-            q = [];
-
-        return i = {}, verb('next'), verb('throw'), verb('return'), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) { throw new TypeError("Symbol.asyncIterator is not defined."); }
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
         function verb(n) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; } }
-        function resume(n, v)
-        {
-            try { step(g[n](v)); }
-            catch (e) { settle(q[0][3], e); }
-        }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
         function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-        function fulfill(value) { resume('next', value); }
-        function reject(value) { resume('throw', value); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
         function settle(f, v) { if (f(v), q.shift(), q.length) { resume(q[0][0], q[0][1]); } }
     }
 
-    function __asyncDelegator(o)
-    {
-        let i; let
-            p;
-
-        return i = {}, verb('next'), verb('throw', function (e) { throw e; }), verb('return'), i[Symbol.iterator] = function () { return this; }, i;
-        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === 'return' } : f ? f(v) : v; } : f; }
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
     }
 
-    function __asyncValues(o)
-    {
-        if (!Symbol.asyncIterator) { throw new TypeError('Symbol.asyncIterator is not defined.'); }
-        const m = o[Symbol.asyncIterator]; let
-            i;
-
-        return m ? m.call(o) : (o = typeof __values === 'function' ? __values(o) : o[Symbol.iterator](), i = {}, verb('next'), verb('throw'), verb('return'), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) { throw new TypeError("Symbol.asyncIterator is not defined."); }
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
         function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function (v) { resolve({ value: v, done: d }); }, reject); }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
     }
 
-    function __makeTemplateObject(cooked, raw)
-    {
-        if (Object.defineProperty) { Object.defineProperty(cooked, 'raw', { value: raw }); }
-        else { cooked.raw = raw; }
-
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
         return cooked;
-    }
+    };
 
-    function __importStar(mod)
-    {
+    function __importStar(mod) {
         if (mod && mod.__esModule) { return mod; }
-        const result = {};
-
-        if (mod != null) { for (const k in mod) { if (Object.hasOwnProperty.call(mod, k)) { result[k] = mod[k]; } } }
+        var result = {};
+        if (mod != null) { for (var k in mod) { if (Object.hasOwnProperty.call(mod, k)) { result[k] = mod[k]; } } }
         result.default = mod;
-
         return result;
     }
 
-    function __importDefault(mod)
-    {
+    function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
 
@@ -303,14 +211,13 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
      * @property {number} LINEAR_VERTICAL Vertical gradient
      * @property {number} LINEAR_HORIZONTAL Linear gradient
      */
-    (function (TEXT_GRADIENT)
-    {
-        TEXT_GRADIENT[TEXT_GRADIENT.LINEAR_VERTICAL = 0] = 'LINEAR_VERTICAL';
-        TEXT_GRADIENT[TEXT_GRADIENT.LINEAR_HORIZONTAL = 1] = 'LINEAR_HORIZONTAL';
+    (function (TEXT_GRADIENT) {
+        TEXT_GRADIENT[TEXT_GRADIENT["LINEAR_VERTICAL"] = 0] = "LINEAR_VERTICAL";
+        TEXT_GRADIENT[TEXT_GRADIENT["LINEAR_HORIZONTAL"] = 1] = "LINEAR_HORIZONTAL";
     })(exports.TEXT_GRADIENT || (exports.TEXT_GRADIENT = {}));
 
     // disabling eslint for now, going to rewrite this in v5
-    const defaultStyle = {
+    var defaultStyle = {
         align: 'left',
         breakWords: false,
         dropShadow: false,
@@ -341,13 +248,13 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
         wordWrapWidth: 100,
         leading: 0,
     };
-    const genericFontFamilies = [
+    var genericFontFamilies = [
         'serif',
         'sans-serif',
         'monospace',
         'cursive',
         'fantasy',
-        'system-ui'];
+        'system-ui' ];
     /**
      * A TextStyle Object contains information to decorate a Text objects.
      *
@@ -358,8 +265,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
      * @class
      * @memberof PIXI
      */
-    const TextStyle = /** @class */ (function ()
-    {
+    var TextStyle = /** @class */ (function () {
         /**
          * @param {object} [style] - The style parameters
          * @param {string} [style.align='left'] - Alignment for multiline text ('left', 'center' or 'right'),
@@ -408,8 +314,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param {boolean} [style.wordWrap=false] - Indicates if word wrap should be used
          * @param {number} [style.wordWrapWidth=100] - The width at which text will wrap, it needs wordWrap to be set to true
          */
-        function TextStyle(style)
-        {
+        function TextStyle(style) {
             this.styleID = 0;
             this.reset();
             deepCopyProperties(this, style, style);
@@ -420,35 +325,28 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          *
          * @return {PIXI.TextStyle} New cloned TextStyle object
          */
-        TextStyle.prototype.clone = function ()
-        {
-            const clonedProperties = {};
-
+        TextStyle.prototype.clone = function () {
+            var clonedProperties = {};
             deepCopyProperties(clonedProperties, this, defaultStyle);
-
             return new TextStyle(clonedProperties);
         };
         /**
          * Resets all properties to the defaults specified in TextStyle.prototype._default
          */
-        TextStyle.prototype.reset = function ()
-        {
+        TextStyle.prototype.reset = function () {
             deepCopyProperties(this, defaultStyle, defaultStyle);
         };
-        Object.defineProperty(TextStyle.prototype, 'align', {
+        Object.defineProperty(TextStyle.prototype, "align", {
             /**
              * Alignment for multiline text ('left', 'center' or 'right'), does not affect single line text
              *
              * @member {string}
              */
-            get()
-            {
+            get: function () {
                 return this._align;
             },
-            set(align)
-            {
-                if (this._align !== align)
-                {
+            set: function (align) {
+                if (this._align !== align) {
                     this._align = align;
                     this.styleID++;
                 }
@@ -456,20 +354,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'breakWords', {
+        Object.defineProperty(TextStyle.prototype, "breakWords", {
             /**
              * Indicates if lines can be wrapped within words, it needs wordWrap to be set to true
              *
              * @member {boolean}
              */
-            get()
-            {
+            get: function () {
                 return this._breakWords;
             },
-            set(breakWords)
-            {
-                if (this._breakWords !== breakWords)
-                {
+            set: function (breakWords) {
+                if (this._breakWords !== breakWords) {
                     this._breakWords = breakWords;
                     this.styleID++;
                 }
@@ -477,20 +372,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'dropShadow', {
+        Object.defineProperty(TextStyle.prototype, "dropShadow", {
             /**
              * Set a drop shadow for the text
              *
              * @member {boolean}
              */
-            get()
-            {
+            get: function () {
                 return this._dropShadow;
             },
-            set(dropShadow)
-            {
-                if (this._dropShadow !== dropShadow)
-                {
+            set: function (dropShadow) {
+                if (this._dropShadow !== dropShadow) {
                     this._dropShadow = dropShadow;
                     this.styleID++;
                 }
@@ -498,20 +390,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'dropShadowAlpha', {
+        Object.defineProperty(TextStyle.prototype, "dropShadowAlpha", {
             /**
              * Set alpha for the drop shadow
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._dropShadowAlpha;
             },
-            set(dropShadowAlpha)
-            {
-                if (this._dropShadowAlpha !== dropShadowAlpha)
-                {
+            set: function (dropShadowAlpha) {
+                if (this._dropShadowAlpha !== dropShadowAlpha) {
                     this._dropShadowAlpha = dropShadowAlpha;
                     this.styleID++;
                 }
@@ -519,20 +408,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'dropShadowAngle', {
+        Object.defineProperty(TextStyle.prototype, "dropShadowAngle", {
             /**
              * Set a angle of the drop shadow
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._dropShadowAngle;
             },
-            set(dropShadowAngle)
-            {
-                if (this._dropShadowAngle !== dropShadowAngle)
-                {
+            set: function (dropShadowAngle) {
+                if (this._dropShadowAngle !== dropShadowAngle) {
                     this._dropShadowAngle = dropShadowAngle;
                     this.styleID++;
                 }
@@ -540,20 +426,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'dropShadowBlur', {
+        Object.defineProperty(TextStyle.prototype, "dropShadowBlur", {
             /**
              * Set a shadow blur radius
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._dropShadowBlur;
             },
-            set(dropShadowBlur)
-            {
-                if (this._dropShadowBlur !== dropShadowBlur)
-                {
+            set: function (dropShadowBlur) {
+                if (this._dropShadowBlur !== dropShadowBlur) {
                     this._dropShadowBlur = dropShadowBlur;
                     this.styleID++;
                 }
@@ -561,22 +444,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'dropShadowColor', {
+        Object.defineProperty(TextStyle.prototype, "dropShadowColor", {
             /**
              * A fill style to be used on the dropshadow e.g 'red', '#00FF00'
              *
              * @member {string|number}
              */
-            get()
-            {
+            get: function () {
                 return this._dropShadowColor;
             },
-            set(dropShadowColor)
-            {
-                const outputColor = getColor(dropShadowColor);
-
-                if (this._dropShadowColor !== outputColor)
-                {
+            set: function (dropShadowColor) {
+                var outputColor = getColor(dropShadowColor);
+                if (this._dropShadowColor !== outputColor) {
                     this._dropShadowColor = outputColor;
                     this.styleID++;
                 }
@@ -584,20 +463,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'dropShadowDistance', {
+        Object.defineProperty(TextStyle.prototype, "dropShadowDistance", {
             /**
              * Set a distance of the drop shadow
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._dropShadowDistance;
             },
-            set(dropShadowDistance)
-            {
-                if (this._dropShadowDistance !== dropShadowDistance)
-                {
+            set: function (dropShadowDistance) {
+                if (this._dropShadowDistance !== dropShadowDistance) {
                     this._dropShadowDistance = dropShadowDistance;
                     this.styleID++;
                 }
@@ -605,7 +481,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'fill', {
+        Object.defineProperty(TextStyle.prototype, "fill", {
             /**
              * A canvas fillstyle that will be used on the text e.g 'red', '#00FF00'.
              * Can be an array to create a gradient eg ['#000000','#FFFFFF']
@@ -613,21 +489,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
              *
              * @member {string|string[]|number|number[]|CanvasGradient|CanvasPattern}
              */
-            get()
-            {
+            get: function () {
                 return this._fill;
             },
-            set(fill)
-            {
+            set: function (fill) {
                 // TODO: Can't have different types for getter and setter. The getter shouldn't have the number type as
                 //       the setter converts to string. See this thread for more details:
                 //       https://github.com/microsoft/TypeScript/issues/2521
                 // TODO: Not sure if getColor works properly with CanvasGradient and/or CanvasPattern, can't pass in
                 //       without casting here.
-                const outputColor = getColor(fill);
-
-                if (this._fill !== outputColor)
-                {
+                var outputColor = getColor(fill);
+                if (this._fill !== outputColor) {
                     this._fill = outputColor;
                     this.styleID++;
                 }
@@ -635,21 +507,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'fillGradientType', {
+        Object.defineProperty(TextStyle.prototype, "fillGradientType", {
             /**
              * If fill is an array of colours to create a gradient, this can change the type/direction of the gradient.
              * See {@link PIXI.TEXT_GRADIENT}
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._fillGradientType;
             },
-            set(fillGradientType)
-            {
-                if (this._fillGradientType !== fillGradientType)
-                {
+            set: function (fillGradientType) {
+                if (this._fillGradientType !== fillGradientType) {
                     this._fillGradientType = fillGradientType;
                     this.styleID++;
                 }
@@ -657,21 +526,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'fillGradientStops', {
+        Object.defineProperty(TextStyle.prototype, "fillGradientStops", {
             /**
              * If fill is an array of colours to create a gradient, this array can set the stop points
              * (numbers between 0 and 1) for the color, overriding the default behaviour of evenly spacing them.
              *
              * @member {number[]}
              */
-            get()
-            {
+            get: function () {
                 return this._fillGradientStops;
             },
-            set(fillGradientStops)
-            {
-                if (!areArraysEqual(this._fillGradientStops, fillGradientStops))
-                {
+            set: function (fillGradientStops) {
+                if (!areArraysEqual(this._fillGradientStops, fillGradientStops)) {
                     this._fillGradientStops = fillGradientStops;
                     this.styleID++;
                 }
@@ -679,20 +545,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'fontFamily', {
+        Object.defineProperty(TextStyle.prototype, "fontFamily", {
             /**
              * The font family
              *
              * @member {string|string[]}
              */
-            get()
-            {
+            get: function () {
                 return this._fontFamily;
             },
-            set(fontFamily)
-            {
-                if (this.fontFamily !== fontFamily)
-                {
+            set: function (fontFamily) {
+                if (this.fontFamily !== fontFamily) {
                     this._fontFamily = fontFamily;
                     this.styleID++;
                 }
@@ -700,21 +563,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'fontSize', {
+        Object.defineProperty(TextStyle.prototype, "fontSize", {
             /**
              * The font size
              * (as a number it converts to px, but as a string, equivalents are '26px','20pt','160%' or '1.6em')
              *
              * @member {number|string}
              */
-            get()
-            {
+            get: function () {
                 return this._fontSize;
             },
-            set(fontSize)
-            {
-                if (this._fontSize !== fontSize)
-                {
+            set: function (fontSize) {
+                if (this._fontSize !== fontSize) {
                     this._fontSize = fontSize;
                     this.styleID++;
                 }
@@ -722,21 +582,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'fontStyle', {
+        Object.defineProperty(TextStyle.prototype, "fontStyle", {
             /**
              * The font style
              * ('normal', 'italic' or 'oblique')
              *
              * @member {string}
              */
-            get()
-            {
+            get: function () {
                 return this._fontStyle;
             },
-            set(fontStyle)
-            {
-                if (this._fontStyle !== fontStyle)
-                {
+            set: function (fontStyle) {
+                if (this._fontStyle !== fontStyle) {
                     this._fontStyle = fontStyle;
                     this.styleID++;
                 }
@@ -744,21 +601,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'fontVariant', {
+        Object.defineProperty(TextStyle.prototype, "fontVariant", {
             /**
              * The font variant
              * ('normal' or 'small-caps')
              *
              * @member {string}
              */
-            get()
-            {
+            get: function () {
                 return this._fontVariant;
             },
-            set(fontVariant)
-            {
-                if (this._fontVariant !== fontVariant)
-                {
+            set: function (fontVariant) {
+                if (this._fontVariant !== fontVariant) {
                     this._fontVariant = fontVariant;
                     this.styleID++;
                 }
@@ -766,21 +620,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'fontWeight', {
+        Object.defineProperty(TextStyle.prototype, "fontWeight", {
             /**
              * The font weight
              * ('normal', 'bold', 'bolder', 'lighter' and '100', '200', '300', '400', '500', '600', '700', 800' or '900')
              *
              * @member {string}
              */
-            get()
-            {
+            get: function () {
                 return this._fontWeight;
             },
-            set(fontWeight)
-            {
-                if (this._fontWeight !== fontWeight)
-                {
+            set: function (fontWeight) {
+                if (this._fontWeight !== fontWeight) {
                     this._fontWeight = fontWeight;
                     this.styleID++;
                 }
@@ -788,20 +639,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'letterSpacing', {
+        Object.defineProperty(TextStyle.prototype, "letterSpacing", {
             /**
              * The amount of spacing between letters, default is 0
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._letterSpacing;
             },
-            set(letterSpacing)
-            {
-                if (this._letterSpacing !== letterSpacing)
-                {
+            set: function (letterSpacing) {
+                if (this._letterSpacing !== letterSpacing) {
                     this._letterSpacing = letterSpacing;
                     this.styleID++;
                 }
@@ -809,20 +657,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'lineHeight', {
+        Object.defineProperty(TextStyle.prototype, "lineHeight", {
             /**
              * The line height, a number that represents the vertical space that a letter uses
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._lineHeight;
             },
-            set(lineHeight)
-            {
-                if (this._lineHeight !== lineHeight)
-                {
+            set: function (lineHeight) {
+                if (this._lineHeight !== lineHeight) {
                     this._lineHeight = lineHeight;
                     this.styleID++;
                 }
@@ -830,20 +675,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'leading', {
+        Object.defineProperty(TextStyle.prototype, "leading", {
             /**
              * The space between lines
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._leading;
             },
-            set(leading)
-            {
-                if (this._leading !== leading)
-                {
+            set: function (leading) {
+                if (this._leading !== leading) {
                     this._leading = leading;
                     this.styleID++;
                 }
@@ -851,21 +693,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'lineJoin', {
+        Object.defineProperty(TextStyle.prototype, "lineJoin", {
             /**
              * The lineJoin property sets the type of corner created, it can resolve spiked text issues.
              * Default is 'miter' (creates a sharp corner).
              *
              * @member {string}
              */
-            get()
-            {
+            get: function () {
                 return this._lineJoin;
             },
-            set(lineJoin)
-            {
-                if (this._lineJoin !== lineJoin)
-                {
+            set: function (lineJoin) {
+                if (this._lineJoin !== lineJoin) {
                     this._lineJoin = lineJoin;
                     this.styleID++;
                 }
@@ -873,21 +712,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'miterLimit', {
+        Object.defineProperty(TextStyle.prototype, "miterLimit", {
             /**
              * The miter limit to use when using the 'miter' lineJoin mode
              * This can reduce or increase the spikiness of rendered text.
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._miterLimit;
             },
-            set(miterLimit)
-            {
-                if (this._miterLimit !== miterLimit)
-                {
+            set: function (miterLimit) {
+                if (this._miterLimit !== miterLimit) {
                     this._miterLimit = miterLimit;
                     this.styleID++;
                 }
@@ -895,21 +731,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'padding', {
+        Object.defineProperty(TextStyle.prototype, "padding", {
             /**
              * Occasionally some fonts are cropped. Adding some padding will prevent this from happening
              * by adding padding to all sides of the text.
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._padding;
             },
-            set(padding)
-            {
-                if (this._padding !== padding)
-                {
+            set: function (padding) {
+                if (this._padding !== padding) {
                     this._padding = padding;
                     this.styleID++;
                 }
@@ -917,26 +750,22 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'stroke', {
+        Object.defineProperty(TextStyle.prototype, "stroke", {
             /**
              * A canvas fillstyle that will be used on the text stroke
              * e.g 'blue', '#FCFF00'
              *
              * @member {string|number}
              */
-            get()
-            {
+            get: function () {
                 return this._stroke;
             },
-            set(stroke)
-            {
+            set: function (stroke) {
                 // TODO: Can't have different types for getter and setter. The getter shouldn't have the number type as
                 //       the setter converts to string. See this thread for more details:
                 //       https://github.com/microsoft/TypeScript/issues/2521
-                const outputColor = getColor(stroke);
-
-                if (this._stroke !== outputColor)
-                {
+                var outputColor = getColor(stroke);
+                if (this._stroke !== outputColor) {
                     this._stroke = outputColor;
                     this.styleID++;
                 }
@@ -944,21 +773,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'strokeThickness', {
+        Object.defineProperty(TextStyle.prototype, "strokeThickness", {
             /**
              * A number that represents the thickness of the stroke.
              * Default is 0 (no stroke)
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._strokeThickness;
             },
-            set(strokeThickness)
-            {
-                if (this._strokeThickness !== strokeThickness)
-                {
+            set: function (strokeThickness) {
+                if (this._strokeThickness !== strokeThickness) {
                     this._strokeThickness = strokeThickness;
                     this.styleID++;
                 }
@@ -966,20 +792,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'textBaseline', {
+        Object.defineProperty(TextStyle.prototype, "textBaseline", {
             /**
              * The baseline of the text that is rendered.
              *
              * @member {string}
              */
-            get()
-            {
+            get: function () {
                 return this._textBaseline;
             },
-            set(textBaseline)
-            {
-                if (this._textBaseline !== textBaseline)
-                {
+            set: function (textBaseline) {
+                if (this._textBaseline !== textBaseline) {
                     this._textBaseline = textBaseline;
                     this.styleID++;
                 }
@@ -987,20 +810,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'trim', {
+        Object.defineProperty(TextStyle.prototype, "trim", {
             /**
              * Trim transparent borders
              *
              * @member {boolean}
              */
-            get()
-            {
+            get: function () {
                 return this._trim;
             },
-            set(trim)
-            {
-                if (this._trim !== trim)
-                {
+            set: function (trim) {
+                if (this._trim !== trim) {
                     this._trim = trim;
                     this.styleID++;
                 }
@@ -1008,7 +828,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'whiteSpace', {
+        Object.defineProperty(TextStyle.prototype, "whiteSpace", {
             /**
              * How newlines and spaces should be handled.
              * Default is 'pre' (preserve, preserve).
@@ -1021,14 +841,11 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
              *
              * @member {string}
              */
-            get()
-            {
+            get: function () {
                 return this._whiteSpace;
             },
-            set(whiteSpace)
-            {
-                if (this._whiteSpace !== whiteSpace)
-                {
+            set: function (whiteSpace) {
+                if (this._whiteSpace !== whiteSpace) {
                     this._whiteSpace = whiteSpace;
                     this.styleID++;
                 }
@@ -1036,20 +853,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'wordWrap', {
+        Object.defineProperty(TextStyle.prototype, "wordWrap", {
             /**
              * Indicates if word wrap should be used
              *
              * @member {boolean}
              */
-            get()
-            {
+            get: function () {
                 return this._wordWrap;
             },
-            set(wordWrap)
-            {
-                if (this._wordWrap !== wordWrap)
-                {
+            set: function (wordWrap) {
+                if (this._wordWrap !== wordWrap) {
                     this._wordWrap = wordWrap;
                     this.styleID++;
                 }
@@ -1057,20 +871,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(TextStyle.prototype, 'wordWrapWidth', {
+        Object.defineProperty(TextStyle.prototype, "wordWrapWidth", {
             /**
              * The width at which text will wrap, it needs wordWrap to be set to true
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 return this._wordWrapWidth;
             },
-            set(wordWrapWidth)
-            {
-                if (this._wordWrapWidth !== wordWrapWidth)
-                {
+            set: function (wordWrapWidth) {
+                if (this._wordWrapWidth !== wordWrapWidth) {
                     this._wordWrapWidth = wordWrapWidth;
                     this.styleID++;
                 }
@@ -1083,72 +894,55 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          *
          * @return {string} Font style string, for passing to `TextMetrics.measureFont()`
          */
-        TextStyle.prototype.toFontString = function ()
-        {
+        TextStyle.prototype.toFontString = function () {
             // build canvas api font setting from individual components. Convert a numeric this.fontSize to px
-            const fontSizeString = (typeof this.fontSize === 'number') ? `${this.fontSize}px` : this.fontSize;
+            var fontSizeString = (typeof this.fontSize === 'number') ? this.fontSize + "px" : this.fontSize;
             // Clean-up fontFamily property by quoting each font name
             // this will support font names with spaces
-            let fontFamilies = this.fontFamily;
-
-            if (!Array.isArray(this.fontFamily))
-            {
+            var fontFamilies = this.fontFamily;
+            if (!Array.isArray(this.fontFamily)) {
                 fontFamilies = this.fontFamily.split(',');
             }
-            for (let i = fontFamilies.length - 1; i >= 0; i--)
-            {
+            for (var i = fontFamilies.length - 1; i >= 0; i--) {
                 // Trim any extra white-space
-                let fontFamily = fontFamilies[i].trim();
+                var fontFamily = fontFamilies[i].trim();
                 // Check if font already contains strings
-
-                if (!(/([\"\'])[^\'\"]+\1/).test(fontFamily) && genericFontFamilies.indexOf(fontFamily) < 0)
-                {
-                    fontFamily = `"${fontFamily}"`;
+                if (!(/([\"\'])[^\'\"]+\1/).test(fontFamily) && genericFontFamilies.indexOf(fontFamily) < 0) {
+                    fontFamily = "\"" + fontFamily + "\"";
                 }
                 fontFamilies[i] = fontFamily;
             }
-
-            return `${this.fontStyle} ${this.fontVariant} ${this.fontWeight} ${fontSizeString} ${fontFamilies.join(',')}`;
+            return this.fontStyle + " " + this.fontVariant + " " + this.fontWeight + " " + fontSizeString + " " + fontFamilies.join(',');
         };
-
         return TextStyle;
-    })();
+    }());
     /**
      * Utility function to convert hexadecimal colors to strings, and simply return the color if it's a string.
      * @private
      * @param {string|number} color
      * @return {string} The color as a string.
      */
-
-    function getSingleColor(color)
-    {
-        if (typeof color === 'number')
-        {
+    function getSingleColor(color) {
+        if (typeof color === 'number') {
             return utils.hex2string(color);
         }
-        else if (typeof color === 'string')
-        {
-            if (color.indexOf('0x') === 0)
-            {
+        else if (typeof color === 'string') {
+            if (color.indexOf('0x') === 0) {
                 color = color.replace('0x', '#');
             }
         }
-
         return color;
     }
-    function getColor(color)
-    {
-        if (!Array.isArray(color))
-        {
+    function getColor(color) {
+        if (!Array.isArray(color)) {
             return getSingleColor(color);
         }
-
-        for (let i = 0; i < color.length; ++i)
-        {
-            color[i] = getSingleColor(color[i]);
+        else {
+            for (var i = 0; i < color.length; ++i) {
+                color[i] = getSingleColor(color[i]);
+            }
+            return color;
         }
-
-        return color;
     }
     /**
      * Utility function to convert hexadecimal colors to strings, and simply return the color if it's a string.
@@ -1158,24 +952,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
      * @param {Array} array2 - Second array to compare
      * @return {boolean} Do the arrays contain the same values in the same order
      */
-    function areArraysEqual(array1, array2)
-    {
-        if (!Array.isArray(array1) || !Array.isArray(array2))
-        {
+    function areArraysEqual(array1, array2) {
+        if (!Array.isArray(array1) || !Array.isArray(array2)) {
             return false;
         }
-        if (array1.length !== array2.length)
-        {
+        if (array1.length !== array2.length) {
             return false;
         }
-        for (let i = 0; i < array1.length; ++i)
-        {
-            if (array1[i] !== array2[i])
-            {
+        for (var i = 0; i < array1.length; ++i) {
+            if (array1[i] !== array2[i]) {
                 return false;
             }
         }
-
         return true;
     }
     /**
@@ -1185,16 +973,12 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
      * @param {Object} source - Source object for the properties to copy
      * @param {string} propertyObj - Object containing properties names we want to loop over
      */
-    function deepCopyProperties(target, source, propertyObj)
-    {
-        for (const prop in propertyObj)
-        {
-            if (Array.isArray(source[prop]))
-            {
+    function deepCopyProperties(target, source, propertyObj) {
+        for (var prop in propertyObj) {
+            if (Array.isArray(source[prop])) {
                 target[prop] = source[prop].slice();
             }
-            else
-            {
+            else {
                 target[prop] = source[prop];
             }
         }
@@ -1211,8 +995,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
      * @class
      * @memberof PIXI
      */
-    const TextMetrics = /** @class */ (function ()
-    {
+    var TextMetrics = /** @class */ (function () {
         /**
          * @param {string} text - the text that was measured
          * @param {PIXI.TextStyle} style - the style that was measured
@@ -1224,8 +1007,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param {number} maxLineWidth - the maximum line width for all measured lines
          * @param {Object} fontProperties - the font properties object from TextMetrics.measureFont
          */
-        function TextMetrics(text, style, width, height, lines, lineWidths, lineHeight, maxLineWidth, fontProperties)
-        {
+        function TextMetrics(text, style, width, height, lines, lineWidths, lineHeight, maxLineWidth, fontProperties) {
             /**
              * The text that was measured
              *
@@ -1290,50 +1072,38 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param {HTMLCanvasElement} [canvas] - optional specification of the canvas to use for measuring.
          * @return {PIXI.TextMetrics} measured width and height of the text.
          */
-        TextMetrics.measureText = function (text, style, wordWrap, canvas)
-        {
+        TextMetrics.measureText = function (text, style, wordWrap, canvas) {
             if (canvas === void 0) { canvas = TextMetrics._canvas; }
             wordWrap = (wordWrap === undefined || wordWrap === null) ? style.wordWrap : wordWrap;
-            const font = style.toFontString();
-            const fontProperties = TextMetrics.measureFont(font);
+            var font = style.toFontString();
+            var fontProperties = TextMetrics.measureFont(font);
             // fallback in case UA disallow canvas data extraction
             // (toDataURI, getImageData functions)
-
-            if (fontProperties.fontSize === 0)
-            {
+            if (fontProperties.fontSize === 0) {
                 fontProperties.fontSize = style.fontSize;
                 fontProperties.ascent = style.fontSize;
             }
-            const context = canvas.getContext('2d');
-
+            var context = canvas.getContext('2d');
             context.font = font;
-            const outputText = wordWrap ? TextMetrics.wordWrap(text, style, canvas) : text;
-            const lines = outputText.split(/(?:\r\n|\r|\n)/);
-            const lineWidths = new Array(lines.length);
-            let maxLineWidth = 0;
-
-            for (let i = 0; i < lines.length; i++)
-            {
-                const lineWidth = context.measureText(lines[i]).width + ((lines[i].length - 1) * style.letterSpacing);
-
+            var outputText = wordWrap ? TextMetrics.wordWrap(text, style, canvas) : text;
+            var lines = outputText.split(/(?:\r\n|\r|\n)/);
+            var lineWidths = new Array(lines.length);
+            var maxLineWidth = 0;
+            for (var i = 0; i < lines.length; i++) {
+                var lineWidth = context.measureText(lines[i]).width + ((lines[i].length - 1) * style.letterSpacing);
                 lineWidths[i] = lineWidth;
                 maxLineWidth = Math.max(maxLineWidth, lineWidth);
             }
-            let width = maxLineWidth + style.strokeThickness;
-
-            if (style.dropShadow)
-            {
+            var width = maxLineWidth + style.strokeThickness;
+            if (style.dropShadow) {
                 width += style.dropShadowDistance;
             }
-            const lineHeight = style.lineHeight || fontProperties.fontSize + style.strokeThickness;
-            let height = Math.max(lineHeight, fontProperties.fontSize + style.strokeThickness)
+            var lineHeight = style.lineHeight || fontProperties.fontSize + style.strokeThickness;
+            var height = Math.max(lineHeight, fontProperties.fontSize + style.strokeThickness)
                 + ((lines.length - 1) * (lineHeight + style.leading));
-
-            if (style.dropShadow)
-            {
+            if (style.dropShadow) {
                 height += style.dropShadowDistance;
             }
-
             return new TextMetrics(text, style, width, height, lines, lineWidths, lineHeight + style.leading, maxLineWidth, fontProperties);
         };
         /**
@@ -1346,42 +1116,35 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param {HTMLCanvasElement} [canvas] - optional specification of the canvas to use for measuring.
          * @return {string} New string with new lines applied where required
          */
-        TextMetrics.wordWrap = function (text, style, canvas)
-        {
+        TextMetrics.wordWrap = function (text, style, canvas) {
             if (canvas === void 0) { canvas = TextMetrics._canvas; }
-            const context = canvas.getContext('2d');
-            let width = 0;
-            let line = '';
-            let lines = '';
-            const cache = Object.create(null);
-            const letterSpacing = style.letterSpacing; const
-                whiteSpace = style.whiteSpace;
+            var context = canvas.getContext('2d');
+            var width = 0;
+            var line = '';
+            var lines = '';
+            var cache = Object.create(null);
+            var letterSpacing = style.letterSpacing, whiteSpace = style.whiteSpace;
             // How to handle whitespaces
-            const collapseSpaces = TextMetrics.collapseSpaces(whiteSpace);
-            const collapseNewlines = TextMetrics.collapseNewlines(whiteSpace);
+            var collapseSpaces = TextMetrics.collapseSpaces(whiteSpace);
+            var collapseNewlines = TextMetrics.collapseNewlines(whiteSpace);
             // whether or not spaces may be added to the beginning of lines
-            let canPrependSpaces = !collapseSpaces;
+            var canPrependSpaces = !collapseSpaces;
             // There is letterSpacing after every char except the last one
             // t_h_i_s_' '_i_s_' '_a_n_' '_e_x_a_m_p_l_e_' '_!
             // so for convenience the above needs to be compared to width + 1 extra letterSpace
             // t_h_i_s_' '_i_s_' '_a_n_' '_e_x_a_m_p_l_e_' '_!_
             // ________________________________________________
             // And then the final space is simply no appended to each line
-            const wordWrapWidth = style.wordWrapWidth + letterSpacing;
+            var wordWrapWidth = style.wordWrapWidth + letterSpacing;
             // break text into words, spaces and newline chars
-            const tokens = TextMetrics.tokenize(text);
-
-            for (let i = 0; i < tokens.length; i++)
-            {
+            var tokens = TextMetrics.tokenize(text);
+            for (var i = 0; i < tokens.length; i++) {
                 // get the word, space or newlineChar
-                let token = tokens[i];
+                var token = tokens[i];
                 // if word is a new line
-
-                if (TextMetrics.isNewline(token))
-                {
+                if (TextMetrics.isNewline(token)) {
                     // keep the new line
-                    if (!collapseNewlines)
-                    {
+                    if (!collapseNewlines) {
                         lines += TextMetrics.addLine(line);
                         canPrependSpaces = !collapseSpaces;
                         line = '';
@@ -1393,66 +1156,50 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
                     token = ' ';
                 }
                 // if we should collapse repeated whitespaces
-                if (collapseSpaces)
-                {
+                if (collapseSpaces) {
                     // check both this and the last tokens for spaces
-                    const currIsBreakingSpace = TextMetrics.isBreakingSpace(token);
-                    const lastIsBreakingSpace = TextMetrics.isBreakingSpace(line[line.length - 1]);
-
-                    if (currIsBreakingSpace && lastIsBreakingSpace)
-                    {
+                    var currIsBreakingSpace = TextMetrics.isBreakingSpace(token);
+                    var lastIsBreakingSpace = TextMetrics.isBreakingSpace(line[line.length - 1]);
+                    if (currIsBreakingSpace && lastIsBreakingSpace) {
                         continue;
                     }
                 }
                 // get word width from cache if possible
-                const tokenWidth = TextMetrics.getFromCache(token, letterSpacing, cache, context);
+                var tokenWidth = TextMetrics.getFromCache(token, letterSpacing, cache, context);
                 // word is longer than desired bounds
-
-                if (tokenWidth > wordWrapWidth)
-                {
+                if (tokenWidth > wordWrapWidth) {
                     // if we are not already at the beginning of a line
-                    if (line !== '')
-                    {
+                    if (line !== '') {
                         // start newlines for overflow words
                         lines += TextMetrics.addLine(line);
                         line = '';
                         width = 0;
                     }
                     // break large word over multiple lines
-                    if (TextMetrics.canBreakWords(token, style.breakWords))
-                    {
+                    if (TextMetrics.canBreakWords(token, style.breakWords)) {
                         // break word into characters
-                        const characters = TextMetrics.wordWrapSplit(token);
+                        var characters = TextMetrics.wordWrapSplit(token);
                         // loop the characters
-
-                        for (let j = 0; j < characters.length; j++)
-                        {
-                            let char = characters[j];
-                            let k = 1;
+                        for (var j = 0; j < characters.length; j++) {
+                            var char = characters[j];
+                            var k = 1;
                             // we are not at the end of the token
-
-                            while (characters[j + k])
-                            {
-                                const nextChar = characters[j + k];
-                                const lastChar = char[char.length - 1];
+                            while (characters[j + k]) {
+                                var nextChar = characters[j + k];
+                                var lastChar = char[char.length - 1];
                                 // should not split chars
-
-                                if (!TextMetrics.canBreakChars(lastChar, nextChar, token, j, style.breakWords))
-                                {
+                                if (!TextMetrics.canBreakChars(lastChar, nextChar, token, j, style.breakWords)) {
                                     // combine chars & move forward one
                                     char += nextChar;
                                 }
-                                else
-                                {
+                                else {
                                     break;
                                 }
                                 k++;
                             }
                             j += char.length - 1;
-                            const characterWidth = TextMetrics.getFromCache(char, letterSpacing, cache, context);
-
-                            if (characterWidth + width > wordWrapWidth)
-                            {
+                            var characterWidth = TextMetrics.getFromCache(char, letterSpacing, cache, context);
+                            if (characterWidth + width > wordWrapWidth) {
                                 lines += TextMetrics.addLine(line);
                                 canPrependSpaces = false;
                                 line = '';
@@ -1463,19 +1210,16 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
                         }
                     }
                     // run word out of the bounds
-                    else
-                    {
+                    else {
                         // if there are words in this line already
                         // finish that line and start a new one
-                        if (line.length > 0)
-                        {
+                        if (line.length > 0) {
                             lines += TextMetrics.addLine(line);
                             line = '';
                             width = 0;
                         }
-                        const isLastToken = i === tokens.length - 1;
+                        var isLastToken = i === tokens.length - 1;
                         // give it its own line if it's not the end
-
                         lines += TextMetrics.addLine(token, !isLastToken);
                         canPrependSpaces = false;
                         line = '';
@@ -1483,12 +1227,10 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
                     }
                 }
                 // word could fit
-                else
-                {
+                else {
                     // word won't fit because of existing words
                     // start a new line
-                    if (tokenWidth + width > wordWrapWidth)
-                    {
+                    if (tokenWidth + width > wordWrapWidth) {
                         // if its a space we don't want it
                         canPrependSpaces = false;
                         // add a new line
@@ -1498,8 +1240,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
                         width = 0;
                     }
                     // don't add spaces to the beginning of lines
-                    if (line.length > 0 || !TextMetrics.isBreakingSpace(token) || canPrependSpaces)
-                    {
+                    if (line.length > 0 || !TextMetrics.isBreakingSpace(token) || canPrependSpaces) {
                         // add the word to the current line
                         line += token;
                         // update width counter
@@ -1508,7 +1249,6 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
                 }
             }
             lines += TextMetrics.addLine(line, false);
-
             return lines;
         };
         /**
@@ -1520,12 +1260,10 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {boolean}  newLine     - Add new line character to end
          * @return {string}  A formatted line
          */
-        TextMetrics.addLine = function (line, newLine)
-        {
+        TextMetrics.addLine = function (line, newLine) {
             if (newLine === void 0) { newLine = true; }
             line = TextMetrics.trimRight(line);
-            line = (newLine) ? `${line}\n` : line;
-
+            line = (newLine) ? line + "\n" : line;
             return line;
         };
         /**
@@ -1538,18 +1276,13 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {CanvasRenderingContext2D}  context        - The canvas context
          * @return {number}                    The from cache.
          */
-        TextMetrics.getFromCache = function (key, letterSpacing, cache, context)
-        {
-            let width = cache[key];
-
-            if (typeof width !== 'number')
-            {
-                const spacing = ((key.length) * letterSpacing);
-
+        TextMetrics.getFromCache = function (key, letterSpacing, cache, context) {
+            var width = cache[key];
+            if (typeof width !== 'number') {
+                var spacing = ((key.length) * letterSpacing);
                 width = context.measureText(key).width + spacing;
                 cache[key] = width;
             }
-
             return width;
         };
         /**
@@ -1559,8 +1292,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {string}   whiteSpace - The TextStyle property whiteSpace
          * @return {boolean}  should collapse
          */
-        TextMetrics.collapseSpaces = function (whiteSpace)
-        {
+        TextMetrics.collapseSpaces = function (whiteSpace) {
             return (whiteSpace === 'normal' || whiteSpace === 'pre-line');
         };
         /**
@@ -1570,8 +1302,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {string}   whiteSpace - The white space
          * @return {boolean}  should collapse
          */
-        TextMetrics.collapseNewlines = function (whiteSpace)
-        {
+        TextMetrics.collapseNewlines = function (whiteSpace) {
             return (whiteSpace === 'normal');
         };
         /**
@@ -1581,23 +1312,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {string}  text - The text
          * @return {string}  trimmed string
          */
-        TextMetrics.trimRight = function (text)
-        {
-            if (typeof text !== 'string')
-            {
+        TextMetrics.trimRight = function (text) {
+            if (typeof text !== 'string') {
                 return '';
             }
-            for (let i = text.length - 1; i >= 0; i--)
-            {
-                const char = text[i];
-
-                if (!TextMetrics.isBreakingSpace(char))
-                {
+            for (var i = text.length - 1; i >= 0; i--) {
+                var char = text[i];
+                if (!TextMetrics.isBreakingSpace(char)) {
                     break;
                 }
                 text = text.slice(0, -1);
             }
-
             return text;
         };
         /**
@@ -1607,13 +1332,10 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {string}  char - The character
          * @return {boolean}  True if newline, False otherwise.
          */
-        TextMetrics.isNewline = function (char)
-        {
-            if (typeof char !== 'string')
-            {
+        TextMetrics.isNewline = function (char) {
+            if (typeof char !== 'string') {
                 return false;
             }
-
             return (TextMetrics._newlines.indexOf(char.charCodeAt(0)) >= 0);
         };
         /**
@@ -1623,13 +1345,10 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {string}  char - The character
          * @return {boolean}  True if whitespace, False otherwise.
          */
-        TextMetrics.isBreakingSpace = function (char)
-        {
-            if (typeof char !== 'string')
-            {
+        TextMetrics.isBreakingSpace = function (char) {
+            if (typeof char !== 'string') {
                 return false;
             }
-
             return (TextMetrics._breakingSpaces.indexOf(char.charCodeAt(0)) >= 0);
         };
         /**
@@ -1639,23 +1358,16 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {string}  text - The text
          * @return {string[]}  A tokenized array
          */
-        TextMetrics.tokenize = function (text)
-        {
-            const tokens = [];
-            let token = '';
-
-            if (typeof text !== 'string')
-            {
+        TextMetrics.tokenize = function (text) {
+            var tokens = [];
+            var token = '';
+            if (typeof text !== 'string') {
                 return tokens;
             }
-            for (let i = 0; i < text.length; i++)
-            {
-                const char = text[i];
-
-                if (TextMetrics.isBreakingSpace(char) || TextMetrics.isNewline(char))
-                {
-                    if (token !== '')
-                    {
+            for (var i = 0; i < text.length; i++) {
+                var char = text[i];
+                if (TextMetrics.isBreakingSpace(char) || TextMetrics.isNewline(char)) {
+                    if (token !== '') {
                         tokens.push(token);
                         token = '';
                     }
@@ -1664,11 +1376,9 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
                 }
                 token += char;
             }
-            if (token !== '')
-            {
+            if (token !== '') {
                 tokens.push(token);
             }
-
             return tokens;
         };
         /**
@@ -1682,8 +1392,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {boolean}  breakWords - The style attr break words
          * @return {boolean} whether to break word or not
          */
-        TextMetrics.canBreakWords = function (_token, breakWords)
-        {
+        TextMetrics.canBreakWords = function (_token, breakWords) {
             return breakWords;
         };
         /**
@@ -1701,8 +1410,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {boolean}  breakWords - The style attr break words
          * @return {boolean} whether to break word or not
          */
-        TextMetrics.canBreakChars = function (_char, _nextChar, _token, _index, _breakWords)
-        {
+        TextMetrics.canBreakChars = function (_char, _nextChar, _token, _index, _breakWords) {
             return true;
         };
         /**
@@ -1719,8 +1427,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param  {string}  token - The token to split
          * @return {string[]} The characters of the token
          */
-        TextMetrics.wordWrapSplit = function (token)
-        {
+        TextMetrics.wordWrapSplit = function (token) {
             return token.split('');
         };
         /**
@@ -1730,27 +1437,23 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param {string} font - String representing the style of the font
          * @return {PIXI.IFontMetrics} Font properties object
          */
-        TextMetrics.measureFont = function (font)
-        {
+        TextMetrics.measureFont = function (font) {
             // as this method is used for preparing assets, don't recalculate things if we don't need to
-            if (TextMetrics._fonts[font])
-            {
+            if (TextMetrics._fonts[font]) {
                 return TextMetrics._fonts[font];
             }
-            const properties = {
+            var properties = {
                 ascent: 0,
                 descent: 0,
                 fontSize: 0,
             };
-            const canvas = TextMetrics._canvas;
-            const context = TextMetrics._context;
-
+            var canvas = TextMetrics._canvas;
+            var context = TextMetrics._context;
             context.font = font;
-            const metricsString = TextMetrics.METRICS_STRING + TextMetrics.BASELINE_SYMBOL;
-            const width = Math.ceil(context.measureText(metricsString).width);
-            let baseline = Math.ceil(context.measureText(TextMetrics.BASELINE_SYMBOL).width);
-            const height = 2 * baseline;
-
+            var metricsString = TextMetrics.METRICS_STRING + TextMetrics.BASELINE_SYMBOL;
+            var width = Math.ceil(context.measureText(metricsString).width);
+            var baseline = Math.ceil(context.measureText(TextMetrics.BASELINE_SYMBOL).width);
+            var height = 2 * baseline;
             baseline = baseline * TextMetrics.BASELINE_MULTIPLIER | 0;
             canvas.width = width;
             canvas.height = height;
@@ -1760,30 +1463,24 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             context.textBaseline = 'alphabetic';
             context.fillStyle = '#000';
             context.fillText(metricsString, 0, baseline);
-            const imagedata = context.getImageData(0, 0, width, height).data;
-            const pixels = imagedata.length;
-            const line = width * 4;
-            let i = 0;
-            let idx = 0;
-            let stop = false;
+            var imagedata = context.getImageData(0, 0, width, height).data;
+            var pixels = imagedata.length;
+            var line = width * 4;
+            var i = 0;
+            var idx = 0;
+            var stop = false;
             // ascent. scan from top to bottom until we find a non red pixel
-
-            for (i = 0; i < baseline; ++i)
-            {
-                for (var j = 0; j < line; j += 4)
-                {
-                    if (imagedata[idx + j] !== 255)
-                    {
+            for (i = 0; i < baseline; ++i) {
+                for (var j = 0; j < line; j += 4) {
+                    if (imagedata[idx + j] !== 255) {
                         stop = true;
                         break;
                     }
                 }
-                if (!stop)
-                {
+                if (!stop) {
                     idx += line;
                 }
-                else
-                {
+                else {
                     break;
                 }
             }
@@ -1791,29 +1488,23 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             idx = pixels - line;
             stop = false;
             // descent. scan from bottom to top until we find a non red pixel
-            for (i = height; i > baseline; --i)
-            {
-                for (var j = 0; j < line; j += 4)
-                {
-                    if (imagedata[idx + j] !== 255)
-                    {
+            for (i = height; i > baseline; --i) {
+                for (var j = 0; j < line; j += 4) {
+                    if (imagedata[idx + j] !== 255) {
                         stop = true;
                         break;
                     }
                 }
-                if (!stop)
-                {
+                if (!stop) {
                     idx -= line;
                 }
-                else
-                {
+                else {
                     break;
                 }
             }
             properties.descent = i - baseline;
             properties.fontSize = properties.ascent + properties.descent;
             TextMetrics._fonts[font] = properties;
-
             return properties;
         };
         /**
@@ -1822,21 +1513,17 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @static
          * @param {string} [font] - font name. If font name not set then clear cache for all fonts.
          */
-        TextMetrics.clearMetrics = function (font)
-        {
+        TextMetrics.clearMetrics = function (font) {
             if (font === void 0) { font = ''; }
-            if (font)
-            {
+            if (font) {
                 delete TextMetrics._fonts[font];
             }
-            else
-            {
+            else {
                 TextMetrics._fonts = {};
             }
         };
-
         return TextMetrics;
-    })();
+    }());
     /**
      * Internal return object for {@link PIXI.TextMetrics.measureFont `TextMetrics.measureFont`}.
      *
@@ -1847,27 +1534,20 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
      * @memberof PIXI.TextMetrics
      * @private
      */
-    const canvas = (function ()
-    {
-        try
-        {
+    var canvas = (function () {
+        try {
             // OffscreenCanvas2D measureText can be up to 40% faster.
-            const c = new OffscreenCanvas(0, 0);
-            const context = c.getContext('2d');
-
-            if (context && context.measureText)
-            {
+            var c = new OffscreenCanvas(0, 0);
+            var context = c.getContext('2d');
+            if (context && context.measureText) {
                 return c;
             }
-
             return document.createElement('canvas');
         }
-        catch (ex)
-        {
+        catch (ex) {
             return document.createElement('canvas');
         }
     })();
-
     canvas.width = canvas.height = 10;
     /**
      * Cached canvas element for measuring text
@@ -1933,7 +1613,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
      */
     TextMetrics._newlines = [
         0x000A,
-        0x000D];
+        0x000D ];
     /**
      * Cache of breaking spaces.
      *
@@ -1955,7 +1635,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
         0x2009,
         0x200A,
         0x205F,
-        0x3000];
+        0x3000 ];
     /**
      * A number, or a string containing a number.
      *
@@ -1966,7 +1646,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
      * @property {number} fontSize - Font size
      */
 
-    const defaultDestroyOptions = {
+    var defaultDestroyOptions = {
         texture: true,
         children: false,
         baseTexture: true,
@@ -1996,28 +1676,23 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
      * @extends PIXI.Sprite
      * @memberof PIXI
      */
-    const Text = /** @class */ (function (_super)
-    {
+    var Text = /** @class */ (function (_super) {
         __extends(Text, _super);
         /**
          * @param {string} text - The string that you would like the text to display
          * @param {object|PIXI.TextStyle} [style] - The style parameters
          * @param {HTMLCanvasElement} [canvas] - The canvas element for drawing text
          */
-        function Text(text, style, canvas)
-        {
-            let _this = this;
-            let ownCanvas = false;
-
-            if (!canvas)
-            {
+        function Text(text, style, canvas) {
+            var _this = this;
+            var ownCanvas = false;
+            if (!canvas) {
                 canvas = document.createElement('canvas');
                 ownCanvas = true;
             }
             canvas.width = 3;
             canvas.height = 3;
-            const texture = core.Texture.from(canvas);
-
+            var texture = core.Texture.from(canvas);
             texture.orig = new math.Rectangle();
             texture.trim = new math.Rectangle();
             _this = _super.call(this, texture) || this;
@@ -2081,7 +1756,6 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             _this.text = text;
             _this.style = style;
             _this.localStyleID = -1;
-
             return _this;
         }
         /**
@@ -2092,31 +1766,26 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          *
          * @param {boolean} respectDirty - Whether to abort updating the text if the Text isn't dirty and the function is called.
          */
-        Text.prototype.updateText = function (respectDirty)
-        {
-            const style = this._style;
+        Text.prototype.updateText = function (respectDirty) {
+            var style = this._style;
             // check if style has changed..
-
-            if (this.localStyleID !== style.styleID)
-            {
+            if (this.localStyleID !== style.styleID) {
                 this.dirty = true;
                 this.localStyleID = style.styleID;
             }
-            if (!this.dirty && respectDirty)
-            {
+            if (!this.dirty && respectDirty) {
                 return;
             }
             this._font = this._style.toFontString();
-            const context = this.context;
-            const measured = TextMetrics.measureText(this._text || ' ', this._style, this._style.wordWrap, this.canvas);
-            const width = measured.width;
-            const height = measured.height;
-            const lines = measured.lines;
-            const lineHeight = measured.lineHeight;
-            const lineWidths = measured.lineWidths;
-            const maxLineWidth = measured.maxLineWidth;
-            const fontProperties = measured.fontProperties;
-
+            var context = this.context;
+            var measured = TextMetrics.measureText(this._text || ' ', this._style, this._style.wordWrap, this.canvas);
+            var width = measured.width;
+            var height = measured.height;
+            var lines = measured.lines;
+            var lineHeight = measured.lineHeight;
+            var lineWidths = measured.lineWidths;
+            var maxLineWidth = measured.maxLineWidth;
+            var fontProperties = measured.fontProperties;
             this.canvas.width = Math.ceil((Math.max(1, width) + (style.padding * 2)) * this._resolution);
             this.canvas.height = Math.ceil((Math.max(1, height) + (style.padding * 2)) * this._resolution);
             context.scale(this._resolution, this._resolution);
@@ -2126,10 +1795,10 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             context.textBaseline = style.textBaseline;
             context.lineJoin = style.lineJoin;
             context.miterLimit = style.miterLimit;
-            let linePositionX;
-            let linePositionY;
+            var linePositionX;
+            var linePositionY;
             // require 2 passes if a shadow; the first to draw the drop shadow, the second to draw the text
-            const passesCount = style.dropShadow ? 2 : 1;
+            var passesCount = style.dropShadow ? 2 : 1;
             // For v4, we drew text at the colours of the drop shadow underneath the normal text. This gave the correct zIndex,
             // but features such as alpha and shadowblur did not look right at all, since we were using actual text as a shadow.
             //
@@ -2141,33 +1810,27 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             // text, but instead drawing text in the correct location, we'll draw it off screen (-paddingY), and then adjust the
             // drop shadow so only that appears on screen (+paddingY). Now we'll have the correct draw order of the shadow
             // beneath the text, whilst also having the proper text shadow styling.
-
-            for (let i = 0; i < passesCount; ++i)
-            {
-                const isShadowPass = style.dropShadow && i === 0;
+            for (var i = 0; i < passesCount; ++i) {
+                var isShadowPass = style.dropShadow && i === 0;
                 // we only want the drop shadow, so put text way off-screen
-                const dsOffsetText = isShadowPass ? Math.ceil(Math.max(1, height) + (style.padding * 2)) : 0;
-                const dsOffsetShadow = dsOffsetText * this._resolution;
-
-                if (isShadowPass)
-                {
+                var dsOffsetText = isShadowPass ? Math.ceil(Math.max(1, height) + (style.padding * 2)) : 0;
+                var dsOffsetShadow = dsOffsetText * this._resolution;
+                if (isShadowPass) {
                     // On Safari, text with gradient and drop shadows together do not position correctly
                     // if the scale of the canvas is not 1: https://bugs.webkit.org/show_bug.cgi?id=197689
                     // Therefore we'll set the styles to be a plain black whilst generating this drop shadow
                     context.fillStyle = 'black';
                     context.strokeStyle = 'black';
-                    const dropShadowColor = style.dropShadowColor;
-                    const rgb = utils.hex2rgb(typeof dropShadowColor === 'number' ? dropShadowColor : utils.string2hex(dropShadowColor));
-                    const dropShadowBlur = style.dropShadowBlur * this._resolution;
-                    const dropShadowDistance = style.dropShadowDistance * this._resolution;
-
-                    context.shadowColor = `rgba(${rgb[0] * 255},${rgb[1] * 255},${rgb[2] * 255},${style.dropShadowAlpha})`;
+                    var dropShadowColor = style.dropShadowColor;
+                    var rgb = utils.hex2rgb(typeof dropShadowColor === 'number' ? dropShadowColor : utils.string2hex(dropShadowColor));
+                    var dropShadowBlur = style.dropShadowBlur * this._resolution;
+                    var dropShadowDistance = style.dropShadowDistance * this._resolution;
+                    context.shadowColor = "rgba(" + rgb[0] * 255 + "," + rgb[1] * 255 + "," + rgb[2] * 255 + "," + style.dropShadowAlpha + ")";
                     context.shadowBlur = dropShadowBlur;
                     context.shadowOffsetX = Math.cos(style.dropShadowAngle) * dropShadowDistance;
                     context.shadowOffsetY = (Math.sin(style.dropShadowAngle) * dropShadowDistance) + dsOffsetShadow;
                 }
-                else
-                {
+                else {
                     // set canvas text styles
                     context.fillStyle = this._generateFillStyle(style, lines, measured);
                     // TODO: Can't have different types for getter and setter. The getter shouldn't have the number type as
@@ -2180,24 +1843,19 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
                     context.shadowOffsetY = 0;
                 }
                 // draw lines line by line
-                for (let i_1 = 0; i_1 < lines.length; i_1++)
-                {
+                for (var i_1 = 0; i_1 < lines.length; i_1++) {
                     linePositionX = style.strokeThickness / 2;
                     linePositionY = ((style.strokeThickness / 2) + (i_1 * lineHeight)) + fontProperties.ascent;
-                    if (style.align === 'right')
-                    {
+                    if (style.align === 'right') {
                         linePositionX += maxLineWidth - lineWidths[i_1];
                     }
-                    else if (style.align === 'center')
-                    {
+                    else if (style.align === 'center') {
                         linePositionX += (maxLineWidth - lineWidths[i_1]) / 2;
                     }
-                    if (style.stroke && style.strokeThickness)
-                    {
+                    if (style.stroke && style.strokeThickness) {
                         this.drawLetterSpacing(lines[i_1], linePositionX + style.padding, linePositionY + style.padding - dsOffsetText, true);
                     }
-                    if (style.fill)
-                    {
+                    if (style.fill) {
                         this.drawLetterSpacing(lines[i_1], linePositionX + style.padding, linePositionY + style.padding - dsOffsetText);
                     }
                 }
@@ -2213,47 +1871,36 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          *  text? If not, it's for the inside fill
          * @private
          */
-        Text.prototype.drawLetterSpacing = function (text, x, y, isStroke)
-        {
+        Text.prototype.drawLetterSpacing = function (text, x, y, isStroke) {
             if (isStroke === void 0) { isStroke = false; }
-            const style = this._style;
+            var style = this._style;
             // letterSpacing of 0 means normal
-            const letterSpacing = style.letterSpacing;
-
-            if (letterSpacing === 0)
-            {
-                if (isStroke)
-                {
+            var letterSpacing = style.letterSpacing;
+            if (letterSpacing === 0) {
+                if (isStroke) {
                     this.context.strokeText(text, x, y);
                 }
-                else
-                {
+                else {
                     this.context.fillText(text, x, y);
                 }
-
                 return;
             }
-            let currentPosition = x;
+            var currentPosition = x;
             // Using Array.from correctly splits characters whilst keeping emoji together.
             // This is not supported on IE as it requires ES6, so regular text splitting occurs.
             // This also doesn't account for emoji that are multiple emoji put together to make something else.
             // Handling all of this would require a big library itself.
             // https://medium.com/@giltayar/iterating-over-emoji-characters-the-es6-way-f06e4589516
             // https://github.com/orling/grapheme-splitter
-            const stringArray = Array.from ? Array.from(text) : text.split('');
-            let previousWidth = this.context.measureText(text).width;
-            let currentWidth = 0;
-
-            for (let i = 0; i < stringArray.length; ++i)
-            {
-                const currentChar = stringArray[i];
-
-                if (isStroke)
-                {
+            var stringArray = Array.from ? Array.from(text) : text.split('');
+            var previousWidth = this.context.measureText(text).width;
+            var currentWidth = 0;
+            for (var i = 0; i < stringArray.length; ++i) {
+                var currentChar = stringArray[i];
+                if (isStroke) {
                     this.context.strokeText(currentChar, currentPosition, y);
                 }
-                else
-                {
+                else {
                     this.context.fillText(currentChar, currentPosition, y);
                 }
                 currentWidth = this.context.measureText(text.substring(i + 1)).width;
@@ -2266,26 +1913,20 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          *
          * @private
          */
-        Text.prototype.updateTexture = function ()
-        {
-            const canvas = this.canvas;
-
-            if (this._style.trim)
-            {
-                const trimmed = utils.trimCanvas(canvas);
-
-                if (trimmed.data)
-                {
+        Text.prototype.updateTexture = function () {
+            var canvas = this.canvas;
+            if (this._style.trim) {
+                var trimmed = utils.trimCanvas(canvas);
+                if (trimmed.data) {
                     canvas.width = trimmed.width;
                     canvas.height = trimmed.height;
                     this.context.putImageData(trimmed.data, 0, 0);
                 }
             }
-            const texture = this._texture;
-            const style = this._style;
-            const padding = style.trim ? 0 : style.padding;
-            const baseTexture = texture.baseTexture;
-
+            var texture = this._texture;
+            var style = this._style;
+            var padding = style.trim ? 0 : style.padding;
+            var baseTexture = texture.baseTexture;
             texture.trim.width = texture._frame.width = Math.ceil(canvas.width / this._resolution);
             texture.trim.height = texture._frame.height = Math.ceil(canvas.height / this._resolution);
             texture.trim.x = -padding;
@@ -2305,10 +1946,8 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @protected
          * @param {PIXI.Renderer} renderer - The renderer
          */
-        Text.prototype._render = function (renderer)
-        {
-            if (this._autoResolution && this._resolution !== renderer.resolution)
-            {
+        Text.prototype._render = function (renderer) {
+            if (this._autoResolution && this._resolution !== renderer.resolution) {
                 this._resolution = renderer.resolution;
                 this.dirty = true;
             }
@@ -2321,18 +1960,15 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param {PIXI.Rectangle} rect - The output rectangle.
          * @return {PIXI.Rectangle} The bounds.
          */
-        Text.prototype.getLocalBounds = function (rect)
-        {
+        Text.prototype.getLocalBounds = function (rect) {
             this.updateText(true);
-
             return _super.prototype.getLocalBounds.call(this, rect);
         };
         /**
          * calculates the bounds of the Text as a rectangle. The bounds calculation takes the worldTransform into account.
          * @protected
          */
-        Text.prototype._calculateBounds = function ()
-        {
+        Text.prototype._calculateBounds = function () {
             this.updateText(true);
             this.calculateVertices();
             // if we have already done this on THIS frame.
@@ -2346,42 +1982,34 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param {string[]} lines - The lines of text.
          * @return {string|number|CanvasGradient} The fill style
          */
-        Text.prototype._generateFillStyle = function (style, lines, metrics)
-        {
+        Text.prototype._generateFillStyle = function (style, lines, metrics) {
             // TODO: Can't have different types for getter and setter. The getter shouldn't have the number type as
             //       the setter converts to string. See this thread for more details:
             //       https://github.com/microsoft/TypeScript/issues/2521
-            const fillStyle = style.fill;
-
-            if (!Array.isArray(fillStyle))
-            {
+            var fillStyle = style.fill;
+            if (!Array.isArray(fillStyle)) {
                 return fillStyle;
             }
-            else if (fillStyle.length === 1)
-            {
+            else if (fillStyle.length === 1) {
                 return fillStyle[0];
             }
             // the gradient will be evenly spaced out according to how large the array is.
             // ['#FF0000', '#00FF00', '#0000FF'] would created stops at 0.25, 0.5 and 0.75
-            let gradient;
+            var gradient;
             // a dropshadow will enlarge the canvas and result in the gradient being
             // generated with the incorrect dimensions
-            const dropShadowCorrection = (style.dropShadow) ? style.dropShadowDistance : 0;
+            var dropShadowCorrection = (style.dropShadow) ? style.dropShadowDistance : 0;
             // should also take padding into account, padding can offset the gradient
-            const padding = style.padding || 0;
-            const width = Math.ceil(this.canvas.width / this._resolution) - dropShadowCorrection - (padding * 2);
-            const height = Math.ceil(this.canvas.height / this._resolution) - dropShadowCorrection - (padding * 2);
+            var padding = style.padding || 0;
+            var width = Math.ceil(this.canvas.width / this._resolution) - dropShadowCorrection - (padding * 2);
+            var height = Math.ceil(this.canvas.height / this._resolution) - dropShadowCorrection - (padding * 2);
             // make a copy of the style settings, so we can manipulate them later
-            const fill = fillStyle.slice();
-            const fillGradientStops = style.fillGradientStops.slice();
+            var fill = fillStyle.slice();
+            var fillGradientStops = style.fillGradientStops.slice();
             // wanting to evenly distribute the fills. So an array of 4 colours should give fills of 0.25, 0.5 and 0.75
-
-            if (!fillGradientStops.length)
-            {
-                const lengthPlus1 = fill.length + 1;
-
-                for (var i = 1; i < lengthPlus1; ++i)
-                {
+            if (!fillGradientStops.length) {
+                var lengthPlus1 = fill.length + 1;
+                for (var i = 1; i < lengthPlus1; ++i) {
                     fillGradientStops.push(i / lengthPlus1);
                 }
             }
@@ -2391,8 +2019,7 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             fillGradientStops.unshift(0);
             fill.push(fillStyle[fillStyle.length - 1]);
             fillGradientStops.push(1);
-            if (style.fillGradientType === exports.TEXT_GRADIENT.LINEAR_VERTICAL)
-            {
+            if (style.fillGradientType === exports.TEXT_GRADIENT.LINEAR_VERTICAL) {
                 // start the gradient at the top center of the canvas, and end at the bottom middle of the canvas
                 gradient = this.context.createLinearGradient(width / 2, padding, width / 2, height + padding);
                 // we need to repeat the gradient so that each individual line of text has the same vertical gradient effect
@@ -2401,65 +2028,50 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
                 // The loop below generates the stops in order, so track the last generated one to prevent
                 // floating point precision from making us go the teeniest bit backwards, resulting in
                 // the first and last colors getting swapped.
-                let lastIterationStop = 0;
+                var lastIterationStop = 0;
                 // Actual height of the text itself, not counting spacing for lineHeight/leading/dropShadow etc
-                const textHeight = metrics.fontProperties.fontSize + style.strokeThickness;
+                var textHeight = metrics.fontProperties.fontSize + style.strokeThickness;
                 // textHeight, but as a 0-1 size in global gradient stop space
-                const gradStopLineHeight = textHeight / height;
-
-                for (var i = 0; i < lines.length; i++)
-                {
-                    const thisLineTop = metrics.lineHeight * i;
-
-                    for (let j = 0; j < fill.length; j++)
-                    {
+                var gradStopLineHeight = textHeight / height;
+                for (var i = 0; i < lines.length; i++) {
+                    var thisLineTop = metrics.lineHeight * i;
+                    for (var j = 0; j < fill.length; j++) {
                         // 0-1 stop point for the current line, multiplied to global space afterwards
-                        let lineStop = 0;
-
-                        if (typeof fillGradientStops[j] === 'number')
-                        {
+                        var lineStop = 0;
+                        if (typeof fillGradientStops[j] === 'number') {
                             lineStop = fillGradientStops[j];
                         }
-                        else
-                        {
+                        else {
                             lineStop = j / fill.length;
                         }
-                        const globalStop = (thisLineTop / height) + (lineStop * gradStopLineHeight);
+                        var globalStop = (thisLineTop / height) + (lineStop * gradStopLineHeight);
                         // Prevent color stop generation going backwards from floating point imprecision
-                        let clampedStop = Math.max(lastIterationStop, globalStop);
-
+                        var clampedStop = Math.max(lastIterationStop, globalStop);
                         clampedStop = Math.min(clampedStop, 1); // Cap at 1 as well for safety's sake to avoid a possible throw.
                         gradient.addColorStop(clampedStop, fill[j]);
                         lastIterationStop = clampedStop;
                     }
                 }
             }
-            else
-            {
+            else {
                 // start the gradient at the center left of the canvas, and end at the center right of the canvas
                 gradient = this.context.createLinearGradient(padding, height / 2, width + padding, height / 2);
                 // can just evenly space out the gradients in this case, as multiple lines makes no difference
                 // to an even left to right gradient
-                const totalIterations = fill.length + 1;
-                let currentIteration = 1;
-
-                for (var i = 0; i < fill.length; i++)
-                {
-                    let stop = void 0;
-
-                    if (typeof fillGradientStops[i] === 'number')
-                    {
+                var totalIterations = fill.length + 1;
+                var currentIteration = 1;
+                for (var i = 0; i < fill.length; i++) {
+                    var stop = void 0;
+                    if (typeof fillGradientStops[i] === 'number') {
                         stop = fillGradientStops[i];
                     }
-                    else
-                    {
+                    else {
                         stop = currentIteration / totalIterations;
                     }
                     gradient.addColorStop(stop, fill[i]);
                     currentIteration++;
                 }
             }
-
             return gradient;
         };
         /**
@@ -2474,18 +2086,15 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
          * @param {boolean} [options.texture=true] - Should it destroy the current texture of the sprite as well
          * @param {boolean} [options.baseTexture=true] - Should it destroy the base texture of the sprite as well
          */
-        Text.prototype.destroy = function (options)
-        {
-            if (typeof options === 'boolean')
-            {
+        Text.prototype.destroy = function (options) {
+            if (typeof options === 'boolean') {
                 options = { children: options };
             }
             options = Object.assign({}, defaultDestroyOptions, options);
             _super.prototype.destroy.call(this, options);
             // set canvas width and height to 0 to workaround memory leak in Safari < 13
             // https://stackoverflow.com/questions/52532614/total-canvas-memory-use-exceeds-the-maximum-limit-safari-12
-            if (this._ownCanvas)
-            {
+            if (this._ownCanvas) {
                 this.canvas.height = this.canvas.width = 0;
             }
             // make sure to reset the the context and canvas.. dont want this hanging around in memory!
@@ -2493,75 +2102,63 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             this.canvas = null;
             this._style = null;
         };
-        Object.defineProperty(Text.prototype, 'width', {
+        Object.defineProperty(Text.prototype, "width", {
             /**
              * The width of the Text, setting this will actually modify the scale to achieve the value set
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 this.updateText(true);
-
                 return Math.abs(this.scale.x) * this._texture.orig.width;
             },
-            set(value)
-            {
+            set: function (value) {
                 this.updateText(true);
-                const s = utils.sign(this.scale.x) || 1;
-
+                var s = utils.sign(this.scale.x) || 1;
                 this.scale.x = s * value / this._texture.orig.width;
                 this._width = value;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(Text.prototype, 'height', {
+        Object.defineProperty(Text.prototype, "height", {
             /**
              * The height of the Text, setting this will actually modify the scale to achieve the value set
              *
              * @member {number}
              */
-            get()
-            {
+            get: function () {
                 this.updateText(true);
-
                 return Math.abs(this.scale.y) * this._texture.orig.height;
             },
-            set(value)
-            {
+            set: function (value) {
                 this.updateText(true);
-                const s = utils.sign(this.scale.y) || 1;
-
+                var s = utils.sign(this.scale.y) || 1;
                 this.scale.y = s * value / this._texture.orig.height;
                 this._height = value;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(Text.prototype, 'style', {
+        Object.defineProperty(Text.prototype, "style", {
             /**
              * Set the style of the text. Set up an event listener to listen for changes on the style
              * object and mark the text as dirty.
              *
              * @member {object|PIXI.TextStyle}
              */
-            get()
-            {
+            get: function () {
                 // TODO: Can't have different types for getter and setter. The getter shouldn't have the ITextStyle
                 //       since the setter creates the TextStyle. See this thread for more details:
                 //       https://github.com/microsoft/TypeScript/issues/2521
                 return this._style;
             },
-            set(style)
-            {
+            set: function (style) {
                 style = style || {};
-                if (style instanceof TextStyle)
-                {
+                if (style instanceof TextStyle) {
                     this._style = style;
                 }
-                else
-                {
+                else {
                     this._style = new TextStyle(style);
                 }
                 this.localStyleID = -1;
@@ -2570,21 +2167,18 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(Text.prototype, 'text', {
+        Object.defineProperty(Text.prototype, "text", {
             /**
              * Set the copy for the text object. To split a line you can use '\n'.
              *
              * @member {string}
              */
-            get()
-            {
+            get: function () {
                 return this._text;
             },
-            set(text)
-            {
+            set: function (text) {
                 text = String(text === null || text === undefined ? '' : text);
-                if (this._text === text)
-                {
+                if (this._text === text) {
                     return;
                 }
                 this._text = text;
@@ -2593,22 +2187,19 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(Text.prototype, 'resolution', {
+        Object.defineProperty(Text.prototype, "resolution", {
             /**
              * The resolution / device pixel ratio of the canvas.
              * This is set to automatically match the renderer resolution by default, but can be overridden by setting manually.
              * @member {number}
              * @default 1
              */
-            get()
-            {
+            get: function () {
                 return this._resolution;
             },
-            set(value)
-            {
+            set: function (value) {
                 this._autoResolution = false;
-                if (this._resolution === value)
-                {
+                if (this._resolution === value) {
                     return;
                 }
                 this._resolution = value;
@@ -2617,16 +2208,15 @@ const _pixi_text = (function (exports, sprite, core, settings, math, utils)
             enumerable: false,
             configurable: true
         });
-
         return Text;
-    })(sprite.Sprite);
+    }(sprite.Sprite));
 
     exports.Text = Text;
     exports.TextMetrics = TextMetrics;
     exports.TextStyle = TextStyle;
 
     return exports;
-})({}, PIXI, PIXI, PIXI, PIXI, PIXI.utils);
 
+}({}, PIXI, PIXI, PIXI, PIXI, PIXI.utils));
 Object.assign(this.PIXI, _pixi_text);
-// # sourceMappingURL=text.js.map
+//# sourceMappingURL=text.js.map

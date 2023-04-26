@@ -1,18 +1,19 @@
-/* !
+/*!
  * @pixi/canvas-mesh - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/canvas-mesh is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
+'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const constants = require('@pixi/constants');
-const canvasRenderer = require('@pixi/canvas-renderer');
-const settings = require('@pixi/settings');
-const mesh = require('@pixi/mesh');
-const meshExtras = require('@pixi/mesh-extras');
+var constants = require('@pixi/constants');
+var canvasRenderer = require('@pixi/canvas-renderer');
+var settings = require('@pixi/settings');
+var mesh = require('@pixi/mesh');
+var meshExtras = require('@pixi/mesh-extras');
 
 /**
  * Renderer dedicated to meshes.
@@ -21,13 +22,11 @@ const meshExtras = require('@pixi/mesh-extras');
  * @protected
  * @memberof PIXI
  */
-const CanvasMeshRenderer = /** @class */ (function ()
-{
+var CanvasMeshRenderer = /** @class */ (function () {
     /**
      * @param {PIXI.CanvasRenderer} renderer - The renderer this downport works for
      */
-    function CanvasMeshRenderer(renderer)
-    {
+    function CanvasMeshRenderer(renderer) {
         this.renderer = renderer;
     }
     /**
@@ -35,20 +34,16 @@ const CanvasMeshRenderer = /** @class */ (function ()
      *
      * @param {PIXI.Mesh} mesh - the Mesh to render
      */
-    CanvasMeshRenderer.prototype.render = function (mesh)
-    {
-        const renderer = this.renderer;
-        const transform = mesh.worldTransform;
-
+    CanvasMeshRenderer.prototype.render = function (mesh) {
+        var renderer = this.renderer;
+        var transform = mesh.worldTransform;
         renderer.context.globalAlpha = mesh.worldAlpha;
         renderer.setBlendMode(mesh.blendMode);
         renderer.setContextTransform(transform, mesh.roundPixels);
-        if (mesh.drawMode !== constants.DRAW_MODES.TRIANGLES)
-        {
+        if (mesh.drawMode !== constants.DRAW_MODES.TRIANGLES) {
             this._renderTriangleMesh(mesh);
         }
-        else
-        {
+        else {
             this._renderTriangles(mesh);
         }
     };
@@ -58,16 +53,12 @@ const CanvasMeshRenderer = /** @class */ (function ()
      * @private
      * @param {PIXI.Mesh} mesh - the Mesh to render
      */
-    CanvasMeshRenderer.prototype._renderTriangleMesh = function (mesh)
-    {
+    CanvasMeshRenderer.prototype._renderTriangleMesh = function (mesh) {
         // draw triangles!!
-        const length = mesh.geometry.buffers[0].data.length;
-
-        for (let i = 0; i < length - 2; i++)
-        {
+        var length = mesh.geometry.buffers[0].data.length;
+        for (var i = 0; i < length - 2; i++) {
             // draw some triangles!
-            const index = i * 2;
-
+            var index = i * 2;
             this._renderDrawTriangle(mesh, index, (index + 2), (index + 4));
         }
     };
@@ -77,19 +68,15 @@ const CanvasMeshRenderer = /** @class */ (function ()
      * @private
      * @param {PIXI.Mesh} mesh - the current mesh
      */
-    CanvasMeshRenderer.prototype._renderTriangles = function (mesh)
-    {
+    CanvasMeshRenderer.prototype._renderTriangles = function (mesh) {
         // draw triangles!!
-        const indices = mesh.geometry.getIndex().data;
-        const length = indices.length;
-
-        for (let i = 0; i < length; i += 3)
-        {
+        var indices = mesh.geometry.getIndex().data;
+        var length = indices.length;
+        for (var i = 0; i < length; i += 3) {
             // draw some triangles!
-            const index0 = indices[i] * 2;
-            const index1 = indices[i + 1] * 2;
-            const index2 = indices[i + 2] * 2;
-
+            var index0 = indices[i] * 2;
+            var index1 = indices[i + 1] * 2;
+            var index2 = indices[i + 2] * 2;
             this._renderDrawTriangle(mesh, index0, index1, index2);
         }
     };
@@ -102,55 +89,45 @@ const CanvasMeshRenderer = /** @class */ (function ()
      * @param {number} index1 - the index of the second vertex
      * @param {number} index2 - the index of the third vertex
      */
-    CanvasMeshRenderer.prototype._renderDrawTriangle = function (mesh, index0, index1, index2)
-    {
-        const context = this.renderer.context;
-        const vertices = mesh.geometry.buffers[0].data;
-        const uvs = mesh.uvs; const
-            texture = mesh.texture;
-
-        if (!texture.valid)
-        {
+    CanvasMeshRenderer.prototype._renderDrawTriangle = function (mesh, index0, index1, index2) {
+        var context = this.renderer.context;
+        var vertices = mesh.geometry.buffers[0].data;
+        var uvs = mesh.uvs, texture = mesh.texture;
+        if (!texture.valid) {
             return;
         }
-        const isTinted = mesh.tint !== 0xFFFFFF;
-        const base = texture.baseTexture;
-        const textureWidth = base.width;
-        const textureHeight = base.height;
-
-        if (isTinted)
-        {
-            if (mesh._cachedTint !== mesh.tint)
-            {
+        var isTinted = mesh.tint !== 0xFFFFFF;
+        var base = texture.baseTexture;
+        var textureWidth = base.width;
+        var textureHeight = base.height;
+        if (isTinted) {
+            if (mesh._cachedTint !== mesh.tint) {
                 mesh._cachedTint = mesh.tint;
                 mesh._tintedCanvas = canvasRenderer.canvasUtils.getTintedCanvas(mesh, mesh.tint);
             }
         }
-        const textureSource = isTinted ? mesh._tintedCanvas : base.getDrawableSource();
-        const u0 = uvs[index0] * base.width;
-        const u1 = uvs[index1] * base.width;
-        const u2 = uvs[index2] * base.width;
-        const v0 = uvs[index0 + 1] * base.height;
-        const v1 = uvs[index1 + 1] * base.height;
-        const v2 = uvs[index2 + 1] * base.height;
-        let x0 = vertices[index0];
-        let x1 = vertices[index1];
-        let x2 = vertices[index2];
-        let y0 = vertices[index0 + 1];
-        let y1 = vertices[index1 + 1];
-        let y2 = vertices[index2 + 1];
-        const canvasPadding = mesh.canvasPadding / this.renderer.resolution;
-
-        if (canvasPadding > 0)
-        {
-            const paddingX = canvasPadding / Math.abs(mesh.worldTransform.a);
-            const paddingY = canvasPadding / Math.abs(mesh.worldTransform.d);
-            const centerX = (x0 + x1 + x2) / 3;
-            const centerY = (y0 + y1 + y2) / 3;
-            let normX = x0 - centerX;
-            let normY = y0 - centerY;
-            let dist = Math.sqrt((normX * normX) + (normY * normY));
-
+        var textureSource = isTinted ? mesh._tintedCanvas : base.getDrawableSource();
+        var u0 = uvs[index0] * base.width;
+        var u1 = uvs[index1] * base.width;
+        var u2 = uvs[index2] * base.width;
+        var v0 = uvs[index0 + 1] * base.height;
+        var v1 = uvs[index1 + 1] * base.height;
+        var v2 = uvs[index2 + 1] * base.height;
+        var x0 = vertices[index0];
+        var x1 = vertices[index1];
+        var x2 = vertices[index2];
+        var y0 = vertices[index0 + 1];
+        var y1 = vertices[index1 + 1];
+        var y2 = vertices[index2 + 1];
+        var canvasPadding = mesh.canvasPadding / this.renderer.resolution;
+        if (canvasPadding > 0) {
+            var paddingX = canvasPadding / Math.abs(mesh.worldTransform.a);
+            var paddingY = canvasPadding / Math.abs(mesh.worldTransform.d);
+            var centerX = (x0 + x1 + x2) / 3;
+            var centerY = (y0 + y1 + y2) / 3;
+            var normX = x0 - centerX;
+            var normY = y0 - centerY;
+            var dist = Math.sqrt((normX * normX) + (normY * normY));
             x0 = centerX + ((normX / dist) * (dist + paddingX));
             y0 = centerY + ((normY / dist) * (dist + paddingY));
             //
@@ -173,14 +150,13 @@ const CanvasMeshRenderer = /** @class */ (function ()
         context.closePath();
         context.clip();
         // Compute matrix transform
-        const delta = (u0 * v1) + (v0 * u2) + (u1 * v2) - (v1 * u2) - (v0 * u1) - (u0 * v2);
-        const deltaA = (x0 * v1) + (v0 * x2) + (x1 * v2) - (v1 * x2) - (v0 * x1) - (x0 * v2);
-        const deltaB = (u0 * x1) + (x0 * u2) + (u1 * x2) - (x1 * u2) - (x0 * u1) - (u0 * x2);
-        const deltaC = (u0 * v1 * x2) + (v0 * x1 * u2) + (x0 * u1 * v2) - (x0 * v1 * u2) - (v0 * u1 * x2) - (u0 * x1 * v2);
-        const deltaD = (y0 * v1) + (v0 * y2) + (y1 * v2) - (v1 * y2) - (v0 * y1) - (y0 * v2);
-        const deltaE = (u0 * y1) + (y0 * u2) + (u1 * y2) - (y1 * u2) - (y0 * u1) - (u0 * y2);
-        const deltaF = (u0 * v1 * y2) + (v0 * y1 * u2) + (y0 * u1 * v2) - (y0 * v1 * u2) - (v0 * u1 * y2) - (u0 * y1 * v2);
-
+        var delta = (u0 * v1) + (v0 * u2) + (u1 * v2) - (v1 * u2) - (v0 * u1) - (u0 * v2);
+        var deltaA = (x0 * v1) + (v0 * x2) + (x1 * v2) - (v1 * x2) - (v0 * x1) - (x0 * v2);
+        var deltaB = (u0 * x1) + (x0 * u2) + (u1 * x2) - (x1 * u2) - (x0 * u1) - (u0 * x2);
+        var deltaC = (u0 * v1 * x2) + (v0 * x1 * u2) + (x0 * u1 * v2) - (x0 * v1 * u2) - (v0 * u1 * x2) - (u0 * x1 * v2);
+        var deltaD = (y0 * v1) + (v0 * y2) + (y1 * v2) - (v1 * y2) - (v0 * y1) - (y0 * v2);
+        var deltaE = (u0 * y1) + (y0 * u2) + (u1 * y2) - (y1 * u2) - (y0 * u1) - (u0 * y2);
+        var deltaF = (u0 * v1 * y2) + (v0 * y1 * u2) + (y0 * u1 * v2) - (y0 * v1 * u2) - (v0 * u1 * y2) - (u0 * y1 * v2);
         context.transform(deltaA / delta, deltaD / delta, deltaB / delta, deltaE / delta, deltaC / delta, deltaF / delta);
         context.drawImage(textureSource, 0, 0, textureWidth * base.resolution, textureHeight * base.resolution, 0, 0, textureWidth, textureHeight);
         context.restore();
@@ -192,25 +168,21 @@ const CanvasMeshRenderer = /** @class */ (function ()
      * @private
      * @param {PIXI.Mesh} mesh - The Mesh to render
      */
-    CanvasMeshRenderer.prototype.renderMeshFlat = function (mesh)
-    {
-        const context = this.renderer.context;
-        const vertices = mesh.geometry.getBuffer('aVertexPosition').data;
-        const length = vertices.length / 2;
+    CanvasMeshRenderer.prototype.renderMeshFlat = function (mesh) {
+        var context = this.renderer.context;
+        var vertices = mesh.geometry.getBuffer('aVertexPosition').data;
+        var length = vertices.length / 2;
         // this.count++;
-
         context.beginPath();
-        for (let i = 1; i < length - 2; ++i)
-        {
+        for (var i = 1; i < length - 2; ++i) {
             // draw some triangles!
-            const index = i * 2;
-            const x0 = vertices[index];
-            const y0 = vertices[index + 1];
-            const x1 = vertices[index + 2];
-            const y1 = vertices[index + 3];
-            const x2 = vertices[index + 4];
-            const y2 = vertices[index + 5];
-
+            var index = i * 2;
+            var x0 = vertices[index];
+            var y0 = vertices[index + 1];
+            var x1 = vertices[index + 2];
+            var y1 = vertices[index + 3];
+            var x2 = vertices[index + 4];
+            var y2 = vertices[index + 5];
             context.moveTo(x0, y0);
             context.lineTo(x1, y1);
             context.lineTo(x2, y2);
@@ -223,13 +195,11 @@ const CanvasMeshRenderer = /** @class */ (function ()
      * destroy the the renderer.
      *
      */
-    CanvasMeshRenderer.prototype.destroy = function ()
-    {
+    CanvasMeshRenderer.prototype.destroy = function () {
         this.renderer = null;
     };
-
     return CanvasMeshRenderer;
-})();
+}());
 
 /**
  * Default `canvasPadding` for canvas-based Mesh rendering.
@@ -252,8 +222,7 @@ settings.settings.MESH_CANVAS_PADDING = 0;
  * @param {PIXI.CanvasRenderer} renderer - The canvas renderer.
  * @param {PIXI.Mesh} mesh - Mesh to render.
  */
-mesh.MeshMaterial.prototype._renderCanvas = function _renderCanvas(renderer, mesh)
-{
+mesh.MeshMaterial.prototype._renderCanvas = function _renderCanvas(renderer, mesh) {
     renderer.plugins.mesh.render(mesh);
 };
 
@@ -286,40 +255,32 @@ meshExtras.NineSlicePlane.prototype._canvasUvs = null;
  * @memberof PIXI.NineSlicePlane#
  * @param {PIXI.CanvasRenderer} renderer - The canvas renderer to render with.
  */
-meshExtras.NineSlicePlane.prototype._renderCanvas = function _renderCanvas(renderer)
-{
-    const context = renderer.context;
-    const transform = this.worldTransform;
-    const isTinted = this.tint !== 0xFFFFFF;
-    const texture = this.texture;
-
-    if (!texture.valid)
-    {
+meshExtras.NineSlicePlane.prototype._renderCanvas = function _renderCanvas(renderer) {
+    var context = renderer.context;
+    var transform = this.worldTransform;
+    var isTinted = this.tint !== 0xFFFFFF;
+    var texture = this.texture;
+    if (!texture.valid) {
         return;
     }
     // Work out tinting
-    if (isTinted)
-    {
-        if (this._cachedTint !== this.tint)
-        {
+    if (isTinted) {
+        if (this._cachedTint !== this.tint) {
             // Tint has changed, need to update the tinted texture and use that instead
             this._cachedTint = this.tint;
             this._tintedCanvas = canvasRenderer.canvasUtils.getTintedCanvas(this, this.tint);
         }
     }
-    const textureSource = !isTinted ? texture.baseTexture.getDrawableSource() : this._tintedCanvas;
-
-    if (!this._canvasUvs)
-    {
+    var textureSource = !isTinted ? texture.baseTexture.getDrawableSource() : this._tintedCanvas;
+    if (!this._canvasUvs) {
         this._canvasUvs = [0, 0, 0, 0, 0, 0, 0, 0];
     }
-    const vertices = this.vertices;
-    const uvs = this._canvasUvs;
-    const u0 = isTinted ? 0 : texture.frame.x;
-    const v0 = isTinted ? 0 : texture.frame.y;
-    const u1 = u0 + texture.frame.width;
-    const v1 = v0 + texture.frame.height;
-
+    var vertices = this.vertices;
+    var uvs = this._canvasUvs;
+    var u0 = isTinted ? 0 : texture.frame.x;
+    var v0 = isTinted ? 0 : texture.frame.y;
+    var u1 = u0 + texture.frame.width;
+    var v1 = v0 + texture.frame.height;
     uvs[0] = u0;
     uvs[1] = u0 + this._leftWidth;
     uvs[2] = u1 - this._rightWidth;
@@ -328,36 +289,31 @@ meshExtras.NineSlicePlane.prototype._renderCanvas = function _renderCanvas(rende
     uvs[5] = v0 + this._topHeight;
     uvs[6] = v1 - this._bottomHeight;
     uvs[7] = v1;
-    for (let i = 0; i < 8; i++)
-    {
+    for (var i = 0; i < 8; i++) {
         uvs[i] *= texture.baseTexture.resolution;
     }
     context.globalAlpha = this.worldAlpha;
     renderer.setBlendMode(this.blendMode);
     renderer.setContextTransform(transform, this.roundPixels);
-    for (let row = 0; row < 3; row++)
-    {
-        for (let col = 0; col < 3; col++)
-        {
-            const ind = (col * 2) + (row * 8);
-            const sw = Math.max(1, uvs[col + 1] - uvs[col]);
-            const sh = Math.max(1, uvs[row + 5] - uvs[row + 4]);
-            const dw = Math.max(1, vertices[ind + 10] - vertices[ind]);
-            const dh = Math.max(1, vertices[ind + 11] - vertices[ind + 1]);
-
+    for (var row = 0; row < 3; row++) {
+        for (var col = 0; col < 3; col++) {
+            var ind = (col * 2) + (row * 8);
+            var sw = Math.max(1, uvs[col + 1] - uvs[col]);
+            var sh = Math.max(1, uvs[row + 5] - uvs[row + 4]);
+            var dw = Math.max(1, vertices[ind + 10] - vertices[ind]);
+            var dh = Math.max(1, vertices[ind + 11] - vertices[ind + 1]);
             context.drawImage(textureSource, uvs[col], uvs[row + 4], sw, sh, vertices[ind], vertices[ind + 1], dw, dh);
         }
     }
 };
 
-let warned = false;
+var warned = false;
 /**
  * Cached tint value so we can tell when the tint is changed.
  * @memberof PIXI.Mesh#
  * @member {number} _cachedTint
  * @protected
  */
-
 mesh.Mesh.prototype._cachedTint = 0xFFFFFF;
 /**
  * Cached tinted texture.
@@ -374,22 +330,17 @@ mesh.Mesh.prototype._tintedCanvas = null;
  * @memberof PIXI.Mesh#
  * @param {PIXI.CanvasRenderer} renderer - The canvas renderer.
  */
-mesh.Mesh.prototype._renderCanvas = function _renderCanvas(renderer)
-{
-    if (this.shader.uvMatrix)
-    {
+mesh.Mesh.prototype._renderCanvas = function _renderCanvas(renderer) {
+    if (this.shader.uvMatrix) {
         this.shader.uvMatrix.update();
         this.calculateUvs();
     }
-    if (this.material._renderCanvas)
-    {
+    if (this.material._renderCanvas) {
         this.material._renderCanvas(renderer, this);
     }
-    else if (!warned)
-    {
+    else if (!warned) {
         warned = true;
-        if (window.console)
-        {
+        if (window.console) {
             console.warn('Mesh with custom shaders are not supported in CanvasRenderer.');
         }
     }
@@ -416,12 +367,10 @@ mesh.Mesh.prototype._canvasPadding = null;
  * @default 0
  */
 Object.defineProperty(mesh.Mesh.prototype, 'canvasPadding', {
-    get()
-    {
+    get: function () {
         return this._canvasPadding !== null ? this._canvasPadding : settings.settings.MESH_CANVAS_PADDING;
     },
-    set(value)
-    {
+    set: function (value) {
         this._canvasPadding = value;
     },
 });
@@ -434,14 +383,11 @@ Object.defineProperty(mesh.Mesh.prototype, 'canvasPadding', {
  * @memberof PIXI.Mesh#
  * @param {PIXI.CanvasRenderer} renderer - The canvas renderer.
  */
-meshExtras.SimpleMesh.prototype._renderCanvas = function _renderCanvas(renderer)
-{
-    if (this.autoUpdate)
-    {
+meshExtras.SimpleMesh.prototype._renderCanvas = function _renderCanvas(renderer) {
+    if (this.autoUpdate) {
         this.geometry.getBuffer('aVertexPosition').update();
     }
-    if (this.shader.update)
-    {
+    if (this.shader.update) {
         this.shader.update();
     }
     this.calculateUvs();
@@ -456,16 +402,13 @@ meshExtras.SimpleMesh.prototype._renderCanvas = function _renderCanvas(renderer)
  * @memberof PIXI.Mesh#
  * @param {PIXI.CanvasRenderer} renderer - The canvas renderer.
  */
-meshExtras.SimpleRope.prototype._renderCanvas = function _renderCanvas(renderer)
-{
+meshExtras.SimpleRope.prototype._renderCanvas = function _renderCanvas(renderer) {
     if (this.autoUpdate
-        || this.geometry._width !== this.shader.texture.height)
-    {
+        || this.geometry._width !== this.shader.texture.height) {
         this.geometry._width = this.shader.texture.height;
         this.geometry.update();
     }
-    if (this.shader.update)
-    {
+    if (this.shader.update) {
         this.shader.update();
     }
     this.calculateUvs();
@@ -473,4 +416,4 @@ meshExtras.SimpleRope.prototype._renderCanvas = function _renderCanvas(renderer)
 };
 
 exports.CanvasMeshRenderer = CanvasMeshRenderer;
-// # sourceMappingURL=canvas-mesh.js.map
+//# sourceMappingURL=canvas-mesh.js.map

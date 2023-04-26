@@ -1,6 +1,6 @@
-/* !
+/*!
  * @pixi/canvas-text - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/canvas-text is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -16,14 +16,12 @@ import { Sprite } from '@pixi/sprite';
  * @private
  * @param {PIXI.CanvasRenderer} renderer - The renderer
  */
-Text.prototype._renderCanvas = function _renderCanvas(renderer)
-{
-    if (this._autoResolution && this._resolution !== renderer.resolution)
-    {
+Text.prototype._renderCanvas = function _renderCanvas(renderer) {
+    if (this._autoResolution && this._resolution !== renderer.resolution) {
         this._resolution = renderer.resolution;
         this.dirty = true;
     }
     this.updateText(true);
     Sprite.prototype._renderCanvas.call(this, renderer);
 };
-// # sourceMappingURL=canvas-text.es.js.map
+//# sourceMappingURL=canvas-text.es.js.map

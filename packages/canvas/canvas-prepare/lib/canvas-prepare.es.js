@@ -1,6 +1,6 @@
-/* !
+/*!
  * @pixi/canvas-prepare - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/canvas-prepare is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -8,7 +8,7 @@
 import { BaseTexture } from '@pixi/core';
 import { BasePrepare } from '@pixi/prepare';
 
-/* ! *****************************************************************************
+/*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -24,23 +24,20 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function (d, b)
-{
-    extendStatics = Object.setPrototypeOf
-        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
-        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
-
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
     return extendStatics(d, b);
 };
 
-function __extends(d, b)
-{
+function __extends(d, b) {
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-const CANVAS_START_SIZE = 16;
+var CANVAS_START_SIZE = 16;
 /**
  * Built-in hook to upload PIXI.Texture objects to the GPU.
  *
@@ -49,28 +46,21 @@ const CANVAS_START_SIZE = 16;
  * @param {*} item - Item to check
  * @return {boolean} If item was uploaded.
  */
-
-function uploadBaseTextures(prepare, item)
-{
-    const tempPrepare = prepare;
-
-    if (item instanceof BaseTexture)
-    {
-        const image = item.source;
+function uploadBaseTextures(prepare, item) {
+    var tempPrepare = prepare;
+    if (item instanceof BaseTexture) {
+        var image = item.source;
         // Sometimes images (like atlas images) report a size of zero, causing errors on windows phone.
         // So if the width or height is equal to zero then use the canvas size
         // Otherwise use whatever is smaller, the image dimensions or the canvas dimensions.
-        const imageWidth = image.width === 0 ? tempPrepare.canvas.width : Math.min(tempPrepare.canvas.width, image.width);
-        const imageHeight = image.height === 0 ? tempPrepare.canvas.height
+        var imageWidth = image.width === 0 ? tempPrepare.canvas.width : Math.min(tempPrepare.canvas.width, image.width);
+        var imageHeight = image.height === 0 ? tempPrepare.canvas.height
             : Math.min(tempPrepare.canvas.height, image.height);
         // Only a small subsections is required to be drawn to have the whole texture uploaded to the GPU
         // A smaller draw can be faster.
-
         tempPrepare.ctx.drawImage(image, 0, 0, imageWidth, imageHeight, 0, 0, tempPrepare.canvas.width, tempPrepare.canvas.height);
-
         return true;
     }
-
     return false;
 }
 /**
@@ -85,16 +75,13 @@ function uploadBaseTextures(prepare, item)
  * @extends PIXI.BasePrepare
  * @memberof PIXI
  */
-const CanvasPrepare = /** @class */ (function (_super)
-{
+var CanvasPrepare = /** @class */ (function (_super) {
     __extends(CanvasPrepare, _super);
     /**
      * @param {PIXI.CanvasRenderer} renderer - A reference to the current renderer
      */
-    function CanvasPrepare(renderer)
-    {
-        const _this = _super.call(this, renderer) || this;
-
+    function CanvasPrepare(renderer) {
+        var _this = _super.call(this, renderer) || this;
         _this.uploadHookHelper = _this;
         /**
         * An offline canvas to render textures to
@@ -112,22 +99,19 @@ const CanvasPrepare = /** @class */ (function (_super)
         _this.ctx = _this.canvas.getContext('2d');
         // Add textures to upload
         _this.registerUploadHook(uploadBaseTextures);
-
         return _this;
     }
     /**
      * Destroys the plugin, don't use after this.
      *
      */
-    CanvasPrepare.prototype.destroy = function ()
-    {
+    CanvasPrepare.prototype.destroy = function () {
         _super.prototype.destroy.call(this);
         this.ctx = null;
         this.canvas = null;
     };
-
     return CanvasPrepare;
-})(BasePrepare);
+}(BasePrepare));
 
 export { CanvasPrepare };
-// # sourceMappingURL=canvas-prepare.es.js.map
+//# sourceMappingURL=canvas-prepare.es.js.map

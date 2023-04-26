@@ -1,13 +1,14 @@
-/* !
+/*!
  * @pixi/mixin-get-global-position - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/mixin-get-global-position is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
+'use strict';
 
-const display = require('@pixi/display');
-const math = require('@pixi/math');
+var display = require('@pixi/display');
+var math = require('@pixi/math');
 
 /**
  * Returns the global position of the displayObject. Does not depend on object scale, rotation and pivot.
@@ -20,20 +21,16 @@ const math = require('@pixi/math');
  *  nice performance boost.
  * @return {PIXI.Point} The updated point.
  */
-display.DisplayObject.prototype.getGlobalPosition = function getGlobalPosition(point, skipUpdate)
-{
+display.DisplayObject.prototype.getGlobalPosition = function getGlobalPosition(point, skipUpdate) {
     if (point === void 0) { point = new math.Point(); }
     if (skipUpdate === void 0) { skipUpdate = false; }
-    if (this.parent)
-    {
+    if (this.parent) {
         this.parent.toGlobal(this.position, point, skipUpdate);
     }
-    else
-    {
+    else {
         point.x = this.position.x;
         point.y = this.position.y;
     }
-
     return point;
 };
-// # sourceMappingURL=mixin-get-global-position.js.map
+//# sourceMappingURL=mixin-get-global-position.js.map

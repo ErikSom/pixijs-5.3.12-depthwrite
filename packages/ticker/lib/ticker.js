@@ -1,14 +1,15 @@
-/* !
+/*!
  * @pixi/ticker - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/ticker is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
+'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const settings = require('@pixi/settings');
+var settings = require('@pixi/settings');
 
 /**
  * Target frames per millisecond.
@@ -37,13 +38,12 @@ settings.settings.TARGET_FPMS = 0.06;
  * @property {number} LOW=-25 Low priority used for {@link PIXI.Application} rendering.
  * @property {number} UTILITY=-50 Lowest priority used for {@link PIXI.BasePrepare} utility.
  */
-(function (UPDATE_PRIORITY)
-{
-    UPDATE_PRIORITY[UPDATE_PRIORITY.INTERACTION = 50] = 'INTERACTION';
-    UPDATE_PRIORITY[UPDATE_PRIORITY.HIGH = 25] = 'HIGH';
-    UPDATE_PRIORITY[UPDATE_PRIORITY.NORMAL = 0] = 'NORMAL';
-    UPDATE_PRIORITY[UPDATE_PRIORITY.LOW = -25] = 'LOW';
-    UPDATE_PRIORITY[UPDATE_PRIORITY.UTILITY = -50] = 'UTILITY';
+(function (UPDATE_PRIORITY) {
+    UPDATE_PRIORITY[UPDATE_PRIORITY["INTERACTION"] = 50] = "INTERACTION";
+    UPDATE_PRIORITY[UPDATE_PRIORITY["HIGH"] = 25] = "HIGH";
+    UPDATE_PRIORITY[UPDATE_PRIORITY["NORMAL"] = 0] = "NORMAL";
+    UPDATE_PRIORITY[UPDATE_PRIORITY["LOW"] = -25] = "LOW";
+    UPDATE_PRIORITY[UPDATE_PRIORITY["UTILITY"] = -50] = "UTILITY";
 })(exports.UPDATE_PRIORITY || (exports.UPDATE_PRIORITY = {}));
 
 /**
@@ -53,8 +53,7 @@ settings.settings.TARGET_FPMS = 0.06;
  * @class
  * @memberof PIXI
  */
-const TickerListener = /** @class */ (function ()
-{
+var TickerListener = /** @class */ (function () {
     /**
      * Constructor
      * @private
@@ -63,8 +62,7 @@ const TickerListener = /** @class */ (function ()
      * @param {number} [priority=0] - The priority for emitting
      * @param {boolean} [once=false] - If the handler should fire once
      */
-    function TickerListener(fn, context, priority, once)
-    {
+    function TickerListener(fn, context, priority, once) {
         if (context === void 0) { context = null; }
         if (priority === void 0) { priority = 0; }
         if (once === void 0) { once = false; }
@@ -118,10 +116,8 @@ const TickerListener = /** @class */ (function ()
      * @param {any} [context] - The listener context
      * @return {boolean} `true` if the listener match the arguments
      */
-    TickerListener.prototype.match = function (fn, context)
-    {
+    TickerListener.prototype.match = function (fn, context) {
         if (context === void 0) { context = null; }
-
         return this.fn === fn && this.context === context;
     };
     /**
@@ -130,32 +126,24 @@ const TickerListener = /** @class */ (function ()
      * @param {number} deltaTime - time since the last emit.
      * @return {TickerListener} Next ticker
      */
-    TickerListener.prototype.emit = function (deltaTime)
-    {
-        if (this.fn)
-        {
-            if (this.context)
-            {
+    TickerListener.prototype.emit = function (deltaTime) {
+        if (this.fn) {
+            if (this.context) {
                 this.fn.call(this.context, deltaTime);
             }
-            else
-            {
+            else {
                 this.fn(deltaTime);
             }
         }
-        const redirect = this.next;
-
-        if (this.once)
-        {
+        var redirect = this.next;
+        if (this.once) {
             this.destroy(true);
         }
         // Soft-destroying should remove
         // the next reference
-        if (this._destroyed)
-        {
+        if (this._destroyed) {
             this.next = null;
         }
-
         return redirect;
     };
     /**
@@ -163,11 +151,9 @@ const TickerListener = /** @class */ (function ()
      * @private
      * @param {TickerListener} previous - Input node, previous listener
      */
-    TickerListener.prototype.connect = function (previous)
-    {
+    TickerListener.prototype.connect = function (previous) {
         this.previous = previous;
-        if (previous.next)
-        {
+        if (previous.next) {
             previous.next.previous = this;
         }
         this.next = previous.next;
@@ -180,33 +166,27 @@ const TickerListener = /** @class */ (function ()
      *        is considered a hard destroy. Soft destroy maintains the next reference.
      * @return {TickerListener} The listener to redirect while emitting or removing.
      */
-    TickerListener.prototype.destroy = function (hard)
-    {
+    TickerListener.prototype.destroy = function (hard) {
         if (hard === void 0) { hard = false; }
         this._destroyed = true;
         this.fn = null;
         this.context = null;
         // Disconnect, hook up next and previous
-        if (this.previous)
-        {
+        if (this.previous) {
             this.previous.next = this.next;
         }
-        if (this.next)
-        {
+        if (this.next) {
             this.next.previous = this.previous;
         }
         // Redirect to the next item
-        const redirect = this.next;
+        var redirect = this.next;
         // Remove references
-
         this.next = hard ? null : redirect;
         this.previous = null;
-
         return redirect;
     };
-
     return TickerListener;
-})();
+}());
 
 /**
  * A Ticker class that runs an update loop that other objects listen to.
@@ -217,17 +197,14 @@ const TickerListener = /** @class */ (function ()
  * @class
  * @memberof PIXI
  */
-const Ticker = /** @class */ (function ()
-{
-    function Ticker()
-    {
-        const _this = this;
+var Ticker = /** @class */ (function () {
+    function Ticker() {
+        var _this = this;
         /**
          * The first listener. All new listeners added are chained on this.
          * @private
          * @type {TickerListener}
          */
-
         this._head = new TickerListener(null, null, Infinity);
         /**
          * Internal current frame request ID
@@ -353,16 +330,13 @@ const Ticker = /** @class */ (function ()
          * @private
          * @param {number} time - Time since last tick.
          */
-        this._tick = function (time)
-        {
+        this._tick = function (time) {
             _this._requestId = null;
-            if (_this.started)
-            {
+            if (_this.started) {
                 // Invoke listeners now
                 _this.update(time);
                 // Listener side effects may have modified ticker state.
-                if (_this.started && _this._requestId === null && _this._head.next)
-                {
+                if (_this.started && _this._requestId === null && _this._head.next) {
                     _this._requestId = requestAnimationFrame(_this._tick);
                 }
             }
@@ -375,10 +349,8 @@ const Ticker = /** @class */ (function ()
      *
      * @private
      */
-    Ticker.prototype._requestIfNeeded = function ()
-    {
-        if (this._requestId === null && this._head.next)
-        {
+    Ticker.prototype._requestIfNeeded = function () {
+        if (this._requestId === null && this._head.next) {
             // ensure callbacks get correct delta
             this.lastTime = performance.now();
             this._lastFrame = this.lastTime;
@@ -390,10 +362,8 @@ const Ticker = /** @class */ (function ()
      *
      * @private
      */
-    Ticker.prototype._cancelIfNeeded = function ()
-    {
-        if (this._requestId !== null)
-        {
+    Ticker.prototype._cancelIfNeeded = function () {
+        if (this._requestId !== null) {
             cancelAnimationFrame(this._requestId);
             this._requestId = null;
         }
@@ -408,14 +378,11 @@ const Ticker = /** @class */ (function ()
      *
      * @private
      */
-    Ticker.prototype._startIfPossible = function ()
-    {
-        if (this.started)
-        {
+    Ticker.prototype._startIfPossible = function () {
+        if (this.started) {
             this._requestIfNeeded();
         }
-        else if (this.autoStart)
-        {
+        else if (this.autoStart) {
             this.start();
         }
     };
@@ -428,10 +395,8 @@ const Ticker = /** @class */ (function ()
      * @param {number} [priority=PIXI.UPDATE_PRIORITY.NORMAL] - The priority for emitting
      * @returns {PIXI.Ticker} This instance of a ticker
      */
-    Ticker.prototype.add = function (fn, context, priority)
-    {
+    Ticker.prototype.add = function (fn, context, priority) {
         if (priority === void 0) { priority = exports.UPDATE_PRIORITY.NORMAL; }
-
         return this._addListener(new TickerListener(fn, context, priority));
     };
     /**
@@ -442,10 +407,8 @@ const Ticker = /** @class */ (function ()
      * @param {number} [priority=PIXI.UPDATE_PRIORITY.NORMAL] - The priority for emitting
      * @returns {PIXI.Ticker} This instance of a ticker
      */
-    Ticker.prototype.addOnce = function (fn, context, priority)
-    {
+    Ticker.prototype.addOnce = function (fn, context, priority) {
         if (priority === void 0) { priority = exports.UPDATE_PRIORITY.NORMAL; }
-
         return this._addListener(new TickerListener(fn, context, priority, true));
     };
     /**
@@ -457,24 +420,18 @@ const Ticker = /** @class */ (function ()
      * @param {TickerListener} listener - Current listener being added.
      * @returns {PIXI.Ticker} This instance of a ticker
      */
-    Ticker.prototype._addListener = function (listener)
-    {
+    Ticker.prototype._addListener = function (listener) {
         // For attaching to head
-        let current = this._head.next;
-        let previous = this._head;
+        var current = this._head.next;
+        var previous = this._head;
         // Add the first item
-
-        if (!current)
-        {
+        if (!current) {
             listener.connect(previous);
         }
-        else
-        {
+        else {
             // Go from highest to lowest priority
-            while (current)
-            {
-                if (listener.priority > current.priority)
-                {
+            while (current) {
+                if (listener.priority > current.priority) {
                     listener.connect(previous);
                     break;
                 }
@@ -482,13 +439,11 @@ const Ticker = /** @class */ (function ()
                 current = current.next;
             }
             // Not yet connected
-            if (!listener.previous)
-            {
+            if (!listener.previous) {
                 listener.connect(previous);
             }
         }
         this._startIfPossible();
-
         return this;
     };
     /**
@@ -499,52 +454,40 @@ const Ticker = /** @class */ (function ()
      * @param {*} [context] - The listener context to be removed
      * @returns {PIXI.Ticker} This instance of a ticker
      */
-    Ticker.prototype.remove = function (fn, context)
-    {
-        let listener = this._head.next;
-
-        while (listener)
-        {
+    Ticker.prototype.remove = function (fn, context) {
+        var listener = this._head.next;
+        while (listener) {
             // We found a match, lets remove it
             // no break to delete all possible matches
             // incase a listener was added 2+ times
-            if (listener.match(fn, context))
-            {
+            if (listener.match(fn, context)) {
                 listener = listener.destroy();
             }
-            else
-            {
+            else {
                 listener = listener.next;
             }
         }
-        if (!this._head.next)
-        {
+        if (!this._head.next) {
             this._cancelIfNeeded();
         }
-
         return this;
     };
-    Object.defineProperty(Ticker.prototype, 'count', {
+    Object.defineProperty(Ticker.prototype, "count", {
         /**
          * The number of listeners on this ticker, calculated by walking through linked list
          *
          * @readonly
          * @member {number}
          */
-        get()
-        {
-            if (!this._head)
-            {
+        get: function () {
+            if (!this._head) {
                 return 0;
             }
-            let count = 0;
-            let current = this._head;
-
-            while ((current = current.next))
-            {
+            var count = 0;
+            var current = this._head;
+            while ((current = current.next)) {
                 count++;
             }
-
             return count;
         },
         enumerable: false,
@@ -554,10 +497,8 @@ const Ticker = /** @class */ (function ()
      * Starts the ticker. If the ticker has listeners
      * a new animation frame is requested at this point.
      */
-    Ticker.prototype.start = function ()
-    {
-        if (!this.started)
-        {
+    Ticker.prototype.start = function () {
+        if (!this.started) {
             this.started = true;
             this._requestIfNeeded();
         }
@@ -566,10 +507,8 @@ const Ticker = /** @class */ (function ()
      * Stops the ticker. If the ticker has requested
      * an animation frame it is canceled at this point.
      */
-    Ticker.prototype.stop = function ()
-    {
-        if (this.started)
-        {
+    Ticker.prototype.stop = function () {
+        if (this.started) {
             this.started = false;
             this._cancelIfNeeded();
         }
@@ -578,15 +517,11 @@ const Ticker = /** @class */ (function ()
      * Destroy the ticker and don't use after this. Calling
      * this method removes all references to internal events.
      */
-    Ticker.prototype.destroy = function ()
-    {
-        if (!this._protected)
-        {
+    Ticker.prototype.destroy = function () {
+        if (!this._protected) {
             this.stop();
-            let listener = this._head.next;
-
-            while (listener)
-            {
+            var listener = this._head.next;
+            while (listener) {
                 listener = listener.destroy(true);
             }
             this._head.destroy();
@@ -606,10 +541,9 @@ const Ticker = /** @class */ (function ()
      *
      * @param {number} [currentTime=performance.now()] - the current time of execution
      */
-    Ticker.prototype.update = function (currentTime)
-    {
+    Ticker.prototype.update = function (currentTime) {
         if (currentTime === void 0) { currentTime = performance.now(); }
-        let elapsedMS;
+        var elapsedMS;
         // If the difference in time is zero or negative, we ignore most of the work done here.
         // If there is no valid difference, then should be no reason to let anyone know about it.
         // A zero delta, is exactly that, nothing should update.
@@ -624,26 +558,20 @@ const Ticker = /** @class */ (function ()
         //
         // This check covers this browser engine timing issue, as well as if consumers pass an invalid
         // currentTime value. This may happen if consumers opt-out of the autoStart, and update themselves.
-
-        if (currentTime > this.lastTime)
-        {
+        if (currentTime > this.lastTime) {
             // Save uncapped elapsedMS for measurement
             elapsedMS = this.elapsedMS = currentTime - this.lastTime;
             // cap the milliseconds elapsed used for deltaTime
-            if (elapsedMS > this._maxElapsedMS)
-            {
+            if (elapsedMS > this._maxElapsedMS) {
                 elapsedMS = this._maxElapsedMS;
             }
             elapsedMS *= this.speed;
             // If not enough time has passed, exit the function.
             // Get ready for next frame by setting _lastFrame, but based on _minElapsedMS
             // adjustment to ensure a relatively stable interval.
-            if (this._minElapsedMS)
-            {
-                const delta = currentTime - this._lastFrame | 0;
-
-                if (delta < this._minElapsedMS)
-                {
+            if (this._minElapsedMS) {
+                var delta = currentTime - this._lastFrame | 0;
+                if (delta < this._minElapsedMS) {
                     return;
                 }
                 this._lastFrame = currentTime - (delta % this._minElapsedMS);
@@ -652,26 +580,22 @@ const Ticker = /** @class */ (function ()
             this.deltaTime = this.deltaMS * settings.settings.TARGET_FPMS;
             // Cache a local reference, in-case ticker is destroyed
             // during the emit, we can still check for head.next
-            const head = this._head;
+            var head = this._head;
             // Invoke listeners added to internal emitter
-            let listener = head.next;
-
-            while (listener)
-            {
+            var listener = head.next;
+            while (listener) {
                 listener = listener.emit(this.deltaTime);
             }
-            if (!head.next)
-            {
+            if (!head.next) {
                 this._cancelIfNeeded();
             }
         }
-        else
-        {
+        else {
             this.deltaTime = this.deltaMS = this.elapsedMS = 0;
         }
         this.lastTime = currentTime;
     };
-    Object.defineProperty(Ticker.prototype, 'FPS', {
+    Object.defineProperty(Ticker.prototype, "FPS", {
         /**
          * The frames per second at which this ticker is running.
          * The default is approximately 60 in most modern browsers.
@@ -682,14 +606,13 @@ const Ticker = /** @class */ (function ()
          * @member {number}
          * @readonly
          */
-        get()
-        {
+        get: function () {
             return 1000 / this.elapsedMS;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Ticker.prototype, 'minFPS', {
+    Object.defineProperty(Ticker.prototype, "minFPS", {
         /**
          * Manages the maximum amount of milliseconds allowed to
          * elapse between invoking {@link PIXI.Ticker#update}.
@@ -701,23 +624,20 @@ const Ticker = /** @class */ (function ()
          * @member {number}
          * @default 10
          */
-        get()
-        {
+        get: function () {
             return 1000 / this._maxElapsedMS;
         },
-        set(fps)
-        {
+        set: function (fps) {
             // Minimum must be below the maxFPS
-            const minFPS = Math.min(this.maxFPS, fps);
+            var minFPS = Math.min(this.maxFPS, fps);
             // Must be at least 0, but below 1 / settings.TARGET_FPMS
-            const minFPMS = Math.min(Math.max(0, minFPS) / 1000, settings.settings.TARGET_FPMS);
-
+            var minFPMS = Math.min(Math.max(0, minFPS) / 1000, settings.settings.TARGET_FPMS);
             this._maxElapsedMS = 1 / minFPMS;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Ticker.prototype, 'maxFPS', {
+    Object.defineProperty(Ticker.prototype, "maxFPS", {
         /**
          * Manages the minimum amount of milliseconds required to
          * elapse between invoking {@link PIXI.Ticker#update}.
@@ -728,33 +648,26 @@ const Ticker = /** @class */ (function ()
          * @member {number}
          * @default 0
          */
-        get()
-        {
-            if (this._minElapsedMS)
-            {
+        get: function () {
+            if (this._minElapsedMS) {
                 return Math.round(1000 / this._minElapsedMS);
             }
-
             return 0;
         },
-        set(fps)
-        {
-            if (fps === 0)
-            {
+        set: function (fps) {
+            if (fps === 0) {
                 this._minElapsedMS = 0;
             }
-            else
-            {
+            else {
                 // Max must be at least the minFPS
-                const maxFPS = Math.max(this.minFPS, fps);
-
+                var maxFPS = Math.max(this.minFPS, fps);
                 this._minElapsedMS = 1 / (maxFPS / 1000);
             }
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Ticker, 'shared', {
+    Object.defineProperty(Ticker, "shared", {
         /**
          * The shared ticker instance used by {@link PIXI.AnimatedSprite} and by
          * {@link PIXI.VideoResource} to update animation frames / video textures.
@@ -798,22 +711,18 @@ const Ticker = /** @class */ (function ()
          * @member {PIXI.Ticker}
          * @static
          */
-        get()
-        {
-            if (!Ticker._shared)
-            {
-                const shared = Ticker._shared = new Ticker();
-
+        get: function () {
+            if (!Ticker._shared) {
+                var shared = Ticker._shared = new Ticker();
                 shared.autoStart = true;
                 shared._protected = true;
             }
-
             return Ticker._shared;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Ticker, 'system', {
+    Object.defineProperty(Ticker, "system", {
         /**
          * The system ticker instance used by {@link PIXI.InteractionManager} and by
          * {@link PIXI.BasePrepare} for core timing functionality that shouldn't usually need to be paused,
@@ -824,24 +733,19 @@ const Ticker = /** @class */ (function ()
          * @member {PIXI.Ticker}
          * @static
          */
-        get()
-        {
-            if (!Ticker._system)
-            {
-                const system = Ticker._system = new Ticker();
-
+        get: function () {
+            if (!Ticker._system) {
+                var system = Ticker._system = new Ticker();
                 system.autoStart = true;
                 system._protected = true;
             }
-
             return Ticker._system;
         },
         enumerable: false,
         configurable: true
     });
-
     return Ticker;
-})();
+}());
 
 /**
  * Middleware for for Application Ticker.
@@ -854,10 +758,8 @@ const Ticker = /** @class */ (function ()
  * @class
  * @memberof PIXI
  */
-const TickerPlugin = /** @class */ (function ()
-{
-    function TickerPlugin()
-    {
+var TickerPlugin = /** @class */ (function () {
+    function TickerPlugin() {
     }
     /**
      * Initialize the plugin with scope of application instance
@@ -866,31 +768,25 @@ const TickerPlugin = /** @class */ (function ()
      * @private
      * @param {object} [options] - See application options
      */
-    TickerPlugin.init = function (options)
-    {
-        const _this = this;
+    TickerPlugin.init = function (options) {
+        var _this = this;
         // Set default
-
         options = Object.assign({
             autoStart: true,
             sharedTicker: false,
         }, options);
         // Create ticker setter
         Object.defineProperty(this, 'ticker', {
-            set(ticker)
-            {
-                if (this._ticker)
-                {
+            set: function (ticker) {
+                if (this._ticker) {
                     this._ticker.remove(this.render, this);
                 }
                 this._ticker = ticker;
-                if (ticker)
-                {
+                if (ticker) {
                     ticker.add(this.render, this, exports.UPDATE_PRIORITY.LOW);
                 }
             },
-            get()
-            {
+            get: function () {
                 return this._ticker;
             },
         });
@@ -899,8 +795,7 @@ const TickerPlugin = /** @class */ (function ()
          *
          * @method PIXI.Application#stop
          */
-        this.stop = function ()
-        {
+        this.stop = function () {
             _this._ticker.stop();
         };
         /**
@@ -908,8 +803,7 @@ const TickerPlugin = /** @class */ (function ()
          *
          * @method PIXI.Application#start
          */
-        this.start = function ()
-        {
+        this.start = function () {
             _this._ticker.start();
         };
         /**
@@ -931,8 +825,7 @@ const TickerPlugin = /** @class */ (function ()
          */
         this.ticker = options.sharedTicker ? Ticker.shared : new Ticker();
         // Start the rendering
-        if (options.autoStart)
-        {
+        if (options.autoStart) {
             this.start();
         }
     };
@@ -942,20 +835,16 @@ const TickerPlugin = /** @class */ (function ()
      * @static
      * @private
      */
-    TickerPlugin.destroy = function ()
-    {
-        if (this._ticker)
-        {
-            const oldTicker = this._ticker;
-
+    TickerPlugin.destroy = function () {
+        if (this._ticker) {
+            var oldTicker = this._ticker;
             this.ticker = null;
             oldTicker.destroy();
         }
     };
-
     return TickerPlugin;
-})();
+}());
 
 exports.Ticker = Ticker;
 exports.TickerPlugin = TickerPlugin;
-// # sourceMappingURL=ticker.js.map
+//# sourceMappingURL=ticker.js.map

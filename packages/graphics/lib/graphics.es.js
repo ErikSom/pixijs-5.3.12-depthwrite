@@ -1,6 +1,6 @@
-/* !
+/*!
  * @pixi/graphics - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/graphics is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -25,13 +25,11 @@ import { Bounds, Container } from '@pixi/display';
  * @property {string} BEVEL - 'bevel': add a square butt at each end of line segment and fill the triangle at turn
  * @property {string} ROUND - 'round': add an arc at the joint
  */
-let LINE_JOIN;
-
-(function (LINE_JOIN)
-{
-    LINE_JOIN.MITER = 'miter';
-    LINE_JOIN.BEVEL = 'bevel';
-    LINE_JOIN.ROUND = 'round';
+var LINE_JOIN;
+(function (LINE_JOIN) {
+    LINE_JOIN["MITER"] = "miter";
+    LINE_JOIN["BEVEL"] = "bevel";
+    LINE_JOIN["ROUND"] = "round";
 })(LINE_JOIN || (LINE_JOIN = {}));
 /**
  * Support line caps in `PIXI.LineStyle` for graphics.
@@ -46,13 +44,11 @@ let LINE_JOIN;
  * @property {string} ROUND - 'round': add semicircle at ends
  * @property {string} SQUARE - 'square': add square at end (like `BUTT` except more length at end)
  */
-let LINE_CAP;
-
-(function (LINE_CAP)
-{
-    LINE_CAP.BUTT = 'butt';
-    LINE_CAP.ROUND = 'round';
-    LINE_CAP.SQUARE = 'square';
+var LINE_CAP;
+(function (LINE_CAP) {
+    LINE_CAP["BUTT"] = "butt";
+    LINE_CAP["ROUND"] = "round";
+    LINE_CAP["SQUARE"] = "square";
 })(LINE_CAP || (LINE_CAP = {}));
 /**
  * Graphics curves resolution settings. If `adaptive` flag is set to `true`,
@@ -69,30 +65,24 @@ let LINE_CAP;
  * @property {number} minSegments=8 - minimal number of segments in the curve (if adaptive = false, ignored)
  * @property {number} maxSegments=2048 - maximal number of segments in the curve (if adaptive = false, ignored)
  */
-const GRAPHICS_CURVES = {
+var GRAPHICS_CURVES = {
     adaptive: true,
     maxLength: 10,
     minSegments: 8,
     maxSegments: 2048,
     epsilon: 0.0001,
-    _segmentsCount(length, defaultSegments)
-    {
+    _segmentsCount: function (length, defaultSegments) {
         if (defaultSegments === void 0) { defaultSegments = 20; }
-        if (!this.adaptive || !length || isNaN(length))
-        {
+        if (!this.adaptive || !length || isNaN(length)) {
             return defaultSegments;
         }
-        let result = Math.ceil(length / this.maxLength);
-
-        if (result < this.minSegments)
-        {
+        var result = Math.ceil(length / this.maxLength);
+        if (result < this.minSegments) {
             result = this.minSegments;
         }
-        else if (result > this.maxSegments)
-        {
+        else if (result > this.maxSegments) {
             result = this.maxSegments;
         }
-
         return result;
     },
 };
@@ -103,10 +93,8 @@ const GRAPHICS_CURVES = {
  * @class
  * @memberof PIXI
  */
-const FillStyle = /** @class */ (function ()
-{
-    function FillStyle()
-    {
+var FillStyle = /** @class */ (function () {
+    function FillStyle() {
         /**
          * The hex color value used when coloring the Graphics object.
          *
@@ -149,23 +137,19 @@ const FillStyle = /** @class */ (function ()
      *
      * @return {PIXI.FillStyle}
      */
-    FillStyle.prototype.clone = function ()
-    {
-        const obj = new FillStyle();
-
+    FillStyle.prototype.clone = function () {
+        var obj = new FillStyle();
         obj.color = this.color;
         obj.alpha = this.alpha;
         obj.texture = this.texture;
         obj.matrix = this.matrix;
         obj.visible = this.visible;
-
         return obj;
     };
     /**
      * Reset
      */
-    FillStyle.prototype.reset = function ()
-    {
+    FillStyle.prototype.reset = function () {
         this.color = 0xFFFFFF;
         this.alpha = 1;
         this.texture = Texture.WHITE;
@@ -175,16 +159,14 @@ const FillStyle = /** @class */ (function ()
     /**
      * Destroy and don't use after this
      */
-    FillStyle.prototype.destroy = function ()
-    {
+    FillStyle.prototype.destroy = function () {
         this.texture = null;
         this.matrix = null;
     };
-
     return FillStyle;
-})();
+}());
 
-/* ! *****************************************************************************
+/*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -200,17 +182,14 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function (d, b)
-{
-    extendStatics = Object.setPrototypeOf
-        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
-        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
-
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
     return extendStatics(d, b);
 };
 
-function __extends(d, b)
-{
+function __extends(d, b) {
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -227,47 +206,35 @@ function __extends(d, b)
  * @param {object} webGLData - an object containing all the WebGL-specific information to create this shape
  * @param {object} webGLDataNativeLines - an object containing all the WebGL-specific information to create nativeLines
  */
-const buildPoly = {
-    build(graphicsData)
-    {
+var buildPoly = {
+    build: function (graphicsData) {
         graphicsData.points = graphicsData.shape.points.slice();
     },
-    triangulate(graphicsData, graphicsGeometry)
-    {
-        let points = graphicsData.points;
-        const holes = graphicsData.holes;
-        const verts = graphicsGeometry.points;
-        const indices = graphicsGeometry.indices;
-
-        if (points.length >= 6)
-        {
-            const holeArray = [];
+    triangulate: function (graphicsData, graphicsGeometry) {
+        var points = graphicsData.points;
+        var holes = graphicsData.holes;
+        var verts = graphicsGeometry.points;
+        var indices = graphicsGeometry.indices;
+        if (points.length >= 6) {
+            var holeArray = [];
             // Process holes..
-
-            for (var i = 0; i < holes.length; i++)
-            {
-                const hole = holes[i];
-
+            for (var i = 0; i < holes.length; i++) {
+                var hole = holes[i];
                 holeArray.push(points.length / 2);
                 points = points.concat(hole.points);
             }
             // sort color
-            const triangles = earcut(points, holeArray, 2);
-
-            if (!triangles)
-            {
+            var triangles = earcut(points, holeArray, 2);
+            if (!triangles) {
                 return;
             }
-            const vertPos = verts.length / 2;
-
-            for (var i = 0; i < triangles.length; i += 3)
-            {
+            var vertPos = verts.length / 2;
+            for (var i = 0; i < triangles.length; i += 3) {
                 indices.push(triangles[i] + vertPos);
                 indices.push(triangles[i + 1] + vertPos);
                 indices.push(triangles[i + 2] + vertPos);
             }
-            for (var i = 0; i < points.length; i++)
-            {
+            for (var i = 0; i < points.length; i++) {
                 verts.push(points[i]);
             }
         }
@@ -286,63 +253,51 @@ const buildPoly = {
  * @param {object} webGLData - an object containing all the WebGL-specific information to create this shape
  * @param {object} webGLDataNativeLines - an object containing all the WebGL-specific information to create nativeLines
  */
-const buildCircle = {
-    build(graphicsData)
-    {
+var buildCircle = {
+    build: function (graphicsData) {
         // need to convert points to a nice regular data
-        const circleData = graphicsData.shape;
-        const points = graphicsData.points;
-        const x = circleData.x;
-        const y = circleData.y;
-        let width;
-        let height;
-
+        var circleData = graphicsData.shape;
+        var points = graphicsData.points;
+        var x = circleData.x;
+        var y = circleData.y;
+        var width;
+        var height;
         points.length = 0;
         // TODO - bit hacky??
-        if (graphicsData.type === SHAPES.CIRC)
-        {
+        if (graphicsData.type === SHAPES.CIRC) {
             width = circleData.radius;
             height = circleData.radius;
         }
-        else
-        {
-            const ellipseData = graphicsData.shape;
-
+        else {
+            var ellipseData = graphicsData.shape;
             width = ellipseData.width;
             height = ellipseData.height;
         }
-        if (width === 0 || height === 0)
-        {
+        if (width === 0 || height === 0) {
             return;
         }
-        let totalSegs = Math.floor(30 * Math.sqrt(circleData.radius))
+        var totalSegs = Math.floor(30 * Math.sqrt(circleData.radius))
             || Math.floor(15 * Math.sqrt(width + height));
-
         totalSegs /= 2.3;
-        const seg = (Math.PI * 2) / totalSegs;
-
-        for (let i = 0; i < totalSegs - 0.5; i++)
-        {
+        var seg = (Math.PI * 2) / totalSegs;
+        for (var i = 0; i < totalSegs - 0.5; i++) {
             points.push(x + (Math.sin(-seg * i) * width), y + (Math.cos(-seg * i) * height));
         }
         points.push(points[0], points[1]);
     },
-    triangulate(graphicsData, graphicsGeometry)
-    {
-        const points = graphicsData.points;
-        const verts = graphicsGeometry.points;
-        const indices = graphicsGeometry.indices;
-        let vertPos = verts.length / 2;
-        const center = vertPos;
-        const circle = (graphicsData.shape);
-        const matrix = graphicsData.matrix;
-        const x = circle.x;
-        const y = circle.y;
+    triangulate: function (graphicsData, graphicsGeometry) {
+        var points = graphicsData.points;
+        var verts = graphicsGeometry.points;
+        var indices = graphicsGeometry.indices;
+        var vertPos = verts.length / 2;
+        var center = vertPos;
+        var circle = (graphicsData.shape);
+        var matrix = graphicsData.matrix;
+        var x = circle.x;
+        var y = circle.y;
         // Push center (special point)
-
         verts.push(graphicsData.matrix ? (matrix.a * x) + (matrix.c * y) + matrix.tx : x, graphicsData.matrix ? (matrix.b * x) + (matrix.d * y) + matrix.ty : y);
-        for (let i = 0; i < points.length; i += 2)
-        {
+        for (var i = 0; i < points.length; i += 2) {
             verts.push(points[i], points[i + 1]);
             // add some uvs
             indices.push(vertPos++, center, vertPos);
@@ -361,28 +316,24 @@ const buildCircle = {
  * @param {object} webGLData - an object containing all the WebGL-specific information to create this shape
  * @param {object} webGLDataNativeLines - an object containing all the WebGL-specific information to create nativeLines
  */
-const buildRectangle = {
-    build(graphicsData)
-    {
+var buildRectangle = {
+    build: function (graphicsData) {
         // --- //
         // need to convert points to a nice regular data
         //
-        const rectData = graphicsData.shape;
-        const x = rectData.x;
-        const y = rectData.y;
-        const width = rectData.width;
-        const height = rectData.height;
-        const points = graphicsData.points;
-
+        var rectData = graphicsData.shape;
+        var x = rectData.x;
+        var y = rectData.y;
+        var width = rectData.width;
+        var height = rectData.height;
+        var points = graphicsData.points;
         points.length = 0;
         points.push(x, y, x + width, y, x + width, y + height, x, y + height);
     },
-    triangulate(graphicsData, graphicsGeometry)
-    {
-        const points = graphicsData.points;
-        const verts = graphicsGeometry.points;
-        const vertPos = verts.length / 2;
-
+    triangulate: function (graphicsData, graphicsGeometry) {
+        var points = graphicsData.points;
+        var verts = graphicsGeometry.points;
+        var vertPos = verts.length / 2;
         verts.push(points[0], points[1], points[2], points[3], points[6], points[7], points[4], points[5]);
         graphicsGeometry.indices.push(vertPos, vertPos + 1, vertPos + 2, vertPos + 1, vertPos + 2, vertPos + 3);
     },
@@ -401,10 +352,8 @@ const buildRectangle = {
  * @return {number} the result
  *
  */
-function getPt(n1, n2, perc)
-{
-    const diff = n2 - n1;
-
+function getPt(n1, n2, perc) {
+    var diff = n2 - n1;
     return n1 + (diff * perc);
 }
 /**
@@ -424,20 +373,17 @@ function getPt(n1, n2, perc)
  * @param {number[]} [out=[]] - The output array to add points into. If not passed, a new array is created.
  * @return {number[]} an array of points
  */
-function quadraticBezierCurve(fromX, fromY, cpX, cpY, toX, toY, out)
-{
+function quadraticBezierCurve(fromX, fromY, cpX, cpY, toX, toY, out) {
     if (out === void 0) { out = []; }
-    const n = 20;
-    const points = out;
-    let xa = 0;
-    let ya = 0;
-    let xb = 0;
-    let yb = 0;
-    let x = 0;
-    let y = 0;
-
-    for (let i = 0, j = 0; i <= n; ++i)
-    {
+    var n = 20;
+    var points = out;
+    var xa = 0;
+    var ya = 0;
+    var xb = 0;
+    var yb = 0;
+    var x = 0;
+    var y = 0;
+    for (var i = 0, j = 0; i <= n; ++i) {
         j = i / n;
         // The Green Line
         xa = getPt(fromX, cpX, j);
@@ -449,7 +395,6 @@ function quadraticBezierCurve(fromX, fromY, cpX, cpY, toX, toY, out)
         y = getPt(ya, yb, j);
         points.push(x, y);
     }
-
     return points;
 }
 /**
@@ -463,26 +408,22 @@ function quadraticBezierCurve(fromX, fromY, cpX, cpY, toX, toY, out)
  * @param {object} webGLData - an object containing all the WebGL-specific information to create this shape
  * @param {object} webGLDataNativeLines - an object containing all the WebGL-specific information to create nativeLines
  */
-const buildRoundedRectangle = {
-    build(graphicsData)
-    {
-        const rrectData = graphicsData.shape;
-        const points = graphicsData.points;
-        const x = rrectData.x;
-        const y = rrectData.y;
-        const width = rrectData.width;
-        const height = rrectData.height;
+var buildRoundedRectangle = {
+    build: function (graphicsData) {
+        var rrectData = graphicsData.shape;
+        var points = graphicsData.points;
+        var x = rrectData.x;
+        var y = rrectData.y;
+        var width = rrectData.width;
+        var height = rrectData.height;
         // Don't allow negative radius or greater than half the smallest width
-        const radius = Math.max(0, Math.min(rrectData.radius, Math.min(width, height) / 2));
-
+        var radius = Math.max(0, Math.min(rrectData.radius, Math.min(width, height) / 2));
         points.length = 0;
         // No radius, do a simple rectangle
-        if (!radius)
-        {
+        if (!radius) {
             points.push(x, y, x + width, y, x + width, y + height, x, y + height);
         }
-        else
-        {
+        else {
             quadraticBezierCurve(x, y + radius, x, y, x + radius, y, points);
             quadraticBezierCurve(x + width - radius, y, x + width, y, x + width, y + radius, points);
             quadraticBezierCurve(x + width, y + height - radius, x + width, y + height, x + width - radius, y + height, points);
@@ -491,24 +432,20 @@ const buildRoundedRectangle = {
         // this tiny number deals with the issue that occurs when points overlap and earcut fails to triangulate the item.
         // TODO - fix this properly, this is not very elegant.. but it works for now.
     },
-    triangulate(graphicsData, graphicsGeometry)
-    {
-        const points = graphicsData.points;
-        const verts = graphicsGeometry.points;
-        const indices = graphicsGeometry.indices;
-        const vecPos = verts.length / 2;
-        const triangles = earcut(points, null, 2);
-
-        for (var i = 0, j = triangles.length; i < j; i += 3)
-        {
+    triangulate: function (graphicsData, graphicsGeometry) {
+        var points = graphicsData.points;
+        var verts = graphicsGeometry.points;
+        var indices = graphicsGeometry.indices;
+        var vecPos = verts.length / 2;
+        var triangles = earcut(points, null, 2);
+        for (var i = 0, j = triangles.length; i < j; i += 3) {
             indices.push(triangles[i] + vecPos);
             //     indices.push(triangles[i] + vecPos);
             indices.push(triangles[i + 1] + vecPos);
             //   indices.push(triangles[i + 2] + vecPos);
             indices.push(triangles[i + 2] + vecPos);
         }
-        for (var i = 0, j = points.length; i < j; i++)
-        {
+        for (var i = 0, j = points.length; i < j; i++) {
             verts.push(points[i], points[++i]);
         }
     },
@@ -528,36 +465,30 @@ const buildRoundedRectangle = {
  * @param {Array<number>} verts - vertex buffer
  * @returns {}
  */
-function square(x, y, nx, ny, innerWeight, outerWeight, clockwise, /* rotation for square (true at left end, false at right end) */ verts)
-{
-    const ix = x - (nx * innerWeight);
-    const iy = y - (ny * innerWeight);
-    const ox = x + (nx * outerWeight);
-    const oy = y + (ny * outerWeight);
+function square(x, y, nx, ny, innerWeight, outerWeight, clockwise, /* rotation for square (true at left end, false at right end) */ verts) {
+    var ix = x - (nx * innerWeight);
+    var iy = y - (ny * innerWeight);
+    var ox = x + (nx * outerWeight);
+    var oy = y + (ny * outerWeight);
     /* Rotate nx,ny for extension vector */
-    let exx;
-    let eyy;
-
-    if (clockwise)
-    {
+    var exx;
+    var eyy;
+    if (clockwise) {
         exx = ny;
         eyy = -nx;
     }
-    else
-    {
+    else {
         exx = -ny;
         eyy = nx;
     }
     /* [i|0]x,y extended at cap */
-    const eix = ix + exx;
-    const eiy = iy + eyy;
-    const eox = ox + exx;
-    const eoy = oy + eyy;
+    var eix = ix + exx;
+    var eiy = iy + eyy;
+    var eox = ox + exx;
+    var eoy = oy + eyy;
     /* Square itself must be inserted clockwise*/
-
     verts.push(eix, eiy);
     verts.push(eox, eoy);
-
     return 2;
 }
 /**
@@ -577,24 +508,20 @@ function square(x, y, nx, ny, innerWeight, outerWeight, clockwise, /* rotation f
  * @param {boolean} clockwise - orientation of vertices
  * @returns {number} - no. of vertices pushed
  */
-function round(cx, cy, sx, sy, ex, ey, verts, clockwise)
-{
-    const cx2p0x = sx - cx;
-    const cy2p0y = sy - cy;
-    let angle0 = Math.atan2(cx2p0x, cy2p0y);
-    let angle1 = Math.atan2(ex - cx, ey - cy);
-
-    if (clockwise && angle0 < angle1)
-    {
+function round(cx, cy, sx, sy, ex, ey, verts, clockwise) {
+    var cx2p0x = sx - cx;
+    var cy2p0y = sy - cy;
+    var angle0 = Math.atan2(cx2p0x, cy2p0y);
+    var angle1 = Math.atan2(ex - cx, ey - cy);
+    if (clockwise && angle0 < angle1) {
         angle0 += Math.PI * 2;
     }
-    else if (!clockwise && angle0 > angle1)
-    {
+    else if (!clockwise && angle0 > angle1) {
         angle1 += Math.PI * 2;
     }
-    let startAngle = angle0;
-    const angleDiff = angle1 - angle0;
-    const absAngleDiff = Math.abs(angleDiff);
+    var startAngle = angle0;
+    var angleDiff = angle1 - angle0;
+    var absAngleDiff = Math.abs(angleDiff);
     /* if (absAngleDiff >= PI_LBOUND && absAngleDiff <= PI_UBOUND)
     {
         const r1x = cx - nxtPx;
@@ -612,36 +539,30 @@ function round(cx, cy, sx, sy, ex, ey, verts, clockwise)
             angleDiff = -angleDiff;
         }
     }*/
-    const radius = Math.sqrt((cx2p0x * cx2p0x) + (cy2p0y * cy2p0y));
-    const segCount = ((15 * absAngleDiff * Math.sqrt(radius) / Math.PI) >> 0) + 1;
-    const angleInc = angleDiff / segCount;
-
+    var radius = Math.sqrt((cx2p0x * cx2p0x) + (cy2p0y * cy2p0y));
+    var segCount = ((15 * absAngleDiff * Math.sqrt(radius) / Math.PI) >> 0) + 1;
+    var angleInc = angleDiff / segCount;
     startAngle += angleInc;
-    if (clockwise)
-    {
+    if (clockwise) {
         verts.push(cx, cy);
         verts.push(sx, sy);
-        for (var i = 1, angle = startAngle; i < segCount; i++, angle += angleInc)
-        {
+        for (var i = 1, angle = startAngle; i < segCount; i++, angle += angleInc) {
             verts.push(cx, cy);
             verts.push(cx + ((Math.sin(angle) * radius)), cy + ((Math.cos(angle) * radius)));
         }
         verts.push(cx, cy);
         verts.push(ex, ey);
     }
-    else
-    {
+    else {
         verts.push(sx, sy);
         verts.push(cx, cy);
-        for (var i = 1, angle = startAngle; i < segCount; i++, angle += angleInc)
-        {
+        for (var i = 1, angle = startAngle; i < segCount; i++, angle += angleInc) {
             verts.push(cx + ((Math.sin(angle) * radius)), cy + ((Math.cos(angle) * radius)));
             verts.push(cx, cy);
         }
         verts.push(ex, ey);
         verts.push(cx, cy);
     }
-
     return segCount * 2;
 }
 /**
@@ -654,14 +575,11 @@ function round(cx, cy, sx, sy, ex, ey, verts, clockwise)
  * @param {PIXI.GraphicsData} graphicsData - The graphics object containing all the necessary properties
  * @param {PIXI.GraphicsGeometry} graphicsGeometry - Geometry where to append output
  */
-function buildNonNativeLine(graphicsData, graphicsGeometry)
-{
-    const shape = graphicsData.shape;
-    let points = graphicsData.points || shape.points.slice();
-    const eps = graphicsGeometry.closePointEps;
-
-    if (points.length === 0)
-    {
+function buildNonNativeLine(graphicsData, graphicsGeometry) {
+    var shape = graphicsData.shape;
+    var points = graphicsData.points || shape.points.slice();
+    var eps = graphicsGeometry.closePointEps;
+    if (points.length === 0) {
         return;
     }
     // if the line width is an odd number add 0.5 to align to a whole pixel
@@ -673,77 +591,67 @@ function buildNonNativeLine(graphicsData, graphicsGeometry)
     //         points[i] += 0.5;
     //     }
     // }
-    const style = graphicsData.lineStyle;
+    var style = graphicsData.lineStyle;
     // get first and last point.. figure out the middle!
-    const firstPoint = new Point(points[0], points[1]);
-    const lastPoint = new Point(points[points.length - 2], points[points.length - 1]);
-    const closedShape = shape.type !== SHAPES.POLY || shape.closeStroke;
-    const closedPath = Math.abs(firstPoint.x - lastPoint.x) < eps
+    var firstPoint = new Point(points[0], points[1]);
+    var lastPoint = new Point(points[points.length - 2], points[points.length - 1]);
+    var closedShape = shape.type !== SHAPES.POLY || shape.closeStroke;
+    var closedPath = Math.abs(firstPoint.x - lastPoint.x) < eps
         && Math.abs(firstPoint.y - lastPoint.y) < eps;
     // if the first point is the last point - gonna have issues :)
-
-    if (closedShape)
-    {
+    if (closedShape) {
         // need to clone as we are going to slightly modify the shape..
         points = points.slice();
-        if (closedPath)
-        {
+        if (closedPath) {
             points.pop();
             points.pop();
             lastPoint.set(points[points.length - 2], points[points.length - 1]);
         }
-        const midPointX = (firstPoint.x + lastPoint.x) * 0.5;
-        const midPointY = (lastPoint.y + firstPoint.y) * 0.5;
-
+        var midPointX = (firstPoint.x + lastPoint.x) * 0.5;
+        var midPointY = (lastPoint.y + firstPoint.y) * 0.5;
         points.unshift(midPointX, midPointY);
         points.push(midPointX, midPointY);
     }
-    const verts = graphicsGeometry.points;
-    const length = points.length / 2;
-    let indexCount = points.length;
-    const indexStart = verts.length / 2;
+    var verts = graphicsGeometry.points;
+    var length = points.length / 2;
+    var indexCount = points.length;
+    var indexStart = verts.length / 2;
     // Max. inner and outer width
-    const width = style.width / 2;
-    const widthSquared = width * width;
-    const miterLimitSquared = style.miterLimit * style.miterLimit;
+    var width = style.width / 2;
+    var widthSquared = width * width;
+    var miterLimitSquared = style.miterLimit * style.miterLimit;
     /* Line segments of interest where (x1,y1) forms the corner. */
-    let x0 = points[0];
-    let y0 = points[1];
-    let x1 = points[2];
-    let y1 = points[3];
-    let x2 = 0;
-    let y2 = 0;
+    var x0 = points[0];
+    var y0 = points[1];
+    var x1 = points[2];
+    var y1 = points[3];
+    var x2 = 0;
+    var y2 = 0;
     /* perp[?](x|y) = the line normal with magnitude lineWidth. */
-    let perpx = -(y0 - y1);
-    let perpy = x0 - x1;
-    let perp1x = 0;
-    let perp1y = 0;
-    let dist = Math.sqrt((perpx * perpx) + (perpy * perpy));
-
+    var perpx = -(y0 - y1);
+    var perpy = x0 - x1;
+    var perp1x = 0;
+    var perp1y = 0;
+    var dist = Math.sqrt((perpx * perpx) + (perpy * perpy));
     perpx /= dist;
     perpy /= dist;
     perpx *= width;
     perpy *= width;
-    const ratio = style.alignment; // 0.5;
-    const innerWeight = (1 - ratio) * 2;
-    const outerWeight = ratio * 2;
-
-    if (!closedShape)
-    {
-        if (style.cap === LINE_CAP.ROUND)
-        {
+    var ratio = style.alignment; // 0.5;
+    var innerWeight = (1 - ratio) * 2;
+    var outerWeight = ratio * 2;
+    if (!closedShape) {
+        if (style.cap === LINE_CAP.ROUND) {
             indexCount += round(x0 - (perpx * (innerWeight - outerWeight) * 0.5), y0 - (perpy * (innerWeight - outerWeight) * 0.5), x0 - (perpx * innerWeight), y0 - (perpy * innerWeight), x0 + (perpx * outerWeight), y0 + (perpy * outerWeight), verts, true) + 2;
         }
-        else if (style.cap === LINE_CAP.SQUARE)
-        {
+        else if (style.cap === LINE_CAP.SQUARE) {
             indexCount += square(x0, y0, perpx, perpy, innerWeight, outerWeight, true, verts);
         }
     }
     // Push first point (below & above vertices)
     verts.push(x0 - (perpx * innerWeight), y0 - (perpy * innerWeight));
     verts.push(x0 + (perpx * outerWeight), y0 + (perpy * outerWeight));
-    for (var i = 1; i < length - 1; ++i)
-    {
+    for (var i = 1; i < length - 1; ++i) {
         x0 = points[(i - 1) * 2];
         y0 = points[((i - 1) * 2) + 1];
         x1 = points[i * 2];
@@ -765,52 +673,45 @@ function buildNonNativeLine(graphicsData, graphicsGeometry)
         perp1x *= width;
         perp1y *= width;
         /* d[x|y](0|1) = the component displacment between points p(0,1|1,2) */
-        const dx0 = x1 - x0;
-        const dy0 = y0 - y1;
-        const dx1 = x1 - x2;
-        const dy1 = y2 - y1;
+        var dx0 = x1 - x0;
+        var dy0 = y0 - y1;
+        var dx1 = x1 - x2;
+        var dy1 = y2 - y1;
         /* +ve if internal angle counterclockwise, -ve if internal angle clockwise. */
-        const cross = (dy0 * dx1) - (dy1 * dx0);
-        const clockwise = (cross < 0);
+        var cross = (dy0 * dx1) - (dy1 * dx0);
+        var clockwise = (cross < 0);
         /* Going nearly straight? */
-
-        if (Math.abs(cross) < 0.1)
-        {
+        if (Math.abs(cross) < 0.1) {
             verts.push(x1 - (perpx * innerWeight), y1 - (perpy * innerWeight));
             verts.push(x1 + (perpx * outerWeight), y1 + (perpy * outerWeight));
             continue;
         }
         /* p[x|y] is the miter point. pdist is the distance between miter point and p1. */
-        const c1 = ((-perpx + x0) * (-perpy + y1)) - ((-perpx + x1) * (-perpy + y0));
-        const c2 = ((-perp1x + x2) * (-perp1y + y1)) - ((-perp1x + x1) * (-perp1y + y2));
-        const px = ((dx0 * c2) - (dx1 * c1)) / cross;
-        const py = ((dy1 * c1) - (dy0 * c2)) / cross;
-        const pdist = ((px - x1) * (px - x1)) + ((py - y1) * (py - y1));
+        var c1 = ((-perpx + x0) * (-perpy + y1)) - ((-perpx + x1) * (-perpy + y0));
+        var c2 = ((-perp1x + x2) * (-perp1y + y1)) - ((-perp1x + x1) * (-perp1y + y2));
+        var px = ((dx0 * c2) - (dx1 * c1)) / cross;
+        var py = ((dy1 * c1) - (dy0 * c2)) / cross;
+        var pdist = ((px - x1) * (px - x1)) + ((py - y1) * (py - y1));
         /* Inner miter point */
-        const imx = x1 + ((px - x1) * innerWeight);
-        const imy = y1 + ((py - y1) * innerWeight);
+        var imx = x1 + ((px - x1) * innerWeight);
+        var imy = y1 + ((py - y1) * innerWeight);
         /* Outer miter point */
-        const omx = x1 - ((px - x1) * outerWeight);
-        const omy = y1 - ((py - y1) * outerWeight);
+        var omx = x1 - ((px - x1) * outerWeight);
+        var omy = y1 - ((py - y1) * outerWeight);
         /* Is the inside miter point too far away, creating a spike? */
-        const smallerInsideSegmentSq = Math.min((dx0 * dx0) + (dy0 * dy0), (dx1 * dx1) + (dy1 * dy1));
-        const insideWeight = clockwise ? innerWeight : outerWeight;
-        const smallerInsideDiagonalSq = smallerInsideSegmentSq + (insideWeight * insideWeight * widthSquared);
-        const insideMiterOk = pdist <= smallerInsideDiagonalSq;
-
-        if (insideMiterOk)
-        {
-            if (style.join === LINE_JOIN.BEVEL || pdist / widthSquared > miterLimitSquared)
-            {
-                if (clockwise) /* rotating at inner angle */
-                {
+        var smallerInsideSegmentSq = Math.min((dx0 * dx0) + (dy0 * dy0), (dx1 * dx1) + (dy1 * dy1));
+        var insideWeight = clockwise ? innerWeight : outerWeight;
+        var smallerInsideDiagonalSq = smallerInsideSegmentSq + (insideWeight * insideWeight * widthSquared);
+        var insideMiterOk = pdist <= smallerInsideDiagonalSq;
+        if (insideMiterOk) {
+            if (style.join === LINE_JOIN.BEVEL || pdist / widthSquared > miterLimitSquared) {
+                if (clockwise) /* rotating at inner angle */ {
                     verts.push(imx, imy); // inner miter point
                     verts.push(x1 + (perpx * outerWeight), y1 + (perpy * outerWeight)); // first segment's outer vertex
                     verts.push(imx, imy); // inner miter point
                     verts.push(x1 + (perp1x * outerWeight), y1 + (perp1y * outerWeight)); // second segment's outer vertex
                 }
-                else /* rotating at outer angle */
-                {
+                else /* rotating at outer angle */ {
                     verts.push(x1 - (perpx * innerWeight), y1 - (perpy * innerWeight)); // first segment's inner vertex
                     verts.push(omx, omy); // outer miter point
                     verts.push(x1 - (perp1x * innerWeight), y1 - (perp1y * innerWeight)); // second segment's outer vertex
@@ -818,18 +719,15 @@ function buildNonNativeLine(graphicsData, graphicsGeometry)
                 }
                 indexCount += 2;
             }
-            else if (style.join === LINE_JOIN.ROUND)
-            {
-                if (clockwise) /* arc is outside */
-                {
+            else if (style.join === LINE_JOIN.ROUND) {
+                if (clockwise) /* arc is outside */ {
                     verts.push(imx, imy);
                     verts.push(x1 + (perpx * outerWeight), y1 + (perpy * outerWeight));
                     indexCount += round(x1, y1, x1 + (perpx * outerWeight), y1 + (perpy * outerWeight), x1 + (perp1x * outerWeight), y1 + (perp1y * outerWeight), verts, true) + 4;
                     verts.push(imx, imy);
                     verts.push(x1 + (perp1x * outerWeight), y1 + (perp1y * outerWeight));
                 }
-                else /* arc is inside */
-                {
+                else /* arc is inside */ {
                     verts.push(x1 - (perpx * innerWeight), y1 - (perpy * innerWeight));
                     verts.push(omx, omy);
                     indexCount += round(x1, y1, x1 - (perpx * innerWeight), y1 - (perpy * innerWeight), x1 - (perp1x * innerWeight), y1 - (perp1y * innerWeight), verts, false) + 4;
@@ -837,37 +735,30 @@ function buildNonNativeLine(graphicsData, graphicsGeometry)
                     verts.push(omx, omy);
                 }
             }
-            else
-            {
+            else {
                 verts.push(imx, imy);
                 verts.push(omx, omy);
             }
         }
         else // inside miter is NOT ok
-        {
+         {
             verts.push(x1 - (perpx * innerWeight), y1 - (perpy * innerWeight)); // first segment's inner vertex
             verts.push(x1 + (perpx * outerWeight), y1 + (perpy * outerWeight)); // first segment's outer vertex
             if (style.join === LINE_JOIN.BEVEL || pdist / widthSquared > miterLimitSquared) ;
-            else if (style.join === LINE_JOIN.ROUND)
-            {
-                if (clockwise) /* arc is outside */
-                {
+            else if (style.join === LINE_JOIN.ROUND) {
+                if (clockwise) /* arc is outside */ {
                     indexCount += round(x1, y1, x1 + (perpx * outerWeight), y1 + (perpy * outerWeight), x1 + (perp1x * outerWeight), y1 + (perp1y * outerWeight), verts, true) + 2;
                 }
-                else /* arc is inside */
-                {
+                else /* arc is inside */ {
                     indexCount += round(x1, y1, x1 - (perpx * innerWeight), y1 - (perpy * innerWeight), x1 - (perp1x * innerWeight), y1 - (perp1y * innerWeight), verts, false) + 2;
                 }
             }
-            else
-            {
-                if (clockwise)
-                {
+            else {
+                if (clockwise) {
                     verts.push(omx, omy); // inner miter point
                     verts.push(omx, omy); // inner miter point
                 }
-                else
-                {
+                else {
                     verts.push(imx, imy); // outer miter point
                     verts.push(imx, imy); // outer miter point
                 }
@@ -891,23 +782,18 @@ function buildNonNativeLine(graphicsData, graphicsGeometry)
     perpy *= width;
     verts.push(x1 - (perpx * innerWeight), y1 - (perpy * innerWeight));
     verts.push(x1 + (perpx * outerWeight), y1 + (perpy * outerWeight));
-    if (!closedShape)
-    {
-        if (style.cap === LINE_CAP.ROUND)
-        {
+    if (!closedShape) {
+        if (style.cap === LINE_CAP.ROUND) {
             indexCount += round(x1 - (perpx * (innerWeight - outerWeight) * 0.5), y1 - (perpy * (innerWeight - outerWeight) * 0.5), x1 - (perpx * innerWeight), y1 - (perpy * innerWeight), x1 + (perpx * outerWeight), y1 + (perpy * outerWeight), verts, false) + 2;
         }
-        else if (style.cap === LINE_CAP.SQUARE)
-        {
+        else if (style.cap === LINE_CAP.SQUARE) {
             indexCount += square(x1, y1, perpx, perpy, innerWeight, outerWeight, false, verts);
         }
     }
-    const indices = graphicsGeometry.indices;
-    const eps2 = GRAPHICS_CURVES.epsilon * GRAPHICS_CURVES.epsilon;
+    var indices = graphicsGeometry.indices;
+    var eps2 = GRAPHICS_CURVES.epsilon * GRAPHICS_CURVES.epsilon;
     // indices.push(indexStart);
-
-    for (var i = indexStart; i < indexCount + indexStart - 2; ++i)
-    {
+    for (var i = indexStart; i < indexCount + indexStart - 2; ++i) {
         x0 = verts[(i * 2)];
         y0 = verts[(i * 2) + 1];
         x1 = verts[(i + 1) * 2];
@@ -915,8 +801,7 @@ function buildNonNativeLine(graphicsData, graphicsGeometry)
         x2 = verts[(i + 2) * 2];
         y2 = verts[((i + 2) * 2) + 1];
         /* Skip zero area triangles */
-        if (Math.abs((x0 * (y1 - y2)) + (x1 * (y2 - y0)) + (x2 * (y0 - y1))) < eps2)
-        {
+        if (Math.abs((x0 * (y1 - y2)) + (x1 * (y2 - y0)) + (x2 * (y0 - y1))) < eps2) {
             continue;
         }
         indices.push(i, i + 1, i + 2);
@@ -932,30 +817,25 @@ function buildNonNativeLine(graphicsData, graphicsGeometry)
  * @param {PIXI.GraphicsData} graphicsData - The graphics object containing all the necessary properties
  * @param {PIXI.GraphicsGeometry} graphicsGeometry - Geometry where to append output
  */
-function buildNativeLine(graphicsData, graphicsGeometry)
-{
-    let i = 0;
-    const shape = graphicsData.shape;
-    const points = graphicsData.points || shape.points;
-    const closedShape = shape.type !== SHAPES.POLY || shape.closeStroke;
-
+function buildNativeLine(graphicsData, graphicsGeometry) {
+    var i = 0;
+    var shape = graphicsData.shape;
+    var points = graphicsData.points || shape.points;
+    var closedShape = shape.type !== SHAPES.POLY || shape.closeStroke;
     if (points.length === 0)
-    { return; }
-    const verts = graphicsGeometry.points;
-    const indices = graphicsGeometry.indices;
-    const length = points.length / 2;
-    const startIndex = verts.length / 2;
-    let currentIndex = startIndex;
-
+        { return; }
+    var verts = graphicsGeometry.points;
+    var indices = graphicsGeometry.indices;
+    var length = points.length / 2;
+    var startIndex = verts.length / 2;
+    var currentIndex = startIndex;
     verts.push(points[0], points[1]);
-    for (i = 1; i < length; i++)
-    {
+    for (i = 1; i < length; i++) {
         verts.push(points[i * 2], points[(i * 2) + 1]);
         indices.push(currentIndex, currentIndex + 1);
         currentIndex++;
     }
-    if (closedShape)
-    {
+    if (closedShape) {
         indices.push(currentIndex, startIndex);
     }
 }
@@ -969,14 +849,11 @@ function buildNativeLine(graphicsData, graphicsGeometry)
  * @param {PIXI.GraphicsData} graphicsData - The graphics object containing all the necessary properties
  * @param {PIXI.GraphicsGeometry} graphicsGeometry - Geometry where to append output
  */
-function buildLine(graphicsData, graphicsGeometry)
-{
-    if (graphicsData.lineStyle.native)
-    {
+function buildLine(graphicsData, graphicsGeometry) {
+    if (graphicsData.lineStyle.native) {
         buildNativeLine(graphicsData, graphicsGeometry);
     }
-    else
-    {
+    else {
         buildNonNativeLine(graphicsData, graphicsGeometry);
     }
 }
@@ -995,44 +872,34 @@ function buildLine(graphicsData, graphicsGeometry)
  * @param {number} [rotation=0] - The rotation of the star in radians, where 0 is vertical
  * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
  */
-const Star = /** @class */ (function (_super)
-{
+var Star = /** @class */ (function (_super) {
     __extends(Star, _super);
-    function Star(x, y, points, radius, innerRadius, rotation)
-    {
+    function Star(x, y, points, radius, innerRadius, rotation) {
         if (rotation === void 0) { rotation = 0; }
-        let _this = this;
-
+        var _this = this;
         innerRadius = innerRadius || radius / 2;
-        const startAngle = (-1 * Math.PI / 2) + rotation;
-        const len = points * 2;
-        const delta = PI_2 / len;
-        const polygon = [];
-
-        for (let i = 0; i < len; i++)
-        {
-            const r = i % 2 ? innerRadius : radius;
-            const angle = (i * delta) + startAngle;
-
+        var startAngle = (-1 * Math.PI / 2) + rotation;
+        var len = points * 2;
+        var delta = PI_2 / len;
+        var polygon = [];
+        for (var i = 0; i < len; i++) {
+            var r = i % 2 ? innerRadius : radius;
+            var angle = (i * delta) + startAngle;
             polygon.push(x + (r * Math.cos(angle)), y + (r * Math.sin(angle)));
         }
         _this = _super.call(this, polygon) || this;
-
         return _this;
     }
-
     return Star;
-})(Polygon);
+}(Polygon));
 
 /**
  * Utilities for arc curves
  * @class
  * @private
  */
-const ArcUtils = /** @class */ (function ()
-{
-    function ArcUtils()
-    {
+var ArcUtils = /** @class */ (function () {
+    function ArcUtils() {
     }
     /**
      * The arcTo() method creates an arc/curve between two tangents on the canvas.
@@ -1047,47 +914,41 @@ const ArcUtils = /** @class */ (function ()
      * @param {number} radius - The radius of the arc
      * @return {object} If the arc length is valid, return center of circle, radius and other info otherwise `null`.
      */
-    ArcUtils.curveTo = function (x1, y1, x2, y2, radius, points)
-    {
-        const fromX = points[points.length - 2];
-        const fromY = points[points.length - 1];
-        const a1 = fromY - y1;
-        const b1 = fromX - x1;
-        const a2 = y2 - y1;
-        const b2 = x2 - x1;
-        const mm = Math.abs((a1 * b2) - (b1 * a2));
-
-        if (mm < 1.0e-8 || radius === 0)
-        {
-            if (points[points.length - 2] !== x1 || points[points.length - 1] !== y1)
-            {
+    ArcUtils.curveTo = function (x1, y1, x2, y2, radius, points) {
+        var fromX = points[points.length - 2];
+        var fromY = points[points.length - 1];
+        var a1 = fromY - y1;
+        var b1 = fromX - x1;
+        var a2 = y2 - y1;
+        var b2 = x2 - x1;
+        var mm = Math.abs((a1 * b2) - (b1 * a2));
+        if (mm < 1.0e-8 || radius === 0) {
+            if (points[points.length - 2] !== x1 || points[points.length - 1] !== y1) {
                 points.push(x1, y1);
             }
-
             return null;
         }
-        const dd = (a1 * a1) + (b1 * b1);
-        const cc = (a2 * a2) + (b2 * b2);
-        const tt = (a1 * a2) + (b1 * b2);
-        const k1 = radius * Math.sqrt(dd) / mm;
-        const k2 = radius * Math.sqrt(cc) / mm;
-        const j1 = k1 * tt / dd;
-        const j2 = k2 * tt / cc;
-        const cx = (k1 * b2) + (k2 * b1);
-        const cy = (k1 * a2) + (k2 * a1);
-        const px = b1 * (k2 + j1);
-        const py = a1 * (k2 + j1);
-        const qx = b2 * (k1 + j2);
-        const qy = a2 * (k1 + j2);
-        const startAngle = Math.atan2(py - cy, px - cx);
-        const endAngle = Math.atan2(qy - cy, qx - cx);
-
+        var dd = (a1 * a1) + (b1 * b1);
+        var cc = (a2 * a2) + (b2 * b2);
+        var tt = (a1 * a2) + (b1 * b2);
+        var k1 = radius * Math.sqrt(dd) / mm;
+        var k2 = radius * Math.sqrt(cc) / mm;
+        var j1 = k1 * tt / dd;
+        var j2 = k2 * tt / cc;
+        var cx = (k1 * b2) + (k2 * b1);
+        var cy = (k1 * a2) + (k2 * a1);
+        var px = b1 * (k2 + j1);
+        var py = a1 * (k2 + j1);
+        var qx = b2 * (k1 + j2);
+        var qy = a2 * (k1 + j2);
+        var startAngle = Math.atan2(py - cy, px - cx);
+        var endAngle = Math.atan2(qy - cy, qx - cx);
         return {
             cx: (cx + x1),
             cy: (cy + y1),
-            radius,
-            startAngle,
-            endAngle,
+            radius: radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
             anticlockwise: (b1 * a2 > b2 * a1),
         };
     };
@@ -1109,40 +970,33 @@ const ArcUtils = /** @class */ (function ()
      *  indicates counter-clockwise.
      * @param {number[]} points - Collection of points to add to
      */
-    ArcUtils.arc = function (_startX, _startY, cx, cy, radius, startAngle, endAngle, _anticlockwise, points)
-    {
-        const sweep = endAngle - startAngle;
-        const n = GRAPHICS_CURVES._segmentsCount(Math.abs(sweep) * radius, Math.ceil(Math.abs(sweep) / PI_2) * 40);
-        const theta = (sweep) / (n * 2);
-        const theta2 = theta * 2;
-        const cTheta = Math.cos(theta);
-        const sTheta = Math.sin(theta);
-        const segMinus = n - 1;
-        const remainder = (segMinus % 1) / segMinus;
-
-        for (let i = 0; i <= segMinus; ++i)
-        {
-            const real = i + (remainder * i);
-            const angle = ((theta) + startAngle + (theta2 * real));
-            const c = Math.cos(angle);
-            const s = -Math.sin(angle);
-
+    ArcUtils.arc = function (_startX, _startY, cx, cy, radius, startAngle, endAngle, _anticlockwise, points) {
+        var sweep = endAngle - startAngle;
+        var n = GRAPHICS_CURVES._segmentsCount(Math.abs(sweep) * radius, Math.ceil(Math.abs(sweep) / PI_2) * 40);
+        var theta = (sweep) / (n * 2);
+        var theta2 = theta * 2;
+        var cTheta = Math.cos(theta);
+        var sTheta = Math.sin(theta);
+        var segMinus = n - 1;
+        var remainder = (segMinus % 1) / segMinus;
+        for (var i = 0; i <= segMinus; ++i) {
+            var real = i + (remainder * i);
+            var angle = ((theta) + startAngle + (theta2 * real));
+            var c = Math.cos(angle);
+            var s = -Math.sin(angle);
             points.push((((cTheta * c) + (sTheta * s)) * radius) + cx, (((cTheta * -s) + (sTheta * c)) * radius) + cy);
         }
     };
-
     return ArcUtils;
-})();
+}());
 
 /**
  * Utilities for bezier curves
  * @class
  * @private
  */
-const BezierUtils = /** @class */ (function ()
-{
-    function BezierUtils()
-    {
+var BezierUtils = /** @class */ (function () {
+    function BezierUtils() {
     }
     /**
      * Calculate length of bezier curve.
@@ -1160,25 +1014,22 @@ const BezierUtils = /** @class */ (function ()
      * @param {number} toY - Destination point y
      * @return {number} Length of bezier curve
      */
-    BezierUtils.curveLength = function (fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY)
-    {
-        const n = 10;
-        let result = 0.0;
-        let t = 0.0;
-        let t2 = 0.0;
-        let t3 = 0.0;
-        let nt = 0.0;
-        let nt2 = 0.0;
-        let nt3 = 0.0;
-        let x = 0.0;
-        let y = 0.0;
-        let dx = 0.0;
-        let dy = 0.0;
-        let prevX = fromX;
-        let prevY = fromY;
-
-        for (let i = 1; i <= n; ++i)
-        {
+    BezierUtils.curveLength = function (fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY) {
+        var n = 10;
+        var result = 0.0;
+        var t = 0.0;
+        var t2 = 0.0;
+        var t3 = 0.0;
+        var nt = 0.0;
+        var nt2 = 0.0;
+        var nt3 = 0.0;
+        var x = 0.0;
+        var y = 0.0;
+        var dx = 0.0;
+        var dy = 0.0;
+        var prevX = fromX;
+        var prevY = fromY;
+        for (var i = 1; i <= n; ++i) {
             t = i / n;
             t2 = t * t;
             t3 = t2 * t;
@@ -1193,7 +1044,6 @@ const BezierUtils = /** @class */ (function ()
             prevY = y;
             result += Math.sqrt((dx * dx) + (dy * dy));
         }
-
         return result;
     };
     /**
@@ -1210,22 +1060,18 @@ const BezierUtils = /** @class */ (function ()
      * @param {number} toY - Destination point y
      * @param {number[]} points - Path array to push points into
      */
-    BezierUtils.curveTo = function (cpX, cpY, cpX2, cpY2, toX, toY, points)
-    {
-        const fromX = points[points.length - 2];
-        const fromY = points[points.length - 1];
-
+    BezierUtils.curveTo = function (cpX, cpY, cpX2, cpY2, toX, toY, points) {
+        var fromX = points[points.length - 2];
+        var fromY = points[points.length - 1];
         points.length -= 2;
-        const n = GRAPHICS_CURVES._segmentsCount(BezierUtils.curveLength(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY));
-        let dt = 0;
-        let dt2 = 0;
-        let dt3 = 0;
-        let t2 = 0;
-        let t3 = 0;
-
+        var n = GRAPHICS_CURVES._segmentsCount(BezierUtils.curveLength(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY));
+        var dt = 0;
+        var dt2 = 0;
+        var dt3 = 0;
+        var t2 = 0;
+        var t3 = 0;
         points.push(fromX, fromY);
-        for (let i = 1, j = 0; i <= n; ++i)
-        {
+        for (var i = 1, j = 0; i <= n; ++i) {
             j = i / n;
             dt = (1 - j);
             dt2 = dt * dt;
@@ -1235,19 +1081,16 @@ const BezierUtils = /** @class */ (function ()
             points.push((dt3 * fromX) + (3 * dt2 * j * cpX) + (3 * dt * t2 * cpX2) + (t3 * toX), (dt3 * fromY) + (3 * dt2 * j * cpY) + (3 * dt * t2 * cpY2) + (t3 * toY));
         }
     };
-
     return BezierUtils;
-})();
+}());
 
 /**
  * Utilities for quadratic curves
  * @class
  * @private
  */
-const QuadraticUtils = /** @class */ (function ()
-{
-    function QuadraticUtils()
-    {
+var QuadraticUtils = /** @class */ (function () {
+    function QuadraticUtils() {
     }
     /**
      * Calculate length of quadratic curve
@@ -1263,21 +1106,19 @@ const QuadraticUtils = /** @class */ (function ()
      * @param {number} toY - y-coordinate of curve end point
      * @return {number} Length of quadratic curve
      */
-    QuadraticUtils.curveLength = function (fromX, fromY, cpX, cpY, toX, toY)
-    {
-        const ax = fromX - (2.0 * cpX) + toX;
-        const ay = fromY - (2.0 * cpY) + toY;
-        const bx = (2.0 * cpX) - (2.0 * fromX);
-        const by = (2.0 * cpY) - (2.0 * fromY);
-        const a = 4.0 * ((ax * ax) + (ay * ay));
-        const b = 4.0 * ((ax * bx) + (ay * by));
-        const c = (bx * bx) + (by * by);
-        const s = 2.0 * Math.sqrt(a + b + c);
-        const a2 = Math.sqrt(a);
-        const a32 = 2.0 * a * a2;
-        const c2 = 2.0 * Math.sqrt(c);
-        const ba = b / a2;
-
+    QuadraticUtils.curveLength = function (fromX, fromY, cpX, cpY, toX, toY) {
+        var ax = fromX - (2.0 * cpX) + toX;
+        var ay = fromY - (2.0 * cpY) + toY;
+        var bx = (2.0 * cpX) - (2.0 * fromX);
+        var by = (2.0 * cpY) - (2.0 * fromY);
+        var a = 4.0 * ((ax * ax) + (ay * ay));
+        var b = 4.0 * ((ax * bx) + (ay * by));
+        var c = (bx * bx) + (by * by);
+        var s = 2.0 * Math.sqrt(a + b + c);
+        var a2 = Math.sqrt(a);
+        var a32 = 2.0 * a * a2;
+        var c2 = 2.0 * Math.sqrt(c);
+        var ba = b / a2;
         return ((a32 * s)
             + (a2 * b * (s - c2))
             + (((4.0 * c * a) - (b * b))
@@ -1294,36 +1135,29 @@ const QuadraticUtils = /** @class */ (function ()
      * @param {number} toY - Destination point y
      * @param {number[]} points - Points to add segments to.
      */
-    QuadraticUtils.curveTo = function (cpX, cpY, toX, toY, points)
-    {
-        const fromX = points[points.length - 2];
-        const fromY = points[points.length - 1];
-        const n = GRAPHICS_CURVES._segmentsCount(QuadraticUtils.curveLength(fromX, fromY, cpX, cpY, toX, toY));
-        let xa = 0;
-        let ya = 0;
-
-        for (let i = 1; i <= n; ++i)
-        {
-            const j = i / n;
-
+    QuadraticUtils.curveTo = function (cpX, cpY, toX, toY, points) {
+        var fromX = points[points.length - 2];
+        var fromY = points[points.length - 1];
+        var n = GRAPHICS_CURVES._segmentsCount(QuadraticUtils.curveLength(fromX, fromY, cpX, cpY, toX, toY));
+        var xa = 0;
+        var ya = 0;
+        for (var i = 1; i <= n; ++i) {
+            var j = i / n;
             xa = fromX + ((cpX - fromX) * j);
             ya = fromY + ((cpY - fromY) * j);
             points.push(xa + (((cpX + ((toX - cpX) * j)) - xa) * j), ya + (((cpY + ((toY - cpY) * j)) - ya) * j));
         }
     };
-
     return QuadraticUtils;
-})();
+}());
 
 /**
  * A structure to hold interim batch objects for Graphics.
  * @class
  * @memberof PIXI.graphicsUtils
  */
-const BatchPart = /** @class */ (function ()
-{
-    function BatchPart()
-    {
+var BatchPart = /** @class */ (function () {
+    function BatchPart() {
         this.reset();
     }
     /**
@@ -1333,8 +1167,7 @@ const BatchPart = /** @class */ (function ()
      * @param {number} startIndex
      * @param {number} attribStart
      */
-    BatchPart.prototype.begin = function (style, startIndex, attribStart)
-    {
+    BatchPart.prototype.begin = function (style, startIndex, attribStart) {
         this.reset();
         this.style = style;
         this.start = startIndex;
@@ -1346,22 +1179,19 @@ const BatchPart = /** @class */ (function ()
      * @param {number} endIndex
      * @param {number} endAttrib
      */
-    BatchPart.prototype.end = function (endIndex, endAttrib)
-    {
+    BatchPart.prototype.end = function (endIndex, endAttrib) {
         this.attribSize = endAttrib - this.attribStart;
         this.size = endIndex - this.start;
     };
-    BatchPart.prototype.reset = function ()
-    {
+    BatchPart.prototype.reset = function () {
         this.style = null;
         this.size = 0;
         this.start = 0;
         this.attribStart = 0;
         this.attribSize = 0;
     };
-
     return BatchPart;
-})();
+}());
 
 /**
  * Generalized convenience utilities for Graphics.
@@ -1369,49 +1199,49 @@ const BatchPart = /** @class */ (function ()
  * @namespace graphicsUtils
  * @memberof PIXI
  */
-let _a;
+var _a;
 /**
  * Map of fill commands for each shape type.
  *
  * @memberof PIXI.graphicsUtils
  * @member {Object} FILL_COMMANDS
  */
-const FILL_COMMANDS = (_a = {},
-_a[SHAPES.POLY] = buildPoly,
-_a[SHAPES.CIRC] = buildCircle,
-_a[SHAPES.ELIP] = buildCircle,
-_a[SHAPES.RECT] = buildRectangle,
-_a[SHAPES.RREC] = buildRoundedRectangle,
-_a);
+var FILL_COMMANDS = (_a = {},
+    _a[SHAPES.POLY] = buildPoly,
+    _a[SHAPES.CIRC] = buildCircle,
+    _a[SHAPES.ELIP] = buildCircle,
+    _a[SHAPES.RECT] = buildRectangle,
+    _a[SHAPES.RREC] = buildRoundedRectangle,
+    _a);
 /**
  * Batch pool, stores unused batches for preventing allocations.
  *
  * @memberof PIXI.graphicsUtils
  * @member {Array<PIXI.graphicsUtils.BatchPart>} BATCH_POOL
  */
-const BATCH_POOL = [];
+var BATCH_POOL = [];
 /**
  * Draw call pool, stores unused draw calls for preventing allocations.
  *
  * @memberof PIXI.graphicsUtils
  * @member {Array<PIXI.BatchDrawCall>} DRAW_CALL_POOL
  */
-const DRAW_CALL_POOL = [];
+var DRAW_CALL_POOL = [];
 
-const index = ({
-    buildPoly,
-    buildCircle,
-    buildRectangle,
-    buildRoundedRectangle,
-    FILL_COMMANDS,
-    BATCH_POOL,
-    DRAW_CALL_POOL,
-    buildLine,
-    Star,
-    ArcUtils,
-    BezierUtils,
-    QuadraticUtils,
-    BatchPart
+var index = ({
+    buildPoly: buildPoly,
+    buildCircle: buildCircle,
+    buildRectangle: buildRectangle,
+    buildRoundedRectangle: buildRoundedRectangle,
+    FILL_COMMANDS: FILL_COMMANDS,
+    BATCH_POOL: BATCH_POOL,
+    DRAW_CALL_POOL: DRAW_CALL_POOL,
+    buildLine: buildLine,
+    Star: Star,
+    ArcUtils: ArcUtils,
+    BezierUtils: BezierUtils,
+    QuadraticUtils: QuadraticUtils,
+    BatchPart: BatchPart
 });
 
 /**
@@ -1420,8 +1250,7 @@ const index = ({
  * @class
  * @memberof PIXI
  */
-const GraphicsData = /** @class */ (function ()
-{
+var GraphicsData = /** @class */ (function () {
     /**
      *
      * @param {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle} shape - The shape object to draw.
@@ -1429,8 +1258,7 @@ const GraphicsData = /** @class */ (function ()
      * @param {PIXI.LineStyle} [lineStyle] - the color of the line to draw
      * @param {PIXI.Matrix} [matrix] - Transform matrix
      */
-    function GraphicsData(shape, fillStyle, lineStyle, matrix)
-    {
+    function GraphicsData(shape, fillStyle, lineStyle, matrix) {
         if (fillStyle === void 0) { fillStyle = null; }
         if (lineStyle === void 0) { lineStyle = null; }
         if (matrix === void 0) { matrix = null; }
@@ -1475,16 +1303,14 @@ const GraphicsData = /** @class */ (function ()
      *
      * @return {PIXI.GraphicsData} Cloned GraphicsData object
      */
-    GraphicsData.prototype.clone = function ()
-    {
+    GraphicsData.prototype.clone = function () {
         return new GraphicsData(this.shape, this.fillStyle, this.lineStyle, this.matrix);
     };
     /**
      * Destroys the Graphics data.
      *
      */
-    GraphicsData.prototype.destroy = function ()
-    {
+    GraphicsData.prototype.destroy = function () {
         this.shape = null;
         this.holes.length = 0;
         this.holes = null;
@@ -1493,12 +1319,11 @@ const GraphicsData = /** @class */ (function ()
         this.lineStyle = null;
         this.fillStyle = null;
     };
-
     return GraphicsData;
-})();
+}());
 
-const tmpPoint = new Point();
-const tmpBounds = new Bounds();
+var tmpPoint = new Point();
+var tmpBounds = new Bounds();
 /**
  * The Graphics class contains methods used to draw primitive shapes such as lines, circles and
  * rectangles to the display, and to color and fill them.
@@ -1510,13 +1335,10 @@ const tmpBounds = new Bounds();
  * @extends PIXI.BatchGeometry
  * @memberof PIXI
  */
-const GraphicsGeometry = /** @class */ (function (_super)
-{
+var GraphicsGeometry = /** @class */ (function (_super) {
     __extends(GraphicsGeometry, _super);
-    function GraphicsGeometry()
-    {
-        const _this = _super.call(this) || this;
-
+    function GraphicsGeometry() {
+        var _this = _super.call(this) || this;
         _this.uvsFloat32 = null;
         _this.indicesUint16 = null;
         /**
@@ -1643,24 +1465,20 @@ const GraphicsGeometry = /** @class */ (function (_super)
          * @member {number}
          */
         _this.closePointEps = 1e-4;
-
         return _this;
     }
-    Object.defineProperty(GraphicsGeometry.prototype, 'bounds', {
+    Object.defineProperty(GraphicsGeometry.prototype, "bounds", {
         /**
          * Get the current bounds of the graphic geometry.
          *
          * @member {PIXI.Bounds}
          * @readonly
          */
-        get()
-        {
-            if (this.boundsDirty !== this.dirty)
-            {
+        get: function () {
+            if (this.boundsDirty !== this.dirty) {
                 this.boundsDirty = this.dirty;
                 this.calculateBounds();
             }
-
             return this._bounds;
         },
         enumerable: false,
@@ -1670,8 +1488,7 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * Call if you changed graphicsData manually.
      * Empties all batch buffers.
      */
-    GraphicsGeometry.prototype.invalidate = function ()
-    {
+    GraphicsGeometry.prototype.invalidate = function () {
         this.boundsDirty = -1;
         this.dirty++;
         this.batchDirty++;
@@ -1681,16 +1498,13 @@ const GraphicsGeometry = /** @class */ (function (_super)
         this.uvs.length = 0;
         this.indices.length = 0;
         this.textureIds.length = 0;
-        for (var i = 0; i < this.drawCalls.length; i++)
-        {
+        for (var i = 0; i < this.drawCalls.length; i++) {
             this.drawCalls[i].texArray.clear();
             DRAW_CALL_POOL.push(this.drawCalls[i]);
         }
         this.drawCalls.length = 0;
-        for (var i = 0; i < this.batches.length; i++)
-        {
-            const batchPart = this.batches[i];
-
+        for (var i = 0; i < this.batches.length; i++) {
+            var batchPart = this.batches[i];
             batchPart.reset();
             BATCH_POOL.push(batchPart);
         }
@@ -1701,15 +1515,12 @@ const GraphicsGeometry = /** @class */ (function (_super)
      *
      * @return {PIXI.GraphicsGeometry} This GraphicsGeometry object. Good for chaining method calls
      */
-    GraphicsGeometry.prototype.clear = function ()
-    {
-        if (this.graphicsData.length > 0)
-        {
+    GraphicsGeometry.prototype.clear = function () {
+        if (this.graphicsData.length > 0) {
             this.invalidate();
             this.clearDirty++;
             this.graphicsData.length = 0;
         }
-
         return this;
     };
     /**
@@ -1721,16 +1532,13 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {PIXI.Matrix} matrix - Transform applied to the points of the shape.
      * @return {PIXI.GraphicsGeometry} Returns geometry for chaining.
      */
-    GraphicsGeometry.prototype.drawShape = function (shape, fillStyle, lineStyle, matrix)
-    {
+    GraphicsGeometry.prototype.drawShape = function (shape, fillStyle, lineStyle, matrix) {
         if (fillStyle === void 0) { fillStyle = null; }
         if (lineStyle === void 0) { lineStyle = null; }
         if (matrix === void 0) { matrix = null; }
-        const data = new GraphicsData(shape, fillStyle, lineStyle, matrix);
-
+        var data = new GraphicsData(shape, fillStyle, lineStyle, matrix);
         this.graphicsData.push(data);
         this.dirty++;
-
         return this;
     };
     /**
@@ -1740,32 +1548,26 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {PIXI.Matrix} matrix - Transform applied to the points of the shape.
      * @return {PIXI.GraphicsGeometry} Returns geometry for chaining.
      */
-    GraphicsGeometry.prototype.drawHole = function (shape, matrix)
-    {
+    GraphicsGeometry.prototype.drawHole = function (shape, matrix) {
         if (matrix === void 0) { matrix = null; }
-        if (!this.graphicsData.length)
-        {
+        if (!this.graphicsData.length) {
             return null;
         }
-        const data = new GraphicsData(shape, null, null, matrix);
-        const lastShape = this.graphicsData[this.graphicsData.length - 1];
-
+        var data = new GraphicsData(shape, null, null, matrix);
+        var lastShape = this.graphicsData[this.graphicsData.length - 1];
         data.lineStyle = lastShape.lineStyle;
         lastShape.holes.push(data);
         this.dirty++;
-
         return this;
     };
     /**
      * Destroys the GraphicsGeometry object.
      *
      */
-    GraphicsGeometry.prototype.destroy = function ()
-    {
+    GraphicsGeometry.prototype.destroy = function () {
         _super.prototype.destroy.call(this);
         // destroy each of the GraphicsData objects
-        for (let i = 0; i < this.graphicsData.length; ++i)
-        {
+        for (var i = 0; i < this.graphicsData.length; ++i) {
             this.graphicsData[i].destroy();
         }
         this.points.length = 0;
@@ -1792,54 +1594,38 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {PIXI.IPointData} point - Point to check if it's contained.
      * @return {Boolean} `true` if the point is contained within geometry.
      */
-    GraphicsGeometry.prototype.containsPoint = function (point)
-    {
-        const graphicsData = this.graphicsData;
-
-        for (let i = 0; i < graphicsData.length; ++i)
-        {
-            const data = graphicsData[i];
-
-            if (!data.fillStyle.visible)
-            {
+    GraphicsGeometry.prototype.containsPoint = function (point) {
+        var graphicsData = this.graphicsData;
+        for (var i = 0; i < graphicsData.length; ++i) {
+            var data = graphicsData[i];
+            if (!data.fillStyle.visible) {
                 continue;
             }
             // only deal with fills..
-            if (data.shape)
-            {
-                if (data.matrix)
-                {
+            if (data.shape) {
+                if (data.matrix) {
                     data.matrix.applyInverse(point, tmpPoint);
                 }
-                else
-                {
+                else {
                     tmpPoint.copyFrom(point);
                 }
-                if (data.shape.contains(tmpPoint.x, tmpPoint.y))
-                {
-                    let hitHole = false;
-
-                    if (data.holes)
-                    {
-                        for (let i_1 = 0; i_1 < data.holes.length; i_1++)
-                        {
-                            const hole = data.holes[i_1];
-
-                            if (hole.shape.contains(tmpPoint.x, tmpPoint.y))
-                            {
+                if (data.shape.contains(tmpPoint.x, tmpPoint.y)) {
+                    var hitHole = false;
+                    if (data.holes) {
+                        for (var i_1 = 0; i_1 < data.holes.length; i_1++) {
+                            var hole = data.holes[i_1];
+                            if (hole.shape.contains(tmpPoint.x, tmpPoint.y)) {
                                 hitHole = true;
                                 break;
                             }
                         }
                     }
-                    if (!hitHole)
-                    {
+                    if (!hitHole) {
                         return true;
                     }
                 }
             }
         }
-
         return false;
     };
     /**
@@ -1848,75 +1634,58 @@ const GraphicsGeometry = /** @class */ (function (_super)
      *
      * @param {boolean} [aloow32Indices] - Allow using 32-bit indices for preventings artefacts when more that 65535 vertices
      */
-    GraphicsGeometry.prototype.updateBatches = function (allow32Indices)
-    {
-        if (!this.graphicsData.length)
-        {
+    GraphicsGeometry.prototype.updateBatches = function (allow32Indices) {
+        if (!this.graphicsData.length) {
             this.batchable = true;
-
             return;
         }
-        if (!this.validateBatching())
-        {
+        if (!this.validateBatching()) {
             return;
         }
         this.cacheDirty = this.dirty;
-        const uvs = this.uvs;
-        const graphicsData = this.graphicsData;
-        let batchPart = null;
-        let currentStyle = null;
-
-        if (this.batches.length > 0)
-        {
+        var uvs = this.uvs;
+        var graphicsData = this.graphicsData;
+        var batchPart = null;
+        var currentStyle = null;
+        if (this.batches.length > 0) {
             batchPart = this.batches[this.batches.length - 1];
             currentStyle = batchPart.style;
         }
-        for (let i = this.shapeIndex; i < graphicsData.length; i++)
-        {
+        for (var i = this.shapeIndex; i < graphicsData.length; i++) {
             this.shapeIndex++;
-            const data = graphicsData[i];
-            const fillStyle = data.fillStyle;
-            const lineStyle = data.lineStyle;
-            const command = FILL_COMMANDS[data.type];
+            var data = graphicsData[i];
+            var fillStyle = data.fillStyle;
+            var lineStyle = data.lineStyle;
+            var command = FILL_COMMANDS[data.type];
             // build out the shapes points..
-
             command.build(data);
-            if (data.matrix)
-            {
+            if (data.matrix) {
                 this.transformPoints(data.points, data.matrix);
             }
-            for (let j = 0; j < 2; j++)
-            {
-                const style = (j === 0) ? fillStyle : lineStyle;
-
+            for (var j = 0; j < 2; j++) {
+                var style = (j === 0) ? fillStyle : lineStyle;
                 if (!style.visible)
-                { continue; }
-                const nextTexture = style.texture.baseTexture;
-                const index_1 = this.indices.length;
-                const attribIndex = this.points.length / 2;
-
+                    { continue; }
+                var nextTexture = style.texture.baseTexture;
+                var index_1 = this.indices.length;
+                var attribIndex = this.points.length / 2;
                 nextTexture.wrapMode = WRAP_MODES.REPEAT;
-                if (j === 0)
-                {
+                if (j === 0) {
                     this.processFill(data);
                 }
-                else
-                {
+                else {
                     this.processLine(data);
                 }
-                const size = (this.points.length / 2) - attribIndex;
-
+                var size = (this.points.length / 2) - attribIndex;
                 if (size === 0)
-                { continue; }
+                    { continue; }
                 // close batch if style is different
-                if (batchPart && !this._compareStyles(currentStyle, style))
-                {
+                if (batchPart && !this._compareStyles(currentStyle, style)) {
                     batchPart.end(index_1, attribIndex);
                     batchPart = null;
                 }
                 // spawn new batch if its first batch or previous was closed
-                if (!batchPart)
-                {
+                if (!batchPart) {
                     batchPart = BATCH_POOL.pop() || new BatchPart();
                     batchPart.begin(style, index_1, attribIndex);
                     this.batches.push(batchPart);
@@ -1925,40 +1694,31 @@ const GraphicsGeometry = /** @class */ (function (_super)
                 this.addUvs(this.points, uvs, style.texture, attribIndex, size, style.matrix);
             }
         }
-        const index = this.indices.length;
-        const attrib = this.points.length / 2;
-
-        if (batchPart)
-        {
+        var index = this.indices.length;
+        var attrib = this.points.length / 2;
+        if (batchPart) {
             batchPart.end(index, attrib);
         }
-        if (this.batches.length === 0)
-        {
+        if (this.batches.length === 0) {
             // there are no visible styles in GraphicsData
             // its possible that someone wants Graphics just for the bounds
             this.batchable = true;
-
             return;
         }
         // prevent allocation when length is same as buffer
-        if (this.indicesUint16 && this.indices.length === this.indicesUint16.length)
-        {
+        if (this.indicesUint16 && this.indices.length === this.indicesUint16.length) {
             this.indicesUint16.set(this.indices);
         }
-        else
-        {
-            const need32 = attrib > 0xffff && allow32Indices;
-
+        else {
+            var need32 = attrib > 0xffff && allow32Indices;
             this.indicesUint16 = need32 ? new Uint32Array(this.indices) : new Uint16Array(this.indices);
         }
         // TODO make this a const..
         this.batchable = this.isBatchable();
-        if (this.batchable)
-        {
+        if (this.batchable) {
             this.packBatches();
         }
-        else
-        {
+        else {
             this.buildDrawCalls();
         }
     };
@@ -1968,25 +1728,19 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {PIXI.FillStyle | PIXI.LineStyle} styleA
      * @param {PIXI.FillStyle | PIXI.LineStyle} styleB
      */
-    GraphicsGeometry.prototype._compareStyles = function (styleA, styleB)
-    {
-        if (!styleA || !styleB)
-        {
+    GraphicsGeometry.prototype._compareStyles = function (styleA, styleB) {
+        if (!styleA || !styleB) {
             return false;
         }
-        if (styleA.texture.baseTexture !== styleB.texture.baseTexture)
-        {
+        if (styleA.texture.baseTexture !== styleB.texture.baseTexture) {
             return false;
         }
-        if (styleA.color + styleA.alpha !== styleB.color + styleB.alpha)
-        {
+        if (styleA.color + styleA.alpha !== styleB.color + styleB.alpha) {
             return false;
         }
-        if (!!styleA.native !== !!styleB.native)
-        {
+        if (!!styleA.native !== !!styleB.native) {
             return false;
         }
-
         return true;
     };
     /**
@@ -1994,24 +1748,19 @@ const GraphicsGeometry = /** @class */ (function (_super)
      *
      * @protected
      */
-    GraphicsGeometry.prototype.validateBatching = function ()
-    {
-        if (this.dirty === this.cacheDirty || !this.graphicsData.length)
-        {
+    GraphicsGeometry.prototype.validateBatching = function () {
+        if (this.dirty === this.cacheDirty || !this.graphicsData.length) {
             return false;
         }
-        for (let i = 0, l = this.graphicsData.length; i < l; i++)
-        {
-            const data = this.graphicsData[i];
-            const fill = data.fillStyle;
-            const line = data.lineStyle;
-
+        for (var i = 0, l = this.graphicsData.length; i < l; i++) {
+            var data = this.graphicsData[i];
+            var fill = data.fillStyle;
+            var line = data.lineStyle;
             if (fill && !fill.texture.baseTexture.valid)
-            { return false; }
+                { return false; }
             if (line && !line.texture.baseTexture.valid)
-            { return false; }
+                { return false; }
         }
-
         return true;
     };
     /**
@@ -2019,20 +1768,14 @@ const GraphicsGeometry = /** @class */ (function (_super)
      *
      * @protected
      */
-    GraphicsGeometry.prototype.packBatches = function ()
-    {
+    GraphicsGeometry.prototype.packBatches = function () {
         this.batchDirty++;
         this.uvsFloat32 = new Float32Array(this.uvs);
-        const batches = this.batches;
-
-        for (let i = 0, l = batches.length; i < l; i++)
-        {
-            const batch = batches[i];
-
-            for (let j = 0; j < batch.size; j++)
-            {
-                const index = batch.start + j;
-
+        var batches = this.batches;
+        for (var i = 0, l = batches.length; i < l; i++) {
+            var batch = batches[i];
+            for (var j = 0; j < batch.size; j++) {
+                var index = batch.start + j;
                 this.indicesUint16[index] = this.indicesUint16[index] - batch.attribStart;
             }
         }
@@ -2043,23 +1786,17 @@ const GraphicsGeometry = /** @class */ (function (_super)
      *
      * @protected
      */
-    GraphicsGeometry.prototype.isBatchable = function ()
-    {
+    GraphicsGeometry.prototype.isBatchable = function () {
         // prevent heavy mesh batching
-        if (this.points.length > 0xffff * 2)
-        {
+        if (this.points.length > 0xffff * 2) {
             return false;
         }
-        const batches = this.batches;
-
-        for (let i = 0; i < batches.length; i++)
-        {
-            if (batches[i].style.native)
-            {
+        var batches = this.batches;
+        for (var i = 0; i < batches.length; i++) {
+            if (batches[i].style.native) {
                 return false;
             }
         }
-
         return (this.points.length < GraphicsGeometry.BATCHABLE_SIZE * 2);
     };
     /**
@@ -2067,22 +1804,17 @@ const GraphicsGeometry = /** @class */ (function (_super)
      *
      * @protected
      */
-    GraphicsGeometry.prototype.buildDrawCalls = function ()
-    {
-        let TICK = ++BaseTexture._globalBatch;
-
-        for (var i = 0; i < this.drawCalls.length; i++)
-        {
+    GraphicsGeometry.prototype.buildDrawCalls = function () {
+        var TICK = ++BaseTexture._globalBatch;
+        for (var i = 0; i < this.drawCalls.length; i++) {
             this.drawCalls[i].texArray.clear();
             DRAW_CALL_POOL.push(this.drawCalls[i]);
         }
         this.drawCalls.length = 0;
-        const colors = this.colors;
-        const textureIds = this.textureIds;
-        let currentGroup = DRAW_CALL_POOL.pop();
-
-        if (!currentGroup)
-        {
+        var colors = this.colors;
+        var textureIds = this.textureIds;
+        var currentGroup = DRAW_CALL_POOL.pop();
+        if (!currentGroup) {
             currentGroup = new BatchDrawCall();
             currentGroup.texArray = new BatchTextureArray();
         }
@@ -2090,26 +1822,22 @@ const GraphicsGeometry = /** @class */ (function (_super)
         currentGroup.start = 0;
         currentGroup.size = 0;
         currentGroup.type = DRAW_MODES.TRIANGLES;
-        let textureCount = 0;
-        let currentTexture = null;
-        let textureId = 0;
-        let native = false;
-        let drawMode = DRAW_MODES.TRIANGLES;
-        let index = 0;
-
+        var textureCount = 0;
+        var currentTexture = null;
+        var textureId = 0;
+        var native = false;
+        var drawMode = DRAW_MODES.TRIANGLES;
+        var index = 0;
         this.drawCalls.push(currentGroup);
         // TODO - this can be simplified
-        for (var i = 0; i < this.batches.length; i++)
-        {
-            const data = this.batches[i];
+        for (var i = 0; i < this.batches.length; i++) {
+            var data = this.batches[i];
             // TODO add some full on MAX_TEXTURE CODE..
-            const MAX_TEXTURES = 8;
+            var MAX_TEXTURES = 8;
             // Forced cast for checking `native` without errors
-            const style = data.style;
-            const nextTexture = style.texture.baseTexture;
-
-            if (native !== !!style.native)
-            {
+            var style = data.style;
+            var nextTexture = style.texture.baseTexture;
+            if (native !== !!style.native) {
                 native = !!style.native;
                 drawMode = native ? DRAW_MODES.LINES : DRAW_MODES.TRIANGLES;
                 // force the batch to break!
@@ -2117,20 +1845,15 @@ const GraphicsGeometry = /** @class */ (function (_super)
                 textureCount = MAX_TEXTURES;
                 TICK++;
             }
-            if (currentTexture !== nextTexture)
-            {
+            if (currentTexture !== nextTexture) {
                 currentTexture = nextTexture;
-                if (nextTexture._batchEnabled !== TICK)
-                {
-                    if (textureCount === MAX_TEXTURES)
-                    {
+                if (nextTexture._batchEnabled !== TICK) {
+                    if (textureCount === MAX_TEXTURES) {
                         TICK++;
                         textureCount = 0;
-                        if (currentGroup.size > 0)
-                        {
+                        if (currentGroup.size > 0) {
                             currentGroup = DRAW_CALL_POOL.pop();
-                            if (!currentGroup)
-                            {
+                            if (!currentGroup) {
                                 currentGroup = new BatchDrawCall();
                                 currentGroup.texArray = new BatchTextureArray();
                             }
@@ -2167,20 +1890,17 @@ const GraphicsGeometry = /** @class */ (function (_super)
      *
      * @protected
      */
-    GraphicsGeometry.prototype.packAttributes = function ()
-    {
-        const verts = this.points;
-        const uvs = this.uvs;
-        const colors = this.colors;
-        const textureIds = this.textureIds;
+    GraphicsGeometry.prototype.packAttributes = function () {
+        var verts = this.points;
+        var uvs = this.uvs;
+        var colors = this.colors;
+        var textureIds = this.textureIds;
         // verts are 2 positions.. so we * by 3 as there are 6 properties.. then 4 cos its bytes
-        const glPoints = new ArrayBuffer(verts.length * 3 * 4);
-        const f32 = new Float32Array(glPoints);
-        const u32 = new Uint32Array(glPoints);
-        let p = 0;
-
-        for (let i = 0; i < verts.length / 2; i++)
-        {
+        var glPoints = new ArrayBuffer(verts.length * 3 * 4);
+        var f32 = new Float32Array(glPoints);
+        var u32 = new Uint32Array(glPoints);
+        var p = 0;
+        for (var i = 0; i < verts.length / 2; i++) {
             f32[p++] = verts[i * 2];
             f32[p++] = verts[(i * 2) + 1];
             f32[p++] = uvs[i * 2];
@@ -2197,17 +1917,13 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {PIXI.GraphicsData} data
      * @protected
      */
-    GraphicsGeometry.prototype.processFill = function (data)
-    {
-        if (data.holes.length)
-        {
+    GraphicsGeometry.prototype.processFill = function (data) {
+        if (data.holes.length) {
             this.processHoles(data.holes);
             buildPoly.triangulate(data, this);
         }
-        else
-        {
-            const command = FILL_COMMANDS[data.type];
-
+        else {
+            var command = FILL_COMMANDS[data.type];
             command.triangulate(data, this);
         }
     };
@@ -2217,11 +1933,9 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {PIXI.GraphicsData} data
      * @protected
      */
-    GraphicsGeometry.prototype.processLine = function (data)
-    {
+    GraphicsGeometry.prototype.processLine = function (data) {
         buildLine(data, this);
-        for (let i = 0; i < data.holes.length; i++)
-        {
+        for (var i = 0; i < data.holes.length; i++) {
             buildLine(data.holes[i], this);
         }
     };
@@ -2231,16 +1945,12 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {PIXI.GraphicsData[]} holes - Holes to render
      * @protected
      */
-    GraphicsGeometry.prototype.processHoles = function (holes)
-    {
-        for (let i = 0; i < holes.length; i++)
-        {
-            const hole = holes[i];
-            const command = FILL_COMMANDS[hole.type];
-
+    GraphicsGeometry.prototype.processHoles = function (holes) {
+        for (var i = 0; i < holes.length; i++) {
+            var hole = holes[i];
+            var command = FILL_COMMANDS[hole.type];
             command.build(hole);
-            if (hole.matrix)
-            {
+            if (hole.matrix) {
                 this.transformPoints(hole.points, hole.matrix);
             }
         }
@@ -2250,74 +1960,55 @@ const GraphicsGeometry = /** @class */ (function (_super)
      *
      * @protected
      */
-    GraphicsGeometry.prototype.calculateBounds = function ()
-    {
-        const bounds = this._bounds;
-        const sequenceBounds = tmpBounds;
-        let curMatrix = Matrix.IDENTITY;
-
+    GraphicsGeometry.prototype.calculateBounds = function () {
+        var bounds = this._bounds;
+        var sequenceBounds = tmpBounds;
+        var curMatrix = Matrix.IDENTITY;
         this._bounds.clear();
         sequenceBounds.clear();
-        for (let i = 0; i < this.graphicsData.length; i++)
-        {
-            const data = this.graphicsData[i];
-            const shape = data.shape;
-            const type = data.type;
-            const lineStyle = data.lineStyle;
-            const nextMatrix = data.matrix || Matrix.IDENTITY;
-            let lineWidth = 0.0;
-
-            if (lineStyle && lineStyle.visible)
-            {
-                const alignment = lineStyle.alignment;
-
+        for (var i = 0; i < this.graphicsData.length; i++) {
+            var data = this.graphicsData[i];
+            var shape = data.shape;
+            var type = data.type;
+            var lineStyle = data.lineStyle;
+            var nextMatrix = data.matrix || Matrix.IDENTITY;
+            var lineWidth = 0.0;
+            if (lineStyle && lineStyle.visible) {
+                var alignment = lineStyle.alignment;
                 lineWidth = lineStyle.width;
-                if (type === SHAPES.POLY)
-                {
+                if (type === SHAPES.POLY) {
                     lineWidth = lineWidth * (0.5 + Math.abs(0.5 - alignment));
                 }
-                else
-                {
+                else {
                     lineWidth = lineWidth * Math.max(0, alignment);
                 }
             }
-            if (curMatrix !== nextMatrix)
-            {
-                if (!sequenceBounds.isEmpty())
-                {
+            if (curMatrix !== nextMatrix) {
+                if (!sequenceBounds.isEmpty()) {
                     bounds.addBoundsMatrix(sequenceBounds, curMatrix);
                     sequenceBounds.clear();
                 }
                 curMatrix = nextMatrix;
             }
-            if (type === SHAPES.RECT || type === SHAPES.RREC)
-            {
-                const rect = shape;
-
+            if (type === SHAPES.RECT || type === SHAPES.RREC) {
+                var rect = shape;
                 sequenceBounds.addFramePad(rect.x, rect.y, rect.x + rect.width, rect.y + rect.height, lineWidth, lineWidth);
             }
-            else if (type === SHAPES.CIRC)
-            {
-                const circle = shape;
-
+            else if (type === SHAPES.CIRC) {
+                var circle = shape;
                 sequenceBounds.addFramePad(circle.x, circle.y, circle.x, circle.y, circle.radius + lineWidth, circle.radius + lineWidth);
             }
-            else if (type === SHAPES.ELIP)
-            {
-                const ellipse = shape;
-
+            else if (type === SHAPES.ELIP) {
+                var ellipse = shape;
                 sequenceBounds.addFramePad(ellipse.x, ellipse.y, ellipse.x, ellipse.y, ellipse.width + lineWidth, ellipse.height + lineWidth);
             }
-            else
-            {
-                const poly = shape;
+            else {
+                var poly = shape;
                 // adding directly to the bounds
-
                 bounds.addVerticesMatrix(curMatrix, poly.points, 0, poly.points.length, lineWidth, lineWidth);
             }
         }
-        if (!sequenceBounds.isEmpty())
-        {
+        if (!sequenceBounds.isEmpty()) {
             bounds.addBoundsMatrix(sequenceBounds, curMatrix);
         }
         bounds.pad(this.boundsPadding, this.boundsPadding);
@@ -2329,13 +2020,10 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {number[]} points - Points to transform
      * @param {PIXI.Matrix} matrix - Transform matrix
      */
-    GraphicsGeometry.prototype.transformPoints = function (points, matrix)
-    {
-        for (let i = 0; i < points.length / 2; i++)
-        {
-            const x = points[(i * 2)];
-            const y = points[(i * 2) + 1];
-
+    GraphicsGeometry.prototype.transformPoints = function (points, matrix) {
+        for (var i = 0; i < points.length / 2; i++) {
+            var x = points[(i * 2)];
+            var y = points[(i * 2) + 1];
             points[(i * 2)] = (matrix.a * x) + (matrix.c * y) + matrix.tx;
             points[(i * 2) + 1] = (matrix.b * x) + (matrix.d * y) + matrix.ty;
         }
@@ -2350,16 +2038,13 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {number} size - Number of colors to add
      * @param {number} offset
      */
-    GraphicsGeometry.prototype.addColors = function (colors, color, alpha, size, offset)
-    {
+    GraphicsGeometry.prototype.addColors = function (colors, color, alpha, size, offset) {
         if (offset === void 0) { offset = 0; }
         // TODO use the premultiply bits Ivan added
-        const rgb = (color >> 16) + (color & 0xff00) + ((color & 0xff) << 16);
-        const rgba = premultiplyTint(rgb, alpha);
-
+        var rgb = (color >> 16) + (color & 0xff00) + ((color & 0xff) << 16);
+        var rgba = premultiplyTint(rgb, alpha);
         colors.length = Math.max(colors.length, offset + size);
-        for (let i = 0; i < size; i++)
-        {
+        for (var i = 0; i < size; i++) {
             colors[offset + i] = rgba;
         }
     };
@@ -2372,12 +2057,10 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {number} size
      * @param {number} offset
      */
-    GraphicsGeometry.prototype.addTextureIds = function (textureIds, id, size, offset)
-    {
+    GraphicsGeometry.prototype.addTextureIds = function (textureIds, id, size, offset) {
         if (offset === void 0) { offset = 0; }
         textureIds.length = Math.max(textureIds.length, offset + size);
-        for (let i = 0; i < size; i++)
-        {
+        for (var i = 0; i < size; i++) {
             textureIds[offset + i] = id;
         }
     };
@@ -2392,33 +2075,25 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {number} size - The size/length for index buffer.
      * @param {PIXI.Matrix} [matrix] - Optional transform for all points.
      */
-    GraphicsGeometry.prototype.addUvs = function (verts, uvs, texture, start, size, matrix)
-    {
+    GraphicsGeometry.prototype.addUvs = function (verts, uvs, texture, start, size, matrix) {
         if (matrix === void 0) { matrix = null; }
-        let index = 0;
-        const uvsStart = uvs.length;
-        const frame = texture.frame;
-
-        while (index < size)
-        {
-            let x = verts[(start + index) * 2];
-            let y = verts[((start + index) * 2) + 1];
-
-            if (matrix)
-            {
-                const nx = (matrix.a * x) + (matrix.c * y) + matrix.tx;
-
+        var index = 0;
+        var uvsStart = uvs.length;
+        var frame = texture.frame;
+        while (index < size) {
+            var x = verts[(start + index) * 2];
+            var y = verts[((start + index) * 2) + 1];
+            if (matrix) {
+                var nx = (matrix.a * x) + (matrix.c * y) + matrix.tx;
                 y = (matrix.b * x) + (matrix.d * y) + matrix.ty;
                 x = nx;
             }
             index++;
             uvs.push(x / frame.width, y / frame.height);
         }
-        const baseTexture = texture.baseTexture;
-
+        var baseTexture = texture.baseTexture;
         if (frame.width < baseTexture.width
-            || frame.height < baseTexture.height)
-        {
+            || frame.height < baseTexture.height) {
             this.adjustUvs(uvs, texture, uvsStart, size);
         }
     };
@@ -2431,28 +2106,24 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @param {number} start - starting index for uvs
      * @param {number} size - how many points to adjust
      */
-    GraphicsGeometry.prototype.adjustUvs = function (uvs, texture, start, size)
-    {
-        const baseTexture = texture.baseTexture;
-        const eps = 1e-6;
-        const finish = start + (size * 2);
-        const frame = texture.frame;
-        const scaleX = frame.width / baseTexture.width;
-        const scaleY = frame.height / baseTexture.height;
-        let offsetX = frame.x / frame.width;
-        let offsetY = frame.y / frame.height;
-        let minX = Math.floor(uvs[start] + eps);
-        let minY = Math.floor(uvs[start + 1] + eps);
-
-        for (var i = start + 2; i < finish; i += 2)
-        {
+    GraphicsGeometry.prototype.adjustUvs = function (uvs, texture, start, size) {
+        var baseTexture = texture.baseTexture;
+        var eps = 1e-6;
+        var finish = start + (size * 2);
+        var frame = texture.frame;
+        var scaleX = frame.width / baseTexture.width;
+        var scaleY = frame.height / baseTexture.height;
+        var offsetX = frame.x / frame.width;
+        var offsetY = frame.y / frame.height;
+        var minX = Math.floor(uvs[start] + eps);
+        var minY = Math.floor(uvs[start + 1] + eps);
+        for (var i = start + 2; i < finish; i += 2) {
             minX = Math.min(minX, Math.floor(uvs[i] + eps));
             minY = Math.min(minY, Math.floor(uvs[i + 1] + eps));
         }
         offsetX -= minX;
         offsetY -= minY;
-        for (var i = start; i < finish; i += 2)
-        {
+        for (var i = start; i < finish; i += 2) {
             uvs[i] = (uvs[i] + offsetX) * scaleX;
             uvs[i + 1] = (uvs[i + 1] + offsetY) * scaleY;
         }
@@ -2467,9 +2138,8 @@ const GraphicsGeometry = /** @class */ (function (_super)
      * @default 100
      */
     GraphicsGeometry.BATCHABLE_SIZE = 100;
-
     return GraphicsGeometry;
-})(BatchGeometry);
+}(BatchGeometry));
 
 /**
  * Represents the line style for Graphics.
@@ -2477,19 +2147,16 @@ const GraphicsGeometry = /** @class */ (function (_super)
  * @class
  * @extends PIXI.FillStyle
  */
-const LineStyle = /** @class */ (function (_super)
-{
+var LineStyle = /** @class */ (function (_super) {
     __extends(LineStyle, _super);
-    function LineStyle()
-    {
-        const _this = _super !== null && _super.apply(this, arguments) || this;
+    function LineStyle() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         /**
          * The width (thickness) of any lines drawn.
          *
          * @member {number}
          * @default 0
          */
-
         _this.width = 0;
         /**
          * The alignment of any lines drawn (0.5 = middle, 1 = outer, 0 = inner).
@@ -2526,7 +2193,6 @@ const LineStyle = /** @class */ (function (_super)
          * @default 10
          */
         _this.miterLimit = 10;
-
         return _this;
     }
     /**
@@ -2534,10 +2200,8 @@ const LineStyle = /** @class */ (function (_super)
      *
      * @return {PIXI.LineStyle}
      */
-    LineStyle.prototype.clone = function ()
-    {
-        const obj = new LineStyle();
-
+    LineStyle.prototype.clone = function () {
+        var obj = new LineStyle();
         obj.color = this.color;
         obj.alpha = this.alpha;
         obj.texture = this.texture;
@@ -2549,14 +2213,12 @@ const LineStyle = /** @class */ (function (_super)
         obj.cap = this.cap;
         obj.join = this.join;
         obj.miterLimit = this.miterLimit;
-
         return obj;
     };
     /**
      * Reset the line style to default.
      */
-    LineStyle.prototype.reset = function ()
-    {
+    LineStyle.prototype.reset = function () {
         _super.prototype.reset.call(this);
         // Override default line style color
         this.color = 0x0;
@@ -2564,13 +2226,12 @@ const LineStyle = /** @class */ (function (_super)
         this.width = 0;
         this.native = false;
     };
-
     return LineStyle;
-})(FillStyle);
+}(FillStyle));
 
-const temp = new Float32Array(3);
+var temp = new Float32Array(3);
 // a default shaders map used by graphics..
-const DEFAULT_SHADERS = {};
+var DEFAULT_SHADERS = {};
 /**
  * The Graphics class contains methods used to draw primitive shapes such as lines, circles and
  * rectangles to the display, and to color and fill them.
@@ -2584,18 +2245,15 @@ const DEFAULT_SHADERS = {};
  * @extends PIXI.Container
  * @memberof PIXI
  */
-const Graphics = /** @class */ (function (_super)
-{
+var Graphics = /** @class */ (function (_super) {
     __extends(Graphics, _super);
     /**
      * @param {PIXI.GraphicsGeometry} [geometry=null] - Geometry to use, if omitted
      *        will create a new GraphicsGeometry instance.
      */
-    function Graphics(geometry)
-    {
+    function Graphics(geometry) {
         if (geometry === void 0) { geometry = null; }
-        const _this = _super.call(this) || this;
-
+        var _this = _super.call(this) || this;
         _this._geometry = geometry || new GraphicsGeometry();
         _this._geometry.refCount++;
         /**
@@ -2701,10 +2359,9 @@ const Graphics = /** @class */ (function (_super)
         // Set default
         _this.tint = 0xFFFFFF;
         _this.blendMode = BLEND_MODES.NORMAL;
-
         return _this;
     }
-    Object.defineProperty(Graphics.prototype, 'geometry', {
+    Object.defineProperty(Graphics.prototype, "geometry", {
         /**
          * Includes vertex positions, face indices, normals, colors, UVs, and
          * custom attributes within buffers, reducing the cost of passing all
@@ -2713,8 +2370,7 @@ const Graphics = /** @class */ (function (_super)
          * @member {PIXI.GraphicsGeometry}
          * @readonly
          */
-        get()
-        {
+        get: function () {
             return this._geometry;
         },
         enumerable: false,
@@ -2726,15 +2382,12 @@ const Graphics = /** @class */ (function (_super)
      *
      * @return {PIXI.Graphics} A clone of the graphics object
      */
-    Graphics.prototype.clone = function ()
-    {
+    Graphics.prototype.clone = function () {
         this.finishPoly();
-
         return new Graphics(this._geometry);
     };
-    Object.defineProperty(Graphics.prototype, 'blendMode', {
-        get()
-        {
+    Object.defineProperty(Graphics.prototype, "blendMode", {
+        get: function () {
             return this.state.blendMode;
         },
         /**
@@ -2745,14 +2398,13 @@ const Graphics = /** @class */ (function (_super)
          * @default PIXI.BLEND_MODES.NORMAL;
          * @see PIXI.BLEND_MODES
          */
-        set(value)
-        {
+        set: function (value) {
             this.state.blendMode = value;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Graphics.prototype, 'tint', {
+    Object.defineProperty(Graphics.prototype, "tint", {
         /**
          * The tint applied to the graphic shape. This is a hex value. A value of
          * 0xFFFFFF will remove any tint effect.
@@ -2760,40 +2412,36 @@ const Graphics = /** @class */ (function (_super)
          * @member {number}
          * @default 0xFFFFFF
          */
-        get()
-        {
+        get: function () {
             return this._tint;
         },
-        set(value)
-        {
+        set: function (value) {
             this._tint = value;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Graphics.prototype, 'fill', {
+    Object.defineProperty(Graphics.prototype, "fill", {
         /**
          * The current fill style.
          *
          * @member {PIXI.FillStyle}
          * @readonly
          */
-        get()
-        {
+        get: function () {
             return this._fillStyle;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Graphics.prototype, 'line', {
+    Object.defineProperty(Graphics.prototype, "line", {
         /**
          * The current line style.
          *
          * @member {PIXI.LineStyle}
          * @readonly
          */
-        get()
-        {
+        get: function () {
             return this._lineStyle;
         },
         enumerable: false,
@@ -2826,12 +2474,10 @@ const Graphics = /** @class */ (function (_super)
      * @param {number}[options.miterLimit=10] - miter limit ratio
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.lineStyle = function (options)
-    {
+    Graphics.prototype.lineStyle = function (options) {
         if (options === void 0) { options = null; }
         // Support non-object params: (width, color, alpha, alignment, native)
-        if (typeof options === 'number')
-        {
+        if (typeof options === 'number') {
             // eslint-disable-next-line
             var args = arguments;
             options = {
@@ -2842,7 +2488,6 @@ const Graphics = /** @class */ (function (_super)
                 native: !!args[4],
             };
         }
-
         return this.lineTextureStyle(options);
     };
     /**
@@ -2862,16 +2507,14 @@ const Graphics = /** @class */ (function (_super)
      * @param {number}[options.miterLimit=10] - miter limit ratio
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.lineTextureStyle = function (options)
-    {
+    Graphics.prototype.lineTextureStyle = function (options) {
         // backward compatibility with params: (width, texture,
         // color, alpha, matrix, alignment, native)
-        if (typeof options === 'number')
-        {
+        if (typeof options === 'number') {
             deprecation('v5.2.0', 'Please use object-based options for Graphics#lineTextureStyle');
             // eslint-disable-next-line
             var _a = arguments, width = _a[0], texture = _a[1], color = _a[2], alpha = _a[3], matrix = _a[4], alignment = _a[5], native = _a[6];
-            options = { width, texture, color, alpha, matrix, alignment, native };
+            options = { width: width, texture: texture, color: color, alpha: alpha, matrix: matrix, alignment: alignment, native: native };
             // Remove undefined keys
             Object.keys(options).forEach(function (key) { return options[key] === undefined && delete options[key]; });
         }
@@ -2888,49 +2531,38 @@ const Graphics = /** @class */ (function (_super)
             join: LINE_JOIN.MITER,
             miterLimit: 10,
         }, options);
-        if (this.currentPath)
-        {
+        if (this.currentPath) {
             this.startPoly();
         }
-        const visible = options.width > 0 && options.alpha > 0;
-
-        if (!visible)
-        {
+        var visible = options.width > 0 && options.alpha > 0;
+        if (!visible) {
             this._lineStyle.reset();
         }
-        else
-        {
-            if (options.matrix)
-            {
+        else {
+            if (options.matrix) {
                 options.matrix = options.matrix.clone();
                 options.matrix.invert();
             }
-            Object.assign(this._lineStyle, { visible }, options);
+            Object.assign(this._lineStyle, { visible: visible }, options);
         }
-
         return this;
     };
     /**
      * Start a polygon object internally
      * @protected
      */
-    Graphics.prototype.startPoly = function ()
-    {
-        if (this.currentPath)
-        {
-            const points = this.currentPath.points;
-            const len = this.currentPath.points.length;
-
-            if (len > 2)
-            {
+    Graphics.prototype.startPoly = function () {
+        if (this.currentPath) {
+            var points = this.currentPath.points;
+            var len = this.currentPath.points.length;
+            if (len > 2) {
                 this.drawShape(this.currentPath);
                 this.currentPath = new Polygon();
                 this.currentPath.closeStroke = false;
                 this.currentPath.points.push(points[len - 2], points[len - 1]);
             }
         }
-        else
-        {
+        else {
             this.currentPath = new Polygon();
             this.currentPath.closeStroke = false;
         }
@@ -2939,17 +2571,13 @@ const Graphics = /** @class */ (function (_super)
      * Finish the polygon object.
      * @protected
      */
-    Graphics.prototype.finishPoly = function ()
-    {
-        if (this.currentPath)
-        {
-            if (this.currentPath.points.length > 2)
-            {
+    Graphics.prototype.finishPoly = function () {
+        if (this.currentPath) {
+            if (this.currentPath.points.length > 2) {
                 this.drawShape(this.currentPath);
                 this.currentPath = null;
             }
-            else
-            {
+            else {
                 this.currentPath.points.length = 0;
             }
         }
@@ -2961,12 +2589,10 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} y - the Y coordinate to move to
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.moveTo = function (x, y)
-    {
+    Graphics.prototype.moveTo = function (x, y) {
         this.startPoly();
         this.currentPath.points[0] = x;
         this.currentPath.points[1] = y;
-
         return this;
     };
     /**
@@ -2977,22 +2603,17 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} y - the Y coordinate to draw to
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.lineTo = function (x, y)
-    {
-        if (!this.currentPath)
-        {
+    Graphics.prototype.lineTo = function (x, y) {
+        if (!this.currentPath) {
             this.moveTo(0, 0);
         }
         // remove duplicates..
-        const points = this.currentPath.points;
-        const fromX = points[points.length - 2];
-        const fromY = points[points.length - 1];
-
-        if (fromX !== x || fromY !== y)
-        {
+        var points = this.currentPath.points;
+        var fromX = points[points.length - 2];
+        var fromY = points[points.length - 1];
+        if (fromX !== x || fromY !== y) {
             points.push(x, y);
         }
-
         return this;
     };
     /**
@@ -3002,19 +2623,15 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} [x=0]
      * @param {number} [y=0]
      */
-    Graphics.prototype._initCurve = function (x, y)
-    {
+    Graphics.prototype._initCurve = function (x, y) {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
-        if (this.currentPath)
-        {
-            if (this.currentPath.points.length === 0)
-            {
+        if (this.currentPath) {
+            if (this.currentPath.points.length === 0) {
                 this.currentPath.points = [x, y];
             }
         }
-        else
-        {
+        else {
             this.moveTo(x, y);
         }
     };
@@ -3028,17 +2645,13 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} toY - Destination point y
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.quadraticCurveTo = function (cpX, cpY, toX, toY)
-    {
+    Graphics.prototype.quadraticCurveTo = function (cpX, cpY, toX, toY) {
         this._initCurve();
-        const points = this.currentPath.points;
-
-        if (points.length === 0)
-        {
+        var points = this.currentPath.points;
+        if (points.length === 0) {
             this.moveTo(0, 0);
         }
         QuadraticUtils.curveTo(cpX, cpY, toX, toY, points);
-
         return this;
     };
     /**
@@ -3052,11 +2665,9 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} toY - Destination point y
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.bezierCurveTo = function (cpX, cpY, cpX2, cpY2, toX, toY)
-    {
+    Graphics.prototype.bezierCurveTo = function (cpX, cpY, cpX2, cpY2, toX, toY) {
         this._initCurve();
         BezierUtils.curveTo(cpX, cpY, cpX2, cpY2, toX, toY, this.currentPath.points);
-
         return this;
     };
     /**
@@ -3071,20 +2682,14 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} radius - The radius of the arc
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.arcTo = function (x1, y1, x2, y2, radius)
-    {
+    Graphics.prototype.arcTo = function (x1, y1, x2, y2, radius) {
         this._initCurve(x1, y1);
-        const points = this.currentPath.points;
-        const result = ArcUtils.curveTo(x1, y1, x2, y2, radius, points);
-
-        if (result)
-        {
-            const cx = result.cx; const cy = result.cy; const radius_1 = result.radius; const startAngle = result.startAngle; const endAngle = result.endAngle; const
-                anticlockwise = result.anticlockwise;
-
+        var points = this.currentPath.points;
+        var result = ArcUtils.curveTo(x1, y1, x2, y2, radius, points);
+        if (result) {
+            var cx = result.cx, cy = result.cy, radius_1 = result.radius, startAngle = result.startAngle, endAngle = result.endAngle, anticlockwise = result.anticlockwise;
             this.arc(cx, cy, radius_1, startAngle, endAngle, anticlockwise);
         }
-
         return this;
     };
     /**
@@ -3101,53 +2706,41 @@ const Graphics = /** @class */ (function (_super)
      *  indicates counter-clockwise.
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.arc = function (cx, cy, radius, startAngle, endAngle, anticlockwise)
-    {
+    Graphics.prototype.arc = function (cx, cy, radius, startAngle, endAngle, anticlockwise) {
         if (anticlockwise === void 0) { anticlockwise = false; }
-        if (startAngle === endAngle)
-        {
+        if (startAngle === endAngle) {
             return this;
         }
-        if (!anticlockwise && endAngle <= startAngle)
-        {
+        if (!anticlockwise && endAngle <= startAngle) {
             endAngle += PI_2;
         }
-        else if (anticlockwise && startAngle <= endAngle)
-        {
+        else if (anticlockwise && startAngle <= endAngle) {
             startAngle += PI_2;
         }
-        const sweep = endAngle - startAngle;
-
-        if (sweep === 0)
-        {
+        var sweep = endAngle - startAngle;
+        if (sweep === 0) {
             return this;
         }
-        const startX = cx + (Math.cos(startAngle) * radius);
-        const startY = cy + (Math.sin(startAngle) * radius);
-        const eps = this._geometry.closePointEps;
+        var startX = cx + (Math.cos(startAngle) * radius);
+        var startY = cy + (Math.sin(startAngle) * radius);
+        var eps = this._geometry.closePointEps;
         // If the currentPath exists, take its points. Otherwise call `moveTo` to start a path.
-        let points = this.currentPath ? this.currentPath.points : null;
-
-        if (points)
-        {
+        var points = this.currentPath ? this.currentPath.points : null;
+        if (points) {
             // TODO: make a better fix.
             // We check how far our start is from the last existing point
-            const xDiff = Math.abs(points[points.length - 2] - startX);
-            const yDiff = Math.abs(points[points.length - 1] - startY);
-
+            var xDiff = Math.abs(points[points.length - 2] - startX);
+            var yDiff = Math.abs(points[points.length - 1] - startY);
             if (xDiff < eps && yDiff < eps) ;
-            else
-            {
+            else {
                 points.push(startX, startY);
             }
         }
-        else
-        {
+        else {
             this.moveTo(startX, startY);
             points = this.currentPath.points;
         }
         ArcUtils.arc(startX, startY, cx, cy, radius, startAngle, endAngle, anticlockwise, points);
-
         return this;
     };
     /**
@@ -3158,12 +2751,10 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} [alpha=1] - the alpha of the fill
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.beginFill = function (color, alpha)
-    {
+    Graphics.prototype.beginFill = function (color, alpha) {
         if (color === void 0) { color = 0; }
         if (alpha === void 0) { alpha = 1; }
-
-        return this.beginTextureFill({ texture: Texture.WHITE, color, alpha });
+        return this.beginTextureFill({ texture: Texture.WHITE, color: color, alpha: alpha });
     };
     /**
      * Begin the texture fill
@@ -3175,15 +2766,13 @@ const Graphics = /** @class */ (function (_super)
      * @param {PIXI.Matrix} [options.matrix=null] - Transform matrix
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.beginTextureFill = function (options)
-    {
+    Graphics.prototype.beginTextureFill = function (options) {
         // backward compatibility with params: (texture, color, alpha, matrix)
-        if (options instanceof Texture)
-        {
+        if (options instanceof Texture) {
             deprecation('v5.2.0', 'Please use object-based options for Graphics#beginTextureFill');
             // eslint-disable-next-line
             var _a = arguments, texture = _a[0], color = _a[1], alpha = _a[2], matrix = _a[3];
-            options = { texture, color, alpha, matrix };
+            options = { texture: texture, color: color, alpha: alpha, matrix: matrix };
             // Remove undefined keys
             Object.keys(options).forEach(function (key) { return options[key] === undefined && delete options[key]; });
         }
@@ -3194,26 +2783,20 @@ const Graphics = /** @class */ (function (_super)
             alpha: 1,
             matrix: null,
         }, options);
-        if (this.currentPath)
-        {
+        if (this.currentPath) {
             this.startPoly();
         }
-        const visible = options.alpha > 0;
-
-        if (!visible)
-        {
+        var visible = options.alpha > 0;
+        if (!visible) {
             this._fillStyle.reset();
         }
-        else
-        {
-            if (options.matrix)
-            {
+        else {
+            if (options.matrix) {
                 options.matrix = options.matrix.clone();
                 options.matrix.invert();
             }
-            Object.assign(this._fillStyle, { visible }, options);
+            Object.assign(this._fillStyle, { visible: visible }, options);
         }
-
         return this;
     };
     /**
@@ -3221,11 +2804,9 @@ const Graphics = /** @class */ (function (_super)
      *
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.endFill = function ()
-    {
+    Graphics.prototype.endFill = function () {
         this.finishPoly();
         this._fillStyle.reset();
-
         return this;
     };
     /**
@@ -3237,8 +2818,7 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} height - The height of the rectangle
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.drawRect = function (x, y, width, height)
-    {
+    Graphics.prototype.drawRect = function (x, y, width, height) {
         return this.drawShape(new Rectangle(x, y, width, height));
     };
     /**
@@ -3251,8 +2831,7 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} radius - Radius of the rectangle corners
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.drawRoundedRect = function (x, y, width, height, radius)
-    {
+    Graphics.prototype.drawRoundedRect = function (x, y, width, height, radius) {
         return this.drawShape(new RoundedRectangle(x, y, width, height, radius));
     };
     /**
@@ -3263,8 +2842,7 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} radius - The radius of the circle
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.drawCircle = function (x, y, radius)
-    {
+    Graphics.prototype.drawCircle = function (x, y, radius) {
         return this.drawShape(new Circle(x, y, radius));
     };
     /**
@@ -3276,8 +2854,7 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} height - The half height of the ellipse
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.drawEllipse = function (x, y, width, height)
-    {
+    Graphics.prototype.drawEllipse = function (x, y, width, height) {
         return this.drawShape(new Ellipse(x, y, width, height));
     };
     /**
@@ -3286,39 +2863,30 @@ const Graphics = /** @class */ (function (_super)
      * @param {number[]|PIXI.Point[]|PIXI.Polygon} path - The path data used to construct the polygon.
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.drawPolygon = function ()
-    {
-        const arguments$1 = arguments;
+    Graphics.prototype.drawPolygon = function () {
+        var arguments$1 = arguments;
 
-        const path = [];
-
-        for (let _i = 0; _i < arguments.length; _i++)
-        {
+        var path = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
             path[_i] = arguments$1[_i];
         }
-        let points;
-        let closeStroke = true; // !!this._fillStyle;
-        const poly = path[0];
+        var points;
+        var closeStroke = true; // !!this._fillStyle;
+        var poly = path[0];
         // check if data has points..
-
-        if (poly.points)
-        {
+        if (poly.points) {
             closeStroke = poly.closeStroke;
             points = poly.points;
         }
-        else if (Array.isArray(path[0]))
-        {
+        else if (Array.isArray(path[0])) {
             points = path[0];
         }
-        else
-        {
+        else {
             points = path;
         }
-        const shape = new Polygon(points);
-
+        var shape = new Polygon(points);
         shape.closeStroke = closeStroke;
         this.drawShape(shape);
-
         return this;
     };
     /**
@@ -3327,17 +2895,13 @@ const Graphics = /** @class */ (function (_super)
      * @param {PIXI.Circle|PIXI.Ellipse|PIXI.Polygon|PIXI.Rectangle|PIXI.RoundedRectangle} shape - Shape to draw
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.drawShape = function (shape)
-    {
-        if (!this._holeMode)
-        {
+    Graphics.prototype.drawShape = function (shape) {
+        if (!this._holeMode) {
             this._geometry.drawShape(shape, this._fillStyle.clone(), this._lineStyle.clone(), this._matrix);
         }
-        else
-        {
+        else {
             this._geometry.drawHole(shape, this._matrix);
         }
-
         return this;
     };
     /**
@@ -3351,10 +2915,8 @@ const Graphics = /** @class */ (function (_super)
      * @param {number} [rotation=0] - The rotation of the star in radians, where 0 is vertical
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.drawStar = function (x, y, points, radius, innerRadius, rotation)
-    {
+    Graphics.prototype.drawStar = function (x, y, points, radius, innerRadius, rotation) {
         if (rotation === void 0) { rotation = 0; }
-
         return this.drawPolygon(new Star(x, y, points, radius, innerRadius, rotation));
     };
     /**
@@ -3362,8 +2924,7 @@ const Graphics = /** @class */ (function (_super)
      *
      * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
      */
-    Graphics.prototype.clear = function ()
-    {
+    Graphics.prototype.clear = function () {
         this._geometry.clear();
         this._lineStyle.reset();
         this._fillStyle.reset();
@@ -3371,7 +2932,6 @@ const Graphics = /** @class */ (function (_super)
         this._matrix = null;
         this._holeMode = false;
         this.currentPath = null;
-
         return this;
     };
     /**
@@ -3380,10 +2940,8 @@ const Graphics = /** @class */ (function (_super)
      *
      * @returns {boolean} True if only 1 rect.
      */
-    Graphics.prototype.isFastRect = function ()
-    {
-        const data = this._geometry.graphicsData;
-
+    Graphics.prototype.isFastRect = function () {
+        var data = this._geometry.graphicsData;
         return data.length === 1
             && data[0].shape.type === SHAPES.RECT
             && !(data[0].lineStyle.visible && data[0].lineStyle.width);
@@ -3394,25 +2952,20 @@ const Graphics = /** @class */ (function (_super)
      * @protected
      * @param {PIXI.Renderer} renderer - The renderer
      */
-    Graphics.prototype._render = function (renderer)
-    {
+    Graphics.prototype._render = function (renderer) {
         this.finishPoly();
-        const geometry = this._geometry;
-        const hasuint32 = renderer.context.supports.uint32Indices;
+        var geometry = this._geometry;
+        var hasuint32 = renderer.context.supports.uint32Indices;
         // batch part..
         // batch it!
-
         geometry.updateBatches(hasuint32);
-        if (geometry.batchable)
-        {
-            if (this.batchDirty !== geometry.batchDirty)
-            {
+        if (geometry.batchable) {
+            if (this.batchDirty !== geometry.batchDirty) {
                 this._populateBatches();
             }
             this._renderBatched(renderer);
         }
-        else
-        {
+        else {
             // no batching...
             renderer.batch.flush();
             this._renderDirect(renderer);
@@ -3423,36 +2976,32 @@ const Graphics = /** @class */ (function (_super)
      *
      * @protected
      */
-    Graphics.prototype._populateBatches = function ()
-    {
-        const geometry = this._geometry;
-        const blendMode = this.blendMode;
-        const len = geometry.batches.length;
-
+    Graphics.prototype._populateBatches = function () {
+        var geometry = this._geometry;
+        var blendMode = this.blendMode;
+        var len = geometry.batches.length;
         this.batchTint = -1;
         this._transformID = -1;
         this.batchDirty = geometry.batchDirty;
         this.batches.length = len;
         this.vertexData = new Float32Array(geometry.points);
-        for (let i = 0; i < len; i++)
-        {
-            const gI = geometry.batches[i];
-            const color = gI.style.color;
-            const vertexData = new Float32Array(this.vertexData.buffer, gI.attribStart * 4 * 2, gI.attribSize * 2);
-            const uvs = new Float32Array(geometry.uvsFloat32.buffer, gI.attribStart * 4 * 2, gI.attribSize * 2);
-            const indices = new Uint16Array(geometry.indicesUint16.buffer, gI.start * 2, gI.size);
-            const batch = {
-                vertexData,
-                blendMode,
-                indices,
-                uvs,
+        for (var i = 0; i < len; i++) {
+            var gI = geometry.batches[i];
+            var color = gI.style.color;
+            var vertexData = new Float32Array(this.vertexData.buffer, gI.attribStart * 4 * 2, gI.attribSize * 2);
+            var uvs = new Float32Array(geometry.uvsFloat32.buffer, gI.attribStart * 4 * 2, gI.attribSize * 2);
+            var indices = new Uint16Array(geometry.indicesUint16.buffer, gI.start * 2, gI.size);
+            var batch = {
+                vertexData: vertexData,
+                blendMode: blendMode,
+                indices: indices,
+                uvs: uvs,
                 _batchRGB: hex2rgb(color),
                 _tintRGB: color,
                 _texture: gI.style.texture,
                 alpha: gI.style.alpha,
                 worldAlpha: 1
             };
-
             this.batches[i] = batch;
         }
     };
@@ -3462,19 +3011,15 @@ const Graphics = /** @class */ (function (_super)
      * @protected
      * @param {PIXI.Renderer} renderer - The renderer
      */
-    Graphics.prototype._renderBatched = function (renderer)
-    {
-        if (!this.batches.length)
-        {
+    Graphics.prototype._renderBatched = function (renderer) {
+        if (!this.batches.length) {
             return;
         }
         renderer.batch.setObjectRenderer(renderer.plugins[this.pluginName]);
         this.calculateVertices();
         this.calculateTints();
-        for (let i = 0, l = this.batches.length; i < l; i++)
-        {
-            const batch = this.batches[i];
-
+        for (var i = 0, l = this.batches.length; i < l; i++) {
+            var batch = this.batches[i];
             batch.worldAlpha = this.worldAlpha * batch.alpha;
             renderer.plugins[this.pluginName].render(batch);
         }
@@ -3485,16 +3030,14 @@ const Graphics = /** @class */ (function (_super)
      * @protected
      * @param {PIXI.Renderer} renderer - The renderer
      */
-    Graphics.prototype._renderDirect = function (renderer)
-    {
-        const shader = this._resolveDirectShader(renderer);
-        const geometry = this._geometry;
-        const tint = this.tint;
-        const worldAlpha = this.worldAlpha;
-        const uniforms = shader.uniforms;
-        const drawCalls = geometry.drawCalls;
+    Graphics.prototype._renderDirect = function (renderer) {
+        var shader = this._resolveDirectShader(renderer);
+        var geometry = this._geometry;
+        var tint = this.tint;
+        var worldAlpha = this.worldAlpha;
+        var uniforms = shader.uniforms;
+        var drawCalls = geometry.drawCalls;
         // lets set the transfomr
-
         uniforms.translationMatrix = this.transform.worldTransform;
         // and then lets set the tint..
         uniforms.tint[0] = (((tint >> 16) & 0xFF) / 255) * worldAlpha;
@@ -3510,8 +3053,7 @@ const Graphics = /** @class */ (function (_super)
         // set state..
         renderer.state.set(this.state);
         // then render the rest of them...
-        for (let i = 0, l = drawCalls.length; i < l; i++)
-        {
+        for (var i = 0, l = drawCalls.length; i < l; i++) {
             this._renderDrawCallDirect(renderer, geometry.drawCalls[i]);
         }
     };
@@ -3521,14 +3063,10 @@ const Graphics = /** @class */ (function (_super)
      * @param {PIXI.Renderer} renderer
      * @param {PIXI.BatchDrawCall} drawCall
      */
-    Graphics.prototype._renderDrawCallDirect = function (renderer, drawCall)
-    {
-        const texArray = drawCall.texArray; const type = drawCall.type; const size = drawCall.size; const
-            start = drawCall.start;
-        const groupTextureCount = texArray.count;
-
-        for (let j = 0; j < groupTextureCount; j++)
-        {
+    Graphics.prototype._renderDrawCallDirect = function (renderer, drawCall) {
+        var texArray = drawCall.texArray, type = drawCall.type, size = drawCall.size, start = drawCall.start;
+        var groupTextureCount = texArray.count;
+        for (var j = 0; j < groupTextureCount; j++) {
             renderer.texture.bind(texArray.elements[j], j);
         }
         renderer.geometry.draw(type, size, start);
@@ -3539,37 +3077,29 @@ const Graphics = /** @class */ (function (_super)
      * @protected
      * @param {PIXI.Renderer} renderer - The renderer
      */
-    Graphics.prototype._resolveDirectShader = function (renderer)
-    {
-        let shader = this.shader;
-        const pluginName = this.pluginName;
-
-        if (!shader)
-        {
+    Graphics.prototype._resolveDirectShader = function (renderer) {
+        var shader = this.shader;
+        var pluginName = this.pluginName;
+        if (!shader) {
             // if there is no shader here, we can use the default shader.
             // and that only gets created if we actually need it..
             // but may be more than one plugins for graphics
-            if (!DEFAULT_SHADERS[pluginName])
-            {
-                const MAX_TEXTURES = renderer.plugins.batch.MAX_TEXTURES;
-                const sampleValues = new Int32Array(MAX_TEXTURES);
-
-                for (let i = 0; i < MAX_TEXTURES; i++)
-                {
+            if (!DEFAULT_SHADERS[pluginName]) {
+                var MAX_TEXTURES = renderer.plugins.batch.MAX_TEXTURES;
+                var sampleValues = new Int32Array(MAX_TEXTURES);
+                for (var i = 0; i < MAX_TEXTURES; i++) {
                     sampleValues[i] = i;
                 }
-                const uniforms = {
+                var uniforms = {
                     tint: new Float32Array([1, 1, 1, 1]),
                     translationMatrix: new Matrix(),
                     default: UniformGroup.from({ uSamplers: sampleValues }, true),
                 };
-                const program = renderer.plugins[pluginName]._shader.program;
-
+                var program = renderer.plugins[pluginName]._shader.program;
                 DEFAULT_SHADERS[pluginName] = new Shader(program, uniforms);
             }
             shader = DEFAULT_SHADERS[pluginName];
         }
-
         return shader;
     };
     /**
@@ -3577,19 +3107,14 @@ const Graphics = /** @class */ (function (_super)
      *
      * @protected
      */
-    Graphics.prototype._calculateBounds = function ()
-    {
+    Graphics.prototype._calculateBounds = function () {
         this.finishPoly();
-        const geometry = this._geometry;
+        var geometry = this._geometry;
         // skipping when graphics is empty, like a container
-
-        if (!geometry.graphicsData.length)
-        {
+        if (!geometry.graphicsData.length) {
             return;
         }
-        const _a = geometry.bounds; const minX = _a.minX; const minY = _a.minY; const maxX = _a.maxX; const
-            maxY = _a.maxY;
-
+        var _a = geometry.bounds, minX = _a.minX, minY = _a.minY, maxX = _a.maxX, maxY = _a.maxY;
         this._bounds.addFrame(this.transform, minX, minY, maxX, maxY);
     };
     /**
@@ -3598,33 +3123,26 @@ const Graphics = /** @class */ (function (_super)
      * @param {PIXI.IPointData} point - the point to test
      * @return {boolean} the result of the test
      */
-    Graphics.prototype.containsPoint = function (point)
-    {
+    Graphics.prototype.containsPoint = function (point) {
         this.worldTransform.applyInverse(point, Graphics._TEMP_POINT);
-
         return this._geometry.containsPoint(Graphics._TEMP_POINT);
     };
     /**
      * Recalcuate the tint by applying tin to batches using Graphics tint.
      * @protected
      */
-    Graphics.prototype.calculateTints = function ()
-    {
-        if (this.batchTint !== this.tint)
-        {
+    Graphics.prototype.calculateTints = function () {
+        if (this.batchTint !== this.tint) {
             this.batchTint = this.tint;
-            const tintRGB = hex2rgb(this.tint, temp);
-
-            for (let i = 0; i < this.batches.length; i++)
-            {
-                const batch = this.batches[i];
-                const batchTint = batch._batchRGB;
-                const r = (tintRGB[0] * batchTint[0]) * 255;
-                const g = (tintRGB[1] * batchTint[1]) * 255;
-                const b = (tintRGB[2] * batchTint[2]) * 255;
+            var tintRGB = hex2rgb(this.tint, temp);
+            for (var i = 0; i < this.batches.length; i++) {
+                var batch = this.batches[i];
+                var batchTint = batch._batchRGB;
+                var r = (tintRGB[0] * batchTint[0]) * 255;
+                var g = (tintRGB[1] * batchTint[1]) * 255;
+                var b = (tintRGB[2] * batchTint[2]) * 255;
                 // TODO Ivan, can this be done in one go?
-                const color = (r << 16) + (g << 8) + (b | 0);
-
+                var color = (r << 16) + (g << 8) + (b | 0);
                 batch._tintRGB = (color >> 16)
                     + (color & 0xff00)
                     + ((color & 0xff) << 16);
@@ -3636,31 +3154,25 @@ const Graphics = /** @class */ (function (_super)
      * geometry, recaculate the vertices.
      * @protected
      */
-    Graphics.prototype.calculateVertices = function ()
-    {
-        const wtID = this.transform._worldID;
-
-        if (this._transformID === wtID)
-        {
+    Graphics.prototype.calculateVertices = function () {
+        var wtID = this.transform._worldID;
+        if (this._transformID === wtID) {
             return;
         }
         this._transformID = wtID;
-        const wt = this.transform.worldTransform;
-        const a = wt.a;
-        const b = wt.b;
-        const c = wt.c;
-        const d = wt.d;
-        const tx = wt.tx;
-        const ty = wt.ty;
-        const data = this._geometry.points; // batch.vertexDataOriginal;
-        const vertexData = this.vertexData;
-        let count = 0;
-
-        for (let i = 0; i < data.length; i += 2)
-        {
-            const x = data[i];
-            const y = data[i + 1];
-
+        var wt = this.transform.worldTransform;
+        var a = wt.a;
+        var b = wt.b;
+        var c = wt.c;
+        var d = wt.d;
+        var tx = wt.tx;
+        var ty = wt.ty;
+        var data = this._geometry.points; // batch.vertexDataOriginal;
+        var vertexData = this.vertexData;
+        var count = 0;
+        for (var i = 0; i < data.length; i += 2) {
+            var x = data[i];
+            var y = data[i + 1];
             vertexData[count++] = (a * x) + (c * y) + tx;
             vertexData[count++] = (d * y) + (b * x) + ty;
         }
@@ -3670,16 +3182,12 @@ const Graphics = /** @class */ (function (_super)
      *
      * @return {PIXI.Graphics} Returns itself.
      */
-    Graphics.prototype.closePath = function ()
-    {
-        const currentPath = this.currentPath;
-
-        if (currentPath)
-        {
+    Graphics.prototype.closePath = function () {
+        var currentPath = this.currentPath;
+        if (currentPath) {
             // we don't need to add extra point in the end because buildLine will take care of that
             currentPath.closeStroke = true;
         }
-
         return this;
     };
     /**
@@ -3688,10 +3196,8 @@ const Graphics = /** @class */ (function (_super)
      * @param {PIXI.Matrix} matrix - Matrix to use for transform current shape.
      * @return {PIXI.Graphics} Returns itself.
      */
-    Graphics.prototype.setMatrix = function (matrix)
-    {
+    Graphics.prototype.setMatrix = function (matrix) {
         this._matrix = matrix;
-
         return this;
     };
     /**
@@ -3702,22 +3208,18 @@ const Graphics = /** @class */ (function (_super)
      * please use `moveTo` `lineTo`, `quadraticCurveTo` if you rely on pixi-legacy bundle.
      * @return {PIXI.Graphics} Returns itself.
      */
-    Graphics.prototype.beginHole = function ()
-    {
+    Graphics.prototype.beginHole = function () {
         this.finishPoly();
         this._holeMode = true;
-
         return this;
     };
     /**
      * End adding holes to the last draw shape
      * @return {PIXI.Graphics} Returns itself.
      */
-    Graphics.prototype.endHole = function ()
-    {
+    Graphics.prototype.endHole = function () {
         this.finishPoly();
         this._holeMode = false;
-
         return this;
     };
     /**
@@ -3732,11 +3234,9 @@ const Graphics = /** @class */ (function (_super)
      * @param {boolean} [options.baseTexture=false] - Only used for child Sprites if options.children is set to true
      *  Should it destroy the base texture of the child sprite
      */
-    Graphics.prototype.destroy = function (options)
-    {
+    Graphics.prototype.destroy = function (options) {
         this._geometry.refCount--;
-        if (this._geometry.refCount === 0)
-        {
+        if (this._geometry.refCount === 0) {
             this._geometry.dispose();
         }
         this._matrix = null;
@@ -3760,9 +3260,8 @@ const Graphics = /** @class */ (function (_super)
      * @member {PIXI.Point}
      */
     Graphics._TEMP_POINT = new Point();
-
     return Graphics;
-})(Container);
+}(Container));
 
 export { FillStyle, GRAPHICS_CURVES, Graphics, GraphicsData, GraphicsGeometry, LINE_CAP, LINE_JOIN, LineStyle, index as graphicsUtils };
-// # sourceMappingURL=graphics.es.js.map
+//# sourceMappingURL=graphics.es.js.map

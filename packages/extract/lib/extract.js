@@ -1,19 +1,20 @@
-/* !
+/*!
  * @pixi/extract - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/extract is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
+'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const utils = require('@pixi/utils');
-const math = require('@pixi/math');
-const core = require('@pixi/core');
+var utils = require('@pixi/utils');
+var math = require('@pixi/math');
+var core = require('@pixi/core');
 
-const TEMP_RECT = new math.Rectangle();
-const BYTES_PER_PIXEL = 4;
+var TEMP_RECT = new math.Rectangle();
+var BYTES_PER_PIXEL = 4;
 /**
  * This class provides renderer-specific plugins for exporting content from a renderer.
  * For instance, these plugins can be used for saving an Image, Canvas element or for exporting the raw image data (pixels).
@@ -35,13 +36,11 @@ const BYTES_PER_PIXEL = 4;
  * @class
  * @memberof PIXI
  */
-const Extract = /** @class */ (function ()
-{
+var Extract = /** @class */ (function () {
     /**
      * @param {PIXI.Renderer} renderer - A reference to the current renderer
      */
-    function Extract(renderer)
-    {
+    function Extract(renderer) {
         this.renderer = renderer;
         /**
          * Collection of methods for extracting data (image, pixels, etc.) from a display object or render texture
@@ -61,12 +60,9 @@ const Extract = /** @class */ (function ()
      * @param {number} [quality] - JPEG or Webp compression from 0 to 1. Default is 0.92.
      * @return {HTMLImageElement} HTML Image of the target
      */
-    Extract.prototype.image = function (target, format, quality)
-    {
-        const image = new Image();
-
+    Extract.prototype.image = function (target, format, quality) {
+        var image = new Image();
         image.src = this.base64(target, format, quality);
-
         return image;
     };
     /**
@@ -79,8 +75,7 @@ const Extract = /** @class */ (function ()
      * @param {number} [quality] - JPEG or Webp compression from 0 to 1. Default is 0.92.
      * @return {string} A base64 encoded string of the texture.
      */
-    Extract.prototype.base64 = function (target, format, quality)
-    {
+    Extract.prototype.base64 = function (target, format, quality) {
         return this.canvas(target).toDataURL(format, quality);
     };
     /**
@@ -90,36 +85,29 @@ const Extract = /** @class */ (function ()
      *  to convert. If left empty will use the main renderer
      * @return {HTMLCanvasElement} A Canvas element with the texture rendered on.
      */
-    Extract.prototype.canvas = function (target)
-    {
-        const renderer = this.renderer;
-        let resolution;
-        let frame;
-        let flipY = false;
-        let renderTexture;
-        let generated = false;
-
-        if (target)
-        {
-            if (target instanceof core.RenderTexture)
-            {
+    Extract.prototype.canvas = function (target) {
+        var renderer = this.renderer;
+        var resolution;
+        var frame;
+        var flipY = false;
+        var renderTexture;
+        var generated = false;
+        if (target) {
+            if (target instanceof core.RenderTexture) {
                 renderTexture = target;
             }
-            else
-            {
+            else {
                 renderTexture = this.renderer.generateTexture(target);
                 generated = true;
             }
         }
-        if (renderTexture)
-        {
+        if (renderTexture) {
             resolution = renderTexture.baseTexture.resolution;
             frame = renderTexture.frame;
             flipY = false;
             renderer.renderTexture.bind(renderTexture);
         }
-        else
-        {
+        else {
             resolution = this.renderer.resolution;
             flipY = true;
             frame = TEMP_RECT;
@@ -127,32 +115,27 @@ const Extract = /** @class */ (function ()
             frame.height = this.renderer.height;
             renderer.renderTexture.bind(null);
         }
-        const width = Math.floor((frame.width * resolution) + 1e-4);
-        const height = Math.floor((frame.height * resolution) + 1e-4);
-        let canvasBuffer = new utils.CanvasRenderTarget(width, height, 1);
-        const webglPixels = new Uint8Array(BYTES_PER_PIXEL * width * height);
+        var width = Math.floor((frame.width * resolution) + 1e-4);
+        var height = Math.floor((frame.height * resolution) + 1e-4);
+        var canvasBuffer = new utils.CanvasRenderTarget(width, height, 1);
+        var webglPixels = new Uint8Array(BYTES_PER_PIXEL * width * height);
         // read pixels to the array
-        const gl = renderer.gl;
-
+        var gl = renderer.gl;
         gl.readPixels(frame.x * resolution, frame.y * resolution, width, height, gl.RGBA, gl.UNSIGNED_BYTE, webglPixels);
         // add the pixels to the canvas
-        const canvasData = canvasBuffer.context.getImageData(0, 0, width, height);
-
+        var canvasData = canvasBuffer.context.getImageData(0, 0, width, height);
         Extract.arrayPostDivide(webglPixels, canvasData.data);
         canvasBuffer.context.putImageData(canvasData, 0, 0);
         // pulling pixels
-        if (flipY)
-        {
-            const target_1 = new utils.CanvasRenderTarget(canvasBuffer.width, canvasBuffer.height, 1);
-
+        if (flipY) {
+            var target_1 = new utils.CanvasRenderTarget(canvasBuffer.width, canvasBuffer.height, 1);
             target_1.context.scale(1, -1);
             // we can't render to itself because we should be empty before render.
             target_1.context.drawImage(canvasBuffer.canvas, 0, -height);
             canvasBuffer.destroy();
             canvasBuffer = target_1;
         }
-        if (generated)
-        {
+        if (generated) {
             renderTexture.destroy(true);
         }
         // send the canvas back..
@@ -166,62 +149,51 @@ const Extract = /** @class */ (function ()
      *  to convert. If left empty will use the main renderer
      * @return {Uint8Array} One-dimensional array containing the pixel data of the entire texture
      */
-    Extract.prototype.pixels = function (target)
-    {
-        const renderer = this.renderer;
-        let resolution;
-        let frame;
-        let renderTexture;
-        let generated = false;
-
-        if (target)
-        {
-            if (target instanceof core.RenderTexture)
-            {
+    Extract.prototype.pixels = function (target) {
+        var renderer = this.renderer;
+        var resolution;
+        var frame;
+        var renderTexture;
+        var generated = false;
+        if (target) {
+            if (target instanceof core.RenderTexture) {
                 renderTexture = target;
             }
-            else
-            {
+            else {
                 renderTexture = this.renderer.generateTexture(target);
                 generated = true;
             }
         }
-        if (renderTexture)
-        {
+        if (renderTexture) {
             resolution = renderTexture.baseTexture.resolution;
             frame = renderTexture.frame;
             // bind the buffer
             renderer.renderTexture.bind(renderTexture);
         }
-        else
-        {
+        else {
             resolution = renderer.resolution;
             frame = TEMP_RECT;
             frame.width = renderer.width;
             frame.height = renderer.height;
             renderer.renderTexture.bind(null);
         }
-        const width = frame.width * resolution;
-        const height = frame.height * resolution;
-        const webglPixels = new Uint8Array(BYTES_PER_PIXEL * width * height);
+        var width = frame.width * resolution;
+        var height = frame.height * resolution;
+        var webglPixels = new Uint8Array(BYTES_PER_PIXEL * width * height);
         // read pixels to the array
-        const gl = renderer.gl;
-
+        var gl = renderer.gl;
         gl.readPixels(frame.x * resolution, frame.y * resolution, width, height, gl.RGBA, gl.UNSIGNED_BYTE, webglPixels);
-        if (generated)
-        {
+        if (generated) {
             renderTexture.destroy(true);
         }
         Extract.arrayPostDivide(webglPixels, webglPixels);
-
         return webglPixels;
     };
     /**
      * Destroys the extract
      *
      */
-    Extract.prototype.destroy = function ()
-    {
+    Extract.prototype.destroy = function () {
         this.renderer.extract = null;
         this.renderer = null;
     };
@@ -232,29 +204,23 @@ const Extract = /** @class */ (function ()
      * @param pixels {number[] | Uint8Array | Uint8ClampedArray} array of pixel data
      * @param out {number[] | Uint8Array | Uint8ClampedArray} output array
      */
-    Extract.arrayPostDivide = function (pixels, out)
-    {
-        for (let i = 0; i < pixels.length; i += 4)
-        {
-            const alpha = out[i + 3] = pixels[i + 3];
-
-            if (alpha !== 0)
-            {
+    Extract.arrayPostDivide = function (pixels, out) {
+        for (var i = 0; i < pixels.length; i += 4) {
+            var alpha = out[i + 3] = pixels[i + 3];
+            if (alpha !== 0) {
                 out[i] = Math.round(Math.min(pixels[i] * 255.0 / alpha, 255.0));
                 out[i + 1] = Math.round(Math.min(pixels[i + 1] * 255.0 / alpha, 255.0));
                 out[i + 2] = Math.round(Math.min(pixels[i + 2] * 255.0 / alpha, 255.0));
             }
-            else
-            {
+            else {
                 out[i] = pixels[i];
                 out[i + 1] = pixels[i + 1];
                 out[i + 2] = pixels[i + 2];
             }
         }
     };
-
     return Extract;
-})();
+}());
 
 exports.Extract = Extract;
-// # sourceMappingURL=extract.js.map
+//# sourceMappingURL=extract.js.map

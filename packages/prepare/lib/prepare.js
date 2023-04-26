@@ -1,19 +1,20 @@
-/* !
+/*!
  * @pixi/prepare - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/prepare is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
+'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const settings = require('@pixi/settings');
-const core = require('@pixi/core');
-const graphics = require('@pixi/graphics');
-const ticker = require('@pixi/ticker');
-const display = require('@pixi/display');
-const text = require('@pixi/text');
+var settings = require('@pixi/settings');
+var core = require('@pixi/core');
+var graphics = require('@pixi/graphics');
+var ticker = require('@pixi/ticker');
+var display = require('@pixi/display');
+var text = require('@pixi/text');
 
 /**
  * Default number of uploads per frame using prepare plugin.
@@ -26,7 +27,7 @@ const text = require('@pixi/text');
  */
 settings.settings.UPLOADS_PER_FRAME = 4;
 
-/* ! *****************************************************************************
+/*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -42,17 +43,14 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function (d, b)
-{
-    extendStatics = Object.setPrototypeOf
-        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
-        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
-
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
     return extendStatics(d, b);
 };
 
-function __extends(d, b)
-{
+function __extends(d, b) {
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -65,13 +63,11 @@ function __extends(d, b)
  * @class
  * @memberof PIXI
  */
-const CountLimiter = /** @class */ (function ()
-{
+var CountLimiter = /** @class */ (function () {
     /**
      * @param {number} maxItemsPerFrame - The maximum number of items that can be prepared each frame.
      */
-    function CountLimiter(maxItemsPerFrame)
-    {
+    function CountLimiter(maxItemsPerFrame) {
         /**
          * The maximum number of items that can be prepared each frame.
          * @type {number}
@@ -88,21 +84,18 @@ const CountLimiter = /** @class */ (function ()
     /**
      * Resets any counting properties to start fresh on a new frame.
      */
-    CountLimiter.prototype.beginFrame = function ()
-    {
+    CountLimiter.prototype.beginFrame = function () {
         this.itemsLeft = this.maxItemsPerFrame;
     };
     /**
      * Checks to see if another item can be uploaded. This should only be called once per item.
      * @return {boolean} If the item is allowed to be uploaded.
      */
-    CountLimiter.prototype.allowedToUpload = function ()
-    {
+    CountLimiter.prototype.allowedToUpload = function () {
         return this.itemsLeft-- > 0;
     };
-
     return CountLimiter;
-})();
+}());
 
 /**
  * Built-in hook to find multiple textures from objects like AnimatedSprites.
@@ -112,28 +105,20 @@ const CountLimiter = /** @class */ (function ()
  * @param {Array<*>} queue - Collection of items to upload
  * @return {boolean} if a PIXI.Texture object was found.
  */
-function findMultipleBaseTextures(item, queue)
-{
-    let result = false;
+function findMultipleBaseTextures(item, queue) {
+    var result = false;
     // Objects with multiple textures
-
-    if (item && item._textures && item._textures.length)
-    {
-        for (let i = 0; i < item._textures.length; i++)
-        {
-            if (item._textures[i] instanceof core.Texture)
-            {
-                const baseTexture = item._textures[i].baseTexture;
-
-                if (queue.indexOf(baseTexture) === -1)
-                {
+    if (item && item._textures && item._textures.length) {
+        for (var i = 0; i < item._textures.length; i++) {
+            if (item._textures[i] instanceof core.Texture) {
+                var baseTexture = item._textures[i].baseTexture;
+                if (queue.indexOf(baseTexture) === -1) {
                     queue.push(baseTexture);
                     result = true;
                 }
             }
         }
     }
-
     return result;
 }
 /**
@@ -144,20 +129,14 @@ function findMultipleBaseTextures(item, queue)
  * @param {Array<*>} queue - Collection of items to upload
  * @return {boolean} if a PIXI.Texture object was found.
  */
-function findBaseTexture(item, queue)
-{
-    if (item.baseTexture instanceof core.BaseTexture)
-    {
-        const texture = item.baseTexture;
-
-        if (queue.indexOf(texture) === -1)
-        {
+function findBaseTexture(item, queue) {
+    if (item.baseTexture instanceof core.BaseTexture) {
+        var texture = item.baseTexture;
+        if (queue.indexOf(texture) === -1) {
             queue.push(texture);
         }
-
         return true;
     }
-
     return false;
 }
 /**
@@ -168,20 +147,14 @@ function findBaseTexture(item, queue)
  * @param {Array<*>} queue - Collection of items to upload
  * @return {boolean} if a PIXI.Texture object was found.
  */
-function findTexture(item, queue)
-{
-    if (item._texture && item._texture instanceof core.Texture)
-    {
-        const texture = item._texture.baseTexture;
-
-        if (queue.indexOf(texture) === -1)
-        {
+function findTexture(item, queue) {
+    if (item._texture && item._texture instanceof core.Texture) {
+        var texture = item._texture.baseTexture;
+        if (queue.indexOf(texture) === -1) {
             queue.push(texture);
         }
-
         return true;
     }
-
     return false;
 }
 /**
@@ -192,16 +165,12 @@ function findTexture(item, queue)
  * @param {PIXI.DisplayObject} item - Item to check
  * @return {boolean} If item was uploaded.
  */
-function drawText(_helper, item)
-{
-    if (item instanceof text.Text)
-    {
+function drawText(_helper, item) {
+    if (item instanceof text.Text) {
         // updating text will return early if it is not dirty
         item.updateText(true);
-
         return true;
     }
-
     return false;
 }
 /**
@@ -212,17 +181,12 @@ function drawText(_helper, item)
  * @param {PIXI.DisplayObject} item - Item to check
  * @return {boolean} If item was uploaded.
  */
-function calculateTextStyle(_helper, item)
-{
-    if (item instanceof text.TextStyle)
-    {
-        const font = item.toFontString();
-
+function calculateTextStyle(_helper, item) {
+    if (item instanceof text.TextStyle) {
+        var font = item.toFontString();
         text.TextMetrics.measureFont(font);
-
         return true;
     }
-
     return false;
 }
 /**
@@ -233,31 +197,23 @@ function calculateTextStyle(_helper, item)
  * @param {Array<*>} queue - Collection of items to upload
  * @return {boolean} if a PIXI.Text object was found.
  */
-function findText(item, queue)
-{
-    if (item instanceof text.Text)
-    {
+function findText(item, queue) {
+    if (item instanceof text.Text) {
         // push the text style to prepare it - this can be really expensive
-        if (queue.indexOf(item.style) === -1)
-        {
+        if (queue.indexOf(item.style) === -1) {
             queue.push(item.style);
         }
         // also push the text object so that we can render it (to canvas/texture) if needed
-        if (queue.indexOf(item) === -1)
-        {
+        if (queue.indexOf(item) === -1) {
             queue.push(item);
         }
         // also push the Text's texture for upload to GPU
-        const texture = item._texture.baseTexture;
-
-        if (queue.indexOf(texture) === -1)
-        {
+        var texture = item._texture.baseTexture;
+        if (queue.indexOf(texture) === -1) {
             queue.push(texture);
         }
-
         return true;
     }
-
     return false;
 }
 /**
@@ -268,18 +224,13 @@ function findText(item, queue)
  * @param {Array<*>} queue - Collection of items to upload
  * @return {boolean} if a PIXI.TextStyle object was found.
  */
-function findTextStyle(item, queue)
-{
-    if (item instanceof text.TextStyle)
-    {
-        if (queue.indexOf(item) === -1)
-        {
+function findTextStyle(item, queue) {
+    if (item instanceof text.TextStyle) {
+        if (queue.indexOf(item) === -1) {
             queue.push(item);
         }
-
         return true;
     }
-
     return false;
 }
 /**
@@ -305,19 +256,16 @@ function findTextStyle(item, queue)
  * @class
  * @memberof PIXI
  */
-const BasePrepare = /** @class */ (function ()
-{
+var BasePrepare = /** @class */ (function () {
     /**
      * @param {PIXI.AbstractRenderer} renderer - A reference to the current renderer
      */
-    function BasePrepare(renderer)
-    {
-        const _this = this;
+    function BasePrepare(renderer) {
+        var _this = this;
         /**
          * The limiter to be used to control how quickly items are prepared.
          * @type {PIXI.CountLimiter|PIXI.TimeLimiter}
          */
-
         this.limiter = new CountLimiter(settings.settings.UPLOADS_PER_FRAME);
         /**
          * Reference to the renderer.
@@ -367,11 +315,9 @@ const BasePrepare = /** @class */ (function ()
          * @type {Function}
          * @private
          */
-        this.delayedTick = function ()
-        {
+        this.delayedTick = function () {
             // unlikely, but in case we were destroyed between tick() and delayedTick()
-            if (!_this.queue)
-            {
+            if (!_this.queue) {
                 return;
             }
             _this.prepareItems();
@@ -394,34 +340,27 @@ const BasePrepare = /** @class */ (function ()
      *        or the callback function, if items have been added using `prepare.add`.
      * @param {Function} [done] - Optional callback when all queued uploads have completed
      */
-    BasePrepare.prototype.upload = function (item, done)
-    {
-        if (typeof item === 'function')
-        {
+    BasePrepare.prototype.upload = function (item, done) {
+        if (typeof item === 'function') {
             done = item;
             item = null;
         }
         // If a display object, search for items
         // that we could upload
-        if (item)
-        {
+        if (item) {
             this.add(item);
         }
         // Get the items for upload from the display
-        if (this.queue.length)
-        {
-            if (done)
-            {
+        if (this.queue.length) {
+            if (done) {
                 this.completes.push(done);
             }
-            if (!this.ticking)
-            {
+            if (!this.ticking) {
                 this.ticking = true;
                 ticker.Ticker.system.addOnce(this.tick, this, ticker.UPDATE_PRIORITY.UTILITY);
             }
         }
-        else if (done)
-        {
+        else if (done) {
             done();
         }
     };
@@ -430,8 +369,7 @@ const BasePrepare = /** @class */ (function ()
      *
      * @private
      */
-    BasePrepare.prototype.tick = function ()
-    {
+    BasePrepare.prototype.tick = function () {
         setTimeout(this.delayedTick, 0);
     };
     /**
@@ -440,46 +378,35 @@ const BasePrepare = /** @class */ (function ()
      *
      * @private
      */
-    BasePrepare.prototype.prepareItems = function ()
-    {
+    BasePrepare.prototype.prepareItems = function () {
         this.limiter.beginFrame();
         // Upload the graphics
-        while (this.queue.length && this.limiter.allowedToUpload())
-        {
-            const item = this.queue[0];
-            let uploaded = false;
-
-            if (item && !item._destroyed)
-            {
-                for (var i = 0, len = this.uploadHooks.length; i < len; i++)
-                {
-                    if (this.uploadHooks[i](this.uploadHookHelper, item))
-                    {
+        while (this.queue.length && this.limiter.allowedToUpload()) {
+            var item = this.queue[0];
+            var uploaded = false;
+            if (item && !item._destroyed) {
+                for (var i = 0, len = this.uploadHooks.length; i < len; i++) {
+                    if (this.uploadHooks[i](this.uploadHookHelper, item)) {
                         this.queue.shift();
                         uploaded = true;
                         break;
                     }
                 }
             }
-            if (!uploaded)
-            {
+            if (!uploaded) {
                 this.queue.shift();
             }
         }
         // We're finished
-        if (!this.queue.length)
-        {
+        if (!this.queue.length) {
             this.ticking = false;
-            const completes = this.completes.slice(0);
-
+            var completes = this.completes.slice(0);
             this.completes.length = 0;
-            for (var i = 0, len = completes.length; i < len; i++)
-            {
+            for (var i = 0, len = completes.length; i < len; i++) {
                 completes[i]();
             }
         }
-        else
-        {
+        else {
             // if we are not finished, on the next rAF do this again
             ticker.Ticker.system.addOnce(this.tick, this, ticker.UPDATE_PRIORITY.UTILITY);
         }
@@ -491,13 +418,10 @@ const BasePrepare = /** @class */ (function ()
      *          function must return `true` if it was able to add item to the queue.
      * @return {this} Instance of plugin for chaining.
      */
-    BasePrepare.prototype.registerFindHook = function (addHook)
-    {
-        if (addHook)
-        {
+    BasePrepare.prototype.registerFindHook = function (addHook) {
+        if (addHook) {
             this.addHooks.push(addHook);
         }
-
         return this;
     };
     /**
@@ -507,13 +431,10 @@ const BasePrepare = /** @class */ (function ()
      *          function must return `true` if it was able to handle upload of item.
      * @return {this} Instance of plugin for chaining.
      */
-    BasePrepare.prototype.registerUploadHook = function (uploadHook)
-    {
-        if (uploadHook)
-        {
+    BasePrepare.prototype.registerUploadHook = function (uploadHook) {
+        if (uploadHook) {
             this.uploadHooks.push(uploadHook);
         }
-
         return this;
     };
     /**
@@ -523,36 +444,28 @@ const BasePrepare = /** @class */ (function ()
      *        add to the queue
      * @return {this} Instance of plugin for chaining.
      */
-    BasePrepare.prototype.add = function (item)
-    {
+    BasePrepare.prototype.add = function (item) {
         // Add additional hooks for finding elements on special
         // types of objects that
-        for (var i = 0, len = this.addHooks.length; i < len; i++)
-        {
-            if (this.addHooks[i](item, this.queue))
-            {
+        for (var i = 0, len = this.addHooks.length; i < len; i++) {
+            if (this.addHooks[i](item, this.queue)) {
                 break;
             }
         }
         // Get children recursively
-        if (item instanceof display.Container)
-        {
-            for (var i = item.children.length - 1; i >= 0; i--)
-            {
+        if (item instanceof display.Container) {
+            for (var i = item.children.length - 1; i >= 0; i--) {
                 this.add(item.children[i]);
             }
         }
-
         return this;
     };
     /**
      * Destroys the plugin, don't use after this.
      *
      */
-    BasePrepare.prototype.destroy = function ()
-    {
-        if (this.ticking)
-        {
+    BasePrepare.prototype.destroy = function () {
+        if (this.ticking) {
             ticker.Ticker.system.remove(this.tick, this);
         }
         this.ticking = false;
@@ -564,9 +477,8 @@ const BasePrepare = /** @class */ (function ()
         this.limiter = null;
         this.uploadHookHelper = null;
     };
-
     return BasePrepare;
-})();
+}());
 
 /**
  * Built-in hook to upload PIXI.Texture objects to the GPU.
@@ -576,21 +488,16 @@ const BasePrepare = /** @class */ (function ()
  * @param {PIXI.BaseTexture} item - Item to check
  * @return {boolean} If item was uploaded.
  */
-function uploadBaseTextures(renderer, item)
-{
-    if (item instanceof core.BaseTexture)
-    {
+function uploadBaseTextures(renderer, item) {
+    if (item instanceof core.BaseTexture) {
         // if the texture already has a GL texture, then the texture has been prepared or rendered
         // before now. If the texture changed, then the changer should be calling texture.update() which
         // reuploads the texture without need for preparing it again
-        if (!item._glTextures[renderer.CONTEXT_UID])
-        {
+        if (!item._glTextures[renderer.CONTEXT_UID]) {
             renderer.texture.bind(item);
         }
-
         return true;
     }
-
     return false;
 }
 /**
@@ -601,35 +508,26 @@ function uploadBaseTextures(renderer, item)
  * @param {PIXI.DisplayObject} item - Item to check
  * @return {boolean} If item was uploaded.
  */
-function uploadGraphics(renderer, item)
-{
-    if (!(item instanceof graphics.Graphics))
-    {
+function uploadGraphics(renderer, item) {
+    if (!(item instanceof graphics.Graphics)) {
         return false;
     }
-    const geometry = item.geometry;
+    var geometry = item.geometry;
     // update dirty graphics to get batches
-
     item.finishPoly();
     geometry.updateBatches();
-    const batches = geometry.batches;
+    var batches = geometry.batches;
     // upload all textures found in styles
-
-    for (let i = 0; i < batches.length; i++)
-    {
-        const texture = batches[i].style.texture;
-
-        if (texture)
-        {
+    for (var i = 0; i < batches.length; i++) {
+        var texture = batches[i].style.texture;
+        if (texture) {
             uploadBaseTextures(renderer, texture.baseTexture);
         }
     }
     // if its not batchable - update vao for particular shader
-    if (!geometry.batchable)
-    {
+    if (!geometry.batchable) {
         renderer.geometry.bind(geometry, item._resolveDirectShader(renderer));
     }
-
     return true;
 }
 /**
@@ -640,15 +538,11 @@ function uploadGraphics(renderer, item)
  * @param {Array<*>} queue - Collection of items to upload
  * @return {boolean} if a PIXI.Graphics object was found.
  */
-function findGraphics(item, queue)
-{
-    if (item instanceof graphics.Graphics)
-    {
+function findGraphics(item, queue) {
+    if (item instanceof graphics.Graphics) {
         queue.push(item);
-
         return true;
     }
-
     return false;
 }
 /**
@@ -682,27 +576,22 @@ function findGraphics(item, queue)
  * @extends PIXI.BasePrepare
  * @memberof PIXI
  */
-const Prepare = /** @class */ (function (_super)
-{
+var Prepare = /** @class */ (function (_super) {
     __extends(Prepare, _super);
     /**
      * @param {PIXI.Renderer} renderer - A reference to the current renderer
      */
-    function Prepare(renderer)
-    {
-        const _this = _super.call(this, renderer) || this;
-
+    function Prepare(renderer) {
+        var _this = _super.call(this, renderer) || this;
         _this.uploadHookHelper = _this.renderer;
         // Add textures and graphics to upload
         _this.registerFindHook(findGraphics);
         _this.registerUploadHook(uploadBaseTextures);
         _this.registerUploadHook(uploadGraphics);
-
         return _this;
     }
-
     return Prepare;
-})(BasePrepare);
+}(BasePrepare));
 
 /**
  * TimeLimiter limits the number of items handled by a {@link PIXI.BasePrepare} to a specified
@@ -711,13 +600,11 @@ const Prepare = /** @class */ (function (_super)
  * @class
  * @memberof PIXI
  */
-const TimeLimiter = /** @class */ (function ()
-{
+var TimeLimiter = /** @class */ (function () {
     /**
      * @param {number} maxMilliseconds - The maximum milliseconds that can be spent preparing items each frame.
      */
-    function TimeLimiter(maxMilliseconds)
-    {
+    function TimeLimiter(maxMilliseconds) {
         /**
          * The maximum milliseconds that can be spent preparing items each frame.
          * @type {number}
@@ -734,24 +621,21 @@ const TimeLimiter = /** @class */ (function ()
     /**
      * Resets any counting properties to start fresh on a new frame.
      */
-    TimeLimiter.prototype.beginFrame = function ()
-    {
+    TimeLimiter.prototype.beginFrame = function () {
         this.frameStart = Date.now();
     };
     /**
      * Checks to see if another item can be uploaded. This should only be called once per item.
      * @return {boolean} If the item is allowed to be uploaded.
      */
-    TimeLimiter.prototype.allowedToUpload = function ()
-    {
+    TimeLimiter.prototype.allowedToUpload = function () {
         return Date.now() - this.frameStart < this.maxMilliseconds;
     };
-
     return TimeLimiter;
-})();
+}());
 
 exports.BasePrepare = BasePrepare;
 exports.CountLimiter = CountLimiter;
 exports.Prepare = Prepare;
 exports.TimeLimiter = TimeLimiter;
-// # sourceMappingURL=prepare.js.map
+//# sourceMappingURL=prepare.js.map

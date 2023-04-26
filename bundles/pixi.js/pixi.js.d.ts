@@ -39,7 +39,6 @@ declare namespace PIXI {
      * document.body.appendChild(app.view);
      * @namespace PIXI.filters
      */
-
     namespace filters {
         /**
          * Simplest filter - applies alpha.
@@ -58,8 +57,7 @@ declare namespace PIXI {
          * @extends PIXI.Filter
          * @memberof PIXI.filters
          */
-        class AlphaFilter extends PIXI.Filter
-        {
+        class AlphaFilter extends PIXI.Filter {
             constructor(alpha?: number);
             /**
              * Coefficient for alpha multiplication
@@ -148,8 +146,7 @@ declare namespace PIXI {
          * @extends PIXI.Filter
          * @memberof PIXI.filters
          */
-        class BlurFilter extends PIXI.Filter
-        {
+        class BlurFilter extends PIXI.Filter {
             constructor(strength?: number, quality?: number, resolution?: number, kernelSize?: number);
             /**
              * Applies the filter.
@@ -261,8 +258,7 @@ declare namespace PIXI {
          * @extends PIXI.Filter
          * @memberof PIXI.filters
          */
-        class BlurFilterPass extends PIXI.Filter
-        {
+        class BlurFilterPass extends PIXI.Filter {
             constructor(horizontal: boolean, strength?: number, quality?: number, resolution?: number, kernelSize?: number);
             /**
              * Applies the filter.
@@ -362,8 +358,7 @@ declare namespace PIXI {
          * @extends PIXI.Filter
          * @memberof PIXI.filters
          */
-        class ColorMatrixFilter extends PIXI.Filter
-        {
+        class ColorMatrixFilter extends PIXI.Filter {
             constructor();
             /**
              * Transforms current matrix and set the new one
@@ -636,8 +631,7 @@ declare namespace PIXI {
          * @extends PIXI.Filter
          * @memberof PIXI.filters
          */
-        class DisplacementFilter extends PIXI.Filter
-        {
+        class DisplacementFilter extends PIXI.Filter {
             constructor(sprite: PIXI.Sprite, scale?: number);
             /**
              * scaleX, scaleY for displacements
@@ -729,8 +723,7 @@ declare namespace PIXI {
          * @memberof PIXI.filters
          *
          */
-        class FXAAFilter extends PIXI.Filter
-        {
+        class FXAAFilter extends PIXI.Filter {
             constructor();
             /**
              * The padding of the filter. Some filters require extra space to breath such as a blur.
@@ -810,8 +803,7 @@ declare namespace PIXI {
          * @extends PIXI.Filter
          * @memberof PIXI.filters
          */
-        class NoiseFilter extends PIXI.Filter
-        {
+        class NoiseFilter extends PIXI.Filter {
             constructor(noise?: number, seed?: number);
             /**
              * The amount of noise to apply, this value should be in the range (0, 1].
@@ -910,8 +902,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class AccessibilityManager
-    {
+    class AccessibilityManager {
         constructor(renderer: PIXI.Renderer);
         /**
          * Setting this to true will visually show the divs.
@@ -974,8 +965,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Application
-    {
+    class Application {
         constructor(options?: {
             autoStart?: boolean;
             width?: number;
@@ -1094,7 +1084,7 @@ declare namespace PIXI {
          */
         ticker: PIXI.Ticker;
     }
-    namespace Application {
+    module Application {
         /**
          * @memberof PIXI.Application
          * @typedef {object} Plugin
@@ -1531,8 +1521,7 @@ declare namespace PIXI {
      * @extends PIXI.utils.EventEmitter
      * @memberof PIXI
      */
-    class AbstractRenderer extends PIXI.utils.EventEmitter
-    {
+    class AbstractRenderer extends PIXI.utils.EventEmitter {
         constructor(system: string, options?: {
             width?: number;
             height?: number;
@@ -1757,8 +1746,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @extends PIXI.ObjectRenderer
      */
-    class AbstractBatchRenderer extends PIXI.ObjectRenderer
-    {
+    class AbstractBatchRenderer extends PIXI.ObjectRenderer {
         constructor(renderer: PIXI.Renderer);
         /**
          * This is used to generate a shader that can
@@ -1941,8 +1929,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class BatchDrawCall
-    {
+    class BatchDrawCall {
         constructor();
         /**
          * data for uniforms or custom webgl state
@@ -1956,8 +1943,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class BatchGeometry
-    {
+    class BatchGeometry {
         constructor(_static?: boolean);
         /**
          * Buffer used for position, color, texture IDs
@@ -1979,8 +1965,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @hideconstructor
      */
-    class BatchPluginFactory
-    {
+    class BatchPluginFactory {
         /**
          * Create a new BatchRenderer plugin for Renderer. this convenience can provide an easy way
          * to extend BatchRenderer with all the necessary pieces.
@@ -2039,8 +2024,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class BatchShaderGenerator
-    {
+    class BatchShaderGenerator {
         constructor(vertexSrc: string, fragTemplate: string);
         /**
          * Reference to the vertex shader source.
@@ -2062,8 +2046,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class BatchTextureArray
-    {
+    class BatchTextureArray {
         constructor();
         /**
          * inside textures array
@@ -2089,8 +2072,7 @@ declare namespace PIXI {
      * @extends PIXI.System
      * @memberof PIXI
      */
-    class ObjectRenderer extends PIXI.System
-    {
+    class ObjectRenderer extends PIXI.System {
         constructor(renderer: PIXI.Renderer);
         /**
          * The renderer this manager works for.
@@ -2264,8 +2246,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @extends PIXI.Shader
      */
-    class Filter extends PIXI.Shader
-    {
+    class Filter extends PIXI.Shader {
         constructor(vertexSrc?: string, fragmentSrc?: string, uniforms?: any);
         /**
          * The padding of the filter. Some filters require extra space to breath such as a blur.
@@ -2363,8 +2344,7 @@ declare namespace PIXI {
      * @extends PIXI.Filter
      * @memberof PIXI
      */
-    class SpriteMaskFilter extends PIXI.Filter
-    {
+    class SpriteMaskFilter extends PIXI.Filter {
         constructor(sprite: PIXI.Sprite);
         /**
          * Sprite mask
@@ -2462,9 +2442,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-
-    class Framebuffer
-    {
+    class Framebuffer {
         constructor(width: number, height: number);
         /**
          * Width of framebuffer in pixels
@@ -2543,8 +2521,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class GLFramebuffer
-    {
+    class GLFramebuffer {
         constructor();
         /**
          * The WebGL framebuffer
@@ -2600,8 +2577,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Attribute
-    {
+    class Attribute {
         constructor(buffer: string, size?: number, normalized?: boolean, type?: number, stride?: number, start?: number);
         /**
          * Destroys the Attribute.
@@ -2627,8 +2603,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Buffer
-    {
+    class Buffer {
         constructor(data: ArrayBuffer | SharedArrayBuffer | ArrayBufferView, _static?: boolean, index?: boolean);
         /**
          * The data in the buffer, as a typed array
@@ -2677,8 +2652,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Geometry
-    {
+    class Geometry {
         constructor(buffers?: PIXI.Buffer[], attributes?: any);
         /**
          * A map of renderer IDs to webgl VAOs
@@ -2781,8 +2755,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class ViewableBuffer
-    {
+    class ViewableBuffer {
         constructor(size: number);
         /**
          * Underlying `ArrayBuffer` that holds all the data
@@ -2855,8 +2828,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class MaskData
-    {
+    class MaskData {
         constructor(maskObject?: PIXI.DisplayObject);
         /**
          * Mask type
@@ -2912,8 +2884,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @extends PIXI.AbstractRenderer
      */
-    class Renderer extends PIXI.AbstractRenderer
-    {
+    class Renderer extends PIXI.AbstractRenderer {
         constructor(options?: {
             width?: number;
             height?: number;
@@ -3287,8 +3258,7 @@ declare namespace PIXI {
      * @extends PIXI.BaseTexture
      * @memberof PIXI
      */
-    class BaseRenderTexture extends PIXI.BaseTexture
-    {
+    class BaseRenderTexture extends PIXI.BaseTexture {
         constructor(options?: {
             width?: number;
             height?: number;
@@ -3596,8 +3566,7 @@ declare namespace PIXI {
      * @extends PIXI.Texture
      * @memberof PIXI
      */
-    class RenderTexture extends PIXI.Texture
-    {
+    class RenderTexture extends PIXI.Texture {
         constructor(baseRenderTexture: PIXI.BaseRenderTexture, frame?: PIXI.Rectangle);
         /**
          * This will let the renderer know if the texture is valid. If it's not then it cannot be rendered.
@@ -3823,8 +3792,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class RenderTexturePool
-    {
+    class RenderTexturePool {
         constructor(textureOptions?: {
             scaleMode?: PIXI.SCALE_MODES;
         });
@@ -3905,8 +3873,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class GLProgram
-    {
+    class GLProgram {
         constructor(program: WebGLProgram, uniformData: any);
         /**
          * The shader program
@@ -3937,8 +3904,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Program
-    {
+    class Program {
         constructor(vertexSrc?: string, fragmentSrc?: string, name?: string);
         /**
          * The vertex shader.
@@ -3995,8 +3961,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Shader
-    {
+    class Shader {
         constructor(program?: PIXI.Program, uniforms?: any);
         /**
          * Program that the shader uses
@@ -4027,8 +3992,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class UniformGroup
-    {
+    class UniformGroup {
         constructor(uniforms?: any, _static?: boolean);
         /**
          * uniform values
@@ -4070,8 +4034,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class State
-    {
+    class State {
         constructor();
         /**
          * Activates blending of the computed fragment color values
@@ -4100,6 +4063,11 @@ declare namespace PIXI {
          * @default false
          */
         depthTest: boolean;
+        /**
+         * Enables or disables writing to the depth buffer.
+         * @default true
+         */
+        depthMask: any;
         /**
          * Specifies whether or not front or back-facing polygons can be culled.
          * @member {boolean}
@@ -4130,8 +4098,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class System
-    {
+    class System {
         constructor(renderer: PIXI.Renderer);
         /**
          * The renderer this manager works for.
@@ -4156,8 +4123,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class BatchSystem extends PIXI.System
-        {
+        class BatchSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * An empty renderer.
@@ -4223,8 +4189,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class ContextSystem extends PIXI.System
-        {
+        class ContextSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * Either 1 or 2 to reflect the WebGL version being used
@@ -4336,8 +4301,7 @@ declare namespace PIXI {
          * @memberof PIXI.systems
          * @extends PIXI.System
          */
-        class FilterSystem extends PIXI.System
-        {
+        class FilterSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * List of filters for the FilterSystem
@@ -4487,8 +4451,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class FramebufferSystem extends PIXI.System
-        {
+        class FramebufferSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * A list of managed framebuffers
@@ -4617,8 +4580,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class GeometrySystem extends PIXI.System
-        {
+        class GeometrySystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * `true` if we has `*_vertex_array_object` extension
@@ -4753,8 +4715,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class AbstractMaskSystem extends PIXI.System
-        {
+        class AbstractMaskSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * The mask stack
@@ -4791,8 +4752,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class MaskSystem extends PIXI.System
-        {
+        class MaskSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * Enable scissor
@@ -4873,8 +4833,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class ScissorSystem extends PIXI.System
-        {
+        class ScissorSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * Applies the Mask and adds it to the current stencil stack. @alvin
@@ -4904,8 +4863,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class StencilSystem extends PIXI.System
-        {
+        class StencilSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * Applies the Mask and adds it to the current stencil stack.
@@ -4937,8 +4895,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class ProjectionSystem extends PIXI.System
-        {
+        class ProjectionSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * Destination frame
@@ -5016,8 +4973,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class RenderTextureSystem extends PIXI.System
-        {
+        class RenderTextureSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * The clear background color as rgba
@@ -5087,8 +5043,7 @@ declare namespace PIXI {
          * @memberof PIXI.systems
          * @extends PIXI.System
          */
-        class ShaderSystem extends PIXI.System
-        {
+        class ShaderSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * The current WebGL rendering context
@@ -5146,8 +5101,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class StateSystem extends PIXI.System
-        {
+        class StateSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * GL context
@@ -5229,6 +5183,11 @@ declare namespace PIXI {
              */
             setDepthTest(value: boolean): void;
             /**
+             * Sets whether to enable or disable depth mask.
+             * @param value - Turn on or off webgl depth mask.
+             */
+            setDepthMask(value: any): void;
+            /**
              * Sets whether to enable or disable cull face.
              *
              * @param {boolean} value - Turn on or off webgl cull face.
@@ -5286,8 +5245,7 @@ declare namespace PIXI {
          * @memberof PIXI.systems
          * @extends PIXI.System
          */
-        class TextureGCSystem extends PIXI.System
-        {
+        class TextureGCSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * Count
@@ -5353,8 +5311,7 @@ declare namespace PIXI {
          * @extends PIXI.System
          * @memberof PIXI.systems
          */
-        class TextureSystem extends PIXI.System
-        {
+        class TextureSystem extends PIXI.System {
             constructor(renderer: PIXI.Renderer);
             /**
              * Bound textures
@@ -5442,8 +5399,7 @@ declare namespace PIXI {
      * @param {object} [options.resourceOptions] - Optional resource options,
      *        see {@link PIXI.resources.autoDetectResource autoDetectResource}
      */
-    class BaseTexture extends PIXI.utils.EventEmitter
-    {
+    class BaseTexture extends PIXI.utils.EventEmitter {
         constructor(resource?: PIXI.resources.Resource | string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, options?: {
             mipmap?: PIXI.MIPMAP_MODES;
             anisotropicLevel?: number;
@@ -5756,8 +5712,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class GLTexture
-    {
+    class GLTexture {
         constructor();
         /**
          * The WebGL texture
@@ -5829,8 +5784,7 @@ declare namespace PIXI {
          * @param {number} [options.width] - Width of the resource
          * @param {number} [options.height] - Height of the resource
          */
-        class AbstractMultiResource extends PIXI.resources.Resource
-        {
+        class AbstractMultiResource extends PIXI.resources.Resource {
             constructor(options?: {
                 width?: number;
                 height?: number;
@@ -5986,8 +5940,7 @@ declare namespace PIXI {
          * @param {number} [options.width] - Width of the resource
          * @param {number} [options.height] - Height of the resource
          */
-        class ArrayResource extends PIXI.resources.Resource
-        {
+        class ArrayResource extends PIXI.resources.Resource {
             constructor(source: number | any[], options?: {
                 width?: number;
                 height?: number;
@@ -6164,7 +6117,6 @@ declare namespace PIXI {
          *        texture should be updated from the video. Leave at 0 to update at every render
          * @return {PIXI.resources.Resource} The created resource.
          */
-
         function autoDetectResource(source: string | any, options?: {
             width?: number;
             height?: number;
@@ -6181,8 +6133,7 @@ declare namespace PIXI {
          * @extends PIXI.resources.Resource
          * @memberof PIXI.resources
          */
-        class BaseImageResource extends PIXI.resources.Resource
-        {
+        class BaseImageResource extends PIXI.resources.Resource {
             constructor(source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | SVGElement);
             /**
              * The source element
@@ -6313,8 +6264,7 @@ declare namespace PIXI {
          * @extends PIXI.resources.Resource
          * @memberof PIXI.resources
          */
-        class BufferResource extends PIXI.resources.Resource
-        {
+        class BufferResource extends PIXI.resources.Resource {
             constructor(source: Float32Array | Uint8Array | Uint32Array, options: {
                 width: number;
                 height: number;
@@ -6448,8 +6398,7 @@ declare namespace PIXI {
          * @memberof PIXI.resources
          * @param {HTMLCanvasElement} source - Canvas element to use
          */
-        class CanvasResource extends PIXI.resources.BaseImageResource
-        {
+        class CanvasResource extends PIXI.resources.BaseImageResource {
             constructor(source: HTMLCanvasElement);
             /**
              * Used to auto-detect the type of resource.
@@ -6589,8 +6538,7 @@ declare namespace PIXI {
          * @param {number} [options.linkBaseTexture=true] - In case BaseTextures are supplied,
          *   whether to copy them or use
          */
-        class CubeResource extends PIXI.resources.ArrayResource
-        {
+        class CubeResource extends PIXI.resources.ArrayResource {
             constructor(source?: (string | PIXI.resources.Resource)[], options?: {
                 width?: number;
                 height?: number;
@@ -6740,8 +6688,7 @@ declare namespace PIXI {
          * @extends PIXI.resources.BufferResource
          * @memberof PIXI.resources
          */
-        class DepthResource extends PIXI.resources.BufferResource
-        {
+        class DepthResource extends PIXI.resources.BufferResource {
             /**
              * Upload the texture to the GPU.
              * @param {PIXI.Renderer} renderer - Upload to the renderer
@@ -6863,8 +6810,7 @@ declare namespace PIXI {
          * @memberof PIXI.resources
          * @param {ImageBitmap} source - Image element to use
          */
-        class ImageBitmapResource extends PIXI.resources.BaseImageResource
-        {
+        class ImageBitmapResource extends PIXI.resources.BaseImageResource {
             constructor(source: ImageBitmap);
             /**
              * Used to auto-detect the type of resource.
@@ -6995,8 +6941,7 @@ declare namespace PIXI {
          * @extends PIXI.resources.BaseImageResource
          * @memberof PIXI.resources
          */
-        class ImageResource extends PIXI.resources.BaseImageResource
-        {
+        class ImageResource extends PIXI.resources.BaseImageResource {
             constructor(source: HTMLImageElement | string, options?: {
                 autoLoad?: boolean;
                 createBitmap?: boolean;
@@ -7173,8 +7118,7 @@ declare namespace PIXI {
          * @class
          * @memberof PIXI.resources
          */
-        class Resource
-        {
+        class Resource {
             constructor(width?: number, height?: number);
             /**
              * Internal width of the resource
@@ -7295,8 +7239,7 @@ declare namespace PIXI {
          * @param {number} [options.height] - Rasterize SVG this high. Aspect ratio preserved if width not specified.
          * @param {boolean} [options.autoLoad=true] - Start loading right away.
          */
-        class SVGResource extends PIXI.resources.BaseImageResource
-        {
+        class SVGResource extends PIXI.resources.BaseImageResource {
             constructor(source: string, options?: {
                 scale?: number;
                 width?: number;
@@ -7480,8 +7423,7 @@ declare namespace PIXI {
          * Leave at 0 to update at every render.
          * @param {boolean} [options.crossorigin=true] - Load image using cross origin
          */
-        class VideoResource extends PIXI.resources.BaseImageResource
-        {
+        class VideoResource extends PIXI.resources.BaseImageResource {
             constructor(source: HTMLVideoElement | any | string | (string | any)[], options?: {
                 autoLoad?: boolean;
                 autoPlay?: boolean;
@@ -7681,8 +7623,7 @@ declare namespace PIXI {
      * @extends PIXI.utils.EventEmitter
      * @memberof PIXI
      */
-    class Texture extends PIXI.utils.EventEmitter
-    {
+    class Texture extends PIXI.utils.EventEmitter {
         constructor(baseTexture: PIXI.BaseTexture, frame?: PIXI.Rectangle, orig?: PIXI.Rectangle, trim?: PIXI.Rectangle, rotate?: number, anchor?: PIXI.IPointData);
         /**
          * Does this Texture have any frame data assigned to it?
@@ -7941,8 +7882,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class TextureMatrix
-    {
+    class TextureMatrix {
         constructor(texture: PIXI.Texture, clampMargin?: number);
         /**
          * Matrix operation that converts texture region coords to texture coords
@@ -8036,8 +7976,7 @@ declare namespace PIXI {
      * @protected
      * @memberof PIXI
      */
-    class TextureUvs
-    {
+    class TextureUvs {
         constructor();
         /**
          * X-component of top-left corner `(x0,y0)`.
@@ -8103,8 +8042,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Quad
-    {
+    class Quad {
         constructor();
     }
     /**
@@ -8114,8 +8052,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @extends PIXI.Geometry
      */
-    class QuadUv extends PIXI.Geometry
-    {
+    class QuadUv extends PIXI.Geometry {
         constructor();
         /**
          * An array of vertices
@@ -8237,8 +8174,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Bounds
-    {
+    class Bounds {
         constructor();
         /**
          * @member {number}
@@ -8408,8 +8344,7 @@ declare namespace PIXI {
      * @extends PIXI.DisplayObject
      * @memberof PIXI
      */
-    class Container extends PIXI.DisplayObject
-    {
+    class Container extends PIXI.DisplayObject {
         constructor();
         /**
          * The array of children of this container.
@@ -9111,8 +9046,7 @@ declare namespace PIXI {
      * @extends PIXI.utils.EventEmitter
      * @memberof PIXI
      */
-    class DisplayObject extends PIXI.utils.EventEmitter
-    {
+    class DisplayObject extends PIXI.utils.EventEmitter {
         constructor();
         /**
          *  Flag for if the object is accessible. If true AccessibilityManager will overlay a
@@ -9643,8 +9577,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Extract
-    {
+    class Extract {
         constructor(renderer: PIXI.Renderer);
         /**
          * Will return a HTML Image of the target
@@ -9761,9 +9694,7 @@ declare namespace PIXI {
      * @extends PIXI.Container
      * @memberof PIXI
      */
-
-    class Graphics extends PIXI.Container
-    {
+    class Graphics extends PIXI.Container {
         constructor(geometry?: PIXI.GraphicsGeometry);
         /**
          * Represents the vertex and fragment shaders that processes the geometry and runs on the GPU.
@@ -10981,8 +10912,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class GraphicsData
-    {
+    class GraphicsData {
         constructor(shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle, fillStyle?: PIXI.FillStyle, lineStyle?: PIXI.LineStyle, matrix?: PIXI.Matrix);
         /**
          * The shape object to draw.
@@ -11042,8 +10972,7 @@ declare namespace PIXI {
      * @extends PIXI.BatchGeometry
      * @memberof PIXI
      */
-    class GraphicsGeometry extends PIXI.BatchGeometry
-    {
+    class GraphicsGeometry extends PIXI.BatchGeometry {
         constructor();
         /**
          * An array of points to draw, 2 numbers per point
@@ -11368,8 +11297,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class FillStyle
-    {
+    class FillStyle {
         constructor();
         /**
          * The hex color value used when coloring the Graphics object.
@@ -11427,8 +11355,7 @@ declare namespace PIXI {
      * @class
      * @extends PIXI.FillStyle
      */
-    class LineStyle extends PIXI.FillStyle
-    {
+    class LineStyle extends PIXI.FillStyle {
         constructor();
         /**
          * The width (thickness) of any lines drawn.
@@ -11534,8 +11461,7 @@ declare namespace PIXI {
          * @class
          * @memberof PIXI.graphicsUtils
          */
-        class BatchPart
-        {
+        class BatchPart {
             constructor();
             /**
              * Begin batch part
@@ -11588,9 +11514,7 @@ declare namespace PIXI {
          * @param {number} [rotation=0] - The rotation of the star in radians, where 0 is vertical
          * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
          */
-
-        class Star extends PIXI.Polygon
-        {
+        class Star extends PIXI.Polygon {
             constructor(x: number, y: number, points: number, radius: number, innerRadius?: number, rotation?: number);
             /**
              * An array of the points of this polygon
@@ -11635,8 +11559,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class InteractionData
-    {
+    class InteractionData {
         constructor();
         /**
          * This point stores the global coords of where the touch/mouse event happened
@@ -11777,8 +11700,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class InteractionEvent
-    {
+    class InteractionEvent {
         constructor();
         /**
          * Whether this event will continue propagating in the tree.
@@ -11837,8 +11759,7 @@ declare namespace PIXI {
      * @extends PIXI.utils.EventEmitter
      * @memberof PIXI
      */
-    class InteractionManager extends PIXI.utils.EventEmitter
-    {
+    class InteractionManager extends PIXI.utils.EventEmitter {
         constructor(renderer: PIXI.Renderer, options?: {
             autoPreventDefault?: boolean;
             interactionFrequency?: number;
@@ -12077,8 +11998,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class AppLoaderPlugin
-    {
+    class AppLoaderPlugin {
     }
     /**
      * Plugin to be installed for handling specific Loader resources.
@@ -12096,7 +12016,7 @@ declare namespace PIXI {
         pre?: PIXI.Loader.loaderMiddleware;
         use?: PIXI.Loader.loaderMiddleware;
     };
-    namespace Loader {
+    module Loader {
         /**
          * @memberof PIXI.Loader
          * @typedef {object} ICallbackID
@@ -12187,8 +12107,7 @@ declare namespace PIXI {
      * @param {string} [baseUrl=''] - The base url for all resources loaded by this loader.
      * @param {number} [concurrency=10] - The number of resources to load concurrently.
      */
-    class Loader
-    {
+    class Loader {
         constructor(baseUrl?: string, concurrency?: number);
         /**
          * @memberof PIXI.Loader#
@@ -12254,8 +12173,7 @@ declare namespace PIXI {
     * @class LoaderResource
     * @memberof PIXI
      */
-    class LoaderResource
-    {
+    class LoaderResource {
     }
     interface TextureLoader extends PIXI.ILoaderPlugin {
     }
@@ -12265,8 +12183,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @implements PIXI.ILoaderPlugin
      */
-    class TextureLoader implements PIXI.ILoaderPlugin
-    {
+    class TextureLoader implements PIXI.ILoaderPlugin {
         /**
          * Called after a resource is loaded.
          * @see PIXI.Loader.loaderMiddleware
@@ -12326,7 +12243,6 @@ declare namespace PIXI {
      * @typedef {number} GD8Symmetry
      * @see PIXI.groupD8
      */
-
     type GD8Symmetry = number;
     /**
      * Implements the dihedral group D8, which is similar to
@@ -12460,7 +12376,6 @@ declare namespace PIXI {
          * @return {PIXI.GD8Symmetry} The X-component of the U-axis
          *    after rotating the axes.
          */
-
         function uX(ind: PIXI.GD8Symmetry): PIXI.GD8Symmetry;
         /**
          * @memberof PIXI.groupD8
@@ -12651,8 +12566,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Matrix
-    {
+    class Matrix {
         constructor(a?: number, b?: number, c?: number, d?: number, tx?: number, ty?: number);
         /**
          * @member {number}
@@ -12856,8 +12770,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @implements IPoint
      */
-    class ObservablePoint implements IPoint
-    {
+    class ObservablePoint implements IPoint {
         constructor(cb: (...params: any[]) => any, scope: any, x?: number, y?: number);
         /**
          * Creates a clone of this point.
@@ -12923,8 +12836,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @implements IPoint
      */
-    class Point implements IPoint
-    {
+    class Point implements IPoint {
         constructor(x?: number, y?: number);
         /**
          * @member {number}
@@ -12979,8 +12891,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Circle
-    {
+    class Circle {
         constructor(x?: number, y?: number, radius?: number);
         /**
          * @member {number}
@@ -13033,8 +12944,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Ellipse
-    {
+    class Ellipse {
         constructor(x?: number, y?: number, halfWidth?: number, halfHeight?: number);
         /**
          * @member {number}
@@ -13092,8 +13002,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Polygon
-    {
+    class Polygon {
         constructor(...points: (PIXI.IPoint[] | number[])[]);
         /**
          * An array of the points of this polygon
@@ -13150,8 +13059,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Rectangle
-    {
+    class Rectangle {
         constructor(x?: number, y?: number, width?: number, height?: number);
         /**
          * @member {number}
@@ -13282,8 +13190,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class RoundedRectangle
-    {
+    class RoundedRectangle {
         constructor(x?: number, y?: number, width?: number, height?: number, radius?: number);
         /**
          * @member {number}
@@ -13340,8 +13247,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Transform
-    {
+    class Transform {
         constructor();
         /**
          * The world transformation matrix.
@@ -13509,8 +13415,7 @@ declare namespace PIXI {
      * @extends PIXI.Container
      * @memberof PIXI
      */
-    class Mesh extends PIXI.Container
-    {
+    class Mesh extends PIXI.Container {
         constructor(geometry: PIXI.Geometry, shader: PIXI.MeshMaterial, state?: PIXI.State, drawMode?: number);
         /**
          * Includes vertex positions, face indices, normals, colors, UVs, and
@@ -14326,8 +14231,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class MeshBatchUvs
-    {
+    class MeshBatchUvs {
         constructor(uvBuffer: PIXI.Buffer, uvMatrix: PIXI.TextureMatrix);
         /**
          * Buffer with normalized UV's
@@ -14369,8 +14273,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @extends PIXI.Geometry
      */
-    class MeshGeometry extends PIXI.Geometry
-    {
+    class MeshGeometry extends PIXI.Geometry {
         constructor(vertices?: Float32Array | number[], uvs?: Float32Array | number[], index?: Uint16Array | number[]);
         /**
          * A map of renderer IDs to webgl VAOs
@@ -14464,8 +14367,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @extends PIXI.Shader
      */
-    class MeshMaterial extends PIXI.Shader
-    {
+    class MeshMaterial extends PIXI.Shader {
         constructor(uSampler: PIXI.Texture, options?: {
             alpha?: number;
             tint?: number;
@@ -14544,8 +14446,7 @@ declare namespace PIXI {
      * @memberof PIXI
      *
      */
-    class RopeGeometry extends PIXI.MeshGeometry
-    {
+    class RopeGeometry extends PIXI.MeshGeometry {
         constructor(width?: number, points?: PIXI.Point[], textureScale?: number);
         /**
          * An array of points that determine the rope
@@ -14678,7 +14579,7 @@ declare namespace PIXI {
      *    +---+----------------------+---+
      *  D | 7 |          8           | 9 |
      *    +---+----------------------+---+
-
+    
      *  When changing this objects width and/or height:
      *     areas 1 3 7 and 9 will remain unscaled.
      *     areas 2 and 8 will be stretched horizontally
@@ -14691,8 +14592,7 @@ declare namespace PIXI {
      * @memberof PIXI
      *
      */
-    class NineSlicePlane extends PIXI.SimplePlane
-    {
+    class NineSlicePlane extends PIXI.SimplePlane {
         constructor(texture: PIXI.Texture, leftWidth?: number, topHeight?: number, rightWidth?: number, bottomHeight?: number);
         /**
          * The width of the NineSlicePlane, setting this will actually modify the vertices and UV's of this plane
@@ -15559,8 +15459,7 @@ declare namespace PIXI {
      * @extends PIXI.Mesh
      * @memberof PIXI
      */
-    class SimpleMesh extends PIXI.Mesh
-    {
+    class SimpleMesh extends PIXI.Mesh {
         constructor(texture?: PIXI.Texture, vertices?: Float32Array, uvs?: Float32Array, indices?: Uint16Array, drawMode?: number);
         /**
          * upload vertices buffer each frame
@@ -16387,8 +16286,7 @@ declare namespace PIXI {
      * @memberof PIXI
      *
      */
-    class SimplePlane extends PIXI.Mesh
-    {
+    class SimplePlane extends PIXI.Mesh {
         constructor(texture: PIXI.Texture, verticesX: number, verticesY: number);
         /**
          * Method used for overrides, to do something in case texture frame was changed.
@@ -17210,8 +17108,7 @@ declare namespace PIXI {
      * @memberof PIXI
      *
      */
-    class SimpleRope extends PIXI.Mesh
-    {
+    class SimpleRope extends PIXI.Mesh {
         constructor(texture: PIXI.Texture, points: PIXI.Point[], textureScale?: number);
         /**
          * re-calculate vertices by rope points each frame
@@ -18046,8 +17943,7 @@ declare namespace PIXI {
      * @extends PIXI.Container
      * @memberof PIXI
      */
-    class ParticleContainer extends PIXI.Container
-    {
+    class ParticleContainer extends PIXI.Container {
         constructor(maxSize?: number, properties?: {
             vertices?: boolean;
             position?: boolean;
@@ -18778,8 +18674,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class ParticleRenderer
-    {
+    class ParticleRenderer {
         constructor(renderer: PIXI.Renderer);
         /**
          * The default shader that is used if a sprite doesn't have a more specific one.
@@ -18883,8 +18778,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class BasePrepare
-    {
+    class BasePrepare {
         constructor(renderer: PIXI.AbstractRenderer);
         /**
          * The limiter to be used to control how quickly items are prepared.
@@ -18950,8 +18844,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class CountLimiter
-    {
+    class CountLimiter {
         constructor(maxItemsPerFrame: number);
         /**
          * Resets any counting properties to start fresh on a new frame.
@@ -18994,8 +18887,7 @@ declare namespace PIXI {
      * @extends PIXI.BasePrepare
      * @memberof PIXI
      */
-    class Prepare extends PIXI.BasePrepare
-    {
+    class Prepare extends PIXI.BasePrepare {
         constructor(renderer: PIXI.Renderer);
         /**
          * The limiter to be used to control how quickly items are prepared.
@@ -19061,8 +18953,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class TimeLimiter
-    {
+    class TimeLimiter {
         constructor(maxMilliseconds: number);
         /**
          * Resets any counting properties to start fresh on a new frame.
@@ -19119,8 +19010,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Runner
-    {
+    class Runner {
         constructor(name: string);
         /**
          * Dispatch/Broadcast Runner to all listeners added to the queue.
@@ -19534,8 +19424,7 @@ declare namespace PIXI {
      * @extends PIXI.Container
      * @memberof PIXI
      */
-    class Sprite extends PIXI.Container
-    {
+    class Sprite extends PIXI.Container {
         constructor(texture?: PIXI.Texture);
         /**
          * The width of the sprite (this is initially set by the texture)
@@ -20337,7 +20226,7 @@ declare namespace PIXI {
          */
         getGlobalPosition(point?: PIXI.Point, skipUpdate?: boolean): PIXI.Point;
     }
-    namespace AnimatedSprite {
+    module AnimatedSprite {
         /**
          * @memberof PIXI.AnimatedSprite
          * @typedef {object} FrameObject
@@ -20383,8 +20272,7 @@ declare namespace PIXI {
      * @extends PIXI.Sprite
      * @memberof PIXI
      */
-    class AnimatedSprite extends PIXI.Sprite
-    {
+    class AnimatedSprite extends PIXI.Sprite {
         constructor(textures: PIXI.Texture[] | PIXI.AnimatedSprite.FrameObject[], autoUpdate?: boolean);
         /**
          * The speed that the AnimatedSprite will play at. Higher is faster, lower is slower.
@@ -21320,8 +21208,7 @@ declare namespace PIXI {
      * @extends PIXI.Sprite
      * @memberof PIXI
      */
-    class TilingSprite extends PIXI.Sprite
-    {
+    class TilingSprite extends PIXI.Sprite {
         static from(source: number | string | PIXI.Texture | HTMLCanvasElement | HTMLVideoElement, options?: any): PIXI.Sprite;
         static fromFrame(): PIXI.Sprite;
         static fromImage(): PIXI.Sprite;
@@ -22160,8 +22047,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @extends PIXI.ObjectRenderer
      */
-    class TilingSpriteRenderer extends PIXI.ObjectRenderer
-    {
+    class TilingSpriteRenderer extends PIXI.ObjectRenderer {
         constructor(renderer: PIXI.Renderer);
         /**
          * The WebGL state in which this renderer will work.
@@ -22228,8 +22114,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Spritesheet
-    {
+    class Spritesheet {
         constructor(baseTexture: PIXI.BaseTexture | PIXI.Texture, data: any, resolutionFilename?: string);
         /**
          * Reference to ths source texture.
@@ -22298,8 +22183,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @implements PIXI.ILoaderPlugin
      */
-    class SpritesheetLoader implements PIXI.ILoaderPlugin
-    {
+    class SpritesheetLoader implements PIXI.ILoaderPlugin {
         /**
          * Called after a resource is loaded.
          * @see PIXI.Loader.loaderMiddleware
@@ -22354,9 +22238,7 @@ declare namespace PIXI {
      * @extends PIXI.Sprite
      * @memberof PIXI
      */
-
-    class Text extends PIXI.Sprite
-    {
+    class Text extends PIXI.Sprite {
         constructor(text: string, style?: any | PIXI.TextStyle, canvas?: HTMLCanvasElement);
         /**
          * The canvas element that everything is drawn to
@@ -23220,8 +23102,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class TextMetrics
-    {
+    class TextMetrics {
         constructor(text: string, style: PIXI.TextStyle, width: number, height: number, lines: string[], lineWidths: number[], lineHeight: number, maxLineWidth: number, fontProperties: any);
         /**
          * The text that was measured
@@ -23387,8 +23268,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class TextStyle
-    {
+    class TextStyle {
         constructor(style?: {
             align?: string;
             breakWords?: boolean;
@@ -23650,8 +23530,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class BitmapFont
-    {
+    class BitmapFont {
         constructor(data: PIXI.BitmapFontData, textures: PIXI.Texture[] | {
             [key: string]: PIXI.Texture;
         }, ownsTextures?: boolean);
@@ -23889,8 +23768,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class BitmapFontData
-    {
+    class BitmapFontData {
         constructor();
         /**
          * @member {PIXI.IBitmapFontDataInfo[]}
@@ -23927,8 +23805,7 @@ declare namespace PIXI {
      * @memberof PIXI
      * @implements PIXI.ILoaderPlugin
      */
-    class BitmapFontLoader implements PIXI.ILoaderPlugin
-    {
+    class BitmapFontLoader implements PIXI.ILoaderPlugin {
         /**
          * Called when the plugin is installed.
          *
@@ -23968,8 +23845,7 @@ declare namespace PIXI {
      * @extends PIXI.Container
      * @memberof PIXI
      */
-    class BitmapText extends PIXI.Container
-    {
+    class BitmapText extends PIXI.Container {
         constructor(text: string, style: {
             fontName: string;
             fontSize?: number;
@@ -24824,8 +24700,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class Ticker
-    {
+    class Ticker {
         constructor();
         /**
          * Whether or not this ticker should invoke the method
@@ -25070,8 +24945,7 @@ declare namespace PIXI {
      * @class
      * @memberof PIXI
      */
-    class TickerPlugin
-    {
+    class TickerPlugin {
     }
     /**
      * Regexp for data URI.
@@ -25101,7 +24975,6 @@ declare namespace PIXI {
      * console.log(PIXI.utils.hex2string(0xff00ff)); // returns: "#ff00ff"
      * @namespace PIXI.utils
      */
-
     namespace utils {
         /**
          * Skips the hello message of renderers that are created after this is run.
@@ -25190,7 +25063,6 @@ declare namespace PIXI {
          * @param {boolean} premultiplied - whether source is premultiplied
          * @returns {number} true blend mode for this texture
          */
-
         function correctBlendMode(blendMode: number, premultiplied: boolean): number;
         /**
          * combines rgb and alpha to out array
@@ -25354,9 +25226,7 @@ declare namespace PIXI {
          * @class EventEmitter
          * @type {EventEmitter}
          */
-
-        class EventEmitter
-        {
+        class EventEmitter {
         }
         /**
          * A polygon triangulation library
@@ -25393,7 +25263,6 @@ declare namespace PIXI {
          * @param {number} [ignoreDepth=3] - The number of steps to ignore at the top of the error stack
          *        this is mostly to ignore internal deprecation calls.
          */
-
         function deprecation(version: string, message: string, ignoreDepth?: number): void;
         /**
          * @todo Describe property usage
@@ -25428,7 +25297,6 @@ declare namespace PIXI {
          * @memberof PIXI.utils
          * @function destroyTextureCache
          */
-
         function destroyTextureCache(): void;
         /**
          * Removes all textures from cache, but does not destroy them
@@ -25443,8 +25311,7 @@ declare namespace PIXI {
          * @class
          * @memberof PIXI.utils
          */
-        class CanvasRenderTarget
-        {
+        class CanvasRenderTarget {
             constructor(width: number, height: number, resolution?: number);
             /**
              * The Canvas object that belongs to this CanvasRenderTarget.
@@ -25563,6 +25430,7 @@ declare interface SharedArrayBuffer {
 declare interface OffscreenCanvas {
 }
 
+
 declare namespace PIXI {
     namespace utils {
 // https://github.com/primus/eventemitter3
@@ -25580,7 +25448,7 @@ declare namespace PIXI {
              * @param {(string | symbol)} event The event name.
              * @returns {Function[]}
              */
-            // tslint:disable-next-line:ban-types forbidden-types
+            //tslint:disable-next-line:ban-types forbidden-types
             listeners(event: string | symbol): Array<Function>;
 
             /**
@@ -25608,7 +25476,7 @@ declare namespace PIXI {
              * @param {*} [context=this] The context to invoke the listener with.
              * @returns {EventEmitter} `this`.
              */
-            // tslint:disable-next-line:ban-types forbidden-types
+            //tslint:disable-next-line:ban-types forbidden-types
             on(event: string | symbol, fn: Function, context?: any): this;
 
             /**
@@ -25619,7 +25487,7 @@ declare namespace PIXI {
              * @param {*} [context=this] The context to invoke the listener with.
              * @returns {EventEmitter} `this`.
              */
-            // tslint:disable-next-line:ban-types forbidden-types
+            //tslint:disable-next-line:ban-types forbidden-types
             once(event: string | symbol, fn: Function, context?: any): this;
 
             /**
@@ -25631,7 +25499,7 @@ declare namespace PIXI {
              * @param {boolean} once Only remove one-time listeners.
              * @returns {EventEmitter} `this`.
              */
-            // tslint:disable-next-line:ban-types forbidden-types
+            //tslint:disable-next-line:ban-types forbidden-types
             removeListener(event: string | symbol, fn?: Function, context?: any, once?: boolean): this;
 
             /**
@@ -25645,52 +25513,53 @@ declare namespace PIXI {
             /**
              * Alias method for `removeListener`
              */
-            // tslint:disable-next-line:ban-types forbidden-types
+            //tslint:disable-next-line:ban-types forbidden-types
             off(event: string | symbol, fn?: Function, context?: any, once?: boolean): this;
 
             /**
              * Alias method for `on`
              */
-            // tslint:disable-next-line:ban-types forbidden-types
+            //tslint:disable-next-line:ban-types forbidden-types
             addListener(event: string | symbol, fn: Function, context?: any): this;
         }
     }
 
-    type InteractionPointerEvents = 'pointerdown' | 'pointercancel' | 'pointerup' | 'pointertap' | 'pointerupoutside' | 'pointermove' | 'pointerover' | 'pointerout';
-    type InteractionTouchEvents = 'touchstart' | 'touchcancel' | 'touchend' | 'touchendoutside' | 'touchmove' | 'tap';
-    type InteractionMouseEvents = 'rightdown' | 'mousedown' | 'rightup' | 'mouseup' | 'rightclick' | 'click' | 'rightupoutside' | 'mouseupoutside' | 'mousemove' | 'mouseover' | 'mouseout';
-    type InteractionPixiEvents = 'added' | 'removed';
+
+    type InteractionPointerEvents = "pointerdown" | "pointercancel" | "pointerup" | "pointertap" | "pointerupoutside" | "pointermove" | "pointerover" | "pointerout";
+    type InteractionTouchEvents = "touchstart" | "touchcancel" | "touchend" | "touchendoutside" | "touchmove" | "tap";
+    type InteractionMouseEvents = "rightdown" | "mousedown" | "rightup" | "mouseup" | "rightclick" | "click" | "rightupoutside" | "mouseupoutside" | "mousemove" | "mouseover" | "mouseout";
+    type InteractionPixiEvents = "added" | "removed";
     type InteractionEventTypes = InteractionPointerEvents | InteractionTouchEvents | InteractionMouseEvents | InteractionPixiEvents;
 
     export interface DisplayObject {
         on(event: InteractionEventTypes, fn: (event: InteractionEvent) => void, context?: any): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         on(event: string | symbol, fn: Function, context?: any): this;
         once(event: InteractionEventTypes, fn: (event: InteractionEvent) => void, context?: any): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         once(event: string | symbol, fn: Function, context?: any): this;
         removeListener(event: InteractionEventTypes, fn?: (event: InteractionEvent) => void, context?: any): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         removeListener(event: string | symbol, fn?: Function, context?: any): this;
         removeAllListeners(event?: InteractionEventTypes): this;
         removeAllListeners(event?: string | symbol): this;
         off(event: InteractionEventTypes, fn?: (event: InteractionEvent) => void, context?: any): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         off(event: string | symbol, fn?: Function, context?: any): this;
         addListener(event: InteractionEventTypes, fn: (event: InteractionEvent) => void, context?: any): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         addListener(event: string | symbol, fn: Function, context?: any): this;
     }
 
     export interface Container {
-        once(event: 'added' | 'removed', fn: (displayObject: DisplayObject) => void, context?: any): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        once(event: "added" | "removed", fn: (displayObject: DisplayObject) => void, context?: any): this;
+        //tslint:disable-next-line:ban-types forbidden-types
         once(event: string, fn: Function, context?: any): this;
-        on(event: 'added' | 'removed', fn: (displayObject: DisplayObject) => void, context?: any): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        on(event: "added" | "removed", fn: (displayObject: DisplayObject) => void, context?: any): this;
+        //tslint:disable-next-line:ban-types forbidden-types
         on(event: string, fn: Function, context?: any): this;
-        // tslint:disable-next-line:ban-types forbidden-types
-        off(event: 'added' | 'removed' | string, fn?: Function, context?: any): this;
+        //tslint:disable-next-line:ban-types forbidden-types
+        off(event: "added" | "removed" | string, fn?: Function, context?: any): this;
     }
 }
 
@@ -25704,17 +25573,17 @@ declare namespace PIXI {
         concurrency: number;
 
         add(...params: any[]): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         add(name: string, url: string, options?: ILoaderOptions, cb?: Function): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         add(obj: string | any | any[], options?: ILoaderOptions, cb?: Function): this;
 
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         pre(fn: Function): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         use(fn: Function): this;
         reset(): this;
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         load(cb?: (loader: Loader, resources: Partial<Record<string, LoaderResource>>) => void): this;
 
         destroy(): void;
@@ -25758,7 +25627,7 @@ declare namespace PIXI {
         isLoading: boolean;
         complete(): void;
         abort(message?: string): void;
-        // tslint:disable-next-line:ban-types forbidden-types
+        //tslint:disable-next-line:ban-types forbidden-types
         load(cb?: Function): void;
         texture: Texture;
         spineAtlas: any;
@@ -25819,6 +25688,6 @@ declare namespace PIXI {
     }
 }
 
-declare module 'pixi.js' {
+declare module "pixi.js" {
     export = PIXI;
 }

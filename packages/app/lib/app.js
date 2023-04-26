@@ -1,15 +1,16 @@
-/* !
+/*!
  * @pixi/app - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/app is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
+'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const display = require('@pixi/display');
-const core = require('@pixi/core');
+var display = require('@pixi/display');
+var core = require('@pixi/core');
 
 /**
  * Convenience class to create a new PIXI application.
@@ -29,8 +30,7 @@ const core = require('@pixi/core');
  * @class
  * @memberof PIXI
  */
-const Application = /** @class */ (function ()
-{
+var Application = /** @class */ (function () {
     /**
      * @param {object} [options] - The optional renderer parameters.
      * @param {boolean} [options.autoStart=true] - Automatically starts the rendering after the construction.
@@ -61,11 +61,9 @@ const Application = /** @class */ (function ()
      * @param {boolean} [options.sharedLoader=false] - `true` to use PIXI.Loader.shared, `false` to create new Loader.
      * @param {Window|HTMLElement} [options.resizeTo] - Element to automatically resize stage to.
      */
-    function Application(options)
-    {
-        const _this = this;
+    function Application(options) {
+        var _this = this;
         // The default options
-
         options = Object.assign({
             forceCanvas: false,
         }, options);
@@ -80,8 +78,7 @@ const Application = /** @class */ (function ()
          */
         this.stage = new display.Container();
         // install plugins here
-        Application._plugins.forEach(function (plugin)
-        {
+        Application._plugins.forEach(function (plugin) {
             plugin.init.call(_this, options);
         });
     }
@@ -90,40 +87,36 @@ const Application = /** @class */ (function ()
      * @static
      * @param {PIXI.Application.Plugin} plugin - Plugin being installed
      */
-    Application.registerPlugin = function (plugin)
-    {
+    Application.registerPlugin = function (plugin) {
         Application._plugins.push(plugin);
     };
     /**
      * Render the current stage.
      */
-    Application.prototype.render = function ()
-    {
+    Application.prototype.render = function () {
         // TODO: Since CanvasRenderer has not been converted this function thinks it takes DisplayObject & PIXI.DisplayObject
         // This can be fixed when CanvasRenderer is converted.
         this.renderer.render(this.stage);
     };
-    Object.defineProperty(Application.prototype, 'view', {
+    Object.defineProperty(Application.prototype, "view", {
         /**
          * Reference to the renderer's canvas element.
          * @member {HTMLCanvasElement}
          * @readonly
          */
-        get()
-        {
+        get: function () {
             return this.renderer.view;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Application.prototype, 'screen', {
+    Object.defineProperty(Application.prototype, "screen", {
         /**
          * Reference to the renderer's screen rectangle. Its safe to use as `filterArea` or `hitArea` for the whole screen.
          * @member {PIXI.Rectangle}
          * @readonly
          */
-        get()
-        {
+        get: function () {
             return this.renderer.screen;
         },
         enumerable: false,
@@ -141,16 +134,13 @@ const Application = /** @class */ (function ()
      * @param {boolean} [stageOptions.baseTexture=false] - Only used for child Sprites if stageOptions.children is set
      *  to true. Should it destroy the base texture of the child sprite
      */
-    Application.prototype.destroy = function (removeView, stageOptions)
-    {
-        const _this = this;
+    Application.prototype.destroy = function (removeView, stageOptions) {
+        var _this = this;
         // Destroy plugins in the opposite order
         // which they were constructed
-        const plugins = Application._plugins.slice(0);
-
+        var plugins = Application._plugins.slice(0);
         plugins.reverse();
-        plugins.forEach(function (plugin)
-        {
+        plugins.forEach(function (plugin) {
             plugin.destroy.call(_this);
         });
         this.stage.destroy(stageOptions);
@@ -158,9 +148,8 @@ const Application = /** @class */ (function ()
         this.renderer.destroy(removeView);
         this.renderer = null;
     };
-
     return Application;
-})();
+}());
 /**
  * @memberof PIXI.Application
  * @typedef {object} Plugin
@@ -174,7 +163,6 @@ const Application = /** @class */ (function ()
  * @private
  * @type {PIXI.Application.Plugin[]}
  */
-
 Application._plugins = [];
 
 /**
@@ -182,10 +170,8 @@ Application._plugins = [];
  * @private
  * @class
  */
-const ResizePlugin = /** @class */ (function ()
-{
-    function ResizePlugin()
-    {
+var ResizePlugin = /** @class */ (function () {
+    function ResizePlugin() {
     }
     /**
      * Initialize the plugin with scope of application instance
@@ -193,9 +179,8 @@ const ResizePlugin = /** @class */ (function ()
      * @private
      * @param {object} [options] - See application options
      */
-    ResizePlugin.init = function (options)
-    {
-        const _this = this;
+    ResizePlugin.init = function (options) {
+        var _this = this;
         /**
          * The HTML element or window to automatically resize the
          * renderer's view element to match width and height.
@@ -203,20 +188,16 @@ const ResizePlugin = /** @class */ (function ()
          * @name resizeTo
          * @memberof PIXI.Application#
          */
-
         Object.defineProperty(this, 'resizeTo', {
-            set(dom)
-            {
+            set: function (dom) {
                 window.removeEventListener('resize', this.queueResize);
                 this._resizeTo = dom;
-                if (dom)
-                {
+                if (dom) {
                     window.addEventListener('resize', this.queueResize);
                     this.resize();
                 }
             },
-            get()
-            {
+            get: function () {
                 return this._resizeTo;
             },
         });
@@ -226,10 +207,8 @@ const ResizePlugin = /** @class */ (function ()
          * only be called once.
          * @method PIXI.Application#queueResize
          */
-        this.queueResize = function ()
-        {
-            if (!_this._resizeTo)
-            {
+        this.queueResize = function () {
+            if (!_this._resizeTo) {
                 return;
             }
             _this.cancelResize();
@@ -241,10 +220,8 @@ const ResizePlugin = /** @class */ (function ()
          * @method PIXI.Application#cancelResize
          * @private
          */
-        this.cancelResize = function ()
-        {
-            if (_this._resizeId)
-            {
+        this.cancelResize = function () {
+            if (_this._resizeId) {
                 cancelAnimationFrame(_this._resizeId);
                 _this._resizeId = null;
             }
@@ -255,29 +232,22 @@ const ResizePlugin = /** @class */ (function ()
          * Will resize only if `resizeTo` property is set.
          * @method PIXI.Application#resize
          */
-        this.resize = function ()
-        {
-            if (!_this._resizeTo)
-            {
+        this.resize = function () {
+            if (!_this._resizeTo) {
                 return;
             }
             // clear queue resize
             _this.cancelResize();
-            let width;
-            let height;
+            var width;
+            var height;
             // Resize to the window
-
-            if (_this._resizeTo === window)
-            {
+            if (_this._resizeTo === window) {
                 width = window.innerWidth;
                 height = window.innerHeight;
             }
             // Resize to other HTML entities
-            else
-            {
-                const _a = _this._resizeTo; const clientWidth = _a.clientWidth; const
-                    clientHeight = _a.clientHeight;
-
+            else {
+                var _a = _this._resizeTo, clientWidth = _a.clientWidth, clientHeight = _a.clientHeight;
                 width = clientWidth;
                 height = clientHeight;
             }
@@ -293,8 +263,7 @@ const ResizePlugin = /** @class */ (function ()
      * @static
      * @private
      */
-    ResizePlugin.destroy = function ()
-    {
+    ResizePlugin.destroy = function () {
         window.removeEventListener('resize', this.queueResize);
         this.cancelResize();
         this.cancelResize = null;
@@ -302,11 +271,10 @@ const ResizePlugin = /** @class */ (function ()
         this.resizeTo = null;
         this.resize = null;
     };
-
     return ResizePlugin;
-})();
+}());
 
 Application.registerPlugin(ResizePlugin);
 
 exports.Application = Application;
-// # sourceMappingURL=app.js.map
+//# sourceMappingURL=app.js.map

@@ -1,6 +1,6 @@
-/* !
+/*!
  * @pixi/utils - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/utils is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -37,17 +37,15 @@ settings.RETINA_PREFIX = /@([0-9\.]+)x/;
  */
 settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = true;
 
-let saidHello = false;
-const VERSION = '5.3.12';
+var saidHello = false;
+var VERSION = '5.3.12';
 /**
  * Skips the hello message of renderers that are created after this is run.
  *
  * @function skipHello
  * @memberof PIXI.utils
  */
-
-function skipHello()
-{
+function skipHello() {
     saidHello = true;
 }
 /**
@@ -60,18 +58,14 @@ function skipHello()
  * @memberof PIXI.utils
  * @param {string} type - The string renderer type to log.
  */
-function sayHello(type)
-{
-    let _a;
-
-    if (saidHello)
-    {
+function sayHello(type) {
+    var _a;
+    if (saidHello) {
         return;
     }
-    if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1)
-    {
-        const args = [
-            `\n %c %c %c PixiJS ${VERSION} - \u2730 ${type} \u2730  %c  %c  http://www.pixijs.com/  %c %c \u2665%c\u2665%c\u2665 \n\n`,
+    if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
+        var args = [
+            "\n %c %c %c PixiJS " + VERSION + " - \u2730 " + type + " \u2730  %c  %c  http://www.pixijs.com/  %c %c \u2665%c\u2665%c\u2665 \n\n",
             'background: #ff66a5; padding:5px 0;',
             'background: #ff66a5; padding:5px 0;',
             'color: #ff66a5; background: #030307; padding:5px 0;',
@@ -80,18 +74,16 @@ function sayHello(type)
             'background: #ff66a5; padding:5px 0;',
             'color: #ff2424; background: #fff; padding:5px 0;',
             'color: #ff2424; background: #fff; padding:5px 0;',
-            'color: #ff2424; background: #fff; padding:5px 0;'];
-
+            'color: #ff2424; background: #fff; padding:5px 0;' ];
         (_a = window.console).log.apply(_a, args);
     }
-    else if (window.console)
-    {
-        window.console.log(`PixiJS ${VERSION} - ${type} - http://www.pixijs.com/`);
+    else if (window.console) {
+        window.console.log("PixiJS " + VERSION + " - " + type + " - http://www.pixijs.com/");
     }
     saidHello = true;
 }
 
-let supported;
+var supported;
 /**
  * Helper for checking for WebGL support.
  *
@@ -99,49 +91,35 @@ let supported;
  * @function isWebGLSupported
  * @return {boolean} Is WebGL supported.
  */
-
-function isWebGLSupported()
-{
-    if (typeof supported === 'undefined')
-    {
-        supported = (function supported()
-        {
-            const contextOptions = {
+function isWebGLSupported() {
+    if (typeof supported === 'undefined') {
+        supported = (function supported() {
+            var contextOptions = {
                 stencil: true,
                 failIfMajorPerformanceCaveat: settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT,
             };
-
-            try
-            {
-                if (!window.WebGLRenderingContext)
-                {
+            try {
+                if (!window.WebGLRenderingContext) {
                     return false;
                 }
-                const canvas = document.createElement('canvas');
-                let gl = (canvas.getContext('webgl', contextOptions)
+                var canvas = document.createElement('canvas');
+                var gl = (canvas.getContext('webgl', contextOptions)
                     || canvas.getContext('experimental-webgl', contextOptions));
-                const success = !!(gl && gl.getContextAttributes().stencil);
-
-                if (gl)
-                {
-                    const loseContext = gl.getExtension('WEBGL_lose_context');
-
-                    if (loseContext)
-                    {
+                var success = !!(gl && gl.getContextAttributes().stencil);
+                if (gl) {
+                    var loseContext = gl.getExtension('WEBGL_lose_context');
+                    if (loseContext) {
                         loseContext.loseContext();
                     }
                 }
                 gl = null;
-
                 return success;
             }
-            catch (e)
-            {
+            catch (e) {
                 return false;
             }
         })();
     }
-
     return supported;
 }
 
@@ -156,13 +134,11 @@ function isWebGLSupported()
  * @param  {number[]} [out=[]] - If supplied, this array will be used rather than returning a new one
  * @return {number[]} An array representing the [R, G, B] of the color where all values are floats.
  */
-function hex2rgb(hex, out)
-{
+function hex2rgb(hex, out) {
     if (out === void 0) { out = []; }
     out[0] = ((hex >> 16) & 0xFF) / 255;
     out[1] = ((hex >> 8) & 0xFF) / 255;
     out[2] = (hex & 0xFF) / 255;
-
     return out;
 }
 /**
@@ -175,13 +151,10 @@ function hex2rgb(hex, out)
  * @param {number} hex - Number in hex (e.g., `0xffffff`)
  * @return {string} The string color (e.g., `"#ffffff"`).
  */
-function hex2string(hex)
-{
-    let hexString = hex.toString(16);
-
+function hex2string(hex) {
+    var hexString = hex.toString(16);
     hexString = '000000'.substr(0, 6 - hexString.length) + hexString;
-
-    return `#${hexString}`;
+    return "#" + hexString;
 }
 /**
  * Converts a hexadecimal string to a hexadecimal color number.
@@ -193,13 +166,10 @@ function hex2string(hex)
  * @param {string} string - The string color (e.g., `"#ffffff"`)
  * @return {number} Number in hexadecimal.
  */
-function string2hex(string)
-{
-    if (typeof string === 'string' && string[0] === '#')
-    {
+function string2hex(string) {
+    if (typeof string === 'string' && string[0] === '#') {
         string = string.substr(1);
     }
-
     return parseInt(string, 16);
 }
 /**
@@ -212,8 +182,7 @@ function string2hex(string)
  * @param {number[]} rgb - Array of numbers where all values are normalized floats from 0.0 to 1.0.
  * @return {number} Number in hexadecimal.
  */
-function rgb2hex(rgb)
-{
+function rgb2hex(rgb) {
     return (((rgb[0] * 255) << 16) + ((rgb[1] * 255) << 8) + (rgb[2] * 255 | 0));
 }
 
@@ -225,13 +194,10 @@ function rgb2hex(rgb)
  * @private
  * @return {Array<number[]>} Mapped modes.
  */
-function mapPremultipliedBlendModes()
-{
-    const pm = [];
-    const npm = [];
-
-    for (let i = 0; i < 32; i++)
-    {
+function mapPremultipliedBlendModes() {
+    var pm = [];
+    var npm = [];
+    for (var i = 0; i < 32; i++) {
         pm[i] = i;
         npm[i] = i;
     }
@@ -241,11 +207,9 @@ function mapPremultipliedBlendModes()
     npm[BLEND_MODES.NORMAL] = BLEND_MODES.NORMAL_NPM;
     npm[BLEND_MODES.ADD] = BLEND_MODES.ADD_NPM;
     npm[BLEND_MODES.SCREEN] = BLEND_MODES.SCREEN_NPM;
-    const array = [];
-
+    var array = [];
     array.push(npm);
     array.push(pm);
-
     return array;
 }
 /**
@@ -254,7 +218,7 @@ function mapPremultipliedBlendModes()
  * @const premultiplyBlendMode
  * @type {Array<number[]>}
  */
-const premultiplyBlendMode = mapPremultipliedBlendModes();
+var premultiplyBlendMode = mapPremultipliedBlendModes();
 /**
  * changes blendMode according to texture format
  *
@@ -264,9 +228,7 @@ const premultiplyBlendMode = mapPremultipliedBlendModes();
  * @param {boolean} premultiplied - whether source is premultiplied
  * @returns {number} true blend mode for this texture
  */
-
-function correctBlendMode(blendMode, premultiplied)
-{
+function correctBlendMode(blendMode, premultiplied) {
     return premultiplyBlendMode[premultiplied ? 1 : 0][blendMode];
 }
 /**
@@ -280,23 +242,19 @@ function correctBlendMode(blendMode, premultiplied)
  * @param {boolean} [premultiply=true] - do premultiply it
  * @returns {Float32Array} vec4 rgba
  */
-function premultiplyRgba(rgb, alpha, out, premultiply)
-{
+function premultiplyRgba(rgb, alpha, out, premultiply) {
     out = out || new Float32Array(4);
-    if (premultiply || premultiply === undefined)
-    {
+    if (premultiply || premultiply === undefined) {
         out[0] = rgb[0] * alpha;
         out[1] = rgb[1] * alpha;
         out[2] = rgb[2] * alpha;
     }
-    else
-    {
+    else {
         out[0] = rgb[0];
         out[1] = rgb[1];
         out[2] = rgb[2];
     }
     out[3] = alpha;
-
     return out;
 }
 /**
@@ -308,24 +266,19 @@ function premultiplyRgba(rgb, alpha, out, premultiply)
  * @param {number} alpha - floating point alpha (0.0-1.0)
  * @returns {number} tint multiplied by alpha
  */
-function premultiplyTint(tint, alpha)
-{
-    if (alpha === 1.0)
-    {
+function premultiplyTint(tint, alpha) {
+    if (alpha === 1.0) {
         return (alpha * 255 << 24) + tint;
     }
-    if (alpha === 0.0)
-    {
+    if (alpha === 0.0) {
         return 0;
     }
-    let R = ((tint >> 16) & 0xFF);
-    let G = ((tint >> 8) & 0xFF);
-    let B = (tint & 0xFF);
-
+    var R = ((tint >> 16) & 0xFF);
+    var G = ((tint >> 8) & 0xFF);
+    var B = (tint & 0xFF);
     R = ((R * alpha) + 0.5) | 0;
     G = ((G * alpha) + 0.5) | 0;
     B = ((B * alpha) + 0.5) | 0;
-
     return (alpha * 255 << 24) + (R << 16) + (G << 8) + B;
 }
 /**
@@ -339,20 +292,17 @@ function premultiplyTint(tint, alpha)
  * @param {boolean} [premultiply=true] - do premultiply it
  * @returns {Float32Array} vec4 rgba
  */
-function premultiplyTintToRgba(tint, alpha, out, premultiply)
-{
+function premultiplyTintToRgba(tint, alpha, out, premultiply) {
     out = out || new Float32Array(4);
     out[0] = ((tint >> 16) & 0xFF) / 255.0;
     out[1] = ((tint >> 8) & 0xFF) / 255.0;
     out[2] = (tint & 0xFF) / 255.0;
-    if (premultiply || premultiply === undefined)
-    {
+    if (premultiply || premultiply === undefined) {
         out[0] *= alpha;
         out[1] *= alpha;
         out[2] *= alpha;
     }
     out[3] = alpha;
-
     return out;
 }
 
@@ -365,20 +315,16 @@ function premultiplyTintToRgba(tint, alpha, out, premultiply)
  * @param {Uint16Array|Uint32Array} [outBuffer] - Buffer for output, length has to be `6 * size`
  * @return {Uint16Array|Uint32Array} - Resulting index buffer
  */
-function createIndicesForQuads(size, outBuffer)
-{
+function createIndicesForQuads(size, outBuffer) {
     if (outBuffer === void 0) { outBuffer = null; }
     // the total number of indices in our array, there are 6 points per quad.
-    const totalIndices = size * 6;
-
+    var totalIndices = size * 6;
     outBuffer = outBuffer || new Uint16Array(totalIndices);
-    if (outBuffer.length !== totalIndices)
-    {
-        throw new Error(`Out buffer length is incorrect, got ${outBuffer.length} and expected ${totalIndices}`);
+    if (outBuffer.length !== totalIndices) {
+        throw new Error("Out buffer length is incorrect, got " + outBuffer.length + " and expected " + totalIndices);
     }
     // fill the indices with the quads to draw
-    for (let i = 0, j = 0; i < totalIndices; i += 6, j += 4)
-    {
+    for (var i = 0, j = 0; i < totalIndices; i += 6, j += 4) {
         outBuffer[i + 0] = j + 0;
         outBuffer[i + 1] = j + 1;
         outBuffer[i + 2] = j + 2;
@@ -386,36 +332,26 @@ function createIndicesForQuads(size, outBuffer)
         outBuffer[i + 4] = j + 2;
         outBuffer[i + 5] = j + 3;
     }
-
     return outBuffer;
 }
 
-function getBufferType(array)
-{
-    if (array.BYTES_PER_ELEMENT === 4)
-    {
-        if (array instanceof Float32Array)
-        {
+function getBufferType(array) {
+    if (array.BYTES_PER_ELEMENT === 4) {
+        if (array instanceof Float32Array) {
             return 'Float32Array';
         }
-        else if (array instanceof Uint32Array)
-        {
+        else if (array instanceof Uint32Array) {
             return 'Uint32Array';
         }
-
         return 'Int32Array';
     }
-    else if (array.BYTES_PER_ELEMENT === 2)
-    {
-        if (array instanceof Uint16Array)
-        {
+    else if (array.BYTES_PER_ELEMENT === 2) {
+        if (array instanceof Uint16Array) {
             return 'Uint16Array';
         }
     }
-    else if (array.BYTES_PER_ELEMENT === 1)
-    {
-        if (array instanceof Uint8Array)
-        {
+    else if (array.BYTES_PER_ELEMENT === 1) {
+        if (array instanceof Uint8Array) {
             return 'Uint8Array';
         }
     }
@@ -424,48 +360,37 @@ function getBufferType(array)
 }
 
 /* eslint-disable object-shorthand */
-const map = { Float32Array: Float32Array, Uint32Array: Uint32Array, Int32Array: Int32Array, Uint8Array: Uint8Array };
-
-function interleaveTypedArrays(arrays, sizes)
-{
-    let outSize = 0;
-    let stride = 0;
-    const views = {};
-
-    for (var i = 0; i < arrays.length; i++)
-    {
+var map = { Float32Array: Float32Array, Uint32Array: Uint32Array, Int32Array: Int32Array, Uint8Array: Uint8Array };
+function interleaveTypedArrays(arrays, sizes) {
+    var outSize = 0;
+    var stride = 0;
+    var views = {};
+    for (var i = 0; i < arrays.length; i++) {
         stride += sizes[i];
         outSize += arrays[i].length;
     }
-    const buffer = new ArrayBuffer(outSize * 4);
-    let out = null;
-    let littleOffset = 0;
-
-    for (var i = 0; i < arrays.length; i++)
-    {
-        const size = sizes[i];
-        const array = arrays[i];
+    var buffer = new ArrayBuffer(outSize * 4);
+    var out = null;
+    var littleOffset = 0;
+    for (var i = 0; i < arrays.length; i++) {
+        var size = sizes[i];
+        var array = arrays[i];
         /*
         @todo This is unsafe casting but consistent with how the code worked previously. Should it stay this way
               or should and `getBufferTypeUnsafe` function be exposed that throws an Error if unsupported type is passed?
          */
-        const type = getBufferType(array);
-
-        if (!views[type])
-        {
+        var type = getBufferType(array);
+        if (!views[type]) {
             views[type] = new map[type](buffer);
         }
         out = views[type];
-        for (let j = 0; j < array.length; j++)
-        {
-            const indexStart = ((j / size | 0) * stride) + littleOffset;
-            const index = j % size;
-
+        for (var j = 0; j < array.length; j++) {
+            var indexStart = ((j / size | 0) * stride) + littleOffset;
+            var index = j % size;
             out[indexStart + index] = array[j];
         }
         littleOffset += size;
     }
-
     return new Float32Array(buffer);
 }
 
@@ -478,8 +403,7 @@ function interleaveTypedArrays(arrays, sizes)
  * @param {number} v - input value
  * @return {number}
  */
-function nextPow2(v)
-{
+function nextPow2(v) {
     v += v === 0 ? 1 : 0;
     --v;
     v |= v >>> 1;
@@ -487,7 +411,6 @@ function nextPow2(v)
     v |= v >>> 4;
     v |= v >>> 8;
     v |= v >>> 16;
-
     return v + 1;
 }
 /**
@@ -498,8 +421,7 @@ function nextPow2(v)
  * @param {number} v - input value
  * @return {boolean} `true` if value is power of two
  */
-function isPow2(v)
-{
+function isPow2(v) {
     return !(v & (v - 1)) && (!!v);
 }
 /**
@@ -510,13 +432,10 @@ function isPow2(v)
  * @param {number} v - input value
  * @return {number} logarithm base 2
  */
-function log2(v)
-{
-    let r = (v > 0xFFFF ? 1 : 0) << 4;
-
+function log2(v) {
+    var r = (v > 0xFFFF ? 1 : 0) << 4;
     v >>>= r;
-    let shift = (v > 0xFF ? 1 : 0) << 3;
-
+    var shift = (v > 0xFF ? 1 : 0) << 3;
     v >>>= shift;
     r |= shift;
     shift = (v > 0xF ? 1 : 0) << 2;
@@ -525,7 +444,6 @@ function log2(v)
     shift = (v > 0x3 ? 1 : 0) << 1;
     v >>>= shift;
     r |= shift;
-
     return r | (v >> 1);
 }
 
@@ -538,20 +456,15 @@ function log2(v)
  * @param {number} startIdx - starting index
  * @param {number} removeCount - how many to remove
  */
-function removeItems(arr, startIdx, removeCount)
-{
-    const length = arr.length;
-    let i;
-
-    if (startIdx >= length || removeCount === 0)
-    {
+function removeItems(arr, startIdx, removeCount) {
+    var length = arr.length;
+    var i;
+    if (startIdx >= length || removeCount === 0) {
         return;
     }
     removeCount = (startIdx + removeCount > length ? length - startIdx : removeCount);
-    const len = length - removeCount;
-
-    for (i = startIdx; i < len; ++i)
-    {
+    var len = length - removeCount;
+    for (i = startIdx; i < len; ++i) {
         arr[i] = arr[i + removeCount];
     }
     arr.length = len;
@@ -565,15 +478,13 @@ function removeItems(arr, startIdx, removeCount)
  * @param {number} n - the number to check the sign of
  * @returns {number} 0 if `n` is 0, -1 if `n` is negative, 1 if `n` is positive
  */
-function sign(n)
-{
+function sign(n) {
     if (n === 0)
-    { return 0; }
-
+        { return 0; }
     return n < 0 ? -1 : 1;
 }
 
-let nextUid = 0;
+var nextUid = 0;
 /**
  * Gets the next unique identifier
  *
@@ -581,14 +492,12 @@ let nextUid = 0;
  * @function uid
  * @return {number} The next unique identifier to use.
  */
-
-function uid()
-{
+function uid() {
     return ++nextUid;
 }
 
 // A map of warning messages already fired
-const warnings = {};
+var warnings = {};
 /**
  * Helper for warning developers about deprecated features & settings.
  * A stack track for warnings is given; useful for tracking-down where
@@ -601,36 +510,28 @@ const warnings = {};
  * @param {number} [ignoreDepth=3] - The number of steps to ignore at the top of the error stack
  *        this is mostly to ignore internal deprecation calls.
  */
-
-function deprecation(version, message, ignoreDepth)
-{
+function deprecation(version, message, ignoreDepth) {
     if (ignoreDepth === void 0) { ignoreDepth = 3; }
     // Ignore duplicat
-    if (warnings[message])
-    {
+    if (warnings[message]) {
         return;
     }
     /* eslint-disable no-console */
-    let stack = new Error().stack;
+    var stack = new Error().stack;
     // Handle IE < 10 and Safari < 6
-
-    if (typeof stack === 'undefined')
-    {
-        console.warn('PixiJS Deprecation Warning: ', `${message}\nDeprecated since v${version}`);
+    if (typeof stack === 'undefined') {
+        console.warn('PixiJS Deprecation Warning: ', message + "\nDeprecated since v" + version);
     }
-    else
-    {
+    else {
         // chop off the stack trace which includes PixiJS internal calls
         stack = stack.split('\n').splice(ignoreDepth).join('\n');
-        if (console.groupCollapsed)
-        {
-            console.groupCollapsed('%cPixiJS Deprecation Warning: %c%s', 'color:#614108;background:#fffbe6', 'font-weight:normal;color:#614108;background:#fffbe6', `${message}\nDeprecated since v${version}`);
+        if (console.groupCollapsed) {
+            console.groupCollapsed('%cPixiJS Deprecation Warning: %c%s', 'color:#614108;background:#fffbe6', 'font-weight:normal;color:#614108;background:#fffbe6', message + "\nDeprecated since v" + version);
             console.warn(stack);
             console.groupEnd();
         }
-        else
-        {
-            console.warn('PixiJS Deprecation Warning: ', `${message}\nDeprecated since v${version}`);
+        else {
+            console.warn('PixiJS Deprecation Warning: ', message + "\nDeprecated since v" + version);
             console.warn(stack);
         }
     }
@@ -646,7 +547,7 @@ function deprecation(version, message, ignoreDepth)
  * @memberof PIXI.utils
  * @type {Object}
  */
-const ProgramCache = {};
+var ProgramCache = {};
 /**
  * @todo Describe property usage
  *
@@ -655,7 +556,7 @@ const ProgramCache = {};
  * @memberof PIXI.utils
  * @type {Object}
  */
-const TextureCache = Object.create(null);
+var TextureCache = Object.create(null);
 /**
  * @todo Describe property usage
  *
@@ -664,24 +565,19 @@ const TextureCache = Object.create(null);
  * @memberof PIXI.utils
  * @type {Object}
  */
-const BaseTextureCache = Object.create(null);
+var BaseTextureCache = Object.create(null);
 /**
  * Destroys all texture in the cache
  *
  * @memberof PIXI.utils
  * @function destroyTextureCache
  */
-
-function destroyTextureCache()
-{
-    let key;
-
-    for (key in TextureCache)
-    {
+function destroyTextureCache() {
+    var key;
+    for (key in TextureCache) {
         TextureCache[key].destroy();
     }
-    for (key in BaseTextureCache)
-    {
+    for (key in BaseTextureCache) {
         BaseTextureCache[key].destroy();
     }
 }
@@ -691,16 +587,12 @@ function destroyTextureCache()
  * @memberof PIXI.utils
  * @function clearTextureCache
  */
-function clearTextureCache()
-{
-    let key;
-
-    for (key in TextureCache)
-    {
+function clearTextureCache() {
+    var key;
+    for (key in TextureCache) {
         delete TextureCache[key];
     }
-    for (key in BaseTextureCache)
-    {
+    for (key in BaseTextureCache) {
         delete BaseTextureCache[key];
     }
 }
@@ -711,15 +603,13 @@ function clearTextureCache()
  * @class
  * @memberof PIXI.utils
  */
-const CanvasRenderTarget = /** @class */ (function ()
-{
+var CanvasRenderTarget = /** @class */ (function () {
     /**
      * @param {number} width - the width for the newly created canvas
      * @param {number} height - the height for the newly created canvas
      * @param {number} [resolution=1] - The resolution / device pixel ratio of the canvas
      */
-    function CanvasRenderTarget(width, height, resolution)
-    {
+    function CanvasRenderTarget(width, height, resolution) {
         /**
          * The Canvas object that belongs to this CanvasRenderTarget.
          *
@@ -740,8 +630,7 @@ const CanvasRenderTarget = /** @class */ (function ()
      *
      * @private
      */
-    CanvasRenderTarget.prototype.clear = function ()
-    {
+    CanvasRenderTarget.prototype.clear = function () {
         this.context.setTransform(1, 0, 0, 1, 0, 0);
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     };
@@ -751,8 +640,7 @@ const CanvasRenderTarget = /** @class */ (function ()
      * @param {number} width - the new width of the canvas
      * @param {number} height - the new height of the canvas
      */
-    CanvasRenderTarget.prototype.resize = function (width, height)
-    {
+    CanvasRenderTarget.prototype.resize = function (width, height) {
         this.canvas.width = width * this.resolution;
         this.canvas.height = height * this.resolution;
     };
@@ -760,48 +648,42 @@ const CanvasRenderTarget = /** @class */ (function ()
      * Destroys this canvas.
      *
      */
-    CanvasRenderTarget.prototype.destroy = function ()
-    {
+    CanvasRenderTarget.prototype.destroy = function () {
         this.context = null;
         this.canvas = null;
     };
-    Object.defineProperty(CanvasRenderTarget.prototype, 'width', {
+    Object.defineProperty(CanvasRenderTarget.prototype, "width", {
         /**
          * The width of the canvas buffer in pixels.
          *
          * @member {number}
          */
-        get: function ()
-        {
+        get: function () {
             return this.canvas.width;
         },
-        set: function (val)
-        {
+        set: function (val) {
             this.canvas.width = val;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(CanvasRenderTarget.prototype, 'height', {
+    Object.defineProperty(CanvasRenderTarget.prototype, "height", {
         /**
          * The height of the canvas buffer in pixels.
          *
          * @member {number}
          */
-        get: function ()
-        {
+        get: function () {
             return this.canvas.height;
         },
-        set: function (val)
-        {
+        set: function (val) {
             this.canvas.height = val;
         },
         enumerable: false,
         configurable: true
     });
-
     return CanvasRenderTarget;
-})();
+}());
 
 /**
  * Trim transparent borders from a canvas
@@ -811,69 +693,56 @@ const CanvasRenderTarget = /** @class */ (function ()
  * @param {HTMLCanvasElement} canvas - the canvas to trim
  * @returns {object} Trim data
  */
-function trimCanvas(canvas)
-{
+function trimCanvas(canvas) {
     // https://gist.github.com/remy/784508
-    let width = canvas.width;
-    let height = canvas.height;
-    const context = canvas.getContext('2d');
-    const imageData = context.getImageData(0, 0, width, height);
-    const pixels = imageData.data;
-    const len = pixels.length;
-    const bound = {
+    var width = canvas.width;
+    var height = canvas.height;
+    var context = canvas.getContext('2d');
+    var imageData = context.getImageData(0, 0, width, height);
+    var pixels = imageData.data;
+    var len = pixels.length;
+    var bound = {
         top: null,
         left: null,
         right: null,
         bottom: null,
     };
-    let data = null;
-    let i;
-    let x;
-    let y;
-
-    for (i = 0; i < len; i += 4)
-    {
-        if (pixels[i + 3] !== 0)
-        {
+    var data = null;
+    var i;
+    var x;
+    var y;
+    for (i = 0; i < len; i += 4) {
+        if (pixels[i + 3] !== 0) {
             x = (i / 4) % width;
             y = ~~((i / 4) / width);
-            if (bound.top === null)
-            {
+            if (bound.top === null) {
                 bound.top = y;
             }
-            if (bound.left === null)
-            {
+            if (bound.left === null) {
                 bound.left = x;
             }
-            else if (x < bound.left)
-            {
+            else if (x < bound.left) {
                 bound.left = x;
             }
-            if (bound.right === null)
-            {
+            if (bound.right === null) {
                 bound.right = x + 1;
             }
-            else if (bound.right < x)
-            {
+            else if (bound.right < x) {
                 bound.right = x + 1;
             }
-            if (bound.bottom === null)
-            {
+            if (bound.bottom === null) {
                 bound.bottom = y;
             }
-            else if (bound.bottom < y)
-            {
+            else if (bound.bottom < y) {
                 bound.bottom = y;
             }
         }
     }
-    if (bound.top !== null)
-    {
+    if (bound.top !== null) {
         width = bound.right - bound.left;
         height = bound.bottom - bound.top + 1;
         data = context.getImageData(bound.left, bound.top, width, height);
     }
-
     return {
         height: height,
         width: width,
@@ -890,7 +759,7 @@ function trimCanvas(canvas)
  * @memberof PIXI
  * @example data:image/png;base64
  */
-const DATA_URI = /^\s*data:(?:([\w-]+)\/([\w+.-]+))?(?:;charset=([\w-]+))?(?:;(base64))?,(.*)/i;
+var DATA_URI = /^\s*data:(?:([\w-]+)\/([\w+.-]+))?(?:;charset=([\w-]+))?(?:;(base64))?,(.*)/i;
 
 /**
  * @memberof PIXI.utils
@@ -929,12 +798,9 @@ const DATA_URI = /^\s*data:(?:([\w-]+)\/([\w+.-]+))?(?:;charset=([\w-]+))?(?:;(b
  * @param {string} dataUri - the data URI to check
  * @return {PIXI.utils.DecomposedDataUri|undefined} The decomposed data uri or undefined
  */
-function decomposeDataUri(dataUri)
-{
-    const dataUriMatch = DATA_URI.exec(dataUri);
-
-    if (dataUriMatch)
-    {
+function decomposeDataUri(dataUri) {
+    var dataUriMatch = DATA_URI.exec(dataUri);
+    if (dataUriMatch) {
         return {
             mediaType: dataUriMatch[1] ? dataUriMatch[1].toLowerCase() : undefined,
             subType: dataUriMatch[2] ? dataUriMatch[2].toLowerCase() : undefined,
@@ -943,11 +809,10 @@ function decomposeDataUri(dataUri)
             data: dataUriMatch[5],
         };
     }
-
     return undefined;
 }
 
-let tempAnchor;
+var tempAnchor;
 /**
  * Sets the `crossOrigin` property for this resource based on if the url
  * for this resource is cross-origin. If crossOrigin was manually set, this
@@ -959,34 +824,27 @@ let tempAnchor;
  * @param {object} [loc=window.location] - The location object to test against.
  * @return {string} The crossOrigin value to use (or empty string for none).
  */
-
-function determineCrossOrigin(url, loc)
-{
+function determineCrossOrigin(url, loc) {
     if (loc === void 0) { loc = window.location; }
     // data: and javascript: urls are considered same-origin
-    if (url.indexOf('data:') === 0)
-    {
+    if (url.indexOf('data:') === 0) {
         return '';
     }
     // default is window.location
     loc = loc || window.location;
-    if (!tempAnchor)
-    {
+    if (!tempAnchor) {
         tempAnchor = document.createElement('a');
     }
     // let the browser determine the full href for the url of this resource and then
     // parse with the node url lib, we can't use the properties of the anchor element
     // because they don't work in IE9 :(
     tempAnchor.href = url;
-    const parsedUrl = parse(tempAnchor.href);
-    const samePort = (!parsedUrl.port && loc.port === '') || (parsedUrl.port === loc.port);
+    var parsedUrl = parse(tempAnchor.href);
+    var samePort = (!parsedUrl.port && loc.port === '') || (parsedUrl.port === loc.port);
     // if cross origin
-
-    if (parsedUrl.hostname !== loc.hostname || !samePort || parsedUrl.protocol !== loc.protocol)
-    {
+    if (parsedUrl.hostname !== loc.hostname || !samePort || parsedUrl.protocol !== loc.protocol) {
         return 'anonymous';
     }
-
     return '';
 }
 
@@ -1000,15 +858,11 @@ function determineCrossOrigin(url, loc)
  * @param {number} [defaultValue=1] - the defaultValue if no filename prefix is set.
  * @return {number} resolution / device pixel ratio of an asset
  */
-function getResolutionOfUrl(url, defaultValue)
-{
-    const resolution = settings.RETINA_PREFIX.exec(url);
-
-    if (resolution)
-    {
+function getResolutionOfUrl(url, defaultValue) {
+    var resolution = settings.RETINA_PREFIX.exec(url);
+    if (resolution) {
         return parseFloat(resolution[1]);
     }
-
     return defaultValue !== undefined ? defaultValue : 1;
 }
 
@@ -1032,4 +886,4 @@ function getResolutionOfUrl(url, defaultValue)
  */
 
 export { BaseTextureCache, CanvasRenderTarget, DATA_URI, ProgramCache, TextureCache, clearTextureCache, correctBlendMode, createIndicesForQuads, decomposeDataUri, deprecation, destroyTextureCache, determineCrossOrigin, getBufferType, getResolutionOfUrl, hex2rgb, hex2string, interleaveTypedArrays, isPow2, isWebGLSupported, log2, nextPow2, premultiplyBlendMode, premultiplyRgba, premultiplyTint, premultiplyTintToRgba, removeItems, rgb2hex, sayHello, sign, skipHello, string2hex, trimCanvas, uid };
-// # sourceMappingURL=utils.es.js.map
+//# sourceMappingURL=utils.es.js.map

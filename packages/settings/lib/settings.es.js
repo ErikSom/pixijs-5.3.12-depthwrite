@@ -1,6 +1,6 @@
-/* !
+/*!
  * @pixi/settings - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/settings is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -8,7 +8,7 @@
 import isMobileCall from 'ismobilejs';
 
 // The ESM/CJS versions of ismobilejs only
-const isMobile = isMobileCall(window.navigator);
+var isMobile = isMobileCall(window.navigator);
 
 /**
  * The maximum recommended texture units to use.
@@ -23,44 +23,30 @@ const isMobile = isMobileCall(window.navigator);
  * @param {number} max
  * @returns {number}
  */
-function maxRecommendedTextures(max)
-{
-    let allowMax = true;
-
-    if (isMobile.tablet || isMobile.phone)
-    {
-        if (isMobile.apple.device)
-        {
+function maxRecommendedTextures(max) {
+    var allowMax = true;
+    if (isMobile.tablet || isMobile.phone) {
+        if (isMobile.apple.device) {
             var match = (navigator.userAgent).match(/OS (\d+)_(\d+)?/);
-
-            if (match)
-            {
+            if (match) {
                 var majorVersion = parseInt(match[1], 10);
                 // Limit texture units on devices below iOS 11, which will be older hardware
-
-                if (majorVersion < 11)
-                {
+                if (majorVersion < 11) {
                     allowMax = false;
                 }
             }
         }
-        if (isMobile.android.device)
-        {
+        if (isMobile.android.device) {
             var match = (navigator.userAgent).match(/Android\s([0-9.]*)/);
-
-            if (match)
-            {
+            if (match) {
                 var majorVersion = parseInt(match[1], 10);
                 // Limit texture units on devices below Android 7 (Nougat), which will be older hardware
-
-                if (majorVersion < 7)
-                {
+                if (majorVersion < 7) {
                     allowMax = false;
                 }
             }
         }
     }
-
     return allowMax ? max : 4;
 }
 
@@ -72,8 +58,7 @@ function maxRecommendedTextures(max)
  * @private
  * @returns {boolean}
  */
-function canUploadSameBuffer()
-{
+function canUploadSameBuffer() {
     return !isMobile.apple.device;
 }
 
@@ -89,7 +74,7 @@ function canUploadSameBuffer()
  * PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
  * @namespace PIXI.settings
  */
-const settings = {
+var settings = {
     /**
      * If set to true WebGL will attempt make textures mimpaped by default.
      * Mipmapping will only succeed if the base texture uploaded has power of two dimensions.
@@ -293,4 +278,4 @@ const settings = {
 };
 
 export { isMobile, settings };
-// # sourceMappingURL=settings.es.js.map
+//# sourceMappingURL=settings.es.js.map

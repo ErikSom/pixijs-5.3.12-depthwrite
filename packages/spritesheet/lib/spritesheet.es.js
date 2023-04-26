@@ -1,6 +1,6 @@
-/* !
+/*!
  * @pixi/spritesheet - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/spritesheet is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -34,8 +34,7 @@ import { LoaderResource } from '@pixi/loaders';
  * @class
  * @memberof PIXI
  */
-const Spritesheet = /** @class */ (function ()
-{
+var Spritesheet = /** @class */ (function () {
     /**
      * @param {PIXI.BaseTexture|PIXI.Texture} baseTexture - Reference to the source BaseTexture object.
      * @param {Object} data - Spritesheet image data.
@@ -43,8 +42,7 @@ const Spritesheet = /** @class */ (function ()
      *        the resolution of the spritesheet. If not provided, the imageUrl will
      *        be used on the BaseTexture.
      */
-    function Spritesheet(texture, data, resolutionFilename)
-    {
+    function Spritesheet(texture, data, resolutionFilename) {
         if (resolutionFilename === void 0) { resolutionFilename = null; }
         /**
          * Reference to original source image from the Loader. This reference is retained so we
@@ -81,12 +79,11 @@ const Spritesheet = /** @class */ (function ()
          * @type {Object}
          */
         this.data = data;
-        const resource = this.baseTexture.resource;
+        var resource = this.baseTexture.resource;
         /**
          * The resolution of the spritesheet.
          * @type {number}
          */
-
         this.resolution = this._updateResolution(resolutionFilename || (resource ? resource.url : null));
         /**
          * Map of spritesheet frames.
@@ -122,25 +119,20 @@ const Spritesheet = /** @class */ (function ()
      *        the default resolution.
      * @return {number} Resolution to use for spritesheet.
      */
-    Spritesheet.prototype._updateResolution = function (resolutionFilename)
-    {
+    Spritesheet.prototype._updateResolution = function (resolutionFilename) {
         if (resolutionFilename === void 0) { resolutionFilename = null; }
-        const scale = this.data.meta.scale;
+        var scale = this.data.meta.scale;
         // Use a defaultValue of `null` to check if a url-based resolution is set
-        let resolution = getResolutionOfUrl(resolutionFilename, null);
+        var resolution = getResolutionOfUrl(resolutionFilename, null);
         // No resolution found via URL
-
-        if (resolution === null)
-        {
+        if (resolution === null) {
             // Use the scale value or default to 1
             resolution = scale !== undefined ? parseFloat(scale) : 1;
         }
         // For non-1 resolutions, update baseTexture
-        if (resolution !== 1)
-        {
+        if (resolution !== 1) {
             this.baseTexture.setResolution(resolution);
         }
-
         return resolution;
     };
     /**
@@ -150,18 +142,15 @@ const Spritesheet = /** @class */ (function ()
      * @param {Function} callback - Callback when complete returns
      *        a map of the Textures for this spritesheet.
      */
-    Spritesheet.prototype.parse = function (callback)
-    {
+    Spritesheet.prototype.parse = function (callback) {
         this._batchIndex = 0;
         this._callback = callback;
-        if (this._frameKeys.length <= Spritesheet.BATCH_SIZE)
-        {
+        if (this._frameKeys.length <= Spritesheet.BATCH_SIZE) {
             this._processFrames(0);
             this._processAnimations();
             this._parseComplete();
         }
-        else
-        {
+        else {
             this._nextBatch();
         }
     };
@@ -171,36 +160,27 @@ const Spritesheet = /** @class */ (function ()
      * @private
      * @param {number} initialFrameIndex - The index of frame to start.
      */
-    Spritesheet.prototype._processFrames = function (initialFrameIndex)
-    {
-        let frameIndex = initialFrameIndex;
-        const maxFrames = Spritesheet.BATCH_SIZE;
-
-        while (frameIndex - initialFrameIndex < maxFrames && frameIndex < this._frameKeys.length)
-        {
-            const i = this._frameKeys[frameIndex];
-            const data = this._frames[i];
-            const rect = data.frame;
-
-            if (rect)
-            {
-                let frame = null;
-                let trim = null;
-                const sourceSize = data.trimmed !== false && data.sourceSize
+    Spritesheet.prototype._processFrames = function (initialFrameIndex) {
+        var frameIndex = initialFrameIndex;
+        var maxFrames = Spritesheet.BATCH_SIZE;
+        while (frameIndex - initialFrameIndex < maxFrames && frameIndex < this._frameKeys.length) {
+            var i = this._frameKeys[frameIndex];
+            var data = this._frames[i];
+            var rect = data.frame;
+            if (rect) {
+                var frame = null;
+                var trim = null;
+                var sourceSize = data.trimmed !== false && data.sourceSize
                     ? data.sourceSize : data.frame;
-                const orig = new Rectangle(0, 0, Math.floor(sourceSize.w) / this.resolution, Math.floor(sourceSize.h) / this.resolution);
-
-                if (data.rotated)
-                {
+                var orig = new Rectangle(0, 0, Math.floor(sourceSize.w) / this.resolution, Math.floor(sourceSize.h) / this.resolution);
+                if (data.rotated) {
                     frame = new Rectangle(Math.floor(rect.x) / this.resolution, Math.floor(rect.y) / this.resolution, Math.floor(rect.h) / this.resolution, Math.floor(rect.w) / this.resolution);
                 }
-                else
-                {
+                else {
                     frame = new Rectangle(Math.floor(rect.x) / this.resolution, Math.floor(rect.y) / this.resolution, Math.floor(rect.w) / this.resolution, Math.floor(rect.h) / this.resolution);
                 }
                 //  Check to see if the sprite is trimmed
-                if (data.trimmed !== false && data.spriteSourceSize)
-                {
+                if (data.trimmed !== false && data.spriteSourceSize) {
                     trim = new Rectangle(Math.floor(data.spriteSourceSize.x) / this.resolution, Math.floor(data.spriteSourceSize.y) / this.resolution, Math.floor(rect.w) / this.resolution, Math.floor(rect.h) / this.resolution);
                 }
                 this.textures[i] = new Texture(this.baseTexture, frame, orig, trim, data.rotated ? 2 : 0, data.anchor);
@@ -215,17 +195,12 @@ const Spritesheet = /** @class */ (function ()
      *
      * @private
      */
-    Spritesheet.prototype._processAnimations = function ()
-    {
-        const animations = this.data.animations || {};
-
-        for (const animName in animations)
-        {
+    Spritesheet.prototype._processAnimations = function () {
+        var animations = this.data.animations || {};
+        for (var animName in animations) {
             this.animations[animName] = [];
-            for (let i = 0; i < animations[animName].length; i++)
-            {
-                const frameName = animations[animName][i];
-
+            for (var i = 0; i < animations[animName].length; i++) {
+                var frameName = animations[animName][i];
                 this.animations[animName].push(this.textures[frameName]);
             }
         }
@@ -235,10 +210,8 @@ const Spritesheet = /** @class */ (function ()
      *
      * @private
      */
-    Spritesheet.prototype._parseComplete = function ()
-    {
-        const callback = this._callback;
-
+    Spritesheet.prototype._parseComplete = function () {
+        var callback = this._callback;
         this._callback = null;
         this._batchIndex = 0;
         callback.call(this, this.textures);
@@ -248,20 +221,15 @@ const Spritesheet = /** @class */ (function ()
      *
      * @private
      */
-    Spritesheet.prototype._nextBatch = function ()
-    {
-        const _this = this;
-
+    Spritesheet.prototype._nextBatch = function () {
+        var _this = this;
         this._processFrames(this._batchIndex * Spritesheet.BATCH_SIZE);
         this._batchIndex++;
-        setTimeout(function ()
-        {
-            if (_this._batchIndex * Spritesheet.BATCH_SIZE < _this._frameKeys.length)
-            {
+        setTimeout(function () {
+            if (_this._batchIndex * Spritesheet.BATCH_SIZE < _this._frameKeys.length) {
                 _this._nextBatch();
             }
-            else
-            {
+            else {
                 _this._processAnimations();
                 _this._parseComplete();
             }
@@ -272,21 +240,17 @@ const Spritesheet = /** @class */ (function ()
      *
      * @param {boolean} [destroyBase=false] - Whether to destroy the base texture as well
      */
-    Spritesheet.prototype.destroy = function (destroyBase)
-    {
-        let _a;
-
+    Spritesheet.prototype.destroy = function (destroyBase) {
+        var _a;
         if (destroyBase === void 0) { destroyBase = false; }
-        for (const i in this.textures)
-        {
+        for (var i in this.textures) {
             this.textures[i].destroy();
         }
         this._frames = null;
         this._frameKeys = null;
         this.data = null;
         this.textures = null;
-        if (destroyBase)
-        {
+        if (destroyBase) {
             (_a = this._texture) === null || _a === void 0 ? void 0 : _a.destroy();
             this.baseTexture.destroy();
         }
@@ -300,9 +264,8 @@ const Spritesheet = /** @class */ (function ()
      * @default 1000
      */
     Spritesheet.BATCH_SIZE = 1000;
-
     return Spritesheet;
-})();
+}());
 
 /**
  * {@link PIXI.Loader Loader} middleware for loading texture atlases that have been created with
@@ -314,10 +277,8 @@ const Spritesheet = /** @class */ (function ()
  * @memberof PIXI
  * @implements PIXI.ILoaderPlugin
  */
-const SpritesheetLoader = /** @class */ (function ()
-{
-    function SpritesheetLoader()
-    {
+var SpritesheetLoader = /** @class */ (function () {
+    function SpritesheetLoader() {
     }
     /**
      * Called after a resource is loaded.
@@ -325,42 +286,32 @@ const SpritesheetLoader = /** @class */ (function ()
      * @param {PIXI.LoaderResource} resource
      * @param {function} next
      */
-    SpritesheetLoader.use = function (resource, next)
-    {
+    SpritesheetLoader.use = function (resource, next) {
         // because this is middleware, it execute in loader context. `this` = loader
-        const loader = this;
-        const imageResourceName = `${resource.name}_image`;
+        var loader = this;
+        var imageResourceName = resource.name + "_image";
         // skip if no data, its not json, it isn't spritesheet data, or the image resource already exists
-
         if (!resource.data
             || resource.type !== LoaderResource.TYPE.JSON
             || !resource.data.frames
-            || loader.resources[imageResourceName])
-        {
+            || loader.resources[imageResourceName]) {
             next();
-
             return;
         }
-        const loadOptions = {
+        var loadOptions = {
             crossOrigin: resource.crossOrigin,
             metadata: resource.metadata.imageMetadata,
             parentResource: resource,
         };
-        const resourcePath = SpritesheetLoader.getResourcePath(resource, loader.baseUrl);
+        var resourcePath = SpritesheetLoader.getResourcePath(resource, loader.baseUrl);
         // load the image for this sheet
-
-        loader.add(imageResourceName, resourcePath, loadOptions, function onImageLoad(res)
-        {
-            if (res.error)
-            {
+        loader.add(imageResourceName, resourcePath, loadOptions, function onImageLoad(res) {
+            if (res.error) {
                 next(res.error);
-
                 return;
             }
-            const spritesheet = new Spritesheet(res.texture, resource.data, resource.url);
-
-            spritesheet.parse(function ()
-            {
+            var spritesheet = new Spritesheet(res.texture, resource.data, resource.url);
+            spritesheet.parse(function () {
                 resource.spritesheet = spritesheet;
                 resource.textures = spritesheet.textures;
                 next();
@@ -372,19 +323,15 @@ const SpritesheetLoader = /** @class */ (function ()
      * @param {PIXI.LoaderResource} resource - Resource to check path
      * @param {string} baseUrl - Base root url
      */
-    SpritesheetLoader.getResourcePath = function (resource, baseUrl)
-    {
+    SpritesheetLoader.getResourcePath = function (resource, baseUrl) {
         // Prepend url path unless the resource image is a data url
-        if (resource.isDataUrl)
-        {
+        if (resource.isDataUrl) {
             return resource.data.meta.image;
         }
-
         return url.resolve(resource.url.replace(baseUrl, ''), resource.data.meta.image);
     };
-
     return SpritesheetLoader;
-})();
+}());
 
 export { Spritesheet, SpritesheetLoader };
-// # sourceMappingURL=spritesheet.es.js.map
+//# sourceMappingURL=spritesheet.es.js.map

@@ -1,14 +1,15 @@
-/* !
+/*!
  * @pixi/mesh - v5.3.12
- * Compiled Tue, 25 Apr 2023 12:45:00 UTC
+ * Compiled Wed, 26 Apr 2023 14:26:40 UTC
  *
  * @pixi/mesh is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
 this.PIXI = this.PIXI || {};
-const _pixi_mesh = (function (exports, core, math, constants, display, settings, utils)
-{
-    /* ! *****************************************************************************
+var _pixi_mesh = (function (exports, core, math, constants, display, settings, utils) {
+    'use strict';
+
+    /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use
     this file except in compliance with the License. You may obtain a copy of the
@@ -24,271 +25,178 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
     ***************************************************************************** */
     /* global Reflect, Promise */
 
-    var extendStatics = function (d, b)
-    {
-        extendStatics = Object.setPrototypeOf
-            || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
-            || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
-
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
         return extendStatics(d, b);
     };
 
-    function __extends(d, b)
-    {
+    function __extends(d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
-    var __assign = function ()
-    {
-        __assign = Object.assign || function __assign(t)
-        {
-            const arguments$1 = arguments;
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            var arguments$1 = arguments;
 
-            for (var s, i = 1, n = arguments.length; i < n; i++)
-            {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
                 s = arguments$1[i];
-                for (const p in s) { if (Object.prototype.hasOwnProperty.call(s, p)) { t[p] = s[p]; } }
+                for (var p in s) { if (Object.prototype.hasOwnProperty.call(s, p)) { t[p] = s[p]; } }
             }
-
             return t;
         };
-
         return __assign.apply(this, arguments);
     };
 
-    function __rest(s, e)
-    {
-        const t = {};
-
-        for (var p in s)
-        {
-            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            { t[p] = s[p]; }
-        }
-        if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-        {
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++)
-            {
-                if (e.indexOf(p[i]) < 0)
-                { t[p[i]] = s[p[i]]; }
-            }
-        }
-
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) { if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            { t[p] = s[p]; } }
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            { for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) { if (e.indexOf(p[i]) < 0)
+                { t[p[i]] = s[p[i]]; } } }
         return t;
     }
 
-    function __decorate(decorators, target, key, desc)
-    {
-        const c = arguments.length; let r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc; let
-            d;
-
-        if (typeof Reflect === 'object' && typeof Reflect.decorate === 'function') { r = Reflect.decorate(decorators, target, key, desc); }
-        else { for (let i = decorators.length - 1; i >= 0; i--) { if (d = decorators[i]) { r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r; } } }
-
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") { r = Reflect.decorate(decorators, target, key, desc); }
+        else { for (var i = decorators.length - 1; i >= 0; i--) { if (d = decorators[i]) { r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r; } } }
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     }
 
-    function __param(paramIndex, decorator)
-    {
-        return function (target, key) { decorator(target, key, paramIndex); };
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
     }
 
-    function __metadata(metadataKey, metadataValue)
-    {
-        if (typeof Reflect === 'object' && typeof Reflect.metadata === 'function') { return Reflect.metadata(metadataKey, metadataValue); }
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") { return Reflect.metadata(metadataKey, metadataValue); }
     }
 
-    function __awaiter(thisArg, _arguments, P, generator)
-    {
-        return new (P || (P = Promise))(function (resolve, reject)
-        {
-            function fulfilled(value)
-            {
-                try { step(generator.next(value)); }
-                catch (e) { reject(e); }
-            }
-            function rejected(value)
-            {
-                try { step(generator.throw(value)); }
-                catch (e) { reject(e); }
-            }
+    function __awaiter(thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
             function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
 
-    function __generator(thisArg, body)
-    {
-        let _ = { label: 0, sent()
-        {
-            if (t[0] & 1) { throw t[1]; }
-
-            return t[1];
-        }, trys: [], ops: [] }; let f; let y; let t; let
-            g;
-
-        return g = { next: verb(0), throw: verb(1), return: verb(2) }, typeof Symbol === 'function' && (g[Symbol.iterator] = function () { return this; }), g;
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) { throw t[1]; } return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
-        function step(op)
-        {
-            if (f) { throw new TypeError('Generator is already executing.'); }
-            while (_)
-            {
-                try
-                {
-                    if (f = 1, y && (t = op[0] & 2 ? y.return : op[0] ? y.throw || ((t = y.return) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) { return t; }
-                    if (y = 0, t) { op = [op[0] & 2, t.value]; }
-                    switch (op[0])
-                    {
-                        case 0: case 1: t = op; break;
-                        case 4: _.label++;
-
-                            return { value: op[1], done: false };
-                        case 5: _.label++; y = op[1]; op = [0]; continue;
-                        case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                        default:
-                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                            if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                            if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                            if (t[2]) { _.ops.pop(); }
-                            _.trys.pop(); continue;
-                    }
-                    op = body.call(thisArg, _);
+        function step(op) {
+            if (f) { throw new TypeError("Generator is already executing."); }
+            while (_) { try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) { return t; }
+                if (y = 0, t) { op = [op[0] & 2, t.value]; }
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) { _.ops.pop(); }
+                        _.trys.pop(); continue;
                 }
-                catch (e) { op = [6, e]; y = 0; }
-                finally { f = t = 0; }
-            }
-            if (op[0] & 5) { throw op[1]; }
-
-            return { value: op[0] ? op[1] : void 0, done: true };
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; } }
+            if (op[0] & 5) { throw op[1]; } return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
 
-    function __exportStar(m, exports)
-    {
-        for (const p in m) { if (!exports.hasOwnProperty(p)) { exports[p] = m[p]; } }
+    function __exportStar(m, exports) {
+        for (var p in m) { if (!exports.hasOwnProperty(p)) { exports[p] = m[p]; } }
     }
 
-    function __values(o)
-    {
-        const m = typeof Symbol === 'function' && o[Symbol.iterator]; let
-            i = 0;
-
+    function __values(o) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
         if (m) { return m.call(o); }
-
         return {
-            next()
-            {
+            next: function () {
                 if (o && i >= o.length) { o = void 0; }
-
                 return { value: o && o[i++], done: !o };
             }
         };
     }
 
-    function __read(o, n)
-    {
-        let m = typeof Symbol === 'function' && o[Symbol.iterator];
-
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
         if (!m) { return o; }
-        const i = m.call(o); let r; const ar = []; let
-            e;
-
-        try
-        {
+        var i = m.call(o), r, ar = [], e;
+        try {
             while ((n === void 0 || n-- > 0) && !(r = i.next()).done) { ar.push(r.value); }
         }
-        catch (error) { e = { error }; }
-        finally
-        {
-            try
-            {
-                if (r && !r.done && (m = i.return)) { m.call(i); }
+        catch (error) { e = { error: error }; }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"])) { m.call(i); }
             }
             finally { if (e) { throw e.error; } }
         }
-
         return ar;
     }
 
-    function __spread()
-    {
-        const arguments$1 = arguments;
+    function __spread() {
+        var arguments$1 = arguments;
 
         for (var ar = [], i = 0; i < arguments.length; i++)
-        { ar = ar.concat(__read(arguments$1[i])); }
-
+            { ar = ar.concat(__read(arguments$1[i])); }
         return ar;
     }
 
-    function __await(v)
-    {
+    function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
 
-    function __asyncGenerator(thisArg, _arguments, generator)
-    {
-        if (!Symbol.asyncIterator) { throw new TypeError('Symbol.asyncIterator is not defined.'); }
-        const g = generator.apply(thisArg, _arguments || []); let i; const
-            q = [];
-
-        return i = {}, verb('next'), verb('throw'), verb('return'), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) { throw new TypeError("Symbol.asyncIterator is not defined."); }
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
         function verb(n) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; } }
-        function resume(n, v)
-        {
-            try { step(g[n](v)); }
-            catch (e) { settle(q[0][3], e); }
-        }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
         function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-        function fulfill(value) { resume('next', value); }
-        function reject(value) { resume('throw', value); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
         function settle(f, v) { if (f(v), q.shift(), q.length) { resume(q[0][0], q[0][1]); } }
     }
 
-    function __asyncDelegator(o)
-    {
-        let i; let
-            p;
-
-        return i = {}, verb('next'), verb('throw', function (e) { throw e; }), verb('return'), i[Symbol.iterator] = function () { return this; }, i;
-        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === 'return' } : f ? f(v) : v; } : f; }
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
     }
 
-    function __asyncValues(o)
-    {
-        if (!Symbol.asyncIterator) { throw new TypeError('Symbol.asyncIterator is not defined.'); }
-        const m = o[Symbol.asyncIterator]; let
-            i;
-
-        return m ? m.call(o) : (o = typeof __values === 'function' ? __values(o) : o[Symbol.iterator](), i = {}, verb('next'), verb('throw'), verb('return'), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) { throw new TypeError("Symbol.asyncIterator is not defined."); }
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
         function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function (v) { resolve({ value: v, done: d }); }, reject); }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
     }
 
-    function __makeTemplateObject(cooked, raw)
-    {
-        if (Object.defineProperty) { Object.defineProperty(cooked, 'raw', { value: raw }); }
-        else { cooked.raw = raw; }
-
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
         return cooked;
-    }
+    };
 
-    function __importStar(mod)
-    {
+    function __importStar(mod) {
         if (mod && mod.__esModule) { return mod; }
-        const result = {};
-
-        if (mod != null) { for (const k in mod) { if (Object.hasOwnProperty.call(mod, k)) { result[k] = mod[k]; } } }
+        var result = {};
+        if (mod != null) { for (var k in mod) { if (Object.hasOwnProperty.call(mod, k)) { result[k] = mod[k]; } } }
         result.default = mod;
-
         return result;
     }
 
-    function __importDefault(mod)
-    {
+    function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
 
@@ -298,14 +206,12 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
      * @class
      * @memberof PIXI
      */
-    const MeshBatchUvs = /** @class */ (function ()
-    {
+    var MeshBatchUvs = /** @class */ (function () {
         /**
          * @param {PIXI.Buffer} uvBuffer - Buffer with normalized uv's
          * @param {PIXI.TextureMatrix} uvMatrix - Material UV matrix
          */
-        function MeshBatchUvs(uvBuffer, uvMatrix)
-        {
+        function MeshBatchUvs(uvBuffer, uvMatrix) {
             /**
              * Buffer with normalized UV's
              * @member {PIXI.Buffer}
@@ -331,31 +237,26 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          *
          * @param {boolean} [forceUpdate] - force the update
          */
-        MeshBatchUvs.prototype.update = function (forceUpdate)
-        {
+        MeshBatchUvs.prototype.update = function (forceUpdate) {
             if (!forceUpdate
                 && this._bufferUpdateId === this.uvBuffer._updateID
-                && this._textureUpdateId === this.uvMatrix._updateID)
-            {
+                && this._textureUpdateId === this.uvMatrix._updateID) {
                 return;
             }
             this._bufferUpdateId = this.uvBuffer._updateID;
             this._textureUpdateId = this.uvMatrix._updateID;
-            const data = this.uvBuffer.data;
-
-            if (!this.data || this.data.length !== data.length)
-            {
+            var data = this.uvBuffer.data;
+            if (!this.data || this.data.length !== data.length) {
                 this.data = new Float32Array(data.length);
             }
             this.uvMatrix.multiplyUvs(data, this.data);
             this._updateID++;
         };
-
         return MeshBatchUvs;
-    })();
+    }());
 
-    const tempPoint = new math.Point();
-    const tempPolygon = new math.Polygon();
+    var tempPoint = new math.Point();
+    var tempPolygon = new math.Polygon();
     /**
      * Base mesh class.
      *
@@ -374,8 +275,7 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
      * @extends PIXI.Container
      * @memberof PIXI
      */
-    const Mesh = /** @class */ (function (_super)
-    {
+    var Mesh = /** @class */ (function (_super) {
         __extends(Mesh, _super);
         /**
          * @param {PIXI.Geometry} geometry - the geometry the mesh will use
@@ -384,10 +284,9 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          *        if no state is provided, uses {@link PIXI.State.for2d} to create a 2D state for PixiJS.
          * @param {number} [drawMode=PIXI.DRAW_MODES.TRIANGLES] - the drawMode, can be any of the PIXI.DRAW_MODES consts
          */
-        function Mesh(geometry, shader, state, drawMode)
-        {
+        function Mesh(geometry, shader, state, drawMode) {
             if (drawMode === void 0) { drawMode = constants.DRAW_MODES.TRIANGLES; }
-            const _this = _super.call(this) || this;
+            var _this = _super.call(this) || this;
             /**
              * Includes vertex positions, face indices, normals, colors, UVs, and
              * custom attributes within buffers, reducing the cost of passing all
@@ -395,7 +294,6 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
              * @member {PIXI.Geometry}
              * @readonly
              */
-
             _this.geometry = geometry;
             geometry.refCount++;
             /**
@@ -468,55 +366,49 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
              * @private
              */
             _this.batchUvs = null;
-
             return _this;
         }
-        Object.defineProperty(Mesh.prototype, 'uvBuffer', {
+        Object.defineProperty(Mesh.prototype, "uvBuffer", {
             /**
              * To change mesh uv's, change its uvBuffer data and increment its _updateID.
              * @member {PIXI.Buffer}
              * @readonly
              */
-            get()
-            {
+            get: function () {
                 return this.geometry.buffers[1];
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(Mesh.prototype, 'verticesBuffer', {
+        Object.defineProperty(Mesh.prototype, "verticesBuffer", {
             /**
              * To change mesh vertices, change its uvBuffer data and increment its _updateID.
              * Incrementing _updateID is optional because most of Mesh objects do it anyway.
              * @member {PIXI.Buffer}
              * @readonly
              */
-            get()
-            {
+            get: function () {
                 return this.geometry.buffers[0];
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(Mesh.prototype, 'material', {
-            get()
-            {
+        Object.defineProperty(Mesh.prototype, "material", {
+            get: function () {
                 return this.shader;
             },
             /**
              * Alias for {@link PIXI.Mesh#shader}.
              * @member {PIXI.MeshMaterial}
              */
-            set(value)
-            {
+            set: function (value) {
                 this.shader = value;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(Mesh.prototype, 'blendMode', {
-            get()
-            {
+        Object.defineProperty(Mesh.prototype, "blendMode", {
+            get: function () {
                 return this.state.blendMode;
             },
             /**
@@ -527,16 +419,14 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
              * @default PIXI.BLEND_MODES.NORMAL;
              * @see PIXI.BLEND_MODES
              */
-            set(value)
-            {
+            set: function (value) {
                 this.state.blendMode = value;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(Mesh.prototype, 'roundPixels', {
-            get()
-            {
+        Object.defineProperty(Mesh.prototype, "roundPixels", {
+            get: function () {
                 return this._roundPixels;
             },
             /**
@@ -548,10 +438,8 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
              * @member {boolean}
              * @default false
              */
-            set(value)
-            {
-                if (this._roundPixels !== value)
-                {
+            set: function (value) {
+                if (this._roundPixels !== value) {
                     this._transformID = -1;
                 }
                 this._roundPixels = value;
@@ -559,7 +447,7 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(Mesh.prototype, 'tint', {
+        Object.defineProperty(Mesh.prototype, "tint", {
             /**
              * The multiply tint applied to the Mesh. This is a hex value. A value of
              * `0xFFFFFF` will remove any tint effect.
@@ -567,29 +455,25 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
              * @member {number}
              * @default 0xFFFFFF
              */
-            get()
-            {
+            get: function () {
                 return this.shader.tint;
             },
-            set(value)
-            {
+            set: function (value) {
                 this.shader.tint = value;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(Mesh.prototype, 'texture', {
+        Object.defineProperty(Mesh.prototype, "texture", {
             /**
              * The texture that the Mesh uses.
              *
              * @member {PIXI.Texture}
              */
-            get()
-            {
+            get: function () {
                 return this.shader.texture;
             },
-            set(value)
-            {
+            set: function (value) {
                 this.shader.texture = value;
             },
             enumerable: false,
@@ -600,21 +484,17 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          * @protected
          * @param {PIXI.Renderer} renderer - Instance to renderer.
          */
-        Mesh.prototype._render = function (renderer)
-        {
+        Mesh.prototype._render = function (renderer) {
             // set properties for batching..
             // TODO could use a different way to grab verts?
-            const vertices = this.geometry.buffers[0].data;
+            var vertices = this.geometry.buffers[0].data;
             // TODO benchmark check for attribute size..
-
             if (this.shader.batchable
                 && this.drawMode === constants.DRAW_MODES.TRIANGLES
-                && vertices.length < Mesh.BATCHABLE_SIZE * 2)
-            {
+                && vertices.length < Mesh.BATCHABLE_SIZE * 2) {
                 this._renderToBatch(renderer);
             }
-            else
-            {
+            else {
                 this._renderDefault(renderer);
             }
         };
@@ -623,18 +503,14 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          * @protected
          * @param {PIXI.Renderer} renderer - Instance to renderer.
          */
-        Mesh.prototype._renderDefault = function (renderer)
-        {
-            const shader = this.shader;
-
+        Mesh.prototype._renderDefault = function (renderer) {
+            var shader = this.shader;
             shader.alpha = this.worldAlpha;
-            if (shader.update)
-            {
+            if (shader.update) {
                 shader.update();
             }
             renderer.batch.flush();
-            if (shader.program.uniformData.translationMatrix)
-            {
+            if (shader.program.uniformData.translationMatrix) {
                 shader.uniforms.translationMatrix = this.transform.worldTransform.toArray(true);
             }
             // bind and sync uniforms..
@@ -651,12 +527,9 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          * @protected
          * @param {PIXI.Renderer} renderer - Instance to renderer.
          */
-        Mesh.prototype._renderToBatch = function (renderer)
-        {
-            const geometry = this.geometry;
-
-            if (this.shader.uvMatrix)
-            {
+        Mesh.prototype._renderToBatch = function (renderer) {
+            var geometry = this.geometry;
+            if (this.shader.uvMatrix) {
                 this.shader.uvMatrix.update();
                 this.calculateUvs();
             }
@@ -665,51 +538,40 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
             this.indices = geometry.indexBuffer.data;
             this._tintRGB = this.shader._tintRGB;
             this._texture = this.shader.texture;
-            const pluginName = this.material.pluginName;
-
+            var pluginName = this.material.pluginName;
             renderer.batch.setObjectRenderer(renderer.plugins[pluginName]);
             renderer.plugins[pluginName].render(this);
         };
         /**
          * Updates vertexData field based on transform and vertices
          */
-        Mesh.prototype.calculateVertices = function ()
-        {
-            const geometry = this.geometry;
-            const vertices = geometry.buffers[0].data;
-
-            if (geometry.vertexDirtyId === this.vertexDirty && this._transformID === this.transform._worldID)
-            {
+        Mesh.prototype.calculateVertices = function () {
+            var geometry = this.geometry;
+            var vertices = geometry.buffers[0].data;
+            if (geometry.vertexDirtyId === this.vertexDirty && this._transformID === this.transform._worldID) {
                 return;
             }
             this._transformID = this.transform._worldID;
-            if (this.vertexData.length !== vertices.length)
-            {
+            if (this.vertexData.length !== vertices.length) {
                 this.vertexData = new Float32Array(vertices.length);
             }
-            const wt = this.transform.worldTransform;
-            const a = wt.a;
-            const b = wt.b;
-            const c = wt.c;
-            const d = wt.d;
-            const tx = wt.tx;
-            const ty = wt.ty;
-            const vertexData = this.vertexData;
-
-            for (var i = 0; i < vertexData.length / 2; i++)
-            {
-                const x = vertices[(i * 2)];
-                const y = vertices[(i * 2) + 1];
-
+            var wt = this.transform.worldTransform;
+            var a = wt.a;
+            var b = wt.b;
+            var c = wt.c;
+            var d = wt.d;
+            var tx = wt.tx;
+            var ty = wt.ty;
+            var vertexData = this.vertexData;
+            for (var i = 0; i < vertexData.length / 2; i++) {
+                var x = vertices[(i * 2)];
+                var y = vertices[(i * 2) + 1];
                 vertexData[(i * 2)] = (a * x) + (c * y) + tx;
                 vertexData[(i * 2) + 1] = (b * x) + (d * y) + ty;
             }
-            if (this._roundPixels)
-            {
-                const resolution = settings.settings.RESOLUTION;
-
-                for (var i = 0; i < vertexData.length; ++i)
-                {
+            if (this._roundPixels) {
+                var resolution = settings.settings.RESOLUTION;
+                for (var i = 0; i < vertexData.length; ++i) {
                     vertexData[i] = Math.round((vertexData[i] * resolution | 0) / resolution);
                 }
             }
@@ -718,21 +580,16 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
         /**
          * Updates uv field based on from geometry uv's or batchUvs
          */
-        Mesh.prototype.calculateUvs = function ()
-        {
-            const geomUvs = this.geometry.buffers[1];
-
-            if (!this.shader.uvMatrix.isSimple)
-            {
-                if (!this.batchUvs)
-                {
+        Mesh.prototype.calculateUvs = function () {
+            var geomUvs = this.geometry.buffers[1];
+            if (!this.shader.uvMatrix.isSimple) {
+                if (!this.batchUvs) {
                     this.batchUvs = new MeshBatchUvs(geomUvs, this.shader.uvMatrix);
                 }
                 this.batchUvs.update();
                 this.uvs = this.batchUvs.data;
             }
-            else
-            {
+            else {
                 this.uvs = geomUvs.data;
             }
         };
@@ -742,8 +599,7 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          *
          * @protected
          */
-        Mesh.prototype._calculateBounds = function ()
-        {
+        Mesh.prototype._calculateBounds = function () {
             this.calculateVertices();
             this._bounds.addVertexData(this.vertexData, 0, this.vertexData.length);
         };
@@ -753,37 +609,30 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          * @param {PIXI.IPointData} point - the point to test
          * @return {boolean} the result of the test
          */
-        Mesh.prototype.containsPoint = function (point)
-        {
-            if (!this.getBounds().contains(point.x, point.y))
-            {
+        Mesh.prototype.containsPoint = function (point) {
+            if (!this.getBounds().contains(point.x, point.y)) {
                 return false;
             }
             this.worldTransform.applyInverse(point, tempPoint);
-            const vertices = this.geometry.getBuffer('aVertexPosition').data;
-            const points = tempPolygon.points;
-            const indices = this.geometry.getIndex().data;
-            const len = indices.length;
-            const step = this.drawMode === 4 ? 3 : 1;
-
-            for (let i = 0; i + 2 < len; i += step)
-            {
-                const ind0 = indices[i] * 2;
-                const ind1 = indices[i + 1] * 2;
-                const ind2 = indices[i + 2] * 2;
-
+            var vertices = this.geometry.getBuffer('aVertexPosition').data;
+            var points = tempPolygon.points;
+            var indices = this.geometry.getIndex().data;
+            var len = indices.length;
+            var step = this.drawMode === 4 ? 3 : 1;
+            for (var i = 0; i + 2 < len; i += step) {
+                var ind0 = indices[i] * 2;
+                var ind1 = indices[i + 1] * 2;
+                var ind2 = indices[i + 2] * 2;
                 points[0] = vertices[ind0];
                 points[1] = vertices[ind0 + 1];
                 points[2] = vertices[ind1];
                 points[3] = vertices[ind1 + 1];
                 points[4] = vertices[ind2];
                 points[5] = vertices[ind2 + 1];
-                if (tempPolygon.contains(tempPoint.x, tempPoint.y))
-                {
+                if (tempPolygon.contains(tempPoint.x, tempPoint.y)) {
                     return true;
                 }
             }
-
             return false;
         };
         /**
@@ -794,12 +643,10 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          * @param {boolean} [options.children=false] - if set to true, all the children will have
          *  their destroy method called as well. 'options' will be passed on to those calls.
          */
-        Mesh.prototype.destroy = function (options)
-        {
+        Mesh.prototype.destroy = function (options) {
             _super.prototype.destroy.call(this, options);
             this.geometry.refCount--;
-            if (this.geometry.refCount === 0)
-            {
+            if (this.geometry.refCount === 0) {
                 this.geometry.dispose();
             }
             this.geometry = null;
@@ -817,13 +664,12 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          * @member {number} BATCHABLE_SIZE
          */
         Mesh.BATCHABLE_SIZE = 100;
-
         return Mesh;
-    })(display.Container);
+    }(display.Container));
 
-    const fragment = 'varying vec2 vTextureCoord;\r\nuniform vec4 uColor;\r\n\r\nuniform sampler2D uSampler;\r\n\r\nvoid main(void)\r\n{\r\n    gl_FragColor = texture2D(uSampler, vTextureCoord) * uColor;\r\n}\r\n';
+    var fragment = "varying vec2 vTextureCoord;\r\nuniform vec4 uColor;\r\n\r\nuniform sampler2D uSampler;\r\n\r\nvoid main(void)\r\n{\r\n    gl_FragColor = texture2D(uSampler, vTextureCoord) * uColor;\r\n}\r\n";
 
-    const vertex = 'attribute vec2 aVertexPosition;\r\nattribute vec2 aTextureCoord;\r\n\r\nuniform mat3 projectionMatrix;\r\nuniform mat3 translationMatrix;\r\nuniform mat3 uTextureMatrix;\r\n\r\nvarying vec2 vTextureCoord;\r\n\r\nvoid main(void)\r\n{\r\n    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);\r\n\r\n    vTextureCoord = (uTextureMatrix * vec3(aTextureCoord, 1.0)).xy;\r\n}\r\n';
+    var vertex = "attribute vec2 aVertexPosition;\r\nattribute vec2 aTextureCoord;\r\n\r\nuniform mat3 projectionMatrix;\r\nuniform mat3 translationMatrix;\r\nuniform mat3 uTextureMatrix;\r\n\r\nvarying vec2 vTextureCoord;\r\n\r\nvoid main(void)\r\n{\r\n    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);\r\n\r\n    vTextureCoord = (uTextureMatrix * vec3(aTextureCoord, 1.0)).xy;\r\n}\r\n";
 
     /**
      * Slightly opinionated default shader for PixiJS 2D objects.
@@ -831,8 +677,7 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
      * @memberof PIXI
      * @extends PIXI.Shader
      */
-    const MeshMaterial = /** @class */ (function (_super)
-    {
+    var MeshMaterial = /** @class */ (function (_super) {
         __extends(MeshMaterial, _super);
         /**
          * @param {PIXI.Texture} uSampler - Texture that material uses to render.
@@ -843,24 +688,21 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          * @param {PIXI.Program} [options.program=0xFFFFFF] - Custom program.
          * @param {object} [options.uniforms] - Custom uniforms.
          */
-        function MeshMaterial(uSampler, options)
-        {
-            let _this = this;
-            const uniforms = {
-                uSampler,
+        function MeshMaterial(uSampler, options) {
+            var _this = this;
+            var uniforms = {
+                uSampler: uSampler,
                 alpha: 1,
                 uTextureMatrix: math.Matrix.IDENTITY,
                 uColor: new Float32Array([1, 1, 1, 1]),
             };
             // Set defaults
-
             options = Object.assign({
                 tint: 0xFFFFFF,
                 alpha: 1,
                 pluginName: 'batch',
             }, options);
-            if (options.uniforms)
-            {
+            if (options.uniforms) {
                 Object.assign(uniforms, options.uniforms);
             }
             _this = _super.call(this, options.program || core.Program.from(vertex, fragment), uniforms) || this;
@@ -893,22 +735,18 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
             _this.pluginName = options.pluginName;
             _this.tint = options.tint;
             _this.alpha = options.alpha;
-
             return _this;
         }
-        Object.defineProperty(MeshMaterial.prototype, 'texture', {
+        Object.defineProperty(MeshMaterial.prototype, "texture", {
             /**
              * Reference to the texture being rendered.
              * @member {PIXI.Texture}
              */
-            get()
-            {
+            get: function () {
                 return this.uniforms.uSampler;
             },
-            set(value)
-            {
-                if (this.uniforms.uSampler !== value)
-                {
+            set: function (value) {
+                if (this.uniforms.uSampler !== value) {
                     this.uniforms.uSampler = value;
                     this.uvMatrix.texture = value;
                 }
@@ -916,9 +754,8 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MeshMaterial.prototype, 'alpha', {
-            get()
-            {
+        Object.defineProperty(MeshMaterial.prototype, "alpha", {
+            get: function () {
                 return this._alpha;
             },
             /**
@@ -927,19 +764,17 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
              * @default 1
              * @member {number}
              */
-            set(value)
-            {
+            set: function (value) {
                 if (value === this._alpha)
-                { return; }
+                    { return; }
                 this._alpha = value;
                 this._colorDirty = true;
             },
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MeshMaterial.prototype, 'tint', {
-            get()
-            {
+        Object.defineProperty(MeshMaterial.prototype, "tint", {
+            get: function () {
                 return this._tint;
             },
             /**
@@ -947,10 +782,9 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
              * @member {number}
              * @default 0xFFFFFF
              */
-            set(value)
-            {
+            set: function (value) {
                 if (value === this._tint)
-                { return; }
+                    { return; }
                 this._tint = value;
                 this._tintRGB = (value >> 16) + (value & 0xff00) + ((value & 0xff) << 16);
                 this._colorDirty = true;
@@ -962,23 +796,18 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
          * Gets called automatically by the Mesh. Intended to be overridden for custom
          * MeshMaterial objects.
          */
-        MeshMaterial.prototype.update = function ()
-        {
-            if (this._colorDirty)
-            {
+        MeshMaterial.prototype.update = function () {
+            if (this._colorDirty) {
                 this._colorDirty = false;
-                const baseTexture = this.texture.baseTexture;
-
+                var baseTexture = this.texture.baseTexture;
                 utils.premultiplyTintToRgba(this._tint, this._alpha, this.uniforms.uColor, baseTexture.alphaMode);
             }
-            if (this.uvMatrix.update())
-            {
+            if (this.uvMatrix.update()) {
                 this.uniforms.uTextureMatrix = this.uvMatrix.mapCoord;
             }
         };
-
         return MeshMaterial;
-    })(core.Shader);
+    }(core.Shader));
 
     /**
      * Standard 2D geometry used in PixiJS.
@@ -997,21 +826,18 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
      * @memberof PIXI
      * @extends PIXI.Geometry
      */
-    const MeshGeometry = /** @class */ (function (_super)
-    {
+    var MeshGeometry = /** @class */ (function (_super) {
         __extends(MeshGeometry, _super);
         /**
          * @param {Float32Array|number[]} [vertices] - Positional data on geometry.
          * @param {Float32Array|number[]} [uvs] - Texture UVs.
          * @param {Uint16Array|number[]} [index] - IndexBuffer
          */
-        function MeshGeometry(vertices, uvs, index)
-        {
-            const _this = _super.call(this) || this;
-            const verticesBuffer = new core.Buffer(vertices);
-            const uvsBuffer = new core.Buffer(uvs, true);
-            const indexBuffer = new core.Buffer(index, true, true);
-
+        function MeshGeometry(vertices, uvs, index) {
+            var _this = _super.call(this) || this;
+            var verticesBuffer = new core.Buffer(vertices);
+            var uvsBuffer = new core.Buffer(uvs, true);
+            var indexBuffer = new core.Buffer(index, true, true);
             _this.addAttribute('aVertexPosition', verticesBuffer, 2, false, constants.TYPES.FLOAT)
                 .addAttribute('aTextureCoord', uvsBuffer, 2, false, constants.TYPES.FLOAT)
                 .addIndex(indexBuffer);
@@ -1024,26 +850,23 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
              * @default -1
              */
             _this._updateId = -1;
-
             return _this;
         }
-        Object.defineProperty(MeshGeometry.prototype, 'vertexDirtyId', {
+        Object.defineProperty(MeshGeometry.prototype, "vertexDirtyId", {
             /**
              * If the vertex position is updated.
              * @member {number}
              * @readonly
              * @private
              */
-            get()
-            {
+            get: function () {
                 return this.buffers[0]._updateID;
             },
             enumerable: false,
             configurable: true
         });
-
         return MeshGeometry;
-    })(core.Geometry);
+    }(core.Geometry));
 
     exports.Mesh = Mesh;
     exports.MeshBatchUvs = MeshBatchUvs;
@@ -1051,7 +874,7 @@ const _pixi_mesh = (function (exports, core, math, constants, display, settings,
     exports.MeshMaterial = MeshMaterial;
 
     return exports;
-})({}, PIXI, PIXI, PIXI, PIXI, PIXI, PIXI.utils);
 
+}({}, PIXI, PIXI, PIXI, PIXI, PIXI, PIXI.utils));
 Object.assign(this.PIXI, _pixi_mesh);
-// # sourceMappingURL=mesh.js.map
+//# sourceMappingURL=mesh.js.map
