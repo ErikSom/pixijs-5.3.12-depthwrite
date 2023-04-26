@@ -1,18 +1,17 @@
-/*!
+/* !
  * @pixi/filter-displacement - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
  * @pixi/filter-displacement is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
-'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var core = require('@pixi/core');
-var math = require('@pixi/math');
+const core = require('@pixi/core');
+const math = require('@pixi/math');
 
-/*! *****************************************************************************
+/* ! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -28,22 +27,25 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+var extendStatics = function (d, b)
+{
+    extendStatics = Object.setPrototypeOf
+        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
+        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+
     return extendStatics(d, b);
 };
 
-function __extends(d, b) {
+function __extends(d, b)
+{
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var fragment = "varying vec2 vFilterCoord;\r\nvarying vec2 vTextureCoord;\r\n\r\nuniform vec2 scale;\r\nuniform mat2 rotation;\r\nuniform sampler2D uSampler;\r\nuniform sampler2D mapSampler;\r\n\r\nuniform highp vec4 inputSize;\r\nuniform vec4 inputClamp;\r\n\r\nvoid main(void)\r\n{\r\n  vec4 map =  texture2D(mapSampler, vFilterCoord);\r\n\r\n  map -= 0.5;\r\n  map.xy = scale * inputSize.zw * (rotation * map.xy);\r\n\r\n  gl_FragColor = texture2D(uSampler, clamp(vec2(vTextureCoord.x + map.x, vTextureCoord.y + map.y), inputClamp.xy, inputClamp.zw));\r\n}\r\n";
+const fragment = 'varying vec2 vFilterCoord;\r\nvarying vec2 vTextureCoord;\r\n\r\nuniform vec2 scale;\r\nuniform mat2 rotation;\r\nuniform sampler2D uSampler;\r\nuniform sampler2D mapSampler;\r\n\r\nuniform highp vec4 inputSize;\r\nuniform vec4 inputClamp;\r\n\r\nvoid main(void)\r\n{\r\n  vec4 map =  texture2D(mapSampler, vFilterCoord);\r\n\r\n  map -= 0.5;\r\n  map.xy = scale * inputSize.zw * (rotation * map.xy);\r\n\r\n  gl_FragColor = texture2D(uSampler, clamp(vec2(vTextureCoord.x + map.x, vTextureCoord.y + map.y), inputClamp.xy, inputClamp.zw));\r\n}\r\n';
 
-var vertex = "attribute vec2 aVertexPosition;\r\n\r\nuniform mat3 projectionMatrix;\r\nuniform mat3 filterMatrix;\r\n\r\nvarying vec2 vTextureCoord;\r\nvarying vec2 vFilterCoord;\r\n\r\nuniform vec4 inputSize;\r\nuniform vec4 outputFrame;\r\n\r\nvec4 filterVertexPosition( void )\r\n{\r\n    vec2 position = aVertexPosition * max(outputFrame.zw, vec2(0.)) + outputFrame.xy;\r\n\r\n    return vec4((projectionMatrix * vec3(position, 1.0)).xy, 0.0, 1.0);\r\n}\r\n\r\nvec2 filterTextureCoord( void )\r\n{\r\n    return aVertexPosition * (outputFrame.zw * inputSize.zw);\r\n}\r\n\r\nvoid main(void)\r\n{\r\n\tgl_Position = filterVertexPosition();\r\n\tvTextureCoord = filterTextureCoord();\r\n\tvFilterCoord = ( filterMatrix * vec3( vTextureCoord, 1.0)  ).xy;\r\n}\r\n";
+const vertex = 'attribute vec2 aVertexPosition;\r\n\r\nuniform mat3 projectionMatrix;\r\nuniform mat3 filterMatrix;\r\n\r\nvarying vec2 vTextureCoord;\r\nvarying vec2 vFilterCoord;\r\n\r\nuniform vec4 inputSize;\r\nuniform vec4 outputFrame;\r\n\r\nvec4 filterVertexPosition( void )\r\n{\r\n    vec2 position = aVertexPosition * max(outputFrame.zw, vec2(0.)) + outputFrame.xy;\r\n\r\n    return vec4((projectionMatrix * vec3(position, 1.0)).xy, 0.0, 1.0);\r\n}\r\n\r\nvec2 filterTextureCoord( void )\r\n{\r\n    return aVertexPosition * (outputFrame.zw * inputSize.zw);\r\n}\r\n\r\nvoid main(void)\r\n{\r\n\tgl_Position = filterVertexPosition();\r\n\tvTextureCoord = filterTextureCoord();\r\n\tvFilterCoord = ( filterMatrix * vec3( vTextureCoord, 1.0)  ).xy;\r\n}\r\n';
 
 /**
  * The DisplacementFilter class uses the pixel values from the specified texture
@@ -63,15 +65,18 @@ var vertex = "attribute vec2 aVertexPosition;\r\n\r\nuniform mat3 projectionMatr
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-var DisplacementFilter = /** @class */ (function (_super) {
+const DisplacementFilter = /** @class */ (function (_super)
+{
     __extends(DisplacementFilter, _super);
     /**
      * @param {PIXI.Sprite} sprite - The sprite used for the displacement map. (make sure its added to the scene!)
      * @param {number} [scale] - The scale of the displacement
      */
-    function DisplacementFilter(sprite, scale) {
-        var _this = this;
-        var maskMatrix = new math.Matrix();
+    function DisplacementFilter(sprite, scale)
+    {
+        let _this = this;
+        const maskMatrix = new math.Matrix();
+
         sprite.renderable = false;
         _this = _super.call(this, vertex, fragment, {
             mapSampler: sprite._texture,
@@ -81,7 +86,8 @@ var DisplacementFilter = /** @class */ (function (_super) {
         }) || this;
         _this.maskSprite = sprite;
         _this.maskMatrix = maskMatrix;
-        if (scale === null || scale === undefined) {
+        if (scale === null || scale === undefined)
+        {
             scale = 20;
         }
         /**
@@ -89,6 +95,7 @@ var DisplacementFilter = /** @class */ (function (_super) {
          * @member {PIXI.Point}
          */
         _this.scale = new math.Point(scale, scale);
+
         return _this;
     }
     /**
@@ -99,16 +106,19 @@ var DisplacementFilter = /** @class */ (function (_super) {
      * @param {PIXI.RenderTexture} output - The output target.
      * @param {PIXI.CLEAR_MODES} clearMode - clearMode.
      */
-    DisplacementFilter.prototype.apply = function (filterManager, input, output, clearMode) {
+    DisplacementFilter.prototype.apply = function (filterManager, input, output, clearMode)
+    {
         // fill maskMatrix with _normalized sprite texture coords_
         this.uniforms.filterMatrix = filterManager.calculateSpriteMatrix(this.maskMatrix, this.maskSprite);
         this.uniforms.scale.x = this.scale.x;
         this.uniforms.scale.y = this.scale.y;
         // Extract rotation from world transform
-        var wt = this.maskSprite.worldTransform;
-        var lenX = Math.sqrt((wt.a * wt.a) + (wt.b * wt.b));
-        var lenY = Math.sqrt((wt.c * wt.c) + (wt.d * wt.d));
-        if (lenX !== 0 && lenY !== 0) {
+        const wt = this.maskSprite.worldTransform;
+        const lenX = Math.sqrt((wt.a * wt.a) + (wt.b * wt.b));
+        const lenY = Math.sqrt((wt.c * wt.c) + (wt.d * wt.d));
+
+        if (lenX !== 0 && lenY !== 0)
+        {
             this.uniforms.rotation[0] = wt.a / lenX;
             this.uniforms.rotation[1] = wt.b / lenX;
             this.uniforms.rotation[2] = wt.c / lenY;
@@ -117,23 +127,26 @@ var DisplacementFilter = /** @class */ (function (_super) {
         // draw the filter...
         filterManager.applyFilter(this, input, output, clearMode);
     };
-    Object.defineProperty(DisplacementFilter.prototype, "map", {
+    Object.defineProperty(DisplacementFilter.prototype, 'map', {
         /**
          * The texture used for the displacement map. Must be power of 2 sized texture.
          *
          * @member {PIXI.Texture}
          */
-        get: function () {
+        get()
+        {
             return this.uniforms.mapSampler;
         },
-        set: function (value) {
+        set(value)
+        {
             this.uniforms.mapSampler = value;
         },
         enumerable: false,
         configurable: true
     });
+
     return DisplacementFilter;
-}(core.Filter));
+})(core.Filter);
 
 exports.DisplacementFilter = DisplacementFilter;
-//# sourceMappingURL=filter-displacement.js.map
+// # sourceMappingURL=filter-displacement.js.map

@@ -1,72 +1,79 @@
-/*!
+/* !
  * @pixi/polyfill - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
  * @pixi/polyfill is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
-(function () {
-	'use strict';
+(function ()
+{
+    const commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+    function commonjsRequire()
+    {
+        throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
+    }
 
-	function commonjsRequire () {
-		throw new Error('Dynamic requires are not currently supported by rollup-plugin-commonjs');
-	}
+    function unwrapExports(x)
+    {
+        return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x.default : x;
+    }
 
-	function unwrapExports (x) {
-		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-	}
+    function createCommonjsModule(fn, module)
+    {
+        return module = { exports: {} }, fn(module, module.exports), module.exports;
+    }
 
-	function createCommonjsModule(fn, module) {
-		return module = { exports: {} }, fn(module, module.exports), module.exports;
-	}
+    function getCjsExportFromNamespace(n)
+    {
+        return n && n.default || n;
+    }
 
-	function getCjsExportFromNamespace (n) {
-		return n && n['default'] || n;
-	}
+    const promise = createCommonjsModule(function (module, exports)
+    {
+        (function (global)
+        {
+            //
+            // Check for native Promise and it has correct interface
+            //
 
-	var promise = createCommonjsModule(function (module, exports) {
-	(function(global){
-
-	//
-	// Check for native Promise and it has correct interface
-	//
-
-	var NativePromise = global['Promise'];
-	var nativePromiseSupported =
-	  NativePromise &&
+            const NativePromise = global.Promise;
+            const nativePromiseSupported
+	  = NativePromise
 	  // Some of these methods are missing from
 	  // Firefox/Chrome experimental implementations
-	  'resolve' in NativePromise &&
-	  'reject' in NativePromise &&
-	  'all' in NativePromise &&
-	  'race' in NativePromise &&
+	  && 'resolve' in NativePromise
+	  && 'reject' in NativePromise
+	  && 'all' in NativePromise
+	  && 'race' in NativePromise
 	  // Older version of the spec had a resolver object
 	  // as the arg rather than a function
-	  (function(){
-	    var resolve;
-	    new NativePromise(function(r){ resolve = r; });
-	    return typeof resolve === 'function';
+	  && (function ()
+	  {
+	    let resolve;
+
+	    new NativePromise(function (r) { resolve = r; });
+
+	      return typeof resolve === 'function';
 	  })();
 
+            //
+            // export if necessary
+            //
 
-	//
-	// export if necessary
-	//
-
-	if ('object' !== 'undefined' && exports)
-	{
+            if ('object' !== 'undefined' && exports)
+            {
 	  // node.js
 	  exports.Promise = nativePromiseSupported ? NativePromise : Promise;
 	  exports.Polyfill = Promise;
-	}
-	else
-	{
+            }
+            else
+            {
 	  // AMD
-	  if (typeof undefined == 'function' && undefined.amd)
+	  if (typeof undefined === 'function' && undefined.amd)
 	  {
-	    undefined(function(){
+	    undefined(function ()
+                    {
 	      return nativePromiseSupported ? NativePromise : Promise;
 	    });
 	  }
@@ -74,41 +81,43 @@
 	  {
 	    // in browser add to global
 	    if (!nativePromiseSupported)
-	      { global['Promise'] = Promise; }
+	      { global.Promise = Promise; }
 	  }
-	}
+            }
 
+            //
+            // Polyfill
+            //
 
-	//
-	// Polyfill
-	//
+            const PENDING = 'pending';
+            const SEALED = 'sealed';
+            const FULFILLED = 'fulfilled';
+            const REJECTED = 'rejected';
+            const NOOP = function () {};
 
-	var PENDING = 'pending';
-	var SEALED = 'sealed';
-	var FULFILLED = 'fulfilled';
-	var REJECTED = 'rejected';
-	var NOOP = function(){};
-
-	function isArray(value) {
+            function isArray(value)
+            {
 	  return Object.prototype.toString.call(value) === '[object Array]';
-	}
+            }
 
-	// async calls
-	var asyncSetTimer = typeof setImmediate !== 'undefined' ? setImmediate : setTimeout;
-	var asyncQueue = [];
-	var asyncTimer;
+            // async calls
+            const asyncSetTimer = typeof setImmediate !== 'undefined' ? setImmediate : setTimeout;
+            let asyncQueue = [];
+            let asyncTimer;
 
-	function asyncFlush(){
+            function asyncFlush()
+            {
 	  // run promise callbacks
-	  for (var i = 0; i < asyncQueue.length; i++)
+	  for (let i = 0; i < asyncQueue.length; i++)
 	    { asyncQueue[i][0](asyncQueue[i][1]); }
 
 	  // reset async asyncQueue
 	  asyncQueue = [];
 	  asyncTimer = false;
-	}
+            }
 
-	function asyncCall(callback, arg){
+            function asyncCall(callback, arg)
+            {
 	  asyncQueue.push([callback, arg]);
 
 	  if (!asyncTimer)
@@ -116,38 +125,47 @@
 	    asyncTimer = true;
 	    asyncSetTimer(asyncFlush, 0);
 	  }
-	}
+            }
 
-
-	function invokeResolver(resolver, promise) {
-	  function resolvePromise(value) {
+            function invokeResolver(resolver, promise)
+            {
+	  function resolvePromise(value)
+                {
 	    resolve(promise, value);
 	  }
 
-	  function rejectPromise(reason) {
+	  function rejectPromise(reason)
+                {
 	    reject(promise, reason);
 	  }
 
-	  try {
+	  try
+                {
 	    resolver(resolvePromise, rejectPromise);
-	  } catch(e) {
+	  }
+                catch (e)
+                {
 	    rejectPromise(e);
 	  }
-	}
+            }
 
-	function invokeCallback(subscriber){
-	  var owner = subscriber.owner;
-	  var settled = owner.state_;
-	  var value = owner.data_;  
-	  var callback = subscriber[settled];
-	  var promise = subscriber.then;
+            function invokeCallback(subscriber)
+            {
+	  const owner = subscriber.owner;
+	  let settled = owner.state_;
+	  let value = owner.data_;
+	  const callback = subscriber[settled];
+	  const promise = subscriber.then;
 
 	  if (typeof callback === 'function')
 	  {
 	    settled = FULFILLED;
-	    try {
+	    try
+                    {
 	      value = callback(value);
-	    } catch(e) {
+	    }
+                    catch (e)
+                    {
 	      reject(promise, e);
 	    }
 	  }
@@ -160,22 +178,25 @@
 	    if (settled === REJECTED)
 	      { reject(promise, value); }
 	  }
-	}
+            }
 
-	function handleThenable(promise, value) {
-	  var resolved;
+            function handleThenable(promise, value)
+            {
+	  let resolved;
 
-	  try {
+	  try
+                {
 	    if (promise === value)
 	      { throw new TypeError('A promises callback cannot return that same promise.'); }
 
 	    if (value && (typeof value === 'function' || typeof value === 'object'))
 	    {
-	      var then = value.then;  // then should be retrived only once
+	      const then = value.then; // then should be retrived only once
 
 	      if (typeof then === 'function')
 	      {
-	        then.call(value, function(val){
+	        then.call(value, function (val)
+                            {
 	          if (!resolved)
 	          {
 	            resolved = true;
@@ -185,7 +206,8 @@
 	            else
 	              { fulfill(promise, val); }
 	          }
-	        }, function(reason){
+	        }, function (reason)
+                            {
 	          if (!resolved)
 	          {
 	            resolved = true;
@@ -197,7 +219,9 @@
 	        return true;
 	      }
 	    }
-	  } catch (e) {
+	  }
+                catch (e)
+                {
 	    if (!resolved)
 	      { reject(promise, e); }
 
@@ -205,14 +229,16 @@
 	  }
 
 	  return false;
-	}
+            }
 
-	function resolve(promise, value){
+            function resolve(promise, value)
+            {
 	  if (promise === value || !handleThenable(promise, value))
 	    { fulfill(promise, value); }
-	}
+            }
 
-	function fulfill(promise, value){
+            function fulfill(promise, value)
+            {
 	  if (promise.state_ === PENDING)
 	  {
 	    promise.state_ = SEALED;
@@ -220,9 +246,10 @@
 
 	    asyncCall(publishFulfillment, promise);
 	  }
-	}
+            }
 
-	function reject(promise, reason){
+            function reject(promise, reason)
+            {
 	  if (promise.state_ === PENDING)
 	  {
 	    promise.state_ = SEALED;
@@ -230,31 +257,37 @@
 
 	    asyncCall(publishRejection, promise);
 	  }
-	}
+            }
 
-	function publish(promise) {
-	  var callbacks = promise.then_;
+            function publish(promise)
+            {
+	  const callbacks = promise.then_;
+
 	  promise.then_ = undefined;
 
-	  for (var i = 0; i < callbacks.length; i++) {
+	  for (let i = 0; i < callbacks.length; i++)
+                {
 	    invokeCallback(callbacks[i]);
 	  }
-	}
+            }
 
-	function publishFulfillment(promise){
+            function publishFulfillment(promise)
+            {
 	  promise.state_ = FULFILLED;
 	  publish(promise);
-	}
+            }
 
-	function publishRejection(promise){
+            function publishRejection(promise)
+            {
 	  promise.state_ = REJECTED;
 	  publish(promise);
-	}
+            }
 
-	/**
+            /**
 	* @class
 	*/
-	function Promise(resolver){
+            function Promise(resolver)
+            {
 	  if (typeof resolver !== 'function')
 	    { throw new TypeError('Promise constructor takes a function argument'); }
 
@@ -264,17 +297,18 @@
 	  this.then_ = [];
 
 	  invokeResolver(resolver, this);
-	}
+            }
 
-	Promise.prototype = {
+            Promise.prototype = {
 	  constructor: Promise,
 
 	  state_: PENDING,
 	  then_: null,
 	  data_: undefined,
 
-	  then: function(onFulfillment, onRejection){
-	    var subscriber = {
+	  then(onFulfillment, onRejection)
+                {
+	    const subscriber = {
 	      owner: this,
 	      then: new this.constructor(NOOP),
 	      fulfilled: onFulfillment,
@@ -295,24 +329,30 @@
 	    return subscriber.then;
 	  },
 
-	  'catch': function(onRejection) {
+	  catch(onRejection)
+                {
 	    return this.then(null, onRejection);
 	  }
-	};
+            };
 
-	Promise.all = function(promises){
-	  var Class = this;
+            Promise.all = function (promises)
+            {
+	  const Class = this;
 
 	  if (!isArray(promises))
 	    { throw new TypeError('You must pass an array to Promise.all().'); }
 
-	  return new Class(function(resolve, reject){
-	    var results = [];
-	    var remaining = 0;
+	  return new Class(function (resolve, reject)
+                {
+	    const results = [];
+	    let remaining = 0;
 
-	    function resolver(index){
+	    function resolver(index)
+                    {
 	      remaining++;
-	      return function(value){
+
+                        return function (value)
+                        {
 	        results[index] = value;
 	        if (!--remaining)
 	          { resolve(results); }
@@ -332,15 +372,17 @@
 	    if (!remaining)
 	      { resolve(results); }
 	  });
-	};
+            };
 
-	Promise.race = function(promises){
-	  var Class = this;
+            Promise.race = function (promises)
+            {
+	  const Class = this;
 
 	  if (!isArray(promises))
 	    { throw new TypeError('You must pass an array to Promise.race().'); }
 
-	  return new Class(function(resolve, reject) {
+	  return new Class(function (resolve, reject)
+                {
 	    for (var i = 0, promise; i < promises.length; i++)
 	    {
 	      promise = promises[i];
@@ -351,230 +393,287 @@
 	        { resolve(promise); }
 	    }
 	  });
-	};
+            };
 
-	Promise.resolve = function(value){
-	  var Class = this;
+            Promise.resolve = function (value)
+            {
+	  const Class = this;
 
 	  if (value && typeof value === 'object' && value.constructor === Class)
 	    { return value; }
 
-	  return new Class(function(resolve){
+	  return new Class(function (resolve)
+                {
 	    resolve(value);
 	  });
-	};
+            };
 
-	Promise.reject = function(reason){
-	  var Class = this;
+            Promise.reject = function (reason)
+            {
+	  const Class = this;
 
-	  return new Class(function(resolve, reject){
+	  return new Class(function (resolve, reject)
+                {
 	    reject(reason);
 	  });
-	};
+            };
+        })(typeof window !== 'undefined' ? window : typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : typeof self !== 'undefined' ? self : commonjsGlobal);
+    });
+    const promise_1 = promise.Promise;
+    const promise_2 = promise.Polyfill;
 
-	})(typeof window != 'undefined' ? window : typeof commonjsGlobal != 'undefined' ? commonjsGlobal : typeof self != 'undefined' ? self : commonjsGlobal);
-	});
-	var promise_1 = promise.Promise;
-	var promise_2 = promise.Polyfill;
-
-	// Support for IE 9 - 11 which does not include Promises
-	if (!window.Promise) {
+    // Support for IE 9 - 11 which does not include Promises
+    if (!window.Promise)
+    {
 	    window.Promise = promise_2;
-	}
+    }
 
-	/*
+    /*
 	object-assign
 	(c) Sindre Sorhus
 	@license MIT
 	*/
 
-	'use strict';
-	/* eslint-disable no-unused-vars */
-	var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+    'use strict';
+    /* eslint-disable no-unused-vars */
+    const getOwnPropertySymbols = Object.getOwnPropertySymbols;
+    const hasOwnProperty = Object.prototype.hasOwnProperty;
+    const propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
-	function toObject(val) {
-		if (val === null || val === undefined) {
-			throw new TypeError('Object.assign cannot be called with null or undefined');
-		}
+    function toObject(val)
+    {
+        if (val === null || val === undefined)
+        {
+            throw new TypeError('Object.assign cannot be called with null or undefined');
+        }
 
-		return Object(val);
-	}
+        return Object(val);
+    }
 
-	function shouldUseNative() {
-		try {
-			if (!Object.assign) {
-				return false;
-			}
+    function shouldUseNative()
+    {
+        try
+        {
+            if (!Object.assign)
+            {
+                return false;
+            }
 
-			// Detect buggy property enumeration order in older V8 versions.
+            // Detect buggy property enumeration order in older V8 versions.
 
-			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-			var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
-			test1[5] = 'de';
-			if (Object.getOwnPropertyNames(test1)[0] === '5') {
-				return false;
-			}
+            // https://bugs.chromium.org/p/v8/issues/detail?id=4118
+            const test1 = new String('abc'); // eslint-disable-line no-new-wrappers
 
-			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-			var test2 = {};
-			for (var i = 0; i < 10; i++) {
-				test2['_' + String.fromCharCode(i)] = i;
-			}
-			var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-				return test2[n];
-			});
-			if (order2.join('') !== '0123456789') {
-				return false;
-			}
+            test1[5] = 'de';
+            if (Object.getOwnPropertyNames(test1)[0] === '5')
+            {
+                return false;
+            }
 
-			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-			var test3 = {};
-			'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-				test3[letter] = letter;
-			});
-			if (Object.keys(Object.assign({}, test3)).join('') !==
-					'abcdefghijklmnopqrst') {
-				return false;
-			}
+            // https://bugs.chromium.org/p/v8/issues/detail?id=3056
+            const test2 = {};
 
-			return true;
-		} catch (err) {
-			// We don't expect any of the above to throw, but better to be safe.
-			return false;
-		}
-	}
+            for (let i = 0; i < 10; i++)
+            {
+                test2[`_${String.fromCharCode(i)}`] = i;
+            }
+            const order2 = Object.getOwnPropertyNames(test2).map(function (n)
+            {
+                return test2[n];
+            });
 
-	var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
-		var arguments$1 = arguments;
+            if (order2.join('') !== '0123456789')
+            {
+                return false;
+            }
 
-		var from;
-		var to = toObject(target);
-		var symbols;
+            // https://bugs.chromium.org/p/v8/issues/detail?id=3056
+            const test3 = {};
 
-		for (var s = 1; s < arguments.length; s++) {
-			from = Object(arguments$1[s]);
+            'abcdefghijklmnopqrst'.split('').forEach(function (letter)
+            {
+                test3[letter] = letter;
+            });
+            if (Object.keys(Object.assign({}, test3)).join('')
+					!== 'abcdefghijklmnopqrst')
+            {
+                return false;
+            }
 
-			for (var key in from) {
-				if (hasOwnProperty.call(from, key)) {
-					to[key] = from[key];
-				}
-			}
+            return true;
+        }
+        catch (err)
+        {
+            // We don't expect any of the above to throw, but better to be safe.
+            return false;
+        }
+    }
 
-			if (getOwnPropertySymbols) {
-				symbols = getOwnPropertySymbols(from);
-				for (var i = 0; i < symbols.length; i++) {
-					if (propIsEnumerable.call(from, symbols[i])) {
-						to[symbols[i]] = from[symbols[i]];
-					}
-				}
-			}
-		}
+    const objectAssign = shouldUseNative() ? Object.assign : function (target, source)
+    {
+        const arguments$1 = arguments;
 
-		return to;
-	};
+        let from;
+        const to = toObject(target);
+        let symbols;
 
-	// References:
-	if (!Object.assign) {
+        for (let s = 1; s < arguments.length; s++)
+        {
+            from = Object(arguments$1[s]);
+
+            for (const key in from)
+            {
+                if (hasOwnProperty.call(from, key))
+                {
+                    to[key] = from[key];
+                }
+            }
+
+            if (getOwnPropertySymbols)
+            {
+                symbols = getOwnPropertySymbols(from);
+                for (let i = 0; i < symbols.length; i++)
+                {
+                    if (propIsEnumerable.call(from, symbols[i]))
+                    {
+                        to[symbols[i]] = from[symbols[i]];
+                    }
+                }
+            }
+        }
+
+        return to;
+    };
+
+    // References:
+    if (!Object.assign)
+    {
 	    Object.assign = objectAssign;
-	}
+    }
 
-	"use strict";
-	// References:
-	// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
-	// https://gist.github.com/1579671
-	// http://updates.html5rocks.com/2012/05/requestAnimationFrame-API-now-with-sub-millisecond-precision
-	// https://gist.github.com/timhall/4078614
-	// https://github.com/Financial-Times/polyfill-service/tree/master/polyfills/requestAnimationFrame
-	// Expected to be used with Browserfiy
-	// Browserify automatically detects the use of `global` and passes the
-	// correct reference of `global`, `self`, and finally `window`
-	var ONE_FRAME_TIME = 16;
-	// Date.now
-	if (!(Date.now && Date.prototype.getTime)) {
-	    Date.now = function now() {
+    'use strict';
+    // References:
+    // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+    // https://gist.github.com/1579671
+    // http://updates.html5rocks.com/2012/05/requestAnimationFrame-API-now-with-sub-millisecond-precision
+    // https://gist.github.com/timhall/4078614
+    // https://github.com/Financial-Times/polyfill-service/tree/master/polyfills/requestAnimationFrame
+    // Expected to be used with Browserfiy
+    // Browserify automatically detects the use of `global` and passes the
+    // correct reference of `global`, `self`, and finally `window`
+    const ONE_FRAME_TIME = 16;
+    // Date.now
+
+    if (!(Date.now && Date.prototype.getTime))
+    {
+	    Date.now = function now()
+        {
 	        return new Date().getTime();
 	    };
-	}
-	// performance.now
-	if (!(window.performance && window.performance.now)) {
-	    var startTime_1 = Date.now();
-	    if (!window.performance) {
+    }
+    // performance.now
+    if (!(window.performance && window.performance.now))
+    {
+	    const startTime_1 = Date.now();
+
+	    if (!window.performance)
+        {
 	        window.performance = {};
 	    }
 	    window.performance.now = function () { return Date.now() - startTime_1; };
-	}
-	// requestAnimationFrame
-	var lastTime = Date.now();
-	var vendors = ['ms', 'moz', 'webkit', 'o'];
-	for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-	    var p = vendors[x];
-	    window.requestAnimationFrame = window[p + "RequestAnimationFrame"];
-	    window.cancelAnimationFrame = window[p + "CancelAnimationFrame"]
-	        || window[p + "CancelRequestAnimationFrame"];
-	}
-	if (!window.requestAnimationFrame) {
-	    window.requestAnimationFrame = function (callback) {
-	        if (typeof callback !== 'function') {
-	            throw new TypeError(callback + "is not a function");
+    }
+    // requestAnimationFrame
+    let lastTime = Date.now();
+    const vendors = ['ms', 'moz', 'webkit', 'o'];
+
+    for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x)
+    {
+	    const p = vendors[x];
+
+	    window.requestAnimationFrame = window[`${p}RequestAnimationFrame`];
+	    window.cancelAnimationFrame = window[`${p}CancelAnimationFrame`]
+	        || window[`${p}CancelRequestAnimationFrame`];
+    }
+    if (!window.requestAnimationFrame)
+    {
+	    window.requestAnimationFrame = function (callback)
+        {
+	        if (typeof callback !== 'function')
+            {
+	            throw new TypeError(`${callback}is not a function`);
 	        }
-	        var currentTime = Date.now();
-	        var delay = ONE_FRAME_TIME + lastTime - currentTime;
-	        if (delay < 0) {
+	        const currentTime = Date.now();
+	        let delay = ONE_FRAME_TIME + lastTime - currentTime;
+
+	        if (delay < 0)
+            {
 	            delay = 0;
 	        }
 	        lastTime = currentTime;
-	        return window.setTimeout(function () {
+
+            return window.setTimeout(function ()
+            {
 	            lastTime = Date.now();
 	            callback(performance.now());
 	        }, delay);
 	    };
-	}
-	if (!window.cancelAnimationFrame) {
+    }
+    if (!window.cancelAnimationFrame)
+    {
 	    window.cancelAnimationFrame = function (id) { return clearTimeout(id); };
-	}
+    }
 
-	"use strict";
-	// References:
-	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign
-	if (!Math.sign) {
-	    Math.sign = function mathSign(x) {
+    'use strict';
+    // References:
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign
+    if (!Math.sign)
+    {
+	    Math.sign = function mathSign(x)
+        {
 	        x = Number(x);
-	        if (x === 0 || isNaN(x)) {
+	        if (x === 0 || isNaN(x))
+            {
 	            return x;
 	        }
-	        return x > 0 ? 1 : -1;
-	    };
-	}
 
-	"use strict";
-	// References:
-	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger
-	if (!Number.isInteger) {
-	    Number.isInteger = function numberIsInteger(value) {
+            return x > 0 ? 1 : -1;
+	    };
+    }
+
+    'use strict';
+    // References:
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger
+    if (!Number.isInteger)
+    {
+	    Number.isInteger = function numberIsInteger(value)
+        {
 	        return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
 	    };
-	}
+    }
 
-	if (!window.ArrayBuffer) {
+    if (!window.ArrayBuffer)
+    {
 	    window.ArrayBuffer = Array;
-	}
-	if (!window.Float32Array) {
+    }
+    if (!window.Float32Array)
+    {
 	    window.Float32Array = Array;
-	}
-	if (!window.Uint32Array) {
+    }
+    if (!window.Uint32Array)
+    {
 	    window.Uint32Array = Array;
-	}
-	if (!window.Uint16Array) {
+    }
+    if (!window.Uint16Array)
+    {
 	    window.Uint16Array = Array;
-	}
-	if (!window.Uint8Array) {
+    }
+    if (!window.Uint8Array)
+    {
 	    window.Uint8Array = Array;
-	}
-	if (!window.Int32Array) {
+    }
+    if (!window.Int32Array)
+    {
 	    window.Int32Array = Array;
-	}
-
-}());
-//# sourceMappingURL=polyfill.js.map
+    }
+})();
+// # sourceMappingURL=polyfill.js.map

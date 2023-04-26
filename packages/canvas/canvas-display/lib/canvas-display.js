@@ -1,13 +1,12 @@
-/*!
+/* !
  * @pixi/canvas-display - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
  * @pixi/canvas-display is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
-'use strict';
 
-var display = require('@pixi/display');
+const display = require('@pixi/display');
 
 /**
  * To be overridden by the subclass
@@ -16,7 +15,8 @@ var display = require('@pixi/display');
  * @protected
  * @param {PIXI.CanvasRenderer} renderer - The renderer
  */
-display.Container.prototype._renderCanvas = function _renderCanvas(_renderer) {
+display.Container.prototype._renderCanvas = function _renderCanvas(_renderer)
+{
     // this is where content itself gets rendered...
 };
 /**
@@ -25,19 +25,24 @@ display.Container.prototype._renderCanvas = function _renderCanvas(_renderer) {
  * @memberof PIXI.Container#
  * @param {PIXI.CanvasRenderer} renderer - The renderer
  */
-display.Container.prototype.renderCanvas = function renderCanvas(renderer) {
+display.Container.prototype.renderCanvas = function renderCanvas(renderer)
+{
     // if not visible or the alpha is 0 then no need to render this
-    if (!this.visible || this.worldAlpha <= 0 || !this.renderable) {
+    if (!this.visible || this.worldAlpha <= 0 || !this.renderable)
+    {
         return;
     }
-    if (this._mask) {
+    if (this._mask)
+    {
         renderer.maskManager.pushMask(this._mask);
     }
     this._renderCanvas(renderer);
-    for (var i = 0, j = this.children.length; i < j; ++i) {
+    for (let i = 0, j = this.children.length; i < j; ++i)
+    {
         this.children[i].renderCanvas(renderer);
     }
-    if (this._mask) {
+    if (this._mask)
+    {
         renderer.maskManager.popMask(renderer);
     }
 };
@@ -48,7 +53,8 @@ display.Container.prototype.renderCanvas = function renderCanvas(renderer) {
  * @memberof PIXI.Container#
  * @param {PIXI.CanvasRenderer} renderer - The renderer
  */
-display.DisplayObject.prototype.renderCanvas = function renderCanvas(_renderer) {
+display.DisplayObject.prototype.renderCanvas = function renderCanvas(_renderer)
+{
     // OVERWRITE;
 };
-//# sourceMappingURL=canvas-display.js.map
+// # sourceMappingURL=canvas-display.js.map

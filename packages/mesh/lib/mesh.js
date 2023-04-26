@@ -1,22 +1,21 @@
-/*!
+/* !
  * @pixi/mesh - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
  * @pixi/mesh is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
-'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var core = require('@pixi/core');
-var math = require('@pixi/math');
-var constants = require('@pixi/constants');
-var display = require('@pixi/display');
-var settings = require('@pixi/settings');
-var utils = require('@pixi/utils');
+const core = require('@pixi/core');
+const math = require('@pixi/math');
+const constants = require('@pixi/constants');
+const display = require('@pixi/display');
+const settings = require('@pixi/settings');
+const utils = require('@pixi/utils');
 
-/*! *****************************************************************************
+/* ! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -32,14 +31,17 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+var extendStatics = function (d, b)
+{
+    extendStatics = Object.setPrototypeOf
+        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
+        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+
     return extendStatics(d, b);
 };
 
-function __extends(d, b) {
+function __extends(d, b)
+{
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -51,12 +53,14 @@ function __extends(d, b) {
  * @class
  * @memberof PIXI
  */
-var MeshBatchUvs = /** @class */ (function () {
+const MeshBatchUvs = /** @class */ (function ()
+{
     /**
      * @param {PIXI.Buffer} uvBuffer - Buffer with normalized uv's
      * @param {PIXI.TextureMatrix} uvMatrix - Material UV matrix
      */
-    function MeshBatchUvs(uvBuffer, uvMatrix) {
+    function MeshBatchUvs(uvBuffer, uvMatrix)
+    {
         /**
          * Buffer with normalized UV's
          * @member {PIXI.Buffer}
@@ -82,26 +86,31 @@ var MeshBatchUvs = /** @class */ (function () {
      *
      * @param {boolean} [forceUpdate] - force the update
      */
-    MeshBatchUvs.prototype.update = function (forceUpdate) {
+    MeshBatchUvs.prototype.update = function (forceUpdate)
+    {
         if (!forceUpdate
             && this._bufferUpdateId === this.uvBuffer._updateID
-            && this._textureUpdateId === this.uvMatrix._updateID) {
+            && this._textureUpdateId === this.uvMatrix._updateID)
+        {
             return;
         }
         this._bufferUpdateId = this.uvBuffer._updateID;
         this._textureUpdateId = this.uvMatrix._updateID;
-        var data = this.uvBuffer.data;
-        if (!this.data || this.data.length !== data.length) {
+        const data = this.uvBuffer.data;
+
+        if (!this.data || this.data.length !== data.length)
+        {
             this.data = new Float32Array(data.length);
         }
         this.uvMatrix.multiplyUvs(data, this.data);
         this._updateID++;
     };
-    return MeshBatchUvs;
-}());
 
-var tempPoint = new math.Point();
-var tempPolygon = new math.Polygon();
+    return MeshBatchUvs;
+})();
+
+const tempPoint = new math.Point();
+const tempPolygon = new math.Polygon();
 /**
  * Base mesh class.
  *
@@ -120,7 +129,8 @@ var tempPolygon = new math.Polygon();
  * @extends PIXI.Container
  * @memberof PIXI
  */
-var Mesh = /** @class */ (function (_super) {
+const Mesh = /** @class */ (function (_super)
+{
     __extends(Mesh, _super);
     /**
      * @param {PIXI.Geometry} geometry - the geometry the mesh will use
@@ -129,9 +139,10 @@ var Mesh = /** @class */ (function (_super) {
      *        if no state is provided, uses {@link PIXI.State.for2d} to create a 2D state for PixiJS.
      * @param {number} [drawMode=PIXI.DRAW_MODES.TRIANGLES] - the drawMode, can be any of the PIXI.DRAW_MODES consts
      */
-    function Mesh(geometry, shader, state, drawMode) {
+    function Mesh(geometry, shader, state, drawMode)
+    {
         if (drawMode === void 0) { drawMode = constants.DRAW_MODES.TRIANGLES; }
-        var _this = _super.call(this) || this;
+        const _this = _super.call(this) || this;
         /**
          * Includes vertex positions, face indices, normals, colors, UVs, and
          * custom attributes within buffers, reducing the cost of passing all
@@ -139,6 +150,7 @@ var Mesh = /** @class */ (function (_super) {
          * @member {PIXI.Geometry}
          * @readonly
          */
+
         _this.geometry = geometry;
         geometry.refCount++;
         /**
@@ -211,49 +223,55 @@ var Mesh = /** @class */ (function (_super) {
          * @private
          */
         _this.batchUvs = null;
+
         return _this;
     }
-    Object.defineProperty(Mesh.prototype, "uvBuffer", {
+    Object.defineProperty(Mesh.prototype, 'uvBuffer', {
         /**
          * To change mesh uv's, change its uvBuffer data and increment its _updateID.
          * @member {PIXI.Buffer}
          * @readonly
          */
-        get: function () {
+        get()
+        {
             return this.geometry.buffers[1];
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Mesh.prototype, "verticesBuffer", {
+    Object.defineProperty(Mesh.prototype, 'verticesBuffer', {
         /**
          * To change mesh vertices, change its uvBuffer data and increment its _updateID.
          * Incrementing _updateID is optional because most of Mesh objects do it anyway.
          * @member {PIXI.Buffer}
          * @readonly
          */
-        get: function () {
+        get()
+        {
             return this.geometry.buffers[0];
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Mesh.prototype, "material", {
-        get: function () {
+    Object.defineProperty(Mesh.prototype, 'material', {
+        get()
+        {
             return this.shader;
         },
         /**
          * Alias for {@link PIXI.Mesh#shader}.
          * @member {PIXI.MeshMaterial}
          */
-        set: function (value) {
+        set(value)
+        {
             this.shader = value;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Mesh.prototype, "blendMode", {
-        get: function () {
+    Object.defineProperty(Mesh.prototype, 'blendMode', {
+        get()
+        {
             return this.state.blendMode;
         },
         /**
@@ -264,14 +282,16 @@ var Mesh = /** @class */ (function (_super) {
          * @default PIXI.BLEND_MODES.NORMAL;
          * @see PIXI.BLEND_MODES
          */
-        set: function (value) {
+        set(value)
+        {
             this.state.blendMode = value;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Mesh.prototype, "roundPixels", {
-        get: function () {
+    Object.defineProperty(Mesh.prototype, 'roundPixels', {
+        get()
+        {
             return this._roundPixels;
         },
         /**
@@ -283,8 +303,10 @@ var Mesh = /** @class */ (function (_super) {
          * @member {boolean}
          * @default false
          */
-        set: function (value) {
-            if (this._roundPixels !== value) {
+        set(value)
+        {
+            if (this._roundPixels !== value)
+            {
                 this._transformID = -1;
             }
             this._roundPixels = value;
@@ -292,7 +314,7 @@ var Mesh = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Mesh.prototype, "tint", {
+    Object.defineProperty(Mesh.prototype, 'tint', {
         /**
          * The multiply tint applied to the Mesh. This is a hex value. A value of
          * `0xFFFFFF` will remove any tint effect.
@@ -300,25 +322,29 @@ var Mesh = /** @class */ (function (_super) {
          * @member {number}
          * @default 0xFFFFFF
          */
-        get: function () {
+        get()
+        {
             return this.shader.tint;
         },
-        set: function (value) {
+        set(value)
+        {
             this.shader.tint = value;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Mesh.prototype, "texture", {
+    Object.defineProperty(Mesh.prototype, 'texture', {
         /**
          * The texture that the Mesh uses.
          *
          * @member {PIXI.Texture}
          */
-        get: function () {
+        get()
+        {
             return this.shader.texture;
         },
-        set: function (value) {
+        set(value)
+        {
             this.shader.texture = value;
         },
         enumerable: false,
@@ -329,17 +355,21 @@ var Mesh = /** @class */ (function (_super) {
      * @protected
      * @param {PIXI.Renderer} renderer - Instance to renderer.
      */
-    Mesh.prototype._render = function (renderer) {
+    Mesh.prototype._render = function (renderer)
+    {
         // set properties for batching..
         // TODO could use a different way to grab verts?
-        var vertices = this.geometry.buffers[0].data;
+        const vertices = this.geometry.buffers[0].data;
         // TODO benchmark check for attribute size..
+
         if (this.shader.batchable
             && this.drawMode === constants.DRAW_MODES.TRIANGLES
-            && vertices.length < Mesh.BATCHABLE_SIZE * 2) {
+            && vertices.length < Mesh.BATCHABLE_SIZE * 2)
+        {
             this._renderToBatch(renderer);
         }
-        else {
+        else
+        {
             this._renderDefault(renderer);
         }
     };
@@ -348,14 +378,18 @@ var Mesh = /** @class */ (function (_super) {
      * @protected
      * @param {PIXI.Renderer} renderer - Instance to renderer.
      */
-    Mesh.prototype._renderDefault = function (renderer) {
-        var shader = this.shader;
+    Mesh.prototype._renderDefault = function (renderer)
+    {
+        const shader = this.shader;
+
         shader.alpha = this.worldAlpha;
-        if (shader.update) {
+        if (shader.update)
+        {
             shader.update();
         }
         renderer.batch.flush();
-        if (shader.program.uniformData.translationMatrix) {
+        if (shader.program.uniformData.translationMatrix)
+        {
             shader.uniforms.translationMatrix = this.transform.worldTransform.toArray(true);
         }
         // bind and sync uniforms..
@@ -372,9 +406,12 @@ var Mesh = /** @class */ (function (_super) {
      * @protected
      * @param {PIXI.Renderer} renderer - Instance to renderer.
      */
-    Mesh.prototype._renderToBatch = function (renderer) {
-        var geometry = this.geometry;
-        if (this.shader.uvMatrix) {
+    Mesh.prototype._renderToBatch = function (renderer)
+    {
+        const geometry = this.geometry;
+
+        if (this.shader.uvMatrix)
+        {
             this.shader.uvMatrix.update();
             this.calculateUvs();
         }
@@ -383,40 +420,51 @@ var Mesh = /** @class */ (function (_super) {
         this.indices = geometry.indexBuffer.data;
         this._tintRGB = this.shader._tintRGB;
         this._texture = this.shader.texture;
-        var pluginName = this.material.pluginName;
+        const pluginName = this.material.pluginName;
+
         renderer.batch.setObjectRenderer(renderer.plugins[pluginName]);
         renderer.plugins[pluginName].render(this);
     };
     /**
      * Updates vertexData field based on transform and vertices
      */
-    Mesh.prototype.calculateVertices = function () {
-        var geometry = this.geometry;
-        var vertices = geometry.buffers[0].data;
-        if (geometry.vertexDirtyId === this.vertexDirty && this._transformID === this.transform._worldID) {
+    Mesh.prototype.calculateVertices = function ()
+    {
+        const geometry = this.geometry;
+        const vertices = geometry.buffers[0].data;
+
+        if (geometry.vertexDirtyId === this.vertexDirty && this._transformID === this.transform._worldID)
+        {
             return;
         }
         this._transformID = this.transform._worldID;
-        if (this.vertexData.length !== vertices.length) {
+        if (this.vertexData.length !== vertices.length)
+        {
             this.vertexData = new Float32Array(vertices.length);
         }
-        var wt = this.transform.worldTransform;
-        var a = wt.a;
-        var b = wt.b;
-        var c = wt.c;
-        var d = wt.d;
-        var tx = wt.tx;
-        var ty = wt.ty;
-        var vertexData = this.vertexData;
-        for (var i = 0; i < vertexData.length / 2; i++) {
-            var x = vertices[(i * 2)];
-            var y = vertices[(i * 2) + 1];
+        const wt = this.transform.worldTransform;
+        const a = wt.a;
+        const b = wt.b;
+        const c = wt.c;
+        const d = wt.d;
+        const tx = wt.tx;
+        const ty = wt.ty;
+        const vertexData = this.vertexData;
+
+        for (var i = 0; i < vertexData.length / 2; i++)
+        {
+            const x = vertices[(i * 2)];
+            const y = vertices[(i * 2) + 1];
+
             vertexData[(i * 2)] = (a * x) + (c * y) + tx;
             vertexData[(i * 2) + 1] = (b * x) + (d * y) + ty;
         }
-        if (this._roundPixels) {
-            var resolution = settings.settings.RESOLUTION;
-            for (var i = 0; i < vertexData.length; ++i) {
+        if (this._roundPixels)
+        {
+            const resolution = settings.settings.RESOLUTION;
+
+            for (var i = 0; i < vertexData.length; ++i)
+            {
                 vertexData[i] = Math.round((vertexData[i] * resolution | 0) / resolution);
             }
         }
@@ -425,16 +473,21 @@ var Mesh = /** @class */ (function (_super) {
     /**
      * Updates uv field based on from geometry uv's or batchUvs
      */
-    Mesh.prototype.calculateUvs = function () {
-        var geomUvs = this.geometry.buffers[1];
-        if (!this.shader.uvMatrix.isSimple) {
-            if (!this.batchUvs) {
+    Mesh.prototype.calculateUvs = function ()
+    {
+        const geomUvs = this.geometry.buffers[1];
+
+        if (!this.shader.uvMatrix.isSimple)
+        {
+            if (!this.batchUvs)
+            {
                 this.batchUvs = new MeshBatchUvs(geomUvs, this.shader.uvMatrix);
             }
             this.batchUvs.update();
             this.uvs = this.batchUvs.data;
         }
-        else {
+        else
+        {
             this.uvs = geomUvs.data;
         }
     };
@@ -444,7 +497,8 @@ var Mesh = /** @class */ (function (_super) {
      *
      * @protected
      */
-    Mesh.prototype._calculateBounds = function () {
+    Mesh.prototype._calculateBounds = function ()
+    {
         this.calculateVertices();
         this._bounds.addVertexData(this.vertexData, 0, this.vertexData.length);
     };
@@ -454,30 +508,37 @@ var Mesh = /** @class */ (function (_super) {
      * @param {PIXI.IPointData} point - the point to test
      * @return {boolean} the result of the test
      */
-    Mesh.prototype.containsPoint = function (point) {
-        if (!this.getBounds().contains(point.x, point.y)) {
+    Mesh.prototype.containsPoint = function (point)
+    {
+        if (!this.getBounds().contains(point.x, point.y))
+        {
             return false;
         }
         this.worldTransform.applyInverse(point, tempPoint);
-        var vertices = this.geometry.getBuffer('aVertexPosition').data;
-        var points = tempPolygon.points;
-        var indices = this.geometry.getIndex().data;
-        var len = indices.length;
-        var step = this.drawMode === 4 ? 3 : 1;
-        for (var i = 0; i + 2 < len; i += step) {
-            var ind0 = indices[i] * 2;
-            var ind1 = indices[i + 1] * 2;
-            var ind2 = indices[i + 2] * 2;
+        const vertices = this.geometry.getBuffer('aVertexPosition').data;
+        const points = tempPolygon.points;
+        const indices = this.geometry.getIndex().data;
+        const len = indices.length;
+        const step = this.drawMode === 4 ? 3 : 1;
+
+        for (let i = 0; i + 2 < len; i += step)
+        {
+            const ind0 = indices[i] * 2;
+            const ind1 = indices[i + 1] * 2;
+            const ind2 = indices[i + 2] * 2;
+
             points[0] = vertices[ind0];
             points[1] = vertices[ind0 + 1];
             points[2] = vertices[ind1];
             points[3] = vertices[ind1 + 1];
             points[4] = vertices[ind2];
             points[5] = vertices[ind2 + 1];
-            if (tempPolygon.contains(tempPoint.x, tempPoint.y)) {
+            if (tempPolygon.contains(tempPoint.x, tempPoint.y))
+            {
                 return true;
             }
         }
+
         return false;
     };
     /**
@@ -488,10 +549,12 @@ var Mesh = /** @class */ (function (_super) {
      * @param {boolean} [options.children=false] - if set to true, all the children will have
      *  their destroy method called as well. 'options' will be passed on to those calls.
      */
-    Mesh.prototype.destroy = function (options) {
+    Mesh.prototype.destroy = function (options)
+    {
         _super.prototype.destroy.call(this, options);
         this.geometry.refCount--;
-        if (this.geometry.refCount === 0) {
+        if (this.geometry.refCount === 0)
+        {
             this.geometry.dispose();
         }
         this.geometry = null;
@@ -509,12 +572,13 @@ var Mesh = /** @class */ (function (_super) {
      * @member {number} BATCHABLE_SIZE
      */
     Mesh.BATCHABLE_SIZE = 100;
+
     return Mesh;
-}(display.Container));
+})(display.Container);
 
-var fragment = "varying vec2 vTextureCoord;\r\nuniform vec4 uColor;\r\n\r\nuniform sampler2D uSampler;\r\n\r\nvoid main(void)\r\n{\r\n    gl_FragColor = texture2D(uSampler, vTextureCoord) * uColor;\r\n}\r\n";
+const fragment = 'varying vec2 vTextureCoord;\r\nuniform vec4 uColor;\r\n\r\nuniform sampler2D uSampler;\r\n\r\nvoid main(void)\r\n{\r\n    gl_FragColor = texture2D(uSampler, vTextureCoord) * uColor;\r\n}\r\n';
 
-var vertex = "attribute vec2 aVertexPosition;\r\nattribute vec2 aTextureCoord;\r\n\r\nuniform mat3 projectionMatrix;\r\nuniform mat3 translationMatrix;\r\nuniform mat3 uTextureMatrix;\r\n\r\nvarying vec2 vTextureCoord;\r\n\r\nvoid main(void)\r\n{\r\n    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);\r\n\r\n    vTextureCoord = (uTextureMatrix * vec3(aTextureCoord, 1.0)).xy;\r\n}\r\n";
+const vertex = 'attribute vec2 aVertexPosition;\r\nattribute vec2 aTextureCoord;\r\n\r\nuniform mat3 projectionMatrix;\r\nuniform mat3 translationMatrix;\r\nuniform mat3 uTextureMatrix;\r\n\r\nvarying vec2 vTextureCoord;\r\n\r\nvoid main(void)\r\n{\r\n    gl_Position = vec4((projectionMatrix * translationMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);\r\n\r\n    vTextureCoord = (uTextureMatrix * vec3(aTextureCoord, 1.0)).xy;\r\n}\r\n';
 
 /**
  * Slightly opinionated default shader for PixiJS 2D objects.
@@ -522,7 +586,8 @@ var vertex = "attribute vec2 aVertexPosition;\r\nattribute vec2 aTextureCoord;\r
  * @memberof PIXI
  * @extends PIXI.Shader
  */
-var MeshMaterial = /** @class */ (function (_super) {
+const MeshMaterial = /** @class */ (function (_super)
+{
     __extends(MeshMaterial, _super);
     /**
      * @param {PIXI.Texture} uSampler - Texture that material uses to render.
@@ -533,21 +598,24 @@ var MeshMaterial = /** @class */ (function (_super) {
      * @param {PIXI.Program} [options.program=0xFFFFFF] - Custom program.
      * @param {object} [options.uniforms] - Custom uniforms.
      */
-    function MeshMaterial(uSampler, options) {
-        var _this = this;
-        var uniforms = {
-            uSampler: uSampler,
+    function MeshMaterial(uSampler, options)
+    {
+        let _this = this;
+        const uniforms = {
+            uSampler,
             alpha: 1,
             uTextureMatrix: math.Matrix.IDENTITY,
             uColor: new Float32Array([1, 1, 1, 1]),
         };
         // Set defaults
+
         options = Object.assign({
             tint: 0xFFFFFF,
             alpha: 1,
             pluginName: 'batch',
         }, options);
-        if (options.uniforms) {
+        if (options.uniforms)
+        {
             Object.assign(uniforms, options.uniforms);
         }
         _this = _super.call(this, options.program || core.Program.from(vertex, fragment), uniforms) || this;
@@ -580,18 +648,22 @@ var MeshMaterial = /** @class */ (function (_super) {
         _this.pluginName = options.pluginName;
         _this.tint = options.tint;
         _this.alpha = options.alpha;
+
         return _this;
     }
-    Object.defineProperty(MeshMaterial.prototype, "texture", {
+    Object.defineProperty(MeshMaterial.prototype, 'texture', {
         /**
          * Reference to the texture being rendered.
          * @member {PIXI.Texture}
          */
-        get: function () {
+        get()
+        {
             return this.uniforms.uSampler;
         },
-        set: function (value) {
-            if (this.uniforms.uSampler !== value) {
+        set(value)
+        {
+            if (this.uniforms.uSampler !== value)
+            {
                 this.uniforms.uSampler = value;
                 this.uvMatrix.texture = value;
             }
@@ -599,8 +671,9 @@ var MeshMaterial = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(MeshMaterial.prototype, "alpha", {
-        get: function () {
+    Object.defineProperty(MeshMaterial.prototype, 'alpha', {
+        get()
+        {
             return this._alpha;
         },
         /**
@@ -609,17 +682,19 @@ var MeshMaterial = /** @class */ (function (_super) {
          * @default 1
          * @member {number}
          */
-        set: function (value) {
+        set(value)
+        {
             if (value === this._alpha)
-                { return; }
+            { return; }
             this._alpha = value;
             this._colorDirty = true;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(MeshMaterial.prototype, "tint", {
-        get: function () {
+    Object.defineProperty(MeshMaterial.prototype, 'tint', {
+        get()
+        {
             return this._tint;
         },
         /**
@@ -627,9 +702,10 @@ var MeshMaterial = /** @class */ (function (_super) {
          * @member {number}
          * @default 0xFFFFFF
          */
-        set: function (value) {
+        set(value)
+        {
             if (value === this._tint)
-                { return; }
+            { return; }
             this._tint = value;
             this._tintRGB = (value >> 16) + (value & 0xff00) + ((value & 0xff) << 16);
             this._colorDirty = true;
@@ -641,18 +717,23 @@ var MeshMaterial = /** @class */ (function (_super) {
      * Gets called automatically by the Mesh. Intended to be overridden for custom
      * MeshMaterial objects.
      */
-    MeshMaterial.prototype.update = function () {
-        if (this._colorDirty) {
+    MeshMaterial.prototype.update = function ()
+    {
+        if (this._colorDirty)
+        {
             this._colorDirty = false;
-            var baseTexture = this.texture.baseTexture;
+            const baseTexture = this.texture.baseTexture;
+
             utils.premultiplyTintToRgba(this._tint, this._alpha, this.uniforms.uColor, baseTexture.alphaMode);
         }
-        if (this.uvMatrix.update()) {
+        if (this.uvMatrix.update())
+        {
             this.uniforms.uTextureMatrix = this.uvMatrix.mapCoord;
         }
     };
+
     return MeshMaterial;
-}(core.Shader));
+})(core.Shader);
 
 /**
  * Standard 2D geometry used in PixiJS.
@@ -671,18 +752,21 @@ var MeshMaterial = /** @class */ (function (_super) {
  * @memberof PIXI
  * @extends PIXI.Geometry
  */
-var MeshGeometry = /** @class */ (function (_super) {
+const MeshGeometry = /** @class */ (function (_super)
+{
     __extends(MeshGeometry, _super);
     /**
      * @param {Float32Array|number[]} [vertices] - Positional data on geometry.
      * @param {Float32Array|number[]} [uvs] - Texture UVs.
      * @param {Uint16Array|number[]} [index] - IndexBuffer
      */
-    function MeshGeometry(vertices, uvs, index) {
-        var _this = _super.call(this) || this;
-        var verticesBuffer = new core.Buffer(vertices);
-        var uvsBuffer = new core.Buffer(uvs, true);
-        var indexBuffer = new core.Buffer(index, true, true);
+    function MeshGeometry(vertices, uvs, index)
+    {
+        const _this = _super.call(this) || this;
+        const verticesBuffer = new core.Buffer(vertices);
+        const uvsBuffer = new core.Buffer(uvs, true);
+        const indexBuffer = new core.Buffer(index, true, true);
+
         _this.addAttribute('aVertexPosition', verticesBuffer, 2, false, constants.TYPES.FLOAT)
             .addAttribute('aTextureCoord', uvsBuffer, 2, false, constants.TYPES.FLOAT)
             .addIndex(indexBuffer);
@@ -695,26 +779,29 @@ var MeshGeometry = /** @class */ (function (_super) {
          * @default -1
          */
         _this._updateId = -1;
+
         return _this;
     }
-    Object.defineProperty(MeshGeometry.prototype, "vertexDirtyId", {
+    Object.defineProperty(MeshGeometry.prototype, 'vertexDirtyId', {
         /**
          * If the vertex position is updated.
          * @member {number}
          * @readonly
          * @private
          */
-        get: function () {
+        get()
+        {
             return this.buffers[0]._updateID;
         },
         enumerable: false,
         configurable: true
     });
+
     return MeshGeometry;
-}(core.Geometry));
+})(core.Geometry);
 
 exports.Mesh = Mesh;
 exports.MeshBatchUvs = MeshBatchUvs;
 exports.MeshGeometry = MeshGeometry;
 exports.MeshMaterial = MeshMaterial;
-//# sourceMappingURL=mesh.js.map
+// # sourceMappingURL=mesh.js.map

@@ -1,4 +1,4 @@
-/*!
+/* !
  * @pixi/canvas-particles - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
@@ -14,33 +14,43 @@ import { ParticleContainer } from '@pixi/particles';
  * @private
  * @param {PIXI.CanvasRenderer} renderer - a reference to the canvas renderer
  */
-ParticleContainer.prototype.renderCanvas = function renderCanvas(renderer) {
-    if (!this.visible || this.worldAlpha <= 0 || !this.children.length || !this.renderable) {
+ParticleContainer.prototype.renderCanvas = function renderCanvas(renderer)
+{
+    if (!this.visible || this.worldAlpha <= 0 || !this.children.length || !this.renderable)
+    {
         return;
     }
-    var context = renderer.context;
-    var transform = this.worldTransform;
-    var isRotated = true;
-    var positionX = 0;
-    var positionY = 0;
-    var finalWidth = 0;
-    var finalHeight = 0;
+    const context = renderer.context;
+    const transform = this.worldTransform;
+    let isRotated = true;
+    let positionX = 0;
+    let positionY = 0;
+    let finalWidth = 0;
+    let finalHeight = 0;
+
     renderer.setBlendMode(this.blendMode);
     context.globalAlpha = this.worldAlpha;
     this.displayObjectUpdateTransform();
-    for (var i = 0; i < this.children.length; ++i) {
-        var child = this.children[i];
-        if (!child.visible) {
+    for (let i = 0; i < this.children.length; ++i)
+    {
+        const child = this.children[i];
+
+        if (!child.visible)
+        {
             continue;
         }
-        if (!child._texture.valid) {
+        if (!child._texture.valid)
+        {
             continue;
         }
-        var frame = child._texture.frame;
+        const frame = child._texture.frame;
+
         context.globalAlpha = this.worldAlpha * child.alpha;
-        if (child.rotation % (Math.PI * 2) === 0) {
+        if (child.rotation % (Math.PI * 2) === 0)
+        {
             // this is the fastest  way to optimise! - if rotation is 0 then we can avoid any kind of setTransform call
-            if (isRotated) {
+            if (isRotated)
+            {
                 renderer.setContextTransform(transform, false, 1);
                 isRotated = false;
             }
@@ -49,20 +59,24 @@ ParticleContainer.prototype.renderCanvas = function renderCanvas(renderer) {
             finalWidth = frame.width * child.scale.x;
             finalHeight = frame.height * child.scale.y;
         }
-        else {
-            if (!isRotated) {
+        else
+        {
+            if (!isRotated)
+            {
                 isRotated = true;
             }
             child.displayObjectUpdateTransform();
-            var childTransform = child.worldTransform;
+            const childTransform = child.worldTransform;
+
             renderer.setContextTransform(childTransform, this.roundPixels, 1);
             positionX = ((child.anchor.x) * (-frame.width)) + 0.5;
             positionY = ((child.anchor.y) * (-frame.height)) + 0.5;
             finalWidth = frame.width;
             finalHeight = frame.height;
         }
-        var resolution = child._texture.baseTexture.resolution;
+        const resolution = child._texture.baseTexture.resolution;
+
         context.drawImage(child._texture.baseTexture.getDrawableSource(), frame.x * resolution, frame.y * resolution, frame.width * resolution, frame.height * resolution, positionX * renderer.resolution, positionY * renderer.resolution, finalWidth * renderer.resolution, finalHeight * renderer.resolution);
     }
 };
-//# sourceMappingURL=canvas-particles.es.js.map
+// # sourceMappingURL=canvas-particles.es.js.map

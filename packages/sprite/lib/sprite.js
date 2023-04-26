@@ -1,22 +1,21 @@
-/*!
+/* !
  * @pixi/sprite - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
  * @pixi/sprite is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
-'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var constants = require('@pixi/constants');
-var core = require('@pixi/core');
-var display = require('@pixi/display');
-var math = require('@pixi/math');
-var settings = require('@pixi/settings');
-var utils = require('@pixi/utils');
+const constants = require('@pixi/constants');
+const core = require('@pixi/core');
+const display = require('@pixi/display');
+const math = require('@pixi/math');
+const settings = require('@pixi/settings');
+const utils = require('@pixi/utils');
 
-/*! *****************************************************************************
+/* ! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -32,21 +31,24 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+var extendStatics = function (d, b)
+{
+    extendStatics = Object.setPrototypeOf
+        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
+        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+
     return extendStatics(d, b);
 };
 
-function __extends(d, b) {
+function __extends(d, b)
+{
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var tempPoint = new math.Point();
-var indices = new Uint16Array([0, 1, 2, 0, 2, 3]);
+const tempPoint = new math.Point();
+const indices = new Uint16Array([0, 1, 2, 0, 2, 3]);
 /**
  * The Sprite object is the base for all textured objects that are rendered to the screen
 *
@@ -73,13 +75,15 @@ var indices = new Uint16Array([0, 1, 2, 0, 2, 3]);
  * @extends PIXI.Container
  * @memberof PIXI
  */
-var Sprite = /** @class */ (function (_super) {
+const Sprite = /** @class */ (function (_super)
+{
     __extends(Sprite, _super);
     /**
      * @param {PIXI.Texture} [texture] - The texture for this sprite.
      */
-    function Sprite(texture) {
-        var _this = _super.call(this) || this;
+    function Sprite(texture)
+    {
+        const _this = _super.call(this) || this;
         /**
          * The anchor point defines the normalized coordinates
          * in the texture that map to the position of this
@@ -98,6 +102,7 @@ var Sprite = /** @class */ (function (_super) {
          * @member {PIXI.ObservablePoint}
          * @private
          */
+
         _this._anchor = new math.ObservablePoint(_this._onAnchorUpdate, _this, (texture ? texture.defaultAnchor.x : 0), (texture ? texture.defaultAnchor.y : 0));
         /**
          * The texture that the sprite is using
@@ -205,6 +210,7 @@ var Sprite = /** @class */ (function (_super) {
          * @private
          */
         _this._roundPixels = settings.settings.ROUND_PIXELS;
+
         return _this;
     }
     /**
@@ -212,15 +218,18 @@ var Sprite = /** @class */ (function (_super) {
      *
      * @protected
      */
-    Sprite.prototype._onTextureUpdate = function () {
+    Sprite.prototype._onTextureUpdate = function ()
+    {
         this._textureID = -1;
         this._textureTrimmedID = -1;
         this._cachedTint = 0xFFFFFF;
         // so if _width is 0 then width was not set..
-        if (this._width) {
+        if (this._width)
+        {
             this.scale.x = utils.sign(this.scale.x) * this._width / this._texture.orig.width;
         }
-        if (this._height) {
+        if (this._height)
+        {
             this.scale.y = utils.sign(this.scale.y) * this._height / this._texture.orig.height;
         }
     };
@@ -229,41 +238,48 @@ var Sprite = /** @class */ (function (_super) {
      *
      * @private
      */
-    Sprite.prototype._onAnchorUpdate = function () {
+    Sprite.prototype._onAnchorUpdate = function ()
+    {
         this._transformID = -1;
         this._transformTrimmedID = -1;
     };
     /**
      * calculates worldTransform * vertices, store it in vertexData
      */
-    Sprite.prototype.calculateVertices = function () {
-        var texture = this._texture;
-        if (this._transformID === this.transform._worldID && this._textureID === texture._updateID) {
+    Sprite.prototype.calculateVertices = function ()
+    {
+        const texture = this._texture;
+
+        if (this._transformID === this.transform._worldID && this._textureID === texture._updateID)
+        {
             return;
         }
         // update texture UV here, because base texture can be changed without calling `_onTextureUpdate`
-        if (this._textureID !== texture._updateID) {
+        if (this._textureID !== texture._updateID)
+        {
             this.uvs = this._texture._uvs.uvsFloat32;
         }
         this._transformID = this.transform._worldID;
         this._textureID = texture._updateID;
         // set the vertex data
-        var wt = this.transform.worldTransform;
-        var a = wt.a;
-        var b = wt.b;
-        var c = wt.c;
-        var d = wt.d;
-        var tx = wt.tx;
-        var ty = wt.ty;
-        var vertexData = this.vertexData;
-        var trim = texture.trim;
-        var orig = texture.orig;
-        var anchor = this._anchor;
-        var w0 = 0;
-        var w1 = 0;
-        var h0 = 0;
-        var h1 = 0;
-        if (trim) {
+        const wt = this.transform.worldTransform;
+        const a = wt.a;
+        const b = wt.b;
+        const c = wt.c;
+        const d = wt.d;
+        const tx = wt.tx;
+        const ty = wt.ty;
+        const vertexData = this.vertexData;
+        const trim = texture.trim;
+        const orig = texture.orig;
+        const anchor = this._anchor;
+        let w0 = 0;
+        let w1 = 0;
+        let h0 = 0;
+        let h1 = 0;
+
+        if (trim)
+        {
             // if the sprite is trimmed and is not a tilingsprite then we need to add the extra
             // space before transforming the sprite coords.
             w1 = trim.x - (anchor._x * orig.width);
@@ -271,7 +287,8 @@ var Sprite = /** @class */ (function (_super) {
             h1 = trim.y - (anchor._y * orig.height);
             h0 = h1 + trim.height;
         }
-        else {
+        else
+        {
             w1 = -anchor._x * orig.width;
             w0 = w1 + orig.width;
             h1 = -anchor._y * orig.height;
@@ -289,9 +306,12 @@ var Sprite = /** @class */ (function (_super) {
         // xy
         vertexData[6] = (a * w1) + (c * h0) + tx;
         vertexData[7] = (d * h0) + (b * w1) + ty;
-        if (this._roundPixels) {
-            var resolution = settings.settings.RESOLUTION;
-            for (var i = 0; i < vertexData.length; ++i) {
+        if (this._roundPixels)
+        {
+            const resolution = settings.settings.RESOLUTION;
+
+            for (let i = 0; i < vertexData.length; ++i)
+            {
                 vertexData[i] = Math.round((vertexData[i] * resolution | 0) / resolution);
             }
         }
@@ -300,33 +320,37 @@ var Sprite = /** @class */ (function (_super) {
      * calculates worldTransform * vertices for a non texture with a trim. store it in vertexTrimmedData
      * This is used to ensure that the true width and height of a trimmed texture is respected
      */
-    Sprite.prototype.calculateTrimmedVertices = function () {
-        if (!this.vertexTrimmedData) {
+    Sprite.prototype.calculateTrimmedVertices = function ()
+    {
+        if (!this.vertexTrimmedData)
+        {
             this.vertexTrimmedData = new Float32Array(8);
         }
-        else if (this._transformTrimmedID === this.transform._worldID && this._textureTrimmedID === this._texture._updateID) {
+        else if (this._transformTrimmedID === this.transform._worldID && this._textureTrimmedID === this._texture._updateID)
+        {
             return;
         }
         this._transformTrimmedID = this.transform._worldID;
         this._textureTrimmedID = this._texture._updateID;
         // lets do some special trim code!
-        var texture = this._texture;
-        var vertexData = this.vertexTrimmedData;
-        var orig = texture.orig;
-        var anchor = this._anchor;
+        const texture = this._texture;
+        const vertexData = this.vertexTrimmedData;
+        const orig = texture.orig;
+        const anchor = this._anchor;
         // lets calculate the new untrimmed bounds..
-        var wt = this.transform.worldTransform;
-        var a = wt.a;
-        var b = wt.b;
-        var c = wt.c;
-        var d = wt.d;
-        var tx = wt.tx;
-        var ty = wt.ty;
-        var w1 = -anchor._x * orig.width;
-        var w0 = w1 + orig.width;
-        var h1 = -anchor._y * orig.height;
-        var h0 = h1 + orig.height;
+        const wt = this.transform.worldTransform;
+        const a = wt.a;
+        const b = wt.b;
+        const c = wt.c;
+        const d = wt.d;
+        const tx = wt.tx;
+        const ty = wt.ty;
+        const w1 = -anchor._x * orig.width;
+        const w0 = w1 + orig.width;
+        const h1 = -anchor._y * orig.height;
+        const h0 = h1 + orig.height;
         // xy
+
         vertexData[0] = (a * w1) + (c * h1) + tx;
         vertexData[1] = (d * h1) + (b * w1) + ty;
         // xy
@@ -346,7 +370,8 @@ var Sprite = /** @class */ (function (_super) {
     * @protected
     * @param {PIXI.Renderer} renderer - The webgl renderer to use.
     */
-    Sprite.prototype._render = function (renderer) {
+    Sprite.prototype._render = function (renderer)
+    {
         this.calculateVertices();
         renderer.batch.setObjectRenderer(renderer.plugins[this.pluginName]);
         renderer.plugins[this.pluginName].render(this);
@@ -356,16 +381,20 @@ var Sprite = /** @class */ (function (_super) {
      *
      * @protected
      */
-    Sprite.prototype._calculateBounds = function () {
-        var trim = this._texture.trim;
-        var orig = this._texture.orig;
+    Sprite.prototype._calculateBounds = function ()
+    {
+        const trim = this._texture.trim;
+        const orig = this._texture.orig;
         // First lets check to see if the current texture has a trim..
-        if (!trim || (trim.width === orig.width && trim.height === orig.height)) {
+
+        if (!trim || (trim.width === orig.width && trim.height === orig.height))
+        {
             // no trim! lets use the usual calculations..
             this.calculateVertices();
             this._bounds.addQuad(this.vertexData);
         }
-        else {
+        else
+        {
             // lets calculate a special trimmed bounds...
             this.calculateTrimmedVertices();
             this._bounds.addQuad(this.vertexTrimmedData);
@@ -377,21 +406,27 @@ var Sprite = /** @class */ (function (_super) {
      * @param {PIXI.Rectangle} [rect] - The output rectangle.
      * @return {PIXI.Rectangle} The bounds.
      */
-    Sprite.prototype.getLocalBounds = function (rect) {
+    Sprite.prototype.getLocalBounds = function (rect)
+    {
         // we can do a fast local bounds if the sprite has no children!
-        if (this.children.length === 0) {
+        if (this.children.length === 0)
+        {
             this._bounds.minX = this._texture.orig.width * -this._anchor._x;
             this._bounds.minY = this._texture.orig.height * -this._anchor._y;
             this._bounds.maxX = this._texture.orig.width * (1 - this._anchor._x);
             this._bounds.maxY = this._texture.orig.height * (1 - this._anchor._y);
-            if (!rect) {
-                if (!this._localBoundsRect) {
+            if (!rect)
+            {
+                if (!this._localBoundsRect)
+                {
                     this._localBoundsRect = new math.Rectangle();
                 }
                 rect = this._localBoundsRect;
             }
+
             return this._bounds.getRectangle(rect);
         }
+
         return _super.prototype.getLocalBounds.call(this, rect);
     };
     /**
@@ -400,18 +435,23 @@ var Sprite = /** @class */ (function (_super) {
      * @param {PIXI.IPointData} point - the point to test
      * @return {boolean} the result of the test
      */
-    Sprite.prototype.containsPoint = function (point) {
+    Sprite.prototype.containsPoint = function (point)
+    {
         this.worldTransform.applyInverse(point, tempPoint);
-        var width = this._texture.orig.width;
-        var height = this._texture.orig.height;
-        var x1 = -width * this.anchor.x;
-        var y1 = 0;
-        if (tempPoint.x >= x1 && tempPoint.x < x1 + width) {
+        const width = this._texture.orig.width;
+        const height = this._texture.orig.height;
+        const x1 = -width * this.anchor.x;
+        let y1 = 0;
+
+        if (tempPoint.x >= x1 && tempPoint.x < x1 + width)
+        {
             y1 = -height * this.anchor.y;
-            if (tempPoint.y >= y1 && tempPoint.y < y1 + height) {
+            if (tempPoint.y >= y1 && tempPoint.y < y1 + height)
+            {
                 return true;
             }
         }
+
         return false;
     };
     /**
@@ -424,13 +464,17 @@ var Sprite = /** @class */ (function (_super) {
      * @param {boolean} [options.texture=false] - Should it destroy the current texture of the sprite as well
      * @param {boolean} [options.baseTexture=false] - Should it destroy the base texture of the sprite as well
      */
-    Sprite.prototype.destroy = function (options) {
+    Sprite.prototype.destroy = function (options)
+    {
         _super.prototype.destroy.call(this, options);
         this._texture.off('update', this._onTextureUpdate, this);
         this._anchor = null;
-        var destroyTexture = typeof options === 'boolean' ? options : options && options.texture;
-        if (destroyTexture) {
-            var destroyBaseTexture = typeof options === 'boolean' ? options : options && options.baseTexture;
+        const destroyTexture = typeof options === 'boolean' ? options : options && options.texture;
+
+        if (destroyTexture)
+        {
+            const destroyBaseTexture = typeof options === 'boolean' ? options : options && options.baseTexture;
+
             this._texture.destroy(!!destroyBaseTexture);
         }
         this._texture = null;
@@ -445,14 +489,17 @@ var Sprite = /** @class */ (function (_super) {
      * @param {object} [options] - See {@link PIXI.BaseTexture}'s constructor for options.
      * @return {PIXI.Sprite} The newly created sprite
      */
-    Sprite.from = function (source, options) {
-        var texture = (source instanceof core.Texture)
+    Sprite.from = function (source, options)
+    {
+        const texture = (source instanceof core.Texture)
             ? source
             : core.Texture.from(source, options);
+
         return new Sprite(texture);
     };
-    Object.defineProperty(Sprite.prototype, "roundPixels", {
-        get: function () {
+    Object.defineProperty(Sprite.prototype, 'roundPixels', {
+        get()
+        {
             return this._roundPixels;
         },
         /**
@@ -464,8 +511,10 @@ var Sprite = /** @class */ (function (_super) {
          * @member {boolean}
          * @default false
          */
-        set: function (value) {
-            if (this._roundPixels !== value) {
+        set(value)
+        {
+            if (this._roundPixels !== value)
+            {
                 this._transformID = -1;
             }
             this._roundPixels = value;
@@ -473,41 +522,47 @@ var Sprite = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Sprite.prototype, "width", {
+    Object.defineProperty(Sprite.prototype, 'width', {
         /**
          * The width of the sprite, setting this will actually modify the scale to achieve the value set
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return Math.abs(this.scale.x) * this._texture.orig.width;
         },
-        set: function (value) {
-            var s = utils.sign(this.scale.x) || 1;
+        set(value)
+        {
+            const s = utils.sign(this.scale.x) || 1;
+
             this.scale.x = s * value / this._texture.orig.width;
             this._width = value;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Sprite.prototype, "height", {
+    Object.defineProperty(Sprite.prototype, 'height', {
         /**
          * The height of the sprite, setting this will actually modify the scale to achieve the value set
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return Math.abs(this.scale.y) * this._texture.orig.height;
         },
-        set: function (value) {
-            var s = utils.sign(this.scale.y) || 1;
+        set(value)
+        {
+            const s = utils.sign(this.scale.y) || 1;
+
             this.scale.y = s * value / this._texture.orig.height;
             this._height = value;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Sprite.prototype, "anchor", {
+    Object.defineProperty(Sprite.prototype, 'anchor', {
         /**
          * The anchor sets the origin point of the sprite. The default value is taken from the {@link PIXI.Texture|Texture}
          * and passed to the constructor.
@@ -526,16 +581,18 @@ var Sprite = /** @class */ (function (_super) {
          *
          * @member {PIXI.ObservablePoint}
          */
-        get: function () {
+        get()
+        {
             return this._anchor;
         },
-        set: function (value) {
+        set(value)
+        {
             this._anchor.copyFrom(value);
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Sprite.prototype, "tint", {
+    Object.defineProperty(Sprite.prototype, 'tint', {
         /**
          * The tint applied to the sprite. This is a hex value.
          * A value of 0xFFFFFF will remove any tint effect.
@@ -543,42 +600,51 @@ var Sprite = /** @class */ (function (_super) {
          * @member {number}
          * @default 0xFFFFFF
          */
-        get: function () {
+        get()
+        {
             return this._tint;
         },
-        set: function (value) {
+        set(value)
+        {
             this._tint = value;
             this._tintRGB = (value >> 16) + (value & 0xff00) + ((value & 0xff) << 16);
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Sprite.prototype, "texture", {
+    Object.defineProperty(Sprite.prototype, 'texture', {
         /**
          * The texture that the sprite is using
          *
          * @member {PIXI.Texture}
          */
-        get: function () {
+        get()
+        {
             return this._texture;
         },
-        set: function (value) {
-            if (this._texture === value) {
+        set(value)
+        {
+            if (this._texture === value)
+            {
                 return;
             }
-            if (this._texture) {
+            if (this._texture)
+            {
                 this._texture.off('update', this._onTextureUpdate, this);
             }
             this._texture = value || core.Texture.EMPTY;
             this._cachedTint = 0xFFFFFF;
             this._textureID = -1;
             this._textureTrimmedID = -1;
-            if (value) {
+            if (value)
+            {
                 // wait for the texture to load
-                if (value.baseTexture.valid) {
+                if (value.baseTexture.valid)
+                {
                     this._onTextureUpdate();
                 }
-                else {
+                else
+                {
                     value.once('update', this._onTextureUpdate, this);
                 }
             }
@@ -586,8 +652,9 @@ var Sprite = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+
     return Sprite;
-}(display.Container));
+})(display.Container);
 
 exports.Sprite = Sprite;
-//# sourceMappingURL=sprite.js.map
+// # sourceMappingURL=sprite.js.map

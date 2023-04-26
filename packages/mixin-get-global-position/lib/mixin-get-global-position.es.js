@@ -1,4 +1,4 @@
-/*!
+/* !
  * @pixi/mixin-get-global-position - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
@@ -19,16 +19,20 @@ import { Point } from '@pixi/math';
  *  nice performance boost.
  * @return {PIXI.Point} The updated point.
  */
-DisplayObject.prototype.getGlobalPosition = function getGlobalPosition(point, skipUpdate) {
+DisplayObject.prototype.getGlobalPosition = function getGlobalPosition(point, skipUpdate)
+{
     if (point === void 0) { point = new Point(); }
     if (skipUpdate === void 0) { skipUpdate = false; }
-    if (this.parent) {
+    if (this.parent)
+    {
         this.parent.toGlobal(this.position, point, skipUpdate);
     }
-    else {
+    else
+    {
         point.x = this.position.x;
         point.y = this.position.y;
     }
+
     return point;
 };
-//# sourceMappingURL=mixin-get-global-position.es.js.map
+// # sourceMappingURL=mixin-get-global-position.es.js.map

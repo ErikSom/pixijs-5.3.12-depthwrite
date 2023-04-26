@@ -1,4 +1,4 @@
-/*!
+/* !
  * @pixi/canvas-extract - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
@@ -10,7 +10,7 @@ import { CanvasRenderTarget, deprecation } from '@pixi/utils';
 import { Rectangle } from '@pixi/math';
 import { CanvasRenderer } from '@pixi/canvas-renderer';
 
-var TEMP_RECT = new Rectangle();
+const TEMP_RECT = new Rectangle();
 /**
  * The extract manager provides functionality to export content from the renderers.
  *
@@ -19,11 +19,13 @@ var TEMP_RECT = new Rectangle();
  * @class
  * @memberof PIXI
  */
-var CanvasExtract = /** @class */ (function () {
+const CanvasExtract = /** @class */ (function ()
+{
     /**
      * @param {PIXI.CanvasRenderer} renderer - A reference to the current renderer
      */
-    function CanvasExtract(renderer) {
+    function CanvasExtract(renderer)
+    {
         this.renderer = renderer;
     }
     /**
@@ -35,9 +37,12 @@ var CanvasExtract = /** @class */ (function () {
      * @param {number} [quality] - JPEG or Webp compression from 0 to 1. Default is 0.92.
      * @return {HTMLImageElement} HTML Image of the target
      */
-    CanvasExtract.prototype.image = function (target, format, quality) {
-        var image = new Image();
+    CanvasExtract.prototype.image = function (target, format, quality)
+    {
+        const image = new Image();
+
         image.src = this.base64(target, format, quality);
+
         return image;
     };
     /**
@@ -50,7 +55,8 @@ var CanvasExtract = /** @class */ (function () {
      * @param {number} [quality] - JPEG or Webp compression from 0 to 1. Default is 0.92.
      * @return {string} A base64 encoded string of the texture.
      */
-    CanvasExtract.prototype.base64 = function (target, format, quality) {
+    CanvasExtract.prototype.base64 = function (target, format, quality)
+    {
         return this.canvas(target).toDataURL(format, quality);
     };
     /**
@@ -60,36 +66,44 @@ var CanvasExtract = /** @class */ (function () {
      *  to convert. If left empty will use the main renderer
      * @return {HTMLCanvasElement} A Canvas element with the texture rendered on.
      */
-    CanvasExtract.prototype.canvas = function (target) {
-        var renderer = this.renderer;
-        var context;
-        var resolution;
-        var frame;
-        var renderTexture;
-        if (target) {
-            if (target instanceof RenderTexture) {
+    CanvasExtract.prototype.canvas = function (target)
+    {
+        const renderer = this.renderer;
+        let context;
+        let resolution;
+        let frame;
+        let renderTexture;
+
+        if (target)
+        {
+            if (target instanceof RenderTexture)
+            {
                 renderTexture = target;
             }
-            else {
+            else
+            {
                 renderTexture = renderer.generateTexture(target);
             }
         }
-        if (renderTexture) {
+        if (renderTexture)
+        {
             context = renderTexture.baseTexture._canvasRenderTarget.context;
             resolution = renderTexture.baseTexture._canvasRenderTarget.resolution;
             frame = renderTexture.frame;
         }
-        else {
+        else
+        {
             context = renderer.rootContext;
             resolution = renderer.resolution;
             frame = TEMP_RECT;
             frame.width = this.renderer.width;
             frame.height = this.renderer.height;
         }
-        var width = Math.floor((frame.width * resolution) + 1e-4);
-        var height = Math.floor((frame.height * resolution) + 1e-4);
-        var canvasBuffer = new CanvasRenderTarget(width, height, 1);
-        var canvasData = context.getImageData(frame.x * resolution, frame.y * resolution, width, height);
+        const width = Math.floor((frame.width * resolution) + 1e-4);
+        const height = Math.floor((frame.height * resolution) + 1e-4);
+        const canvasBuffer = new CanvasRenderTarget(width, height, 1);
+        const canvasData = context.getImageData(frame.x * resolution, frame.y * resolution, width, height);
+
         canvasBuffer.context.putImageData(canvasData, 0, 0);
         // send the canvas back..
         return canvasBuffer.canvas;
@@ -102,54 +116,67 @@ var CanvasExtract = /** @class */ (function () {
      *  to convert. If left empty will use the main renderer
      * @return {Uint8ClampedArray} One-dimensional array containing the pixel data of the entire texture
      */
-    CanvasExtract.prototype.pixels = function (target) {
-        var renderer = this.renderer;
-        var context;
-        var resolution;
-        var frame;
-        var renderTexture;
-        if (target) {
-            if (target instanceof RenderTexture) {
+    CanvasExtract.prototype.pixels = function (target)
+    {
+        const renderer = this.renderer;
+        let context;
+        let resolution;
+        let frame;
+        let renderTexture;
+
+        if (target)
+        {
+            if (target instanceof RenderTexture)
+            {
                 renderTexture = target;
             }
-            else {
+            else
+            {
                 renderTexture = renderer.generateTexture(target);
             }
         }
-        if (renderTexture) {
+        if (renderTexture)
+        {
             context = renderTexture.baseTexture._canvasRenderTarget.context;
             resolution = renderTexture.baseTexture._canvasRenderTarget.resolution;
             frame = renderTexture.frame;
         }
-        else {
+        else
+        {
             context = renderer.rootContext;
             frame = TEMP_RECT;
             frame.width = renderer.width;
             frame.height = renderer.height;
         }
+
         return context.getImageData(0, 0, frame.width * resolution, frame.height * resolution).data;
     };
     /**
      * Destroys the extract
      *
      */
-    CanvasExtract.prototype.destroy = function () {
+    CanvasExtract.prototype.destroy = function ()
+    {
         this.renderer = null;
     };
+
     return CanvasExtract;
-}());
+})();
 /**
  * @name PIXI.CanvasRenderer#extract
  * @type {PIXI.CanvasExtract}
  * @see PIXI.CanvasRenderer#plugins
  * @deprecated since 5.3.0
  */
+
 Object.defineProperty(CanvasRenderer.prototype, 'extract', {
-    get: function () {
+    get()
+    {
         deprecation('v5.3.0', 'CanvasRenderer#extract is deprecated, use CanvasRenderer#plugins.extract');
+
         return this.plugins.extract;
     },
 });
 
 export { CanvasExtract };
-//# sourceMappingURL=canvas-extract.es.js.map
+// # sourceMappingURL=canvas-extract.es.js.map

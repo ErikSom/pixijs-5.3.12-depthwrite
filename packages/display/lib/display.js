@@ -1,17 +1,16 @@
-/*!
+/* !
  * @pixi/display - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
  * @pixi/display is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
-'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var settings = require('@pixi/settings');
-var math = require('@pixi/math');
-var utils = require('@pixi/utils');
+const settings = require('@pixi/settings');
+const math = require('@pixi/math');
+const utils = require('@pixi/utils');
 
 /**
  * Sets the default value for the container property 'sortableChildren'.
@@ -43,8 +42,10 @@ settings.settings.SORTABLE_CHILDREN = false;
  * @class
  * @memberof PIXI
  */
-var Bounds = /** @class */ (function () {
-    function Bounds() {
+const Bounds = /** @class */ (function ()
+{
+    function Bounds()
+    {
         /**
          * @member {number}
          * @default 0
@@ -80,14 +81,16 @@ var Bounds = /** @class */ (function () {
      *
      * @return {boolean} True if empty.
      */
-    Bounds.prototype.isEmpty = function () {
+    Bounds.prototype.isEmpty = function ()
+    {
         return this.minX > this.maxX || this.minY > this.maxY;
     };
     /**
      * Clears the bounds and resets.
      *
      */
-    Bounds.prototype.clear = function () {
+    Bounds.prototype.clear = function ()
+    {
         this.minX = Infinity;
         this.minY = Infinity;
         this.maxX = -Infinity;
@@ -100,8 +103,10 @@ var Bounds = /** @class */ (function () {
      * @param {PIXI.Rectangle} rect - temporary object will be used if AABB is not empty
      * @returns {PIXI.Rectangle} A rectangle of the bounds
      */
-    Bounds.prototype.getRectangle = function (rect) {
-        if (this.minX > this.maxX || this.minY > this.maxY) {
+    Bounds.prototype.getRectangle = function (rect)
+    {
+        if (this.minX > this.maxX || this.minY > this.maxY)
+        {
             return math.Rectangle.EMPTY;
         }
         rect = rect || new math.Rectangle(0, 0, 1, 1);
@@ -109,6 +114,7 @@ var Bounds = /** @class */ (function () {
         rect.y = this.minY;
         rect.width = this.maxX - this.minX;
         rect.height = this.maxY - this.minY;
+
         return rect;
     };
     /**
@@ -116,7 +122,8 @@ var Bounds = /** @class */ (function () {
      *
      * @param {PIXI.IPointData} point - The point to add.
      */
-    Bounds.prototype.addPoint = function (point) {
+    Bounds.prototype.addPoint = function (point)
+    {
         this.minX = Math.min(this.minX, point.x);
         this.maxX = Math.max(this.maxX, point.x);
         this.minY = Math.min(this.minY, point.y);
@@ -127,13 +134,15 @@ var Bounds = /** @class */ (function () {
      *
      * @param {Float32Array} vertices - The verts to add.
      */
-    Bounds.prototype.addQuad = function (vertices) {
-        var minX = this.minX;
-        var minY = this.minY;
-        var maxX = this.maxX;
-        var maxY = this.maxY;
-        var x = vertices[0];
-        var y = vertices[1];
+    Bounds.prototype.addQuad = function (vertices)
+    {
+        let minX = this.minX;
+        let minY = this.minY;
+        let maxX = this.maxX;
+        let maxY = this.maxY;
+        let x = vertices[0];
+        let y = vertices[1];
+
         minX = x < minX ? x : minX;
         minY = y < minY ? y : minY;
         maxX = x > maxX ? x : maxX;
@@ -170,7 +179,8 @@ var Bounds = /** @class */ (function () {
      * @param {number} x1 - right X of frame
      * @param {number} y1 - bottom Y of frame
      */
-    Bounds.prototype.addFrame = function (transform, x0, y0, x1, y1) {
+    Bounds.prototype.addFrame = function (transform, x0, y0, x1, y1)
+    {
         this.addFrameMatrix(transform.worldTransform, x0, y0, x1, y1);
     };
     /**
@@ -182,19 +192,21 @@ var Bounds = /** @class */ (function () {
      * @param {number} x1 - right X of frame
      * @param {number} y1 - bottom Y of frame
      */
-    Bounds.prototype.addFrameMatrix = function (matrix, x0, y0, x1, y1) {
-        var a = matrix.a;
-        var b = matrix.b;
-        var c = matrix.c;
-        var d = matrix.d;
-        var tx = matrix.tx;
-        var ty = matrix.ty;
-        var minX = this.minX;
-        var minY = this.minY;
-        var maxX = this.maxX;
-        var maxY = this.maxY;
-        var x = (a * x0) + (c * y0) + tx;
-        var y = (b * x0) + (d * y0) + ty;
+    Bounds.prototype.addFrameMatrix = function (matrix, x0, y0, x1, y1)
+    {
+        const a = matrix.a;
+        const b = matrix.b;
+        const c = matrix.c;
+        const d = matrix.d;
+        const tx = matrix.tx;
+        const ty = matrix.ty;
+        let minX = this.minX;
+        let minY = this.minY;
+        let maxX = this.maxX;
+        let maxY = this.maxY;
+        let x = (a * x0) + (c * y0) + tx;
+        let y = (b * x0) + (d * y0) + ty;
+
         minX = x < minX ? x : minX;
         minY = y < minY ? y : minY;
         maxX = x > maxX ? x : maxX;
@@ -229,14 +241,18 @@ var Bounds = /** @class */ (function () {
      * @param {number} beginOffset - begin offset
      * @param {number} endOffset - end offset, excluded
      */
-    Bounds.prototype.addVertexData = function (vertexData, beginOffset, endOffset) {
-        var minX = this.minX;
-        var minY = this.minY;
-        var maxX = this.maxX;
-        var maxY = this.maxY;
-        for (var i = beginOffset; i < endOffset; i += 2) {
-            var x = vertexData[i];
-            var y = vertexData[i + 1];
+    Bounds.prototype.addVertexData = function (vertexData, beginOffset, endOffset)
+    {
+        let minX = this.minX;
+        let minY = this.minY;
+        let maxX = this.maxX;
+        let maxY = this.maxY;
+
+        for (let i = beginOffset; i < endOffset; i += 2)
+        {
+            const x = vertexData[i];
+            const y = vertexData[i + 1];
+
             minX = x < minX ? x : minX;
             minY = y < minY ? y : minY;
             maxX = x > maxX ? x : maxX;
@@ -255,7 +271,8 @@ var Bounds = /** @class */ (function () {
      * @param {number} beginOffset - begin offset
      * @param {number} endOffset - end offset, excluded
      */
-    Bounds.prototype.addVertices = function (transform, vertices, beginOffset, endOffset) {
+    Bounds.prototype.addVertices = function (transform, vertices, beginOffset, endOffset)
+    {
         this.addVerticesMatrix(transform.worldTransform, vertices, beginOffset, endOffset);
     };
     /**
@@ -268,24 +285,28 @@ var Bounds = /** @class */ (function () {
      * @param {number} [padX=0] - x padding
      * @param {number} [padY=0] - y padding
      */
-    Bounds.prototype.addVerticesMatrix = function (matrix, vertices, beginOffset, endOffset, padX, padY) {
+    Bounds.prototype.addVerticesMatrix = function (matrix, vertices, beginOffset, endOffset, padX, padY)
+    {
         if (padX === void 0) { padX = 0; }
         if (padY === void 0) { padY = padX; }
-        var a = matrix.a;
-        var b = matrix.b;
-        var c = matrix.c;
-        var d = matrix.d;
-        var tx = matrix.tx;
-        var ty = matrix.ty;
-        var minX = this.minX;
-        var minY = this.minY;
-        var maxX = this.maxX;
-        var maxY = this.maxY;
-        for (var i = beginOffset; i < endOffset; i += 2) {
-            var rawX = vertices[i];
-            var rawY = vertices[i + 1];
-            var x = (a * rawX) + (c * rawY) + tx;
-            var y = (d * rawY) + (b * rawX) + ty;
+        const a = matrix.a;
+        const b = matrix.b;
+        const c = matrix.c;
+        const d = matrix.d;
+        const tx = matrix.tx;
+        const ty = matrix.ty;
+        let minX = this.minX;
+        let minY = this.minY;
+        let maxX = this.maxX;
+        let maxY = this.maxY;
+
+        for (let i = beginOffset; i < endOffset; i += 2)
+        {
+            const rawX = vertices[i];
+            const rawY = vertices[i + 1];
+            const x = (a * rawX) + (c * rawY) + tx;
+            const y = (d * rawY) + (b * rawX) + ty;
+
             minX = Math.min(minX, x - padX);
             maxX = Math.max(maxX, x + padX);
             minY = Math.min(minY, y - padY);
@@ -301,11 +322,13 @@ var Bounds = /** @class */ (function () {
      *
      * @param {PIXI.Bounds} bounds - The Bounds to be added
      */
-    Bounds.prototype.addBounds = function (bounds) {
-        var minX = this.minX;
-        var minY = this.minY;
-        var maxX = this.maxX;
-        var maxY = this.maxY;
+    Bounds.prototype.addBounds = function (bounds)
+    {
+        const minX = this.minX;
+        const minY = this.minY;
+        const maxX = this.maxX;
+        const maxY = this.maxY;
+
         this.minX = bounds.minX < minX ? bounds.minX : minX;
         this.minY = bounds.minY < minY ? bounds.minY : minY;
         this.maxX = bounds.maxX > maxX ? bounds.maxX : maxX;
@@ -317,16 +340,20 @@ var Bounds = /** @class */ (function () {
      * @param {PIXI.Bounds} bounds - The Bounds to be added.
      * @param {PIXI.Bounds} mask - TODO
      */
-    Bounds.prototype.addBoundsMask = function (bounds, mask) {
-        var _minX = bounds.minX > mask.minX ? bounds.minX : mask.minX;
-        var _minY = bounds.minY > mask.minY ? bounds.minY : mask.minY;
-        var _maxX = bounds.maxX < mask.maxX ? bounds.maxX : mask.maxX;
-        var _maxY = bounds.maxY < mask.maxY ? bounds.maxY : mask.maxY;
-        if (_minX <= _maxX && _minY <= _maxY) {
-            var minX = this.minX;
-            var minY = this.minY;
-            var maxX = this.maxX;
-            var maxY = this.maxY;
+    Bounds.prototype.addBoundsMask = function (bounds, mask)
+    {
+        const _minX = bounds.minX > mask.minX ? bounds.minX : mask.minX;
+        const _minY = bounds.minY > mask.minY ? bounds.minY : mask.minY;
+        const _maxX = bounds.maxX < mask.maxX ? bounds.maxX : mask.maxX;
+        const _maxY = bounds.maxY < mask.maxY ? bounds.maxY : mask.maxY;
+
+        if (_minX <= _maxX && _minY <= _maxY)
+        {
+            const minX = this.minX;
+            const minY = this.minY;
+            const maxX = this.maxX;
+            const maxY = this.maxY;
+
             this.minX = _minX < minX ? _minX : minX;
             this.minY = _minY < minY ? _minY : minY;
             this.maxX = _maxX > maxX ? _maxX : maxX;
@@ -339,7 +366,8 @@ var Bounds = /** @class */ (function () {
      * @param {PIXI.Bounds} bounds - other bounds
      * @param {PIXI.Matrix} matrix - multiplicator
      */
-    Bounds.prototype.addBoundsMatrix = function (bounds, matrix) {
+    Bounds.prototype.addBoundsMatrix = function (bounds, matrix)
+    {
         this.addFrameMatrix(matrix, bounds.minX, bounds.minY, bounds.maxX, bounds.maxY);
     };
     /**
@@ -348,16 +376,20 @@ var Bounds = /** @class */ (function () {
      * @param {PIXI.Bounds} bounds - TODO
      * @param {PIXI.Rectangle} area - TODO
      */
-    Bounds.prototype.addBoundsArea = function (bounds, area) {
-        var _minX = bounds.minX > area.x ? bounds.minX : area.x;
-        var _minY = bounds.minY > area.y ? bounds.minY : area.y;
-        var _maxX = bounds.maxX < area.x + area.width ? bounds.maxX : (area.x + area.width);
-        var _maxY = bounds.maxY < area.y + area.height ? bounds.maxY : (area.y + area.height);
-        if (_minX <= _maxX && _minY <= _maxY) {
-            var minX = this.minX;
-            var minY = this.minY;
-            var maxX = this.maxX;
-            var maxY = this.maxY;
+    Bounds.prototype.addBoundsArea = function (bounds, area)
+    {
+        const _minX = bounds.minX > area.x ? bounds.minX : area.x;
+        const _minY = bounds.minY > area.y ? bounds.minY : area.y;
+        const _maxX = bounds.maxX < area.x + area.width ? bounds.maxX : (area.x + area.width);
+        const _maxY = bounds.maxY < area.y + area.height ? bounds.maxY : (area.y + area.height);
+
+        if (_minX <= _maxX && _minY <= _maxY)
+        {
+            const minX = this.minX;
+            const minY = this.minY;
+            const maxX = this.maxX;
+            const maxY = this.maxY;
+
             this.minX = _minX < minX ? _minX : minX;
             this.minY = _minY < minY ? _minY : minY;
             this.maxX = _maxX > maxX ? _maxX : maxX;
@@ -371,10 +403,12 @@ var Bounds = /** @class */ (function () {
      * @param {number} [paddingX=0] - The horizontal padding amount.
      * @param {number} [paddingY=0] - The vertical padding amount.
      */
-    Bounds.prototype.pad = function (paddingX, paddingY) {
+    Bounds.prototype.pad = function (paddingX, paddingY)
+    {
         if (paddingX === void 0) { paddingX = 0; }
         if (paddingY === void 0) { paddingY = paddingX; }
-        if (!this.isEmpty()) {
+        if (!this.isEmpty())
+        {
             this.minX -= paddingX;
             this.maxX += paddingX;
             this.minY -= paddingY;
@@ -391,7 +425,8 @@ var Bounds = /** @class */ (function () {
      * @param {number} padX - padding X
      * @param {number} padY - padding Y
      */
-    Bounds.prototype.addFramePad = function (x0, y0, x1, y1, padX, padY) {
+    Bounds.prototype.addFramePad = function (x0, y0, x1, y1, padX, padY)
+    {
         x0 -= padX;
         y0 -= padY;
         x1 += padX;
@@ -401,10 +436,11 @@ var Bounds = /** @class */ (function () {
         this.minY = this.minY < y0 ? this.minY : y0;
         this.maxY = this.maxY > y1 ? this.maxY : y1;
     };
-    return Bounds;
-}());
 
-/*! *****************************************************************************
+    return Bounds;
+})();
+
+/* ! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -420,14 +456,17 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+var extendStatics = function (d, b)
+{
+    extendStatics = Object.setPrototypeOf
+        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
+        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+
     return extendStatics(d, b);
 };
 
-function __extends(d, b) {
+function __extends(d, b)
+{
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -442,10 +481,13 @@ function __extends(d, b) {
  * @extends PIXI.utils.EventEmitter
  * @memberof PIXI
  */
-var DisplayObject = /** @class */ (function (_super) {
+const DisplayObject = /** @class */ (function (_super)
+{
     __extends(DisplayObject, _super);
-    function DisplayObject() {
-        var _this = _super.call(this) || this;
+    function DisplayObject()
+    {
+        const _this = _super.call(this) || this;
+
         _this.tempDisplayObjectParent = null;
         // TODO: need to create Transform from factory
         /**
@@ -600,6 +642,7 @@ var DisplayObject = /** @class */ (function (_super) {
          * @member {boolean}
          */
         _this.isMask = false;
+
         return _this;
     }
     /**
@@ -607,15 +650,19 @@ var DisplayObject = /** @class */ (function (_super) {
      *
      * @param {object} source - The source of properties and methods to mix in.
      */
-    DisplayObject.mixin = function (source) {
+    DisplayObject.mixin = function (source)
+    {
         // in ES8/ES2017, this would be really easy:
         // Object.defineProperties(DisplayObject.prototype, Object.getOwnPropertyDescriptors(source));
         // get all the enumerable property keys
-        var keys = Object.keys(source);
+        const keys = Object.keys(source);
         // loop through properties
-        for (var i = 0; i < keys.length; ++i) {
-            var propertyName = keys[i];
+
+        for (let i = 0; i < keys.length; ++i)
+        {
+            const propertyName = keys[i];
             // Set the property using the property descriptor - this works for accessors and normal value properties
+
             Object.defineProperty(DisplayObject.prototype, propertyName, Object.getOwnPropertyDescriptor(source, propertyName));
         }
     };
@@ -623,12 +670,15 @@ var DisplayObject = /** @class */ (function (_super) {
      * Recursively updates transform of all objects from the root to this one
      * internal function for toLocal()
      */
-    DisplayObject.prototype._recursivePostUpdateTransform = function () {
-        if (this.parent) {
+    DisplayObject.prototype._recursivePostUpdateTransform = function ()
+    {
+        if (this.parent)
+        {
             this.parent._recursivePostUpdateTransform();
             this.transform.updateTransform(this.parent.transform);
         }
-        else {
+        else
+        {
             this.transform.updateTransform(this._tempDisplayObjectParent.transform);
         }
     };
@@ -637,7 +687,8 @@ var DisplayObject = /** @class */ (function (_super) {
      *
      * TODO - Optimization pass!
      */
-    DisplayObject.prototype.updateTransform = function () {
+    DisplayObject.prototype.updateTransform = function ()
+    {
         this._boundsID++;
         this.transform.updateTransform(this.parent.transform);
         // multiply the alphas..
@@ -652,28 +703,36 @@ var DisplayObject = /** @class */ (function (_super) {
      * @param {PIXI.Rectangle} [rect] - Optional rectangle to store the result of the bounds calculation.
      * @return {PIXI.Rectangle} The rectangular bounding area.
      */
-    DisplayObject.prototype.getBounds = function (skipUpdate, rect) {
-        if (!skipUpdate) {
-            if (!this.parent) {
+    DisplayObject.prototype.getBounds = function (skipUpdate, rect)
+    {
+        if (!skipUpdate)
+        {
+            if (!this.parent)
+            {
                 this.parent = this._tempDisplayObjectParent;
                 this.updateTransform();
                 this.parent = null;
             }
-            else {
+            else
+            {
                 this._recursivePostUpdateTransform();
                 this.updateTransform();
             }
         }
-        if (this._bounds.updateID !== this._boundsID) {
+        if (this._bounds.updateID !== this._boundsID)
+        {
             this.calculateBounds();
             this._bounds.updateID = this._boundsID;
         }
-        if (!rect) {
-            if (!this._boundsRect) {
+        if (!rect)
+        {
+            if (!this._boundsRect)
+            {
                 this._boundsRect = new math.Rectangle();
             }
             rect = this._boundsRect;
         }
+
         return this._bounds.getRectangle(rect);
     };
     /**
@@ -682,28 +741,36 @@ var DisplayObject = /** @class */ (function (_super) {
      * @param {PIXI.Rectangle} [rect] - Optional rectangle to store the result of the bounds calculation.
      * @return {PIXI.Rectangle} The rectangular bounding area.
      */
-    DisplayObject.prototype.getLocalBounds = function (rect) {
-        if (!rect) {
-            if (!this._localBoundsRect) {
+    DisplayObject.prototype.getLocalBounds = function (rect)
+    {
+        if (!rect)
+        {
+            if (!this._localBoundsRect)
+            {
                 this._localBoundsRect = new math.Rectangle();
             }
             rect = this._localBoundsRect;
         }
-        if (!this._localBounds) {
+        if (!this._localBounds)
+        {
             this._localBounds = new Bounds();
         }
-        var transformRef = this.transform;
-        var parentRef = this.parent;
+        const transformRef = this.transform;
+        const parentRef = this.parent;
+
         this.parent = null;
         this.transform = this._tempDisplayObjectParent.transform;
-        var worldBounds = this._bounds;
-        var worldBoundsID = this._boundsID;
+        const worldBounds = this._bounds;
+        const worldBoundsID = this._boundsID;
+
         this._bounds = this._localBounds;
-        var bounds = this.getBounds(false, rect);
+        const bounds = this.getBounds(false, rect);
+
         this.parent = parentRef;
         this.transform = transformRef;
         this._bounds = worldBounds;
         this._bounds.updateID += this._boundsID - worldBoundsID; // reflect side-effects
+
         return bounds;
     };
     /**
@@ -715,19 +782,23 @@ var DisplayObject = /** @class */ (function (_super) {
      * @param {boolean} [skipUpdate=false] - Should we skip the update transform.
      * @return {PIXI.Point} A point object representing the position of this object.
      */
-    DisplayObject.prototype.toGlobal = function (position, point, skipUpdate) {
+    DisplayObject.prototype.toGlobal = function (position, point, skipUpdate)
+    {
         if (skipUpdate === void 0) { skipUpdate = false; }
-        if (!skipUpdate) {
+        if (!skipUpdate)
+        {
             this._recursivePostUpdateTransform();
             // this parent check is for just in case the item is a root object.
             // If it is we need to give it a temporary parent so that displayObjectUpdateTransform works correctly
             // this is mainly to avoid a parent check in the main loop. Every little helps for performance :)
-            if (!this.parent) {
+            if (!this.parent)
+            {
                 this.parent = this._tempDisplayObjectParent;
                 this.displayObjectUpdateTransform();
                 this.parent = null;
             }
-            else {
+            else
+            {
                 this.displayObjectUpdateTransform();
             }
         }
@@ -744,21 +815,26 @@ var DisplayObject = /** @class */ (function (_super) {
      * @param {boolean} [skipUpdate=false] - Should we skip the update transform
      * @return {PIXI.Point} A point object representing the position of this object
      */
-    DisplayObject.prototype.toLocal = function (position, from, point, skipUpdate) {
-        if (from) {
+    DisplayObject.prototype.toLocal = function (position, from, point, skipUpdate)
+    {
+        if (from)
+        {
             position = from.toGlobal(position, point, skipUpdate);
         }
-        if (!skipUpdate) {
+        if (!skipUpdate)
+        {
             this._recursivePostUpdateTransform();
             // this parent check is for just in case the item is a root object.
             // If it is we need to give it a temporary parent so that displayObjectUpdateTransform works correctly
             // this is mainly to avoid a parent check in the main loop. Every little helps for performance :)
-            if (!this.parent) {
+            if (!this.parent)
+            {
                 this.parent = this._tempDisplayObjectParent;
                 this.displayObjectUpdateTransform();
                 this.parent = null;
             }
-            else {
+            else
+            {
                 this.displayObjectUpdateTransform();
             }
         }
@@ -771,11 +847,14 @@ var DisplayObject = /** @class */ (function (_super) {
      * @param {PIXI.Container} container - The Container to add this DisplayObject to.
      * @return {PIXI.Container} The Container that this DisplayObject was added to.
      */
-    DisplayObject.prototype.setParent = function (container) {
-        if (!container || !container.addChild) {
+    DisplayObject.prototype.setParent = function (container)
+    {
+        if (!container || !container.addChild)
+        {
             throw new Error('setParent: Argument must be a Container');
         }
         container.addChild(this);
+
         return container;
     };
     /**
@@ -792,7 +871,8 @@ var DisplayObject = /** @class */ (function (_super) {
      * @param {number} [pivotY=0] - The Y pivot value
      * @return {PIXI.DisplayObject} The DisplayObject instance
      */
-    DisplayObject.prototype.setTransform = function (x, y, scaleX, scaleY, rotation, skewX, skewY, pivotX, pivotY) {
+    DisplayObject.prototype.setTransform = function (x, y, scaleX, scaleY, rotation, skewX, skewY, pivotX, pivotY)
+    {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         if (scaleX === void 0) { scaleX = 1; }
@@ -811,6 +891,7 @@ var DisplayObject = /** @class */ (function (_super) {
         this.skew.y = skewY;
         this.pivot.x = pivotX;
         this.pivot.y = pivotY;
+
         return this;
     };
     /**
@@ -820,8 +901,10 @@ var DisplayObject = /** @class */ (function (_super) {
      * after calling `destroy()`.
      *
      */
-    DisplayObject.prototype.destroy = function (_options) {
-        if (this.parent) {
+    DisplayObject.prototype.destroy = function (_options)
+    {
+        if (this.parent)
+        {
             this.parent.removeChild(this);
         }
         this.removeAllListeners();
@@ -836,16 +919,19 @@ var DisplayObject = /** @class */ (function (_super) {
         this.interactiveChildren = false;
         this._destroyed = true;
     };
-    Object.defineProperty(DisplayObject.prototype, "_tempDisplayObjectParent", {
+    Object.defineProperty(DisplayObject.prototype, '_tempDisplayObjectParent', {
         /**
          * @protected
          * @member {PIXI.Container}
          */
-        get: function () {
-            if (this.tempDisplayObjectParent === null) {
+        get()
+        {
+            if (this.tempDisplayObjectParent === null)
+            {
                 // eslint-disable-next-line no-use-before-define
                 this.tempDisplayObjectParent = new TemporaryDisplayObject();
             }
+
             return this.tempDisplayObjectParent;
         },
         enumerable: false,
@@ -862,173 +948,195 @@ var DisplayObject = /** @class */ (function (_super) {
      *
      * @returns {PIXI.DisplayObject} current parent
      */
-    DisplayObject.prototype.enableTempParent = function () {
-        var myParent = this.parent;
+    DisplayObject.prototype.enableTempParent = function ()
+    {
+        const myParent = this.parent;
+
         this.parent = this._tempDisplayObjectParent;
+
         return myParent;
     };
     /**
      * Pair method for `enableTempParent`
      * @param {PIXI.DisplayObject} cacheParent actual parent of element
      */
-    DisplayObject.prototype.disableTempParent = function (cacheParent) {
+    DisplayObject.prototype.disableTempParent = function (cacheParent)
+    {
         this.parent = cacheParent;
     };
-    Object.defineProperty(DisplayObject.prototype, "x", {
+    Object.defineProperty(DisplayObject.prototype, 'x', {
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          * An alias to position.x
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this.position.x;
         },
-        set: function (value) {
+        set(value)
+        {
             this.transform.position.x = value;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "y", {
+    Object.defineProperty(DisplayObject.prototype, 'y', {
         /**
          * The position of the displayObject on the y axis relative to the local coordinates of the parent.
          * An alias to position.y
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this.position.y;
         },
-        set: function (value) {
+        set(value)
+        {
             this.transform.position.y = value;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "worldTransform", {
+    Object.defineProperty(DisplayObject.prototype, 'worldTransform', {
         /**
          * Current transform of the object based on world (parent) factors.
          *
          * @member {PIXI.Matrix}
          * @readonly
          */
-        get: function () {
+        get()
+        {
             return this.transform.worldTransform;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "localTransform", {
+    Object.defineProperty(DisplayObject.prototype, 'localTransform', {
         /**
          * Current transform of the object based on local factors: position, scale, other stuff.
          *
          * @member {PIXI.Matrix}
          * @readonly
          */
-        get: function () {
+        get()
+        {
             return this.transform.localTransform;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "position", {
+    Object.defineProperty(DisplayObject.prototype, 'position', {
         /**
          * The coordinate of the object relative to the local coordinates of the parent.
          * Assignment by value since pixi-v4.
          *
          * @member {PIXI.ObservablePoint}
          */
-        get: function () {
+        get()
+        {
             return this.transform.position;
         },
-        set: function (value) {
+        set(value)
+        {
             this.transform.position.copyFrom(value);
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "scale", {
+    Object.defineProperty(DisplayObject.prototype, 'scale', {
         /**
          * The scale factor of the object.
          * Assignment by value since pixi-v4.
          *
          * @member {PIXI.ObservablePoint}
          */
-        get: function () {
+        get()
+        {
             return this.transform.scale;
         },
-        set: function (value) {
+        set(value)
+        {
             this.transform.scale.copyFrom(value);
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "pivot", {
+    Object.defineProperty(DisplayObject.prototype, 'pivot', {
         /**
          * The pivot point of the displayObject that it rotates around.
          * Assignment by value since pixi-v4.
          *
          * @member {PIXI.ObservablePoint}
          */
-        get: function () {
+        get()
+        {
             return this.transform.pivot;
         },
-        set: function (value) {
+        set(value)
+        {
             this.transform.pivot.copyFrom(value);
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "skew", {
+    Object.defineProperty(DisplayObject.prototype, 'skew', {
         /**
          * The skew factor for the object in radians.
          * Assignment by value since pixi-v4.
          *
          * @member {PIXI.ObservablePoint}
          */
-        get: function () {
+        get()
+        {
             return this.transform.skew;
         },
-        set: function (value) {
+        set(value)
+        {
             this.transform.skew.copyFrom(value);
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "rotation", {
+    Object.defineProperty(DisplayObject.prototype, 'rotation', {
         /**
          * The rotation of the object in radians.
          * 'rotation' and 'angle' have the same effect on a display object; rotation is in radians, angle is in degrees.
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this.transform.rotation;
         },
-        set: function (value) {
+        set(value)
+        {
             this.transform.rotation = value;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "angle", {
+    Object.defineProperty(DisplayObject.prototype, 'angle', {
         /**
          * The angle of the object in degrees.
          * 'rotation' and 'angle' have the same effect on a display object; rotation is in radians, angle is in degrees.
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this.transform.rotation * math.RAD_TO_DEG;
         },
-        set: function (value) {
+        set(value)
+        {
             this.transform.rotation = value * math.DEG_TO_RAD;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "zIndex", {
+    Object.defineProperty(DisplayObject.prototype, 'zIndex', {
         /**
          * The zIndex of the displayObject.
          * If a container has the sortableChildren property set to true, children will be automatically
@@ -1037,39 +1145,47 @@ var DisplayObject = /** @class */ (function (_super) {
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this._zIndex;
         },
-        set: function (value) {
+        set(value)
+        {
             this._zIndex = value;
-            if (this.parent) {
+            if (this.parent)
+            {
                 this.parent.sortDirty = true;
             }
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "worldVisible", {
+    Object.defineProperty(DisplayObject.prototype, 'worldVisible', {
         /**
          * Indicates if the object is globally visible.
          *
          * @member {boolean}
          * @readonly
          */
-        get: function () {
-            var item = this;
-            do {
-                if (!item.visible) {
+        get()
+        {
+            let item = this;
+
+            do
+            {
+                if (!item.visible)
+                {
                     return false;
                 }
                 item = item.parent;
             } while (item);
+
             return true;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(DisplayObject.prototype, "mask", {
+    Object.defineProperty(DisplayObject.prototype, 'mask', {
         /**
          * Sets a mask for the displayObject. A mask is an object that limits the visibility of an
          * object to the shape of the mask applied to it. In PixiJS a regular mask must be a
@@ -1089,18 +1205,24 @@ var DisplayObject = /** @class */ (function (_super) {
          *
          * @member {PIXI.Container|PIXI.MaskData|null}
          */
-        get: function () {
+        get()
+        {
             return this._mask;
         },
-        set: function (value) {
-            if (this._mask) {
+        set(value)
+        {
+            if (this._mask)
+            {
                 var maskObject = (this._mask.maskObject || this._mask);
+
                 maskObject.renderable = true;
                 maskObject.isMask = false;
             }
             this._mask = value;
-            if (this._mask) {
+            if (this._mask)
+            {
                 var maskObject = (this._mask.maskObject || this._mask);
+
                 maskObject.renderable = false;
                 maskObject.isMask = true;
             }
@@ -1108,17 +1230,23 @@ var DisplayObject = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+
     return DisplayObject;
-}(utils.EventEmitter));
-var TemporaryDisplayObject = /** @class */ (function (_super) {
+})(utils.EventEmitter);
+var TemporaryDisplayObject = /** @class */ (function (_super)
+{
     __extends(TemporaryDisplayObject, _super);
-    function TemporaryDisplayObject() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+    function TemporaryDisplayObject()
+    {
+        const _this = _super !== null && _super.apply(this, arguments) || this;
+
         _this.sortDirty = null;
+
         return _this;
     }
+
     return TemporaryDisplayObject;
-}(DisplayObject));
+})(DisplayObject);
 /**
  * DisplayObject default updateTransform, does not update children of container.
  * Will crash if there's no parent element.
@@ -1126,12 +1254,16 @@ var TemporaryDisplayObject = /** @class */ (function (_super) {
  * @memberof PIXI.DisplayObject#
  * @function displayObjectUpdateTransform
  */
+
 DisplayObject.prototype.displayObjectUpdateTransform = DisplayObject.prototype.updateTransform;
 
-function sortChildren(a, b) {
-    if (a.zIndex === b.zIndex) {
+function sortChildren(a, b)
+{
+    if (a.zIndex === b.zIndex)
+    {
         return a._lastSortedIndex - b._lastSortedIndex;
     }
+
     return a.zIndex - b.zIndex;
 }
 /**
@@ -1148,16 +1280,19 @@ function sortChildren(a, b) {
  * @extends PIXI.DisplayObject
  * @memberof PIXI
  */
-var Container = /** @class */ (function (_super) {
+const Container = /** @class */ (function (_super)
+{
     __extends(Container, _super);
-    function Container() {
-        var _this = _super.call(this) || this;
+    function Container()
+    {
+        const _this = _super.call(this) || this;
         /**
          * The array of children of this container.
          *
          * @member {PIXI.DisplayObject[]}
          * @readonly
          */
+
         _this.children = [];
         /**
          * If set to true, the container will sort its children by zIndex value
@@ -1182,6 +1317,7 @@ var Container = /** @class */ (function (_super) {
          * @member {boolean}
          */
         _this.sortDirty = false;
+
         return _this;
         /**
          * Fired when a DisplayObject is added to this Container.
@@ -1205,7 +1341,8 @@ var Container = /** @class */ (function (_super) {
      *
      * @protected
      */
-    Container.prototype.onChildrenChange = function (_length) {
+    Container.prototype.onChildrenChange = function (_length)
+    {
         /* empty */
     };
     /**
@@ -1216,25 +1353,33 @@ var Container = /** @class */ (function (_super) {
      * @param {...PIXI.DisplayObject} children - The DisplayObject(s) to add to the container
      * @return {PIXI.DisplayObject} The first child that was added.
      */
-    Container.prototype.addChild = function () {
-        var arguments$1 = arguments;
+    Container.prototype.addChild = function ()
+    {
+        const arguments$1 = arguments;
 
-        var children = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        const children = [];
+
+        for (let _i = 0; _i < arguments.length; _i++)
+        {
             children[_i] = arguments$1[_i];
         }
         // if there is only one argument we can bypass looping through the them
-        if (children.length > 1) {
+        if (children.length > 1)
+        {
             // loop through the array and add all children
-            for (var i = 0; i < children.length; i++) {
+            for (let i = 0; i < children.length; i++)
+            {
                 // eslint-disable-next-line prefer-rest-params
                 this.addChild(children[i]);
             }
         }
-        else {
-            var child = children[0];
+        else
+        {
+            const child = children[0];
             // if the child has a parent then lets remove it as PixiJS objects can only exist in one place
-            if (child.parent) {
+
+            if (child.parent)
+            {
                 child.parent.removeChild(child);
             }
             child.parent = this;
@@ -1249,6 +1394,7 @@ var Container = /** @class */ (function (_super) {
             this.emit('childAdded', child, this, this.children.length - 1);
             child.emit('added', this);
         }
+
         return children[0];
     };
     /**
@@ -1258,11 +1404,14 @@ var Container = /** @class */ (function (_super) {
      * @param {number} index - The index to place the child in
      * @return {PIXI.DisplayObject} The child that was added.
      */
-    Container.prototype.addChildAt = function (child, index) {
-        if (index < 0 || index > this.children.length) {
-            throw new Error(child + "addChildAt: The index " + index + " supplied is out of bounds " + this.children.length);
+    Container.prototype.addChildAt = function (child, index)
+    {
+        if (index < 0 || index > this.children.length)
+        {
+            throw new Error(`${child}addChildAt: The index ${index} supplied is out of bounds ${this.children.length}`);
         }
-        if (child.parent) {
+        if (child.parent)
+        {
             child.parent.removeChild(child);
         }
         child.parent = this;
@@ -1276,6 +1425,7 @@ var Container = /** @class */ (function (_super) {
         this.onChildrenChange(index);
         child.emit('added', this);
         this.emit('childAdded', child, this, index);
+
         return child;
     };
     /**
@@ -1284,12 +1434,15 @@ var Container = /** @class */ (function (_super) {
      * @param {PIXI.DisplayObject} child - First display object to swap
      * @param {PIXI.DisplayObject} child2 - Second display object to swap
      */
-    Container.prototype.swapChildren = function (child, child2) {
-        if (child === child2) {
+    Container.prototype.swapChildren = function (child, child2)
+    {
+        if (child === child2)
+        {
             return;
         }
-        var index1 = this.getChildIndex(child);
-        var index2 = this.getChildIndex(child2);
+        const index1 = this.getChildIndex(child);
+        const index2 = this.getChildIndex(child2);
+
         this.children[index1] = child2;
         this.children[index2] = child;
         this.onChildrenChange(index1 < index2 ? index1 : index2);
@@ -1300,11 +1453,15 @@ var Container = /** @class */ (function (_super) {
      * @param {PIXI.DisplayObject} child - The DisplayObject instance to identify
      * @return {number} The index position of the child display object to identify
      */
-    Container.prototype.getChildIndex = function (child) {
-        var index = this.children.indexOf(child);
-        if (index === -1) {
+    Container.prototype.getChildIndex = function (child)
+    {
+        const index = this.children.indexOf(child);
+
+        if (index === -1)
+        {
             throw new Error('The supplied DisplayObject must be a child of the caller');
         }
+
         return index;
     };
     /**
@@ -1313,11 +1470,14 @@ var Container = /** @class */ (function (_super) {
      * @param {PIXI.DisplayObject} child - The child DisplayObject instance for which you want to change the index number
      * @param {number} index - The resulting index number for the child display object
      */
-    Container.prototype.setChildIndex = function (child, index) {
-        if (index < 0 || index >= this.children.length) {
-            throw new Error("The index " + index + " supplied is out of bounds " + this.children.length);
+    Container.prototype.setChildIndex = function (child, index)
+    {
+        if (index < 0 || index >= this.children.length)
+        {
+            throw new Error(`The index ${index} supplied is out of bounds ${this.children.length}`);
         }
-        var currentIndex = this.getChildIndex(child);
+        const currentIndex = this.getChildIndex(child);
+
         utils.removeItems(this.children, currentIndex, 1); // remove from old position
         this.children.splice(index, 0, child); // add at new position
         this.onChildrenChange(index);
@@ -1328,10 +1488,13 @@ var Container = /** @class */ (function (_super) {
      * @param {number} index - The index to get the child at
      * @return {PIXI.DisplayObject} The child at the given index, if any.
      */
-    Container.prototype.getChildAt = function (index) {
-        if (index < 0 || index >= this.children.length) {
-            throw new Error("getChildAt: Index (" + index + ") does not exist.");
+    Container.prototype.getChildAt = function (index)
+    {
+        if (index < 0 || index >= this.children.length)
+        {
+            throw new Error(`getChildAt: Index (${index}) does not exist.`);
         }
+
         return this.children[index];
     };
     /**
@@ -1340,25 +1503,32 @@ var Container = /** @class */ (function (_super) {
      * @param {...PIXI.DisplayObject} children - The DisplayObject(s) to remove
      * @return {PIXI.DisplayObject} The first child that was removed.
      */
-    Container.prototype.removeChild = function () {
-        var arguments$1 = arguments;
+    Container.prototype.removeChild = function ()
+    {
+        const arguments$1 = arguments;
 
-        var children = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        const children = [];
+
+        for (let _i = 0; _i < arguments.length; _i++)
+        {
             children[_i] = arguments$1[_i];
         }
         // if there is only one argument we can bypass looping through the them
-        if (children.length > 1) {
+        if (children.length > 1)
+        {
             // loop through the arguments property and remove all children
-            for (var i = 0; i < children.length; i++) {
+            for (let i = 0; i < children.length; i++)
+            {
                 this.removeChild(children[i]);
             }
         }
-        else {
-            var child = children[0];
-            var index = this.children.indexOf(child);
+        else
+        {
+            const child = children[0];
+            const index = this.children.indexOf(child);
+
             if (index === -1)
-                { return null; }
+            { return null; }
             child.parent = null;
             // ensure child transform will be recalculated
             child.transform._parentID = -1;
@@ -1370,6 +1540,7 @@ var Container = /** @class */ (function (_super) {
             child.emit('removed', this);
             this.emit('childRemoved', child, this, index);
         }
+
         return children[0];
     };
     /**
@@ -1378,9 +1549,11 @@ var Container = /** @class */ (function (_super) {
      * @param {number} index - The index to get the child from
      * @return {PIXI.DisplayObject} The child that was removed.
      */
-    Container.prototype.removeChildAt = function (index) {
-        var child = this.getChildAt(index);
+    Container.prototype.removeChildAt = function (index)
+    {
+        const child = this.getChildAt(index);
         // ensure child transform will be recalculated..
+
         child.parent = null;
         child.transform._parentID = -1;
         utils.removeItems(this.children, index, 1);
@@ -1390,6 +1563,7 @@ var Container = /** @class */ (function (_super) {
         this.onChildrenChange(index);
         child.emit('removed', this);
         this.emit('childRemoved', child, this, index);
+
         return child;
     };
     /**
@@ -1399,30 +1573,38 @@ var Container = /** @class */ (function (_super) {
      * @param {number} [endIndex=this.children.length] - The ending position. Default value is size of the container.
      * @returns {PIXI.DisplayObject[]} List of removed children
      */
-    Container.prototype.removeChildren = function (beginIndex, endIndex) {
+    Container.prototype.removeChildren = function (beginIndex, endIndex)
+    {
         if (beginIndex === void 0) { beginIndex = 0; }
         if (endIndex === void 0) { endIndex = this.children.length; }
-        var begin = beginIndex;
-        var end = endIndex;
-        var range = end - begin;
-        var removed;
-        if (range > 0 && range <= end) {
+        const begin = beginIndex;
+        const end = endIndex;
+        const range = end - begin;
+        let removed;
+
+        if (range > 0 && range <= end)
+        {
             removed = this.children.splice(begin, range);
-            for (var i = 0; i < removed.length; ++i) {
+            for (var i = 0; i < removed.length; ++i)
+            {
                 removed[i].parent = null;
-                if (removed[i].transform) {
+                if (removed[i].transform)
+                {
                     removed[i].transform._parentID = -1;
                 }
             }
             this._boundsID++;
             this.onChildrenChange(beginIndex);
-            for (var i = 0; i < removed.length; ++i) {
+            for (var i = 0; i < removed.length; ++i)
+            {
                 removed[i].emit('removed', this);
                 this.emit('childRemoved', removed[i], this, i);
             }
+
             return removed;
         }
-        else if (range === 0 && this.children.length === 0) {
+        else if (range === 0 && this.children.length === 0)
+        {
             return [];
         }
         throw new RangeError('removeChildren: numeric values are outside the acceptable range.');
@@ -1430,16 +1612,22 @@ var Container = /** @class */ (function (_super) {
     /**
      * Sorts children by zIndex. Previous order is mantained for 2 children with the same zIndex.
      */
-    Container.prototype.sortChildren = function () {
-        var sortRequired = false;
-        for (var i = 0, j = this.children.length; i < j; ++i) {
-            var child = this.children[i];
+    Container.prototype.sortChildren = function ()
+    {
+        let sortRequired = false;
+
+        for (let i = 0, j = this.children.length; i < j; ++i)
+        {
+            const child = this.children[i];
+
             child._lastSortedIndex = i;
-            if (!sortRequired && child.zIndex !== 0) {
+            if (!sortRequired && child.zIndex !== 0)
+            {
                 sortRequired = true;
             }
         }
-        if (sortRequired && this.children.length > 1) {
+        if (sortRequired && this.children.length > 1)
+        {
             this.children.sort(sortChildren);
         }
         this.sortDirty = false;
@@ -1447,17 +1635,22 @@ var Container = /** @class */ (function (_super) {
     /**
      * Updates the transform on all children of this container for rendering
      */
-    Container.prototype.updateTransform = function () {
-        if (this.sortableChildren && this.sortDirty) {
+    Container.prototype.updateTransform = function ()
+    {
+        if (this.sortableChildren && this.sortDirty)
+        {
             this.sortChildren();
         }
         this._boundsID++;
         this.transform.updateTransform(this.parent.transform);
         // TODO: check render flags, how to process stuff here
         this.worldAlpha = this.alpha * this.parent.worldAlpha;
-        for (var i = 0, j = this.children.length; i < j; ++i) {
-            var child = this.children[i];
-            if (child.visible) {
+        for (let i = 0, j = this.children.length; i < j; ++i)
+        {
+            const child = this.children[i];
+
+            if (child.visible)
+            {
                 child.updateTransform();
             }
         }
@@ -1466,25 +1659,33 @@ var Container = /** @class */ (function (_super) {
      * Recalculates the bounds of the container.
      *
      */
-    Container.prototype.calculateBounds = function () {
+    Container.prototype.calculateBounds = function ()
+    {
         this._bounds.clear();
         this._calculateBounds();
-        for (var i = 0; i < this.children.length; i++) {
-            var child = this.children[i];
-            if (!child.visible || !child.renderable) {
+        for (let i = 0; i < this.children.length; i++)
+        {
+            const child = this.children[i];
+
+            if (!child.visible || !child.renderable)
+            {
                 continue;
             }
             child.calculateBounds();
             // TODO: filter+mask, need to mask both somehow
-            if (child._mask) {
-                var maskObject = (child._mask.maskObject || child._mask);
+            if (child._mask)
+            {
+                const maskObject = (child._mask.maskObject || child._mask);
+
                 maskObject.calculateBounds();
                 this._bounds.addBoundsMask(child._bounds, maskObject._bounds);
             }
-            else if (child.filterArea) {
+            else if (child.filterArea)
+            {
                 this._bounds.addBoundsArea(child._bounds, child.filterArea);
             }
-            else {
+            else
+            {
                 this._bounds.addBounds(child._bounds);
             }
         }
@@ -1498,17 +1699,24 @@ var Container = /** @class */ (function (_super) {
      *  it was default behaviour of pixi 4.0-5.2 and caused many problems to users.
      * @return {PIXI.Rectangle} The rectangular bounding area.
      */
-    Container.prototype.getLocalBounds = function (rect, skipChildrenUpdate) {
+    Container.prototype.getLocalBounds = function (rect, skipChildrenUpdate)
+    {
         if (skipChildrenUpdate === void 0) { skipChildrenUpdate = false; }
-        var result = _super.prototype.getLocalBounds.call(this, rect);
-        if (!skipChildrenUpdate) {
-            for (var i = 0, j = this.children.length; i < j; ++i) {
-                var child = this.children[i];
-                if (child.visible) {
+        const result = _super.prototype.getLocalBounds.call(this, rect);
+
+        if (!skipChildrenUpdate)
+        {
+            for (let i = 0, j = this.children.length; i < j; ++i)
+            {
+                const child = this.children[i];
+
+                if (child.visible)
+                {
                     child.updateTransform();
                 }
             }
         }
+
         return result;
     };
     /**
@@ -1517,7 +1725,8 @@ var Container = /** @class */ (function (_super) {
      *
      * @protected
      */
-    Container.prototype._calculateBounds = function () {
+    Container.prototype._calculateBounds = function ()
+    {
         // FILL IN//
     };
     /**
@@ -1525,19 +1734,24 @@ var Container = /** @class */ (function (_super) {
      *
      * @param {PIXI.Renderer} renderer - The renderer
      */
-    Container.prototype.render = function (renderer) {
+    Container.prototype.render = function (renderer)
+    {
         // if the object is not visible or the alpha is 0 then no need to render this element
-        if (!this.visible || this.worldAlpha <= 0 || !this.renderable) {
+        if (!this.visible || this.worldAlpha <= 0 || !this.renderable)
+        {
             return;
         }
         // do a quick check to see if this element has a mask or a filter.
-        if (this._mask || (this.filters && this.filters.length)) {
+        if (this._mask || (this.filters && this.filters.length))
+        {
             this.renderAdvanced(renderer);
         }
-        else {
+        else
+        {
             this._render(renderer);
             // simple render children!
-            for (var i = 0, j = this.children.length; i < j; ++i) {
+            for (let i = 0, j = this.children.length; i < j; ++i)
+            {
                 this.children[i].render(renderer);
             }
         }
@@ -1548,39 +1762,50 @@ var Container = /** @class */ (function (_super) {
      * @protected
      * @param {PIXI.Renderer} renderer - The renderer
      */
-    Container.prototype.renderAdvanced = function (renderer) {
+    Container.prototype.renderAdvanced = function (renderer)
+    {
         renderer.batch.flush();
-        var filters = this.filters;
-        var mask = this._mask;
+        const filters = this.filters;
+        const mask = this._mask;
         // push filter first as we need to ensure the stencil buffer is correct for any masking
-        if (filters) {
-            if (!this._enabledFilters) {
+
+        if (filters)
+        {
+            if (!this._enabledFilters)
+            {
                 this._enabledFilters = [];
             }
             this._enabledFilters.length = 0;
-            for (var i = 0; i < filters.length; i++) {
-                if (filters[i].enabled) {
+            for (var i = 0; i < filters.length; i++)
+            {
+                if (filters[i].enabled)
+                {
                     this._enabledFilters.push(filters[i]);
                 }
             }
-            if (this._enabledFilters.length) {
+            if (this._enabledFilters.length)
+            {
                 renderer.filter.push(this, this._enabledFilters);
             }
         }
-        if (mask) {
+        if (mask)
+        {
             renderer.mask.push(this, this._mask);
         }
         // add this object to the batch, only rendered if it has a texture.
         this._render(renderer);
         // now loop through the children and make sure they get rendered
-        for (var i = 0, j = this.children.length; i < j; i++) {
+        for (var i = 0, j = this.children.length; i < j; i++)
+        {
             this.children[i].render(renderer);
         }
         renderer.batch.flush();
-        if (mask) {
+        if (mask)
+        {
             renderer.mask.pop(this);
         }
-        if (filters && this._enabledFilters && this._enabledFilters.length) {
+        if (filters && this._enabledFilters && this._enabledFilters.length)
+        {
             renderer.filter.pop();
         }
     };
@@ -1590,7 +1815,8 @@ var Container = /** @class */ (function (_super) {
      * @protected
      * @param {PIXI.Renderer} renderer - The renderer
      */
-    Container.prototype._render = function (_renderer) {
+    Container.prototype._render = function (_renderer)
+    {
         // this is where content itself gets rendered...
     };
     /**
@@ -1606,32 +1832,41 @@ var Container = /** @class */ (function (_super) {
      * @param {boolean} [options.baseTexture=false] - Only used for child Sprites if options.children is set to true
      *  Should it destroy the base texture of the child sprite
      */
-    Container.prototype.destroy = function (options) {
+    Container.prototype.destroy = function (options)
+    {
         _super.prototype.destroy.call(this);
         this.sortDirty = false;
-        var destroyChildren = typeof options === 'boolean' ? options : options && options.children;
-        var oldChildren = this.removeChildren(0, this.children.length);
-        if (destroyChildren) {
-            for (var i = 0; i < oldChildren.length; ++i) {
+        const destroyChildren = typeof options === 'boolean' ? options : options && options.children;
+        const oldChildren = this.removeChildren(0, this.children.length);
+
+        if (destroyChildren)
+        {
+            for (let i = 0; i < oldChildren.length; ++i)
+            {
                 oldChildren[i].destroy(options);
             }
         }
     };
-    Object.defineProperty(Container.prototype, "width", {
+    Object.defineProperty(Container.prototype, 'width', {
         /**
          * The width of the Container, setting this will actually modify the scale to achieve the value set
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this.scale.x * this.getLocalBounds().width;
         },
-        set: function (value) {
-            var width = this.getLocalBounds().width;
-            if (width !== 0) {
+        set(value)
+        {
+            const width = this.getLocalBounds().width;
+
+            if (width !== 0)
+            {
                 this.scale.x = value / width;
             }
-            else {
+            else
+            {
                 this.scale.x = 1;
             }
             this._width = value;
@@ -1639,21 +1874,26 @@ var Container = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Container.prototype, "height", {
+    Object.defineProperty(Container.prototype, 'height', {
         /**
          * The height of the Container, setting this will actually modify the scale to achieve the value set
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this.scale.y * this.getLocalBounds().height;
         },
-        set: function (value) {
-            var height = this.getLocalBounds().height;
-            if (height !== 0) {
+        set(value)
+        {
+            const height = this.getLocalBounds().height;
+
+            if (height !== 0)
+            {
                 this.scale.y = value / height;
             }
-            else {
+            else
+            {
                 this.scale.y = 1;
             }
             this._height = value;
@@ -1661,8 +1901,9 @@ var Container = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+
     return Container;
-}(DisplayObject));
+})(DisplayObject);
 /**
  * Container default updateTransform, does update children of container.
  * Will crash if there's no parent element.
@@ -1670,10 +1911,11 @@ var Container = /** @class */ (function (_super) {
  * @memberof PIXI.Container#
  * @function containerUpdateTransform
  */
+
 Container.prototype.containerUpdateTransform = Container.prototype.updateTransform;
 
 exports.Bounds = Bounds;
 exports.Container = Container;
 exports.DisplayObject = DisplayObject;
 exports.TemporaryDisplayObject = TemporaryDisplayObject;
-//# sourceMappingURL=display.js.map
+// # sourceMappingURL=display.js.map

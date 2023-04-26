@@ -1,4 +1,4 @@
-/*!
+/* !
  * @pixi/filter-alpha - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
@@ -7,7 +7,7 @@
  */
 import { defaultVertex, Filter } from '@pixi/core';
 
-/*! *****************************************************************************
+/* ! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -23,20 +23,23 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+var extendStatics = function (d, b)
+{
+    extendStatics = Object.setPrototypeOf
+        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
+        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+
     return extendStatics(d, b);
 };
 
-function __extends(d, b) {
+function __extends(d, b)
+{
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var fragment = "varying vec2 vTextureCoord;\r\n\r\nuniform sampler2D uSampler;\r\nuniform float uAlpha;\r\n\r\nvoid main(void)\r\n{\r\n   gl_FragColor = texture2D(uSampler, vTextureCoord) * uAlpha;\r\n}\r\n";
+const fragment = 'varying vec2 vTextureCoord;\r\n\r\nuniform sampler2D uSampler;\r\nuniform float uAlpha;\r\n\r\nvoid main(void)\r\n{\r\n   gl_FragColor = texture2D(uSampler, vTextureCoord) * uAlpha;\r\n}\r\n';
 
 /**
  * Simplest filter - applies alpha.
@@ -55,35 +58,42 @@ var fragment = "varying vec2 vTextureCoord;\r\n\r\nuniform sampler2D uSampler;\r
  * @extends PIXI.Filter
  * @memberof PIXI.filters
  */
-var AlphaFilter = /** @class */ (function (_super) {
+const AlphaFilter = /** @class */ (function (_super)
+{
     __extends(AlphaFilter, _super);
     /**
      * @param {number} [alpha=1] - Amount of alpha from 0 to 1, where 0 is transparent
      */
-    function AlphaFilter(alpha) {
+    function AlphaFilter(alpha)
+    {
         if (alpha === void 0) { alpha = 1.0; }
-        var _this = _super.call(this, defaultVertex, fragment, { uAlpha: 1 }) || this;
+        const _this = _super.call(this, defaultVertex, fragment, { uAlpha: 1 }) || this;
+
         _this.alpha = alpha;
+
         return _this;
     }
-    Object.defineProperty(AlphaFilter.prototype, "alpha", {
+    Object.defineProperty(AlphaFilter.prototype, 'alpha', {
         /**
          * Coefficient for alpha multiplication
          *
          * @member {number}
          * @default 1
          */
-        get: function () {
+        get()
+        {
             return this.uniforms.uAlpha;
         },
-        set: function (value) {
+        set(value)
+        {
             this.uniforms.uAlpha = value;
         },
         enumerable: false,
         configurable: true
     });
+
     return AlphaFilter;
-}(Filter));
+})(Filter);
 
 export { AlphaFilter };
-//# sourceMappingURL=filter-alpha.es.js.map
+// # sourceMappingURL=filter-alpha.es.js.map

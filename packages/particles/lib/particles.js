@@ -1,21 +1,20 @@
-/*!
+/* !
  * @pixi/particles - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
  * @pixi/particles is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
-'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var constants = require('@pixi/constants');
-var display = require('@pixi/display');
-var utils = require('@pixi/utils');
-var core = require('@pixi/core');
-var math = require('@pixi/math');
+const constants = require('@pixi/constants');
+const display = require('@pixi/display');
+const utils = require('@pixi/utils');
+const core = require('@pixi/core');
+const math = require('@pixi/math');
 
-/*! *****************************************************************************
+/* ! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -31,14 +30,17 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+var extendStatics = function (d, b)
+{
+    extendStatics = Object.setPrototypeOf
+        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
+        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+
     return extendStatics(d, b);
 };
 
-function __extends(d, b) {
+function __extends(d, b)
+{
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -71,7 +73,8 @@ function __extends(d, b) {
  * @extends PIXI.Container
  * @memberof PIXI
  */
-var ParticleContainer = /** @class */ (function (_super) {
+const ParticleContainer = /** @class */ (function (_super)
+{
     __extends(ParticleContainer, _super);
     /**
      * @param {number} [maxSize=1500] - The maximum number of particles that can be rendered by the container.
@@ -87,16 +90,19 @@ var ParticleContainer = /** @class */ (function (_super) {
      * @param {boolean} [autoResize=false] - If true, container allocates more batches in case
      *  there are more than `maxSize` particles.
      */
-    function ParticleContainer(maxSize, properties, batchSize, autoResize) {
+    function ParticleContainer(maxSize, properties, batchSize, autoResize)
+    {
         if (maxSize === void 0) { maxSize = 1500; }
         if (batchSize === void 0) { batchSize = 16384; }
         if (autoResize === void 0) { autoResize = false; }
-        var _this = _super.call(this) || this;
+        const _this = _super.call(this) || this;
         // Making sure the batch size is valid
         // 65535 is max vertex index in the index buffer (see ParticleRenderer)
         // so max number of particles is 65536 / 4 = 16384
-        var maxBatchSize = 16384;
-        if (batchSize > maxBatchSize) {
+        const maxBatchSize = 16384;
+
+        if (batchSize > maxBatchSize)
+        {
             batchSize = maxBatchSize;
         }
         /**
@@ -182,6 +188,7 @@ var ParticleContainer = /** @class */ (function (_super) {
         _this._tint = 0;
         _this.tintRgb = new Float32Array(4);
         _this.tint = 0xFFFFFF;
+
         return _this;
     }
     /**
@@ -189,8 +196,10 @@ var ParticleContainer = /** @class */ (function (_super) {
      *
      * @param {object} properties - The properties to be uploaded
      */
-    ParticleContainer.prototype.setProperties = function (properties) {
-        if (properties) {
+    ParticleContainer.prototype.setProperties = function (properties)
+    {
+        if (properties)
+        {
             this._properties[0] = 'vertices' in properties || 'scale' in properties
                 ? !!properties.vertices || !!properties.scale : this._properties[0];
             this._properties[1] = 'position' in properties ? !!properties.position : this._properties[1];
@@ -205,11 +214,12 @@ var ParticleContainer = /** @class */ (function (_super) {
      *
      * @private
      */
-    ParticleContainer.prototype.updateTransform = function () {
+    ParticleContainer.prototype.updateTransform = function ()
+    {
         // TODO don't need to!
         this.displayObjectUpdateTransform();
     };
-    Object.defineProperty(ParticleContainer.prototype, "tint", {
+    Object.defineProperty(ParticleContainer.prototype, 'tint', {
         /**
          * The tint applied to the container. This is a hex value.
          * A value of 0xFFFFFF will remove any tint effect.
@@ -217,10 +227,12 @@ var ParticleContainer = /** @class */ (function (_super) {
          * @member {number}
          * @default 0xFFFFFF
          */
-        get: function () {
+        get()
+        {
             return this._tint;
         },
-        set: function (value) {
+        set(value)
+        {
             this._tint = value;
             utils.hex2rgb(value, this.tintRgb);
         },
@@ -233,14 +245,19 @@ var ParticleContainer = /** @class */ (function (_super) {
      * @private
      * @param {PIXI.Renderer} renderer - The webgl renderer
      */
-    ParticleContainer.prototype.render = function (renderer) {
-        var _this = this;
-        if (!this.visible || this.worldAlpha <= 0 || !this.children.length || !this.renderable) {
+    ParticleContainer.prototype.render = function (renderer)
+    {
+        const _this = this;
+
+        if (!this.visible || this.worldAlpha <= 0 || !this.children.length || !this.renderable)
+        {
             return;
         }
-        if (!this.baseTexture) {
+        if (!this.baseTexture)
+        {
             this.baseTexture = this.children[0]._texture.baseTexture;
-            if (!this.baseTexture.valid) {
+            if (!this.baseTexture.valid)
+            {
                 this.baseTexture.once('update', function () { return _this.onChildrenChange(0); });
             }
         }
@@ -253,16 +270,22 @@ var ParticleContainer = /** @class */ (function (_super) {
      * @private
      * @param {number} smallestChildIndex - The smallest child index
      */
-    ParticleContainer.prototype.onChildrenChange = function (smallestChildIndex) {
-        var bufferIndex = Math.floor(smallestChildIndex / this._batchSize);
-        while (this._bufferUpdateIDs.length < bufferIndex) {
+    ParticleContainer.prototype.onChildrenChange = function (smallestChildIndex)
+    {
+        const bufferIndex = Math.floor(smallestChildIndex / this._batchSize);
+
+        while (this._bufferUpdateIDs.length < bufferIndex)
+        {
             this._bufferUpdateIDs.push(0);
         }
         this._bufferUpdateIDs[bufferIndex] = ++this._updateID;
     };
-    ParticleContainer.prototype.dispose = function () {
-        if (this._buffers) {
-            for (var i = 0; i < this._buffers.length; ++i) {
+    ParticleContainer.prototype.dispose = function ()
+    {
+        if (this._buffers)
+        {
+            for (let i = 0; i < this._buffers.length; ++i)
+            {
                 this._buffers[i].destroy();
             }
             this._buffers = null;
@@ -280,15 +303,17 @@ var ParticleContainer = /** @class */ (function (_super) {
      * @param {boolean} [options.baseTexture=false] - Only used for child Sprites if options.children is set to true
      *  Should it destroy the base texture of the child sprite
      */
-    ParticleContainer.prototype.destroy = function (options) {
+    ParticleContainer.prototype.destroy = function (options)
+    {
         _super.prototype.destroy.call(this, options);
         this.dispose();
         this._properties = null;
         this._buffers = null;
         this._bufferUpdateIDs = null;
     };
+
     return ParticleContainer;
-}(display.Container));
+})(display.Container);
 
 /**
  * @author Mat Groves
@@ -308,14 +333,16 @@ var ParticleContainer = /** @class */ (function (_super) {
  * @private
  * @memberof PIXI
  */
-var ParticleBuffer = /** @class */ (function () {
+const ParticleBuffer = /** @class */ (function ()
+{
     /**
      * @private
      * @param {object} properties - The properties to upload.
      * @param {boolean[]} dynamicPropertyFlags - Flags for which properties are dynamic.
      * @param {number} size - The size of the batch.
      */
-    function ParticleBuffer(properties, dynamicPropertyFlags, size) {
+    function ParticleBuffer(properties, dynamicPropertyFlags, size)
+    {
         this.geometry = new core.Geometry();
         this.indexBuffer = null;
         /**
@@ -339,10 +366,12 @@ var ParticleBuffer = /** @class */ (function () {
          * @member {object[]}
          */
         this.staticProperties = [];
-        for (var i = 0; i < properties.length; ++i) {
-            var property = properties[i];
+        for (let i = 0; i < properties.length; ++i)
+        {
+            let property = properties[i];
             // Make copy of properties object so that when we edit the offset it doesn't
             // change all other instances of the object literal
+
             property = {
                 attributeName: property.attributeName,
                 size: property.size,
@@ -350,10 +379,12 @@ var ParticleBuffer = /** @class */ (function () {
                 type: property.type || constants.TYPES.FLOAT,
                 offset: property.offset,
             };
-            if (dynamicPropertyFlags[i]) {
+            if (dynamicPropertyFlags[i])
+            {
                 this.dynamicProperties.push(property);
             }
-            else {
+            else
+            {
                 this.staticProperties.push(property);
             }
         }
@@ -373,47 +404,60 @@ var ParticleBuffer = /** @class */ (function () {
      *
      * @private
      */
-    ParticleBuffer.prototype.initBuffers = function () {
-        var geometry = this.geometry;
-        var dynamicOffset = 0;
+    ParticleBuffer.prototype.initBuffers = function ()
+    {
+        const geometry = this.geometry;
+        let dynamicOffset = 0;
         /**
          * Holds the indices of the geometry (quads) to draw
          *
          * @member {Uint16Array}
          * @private
          */
+
         this.indexBuffer = new core.Buffer(utils.createIndicesForQuads(this.size), true, true);
         geometry.addIndex(this.indexBuffer);
         this.dynamicStride = 0;
-        for (var i = 0; i < this.dynamicProperties.length; ++i) {
+        for (var i = 0; i < this.dynamicProperties.length; ++i)
+        {
             var property = this.dynamicProperties[i];
+
             property.offset = dynamicOffset;
             dynamicOffset += property.size;
             this.dynamicStride += property.size;
         }
-        var dynBuffer = new ArrayBuffer(this.size * this.dynamicStride * 4 * 4);
+        const dynBuffer = new ArrayBuffer(this.size * this.dynamicStride * 4 * 4);
+
         this.dynamicData = new Float32Array(dynBuffer);
         this.dynamicDataUint32 = new Uint32Array(dynBuffer);
         this.dynamicBuffer = new core.Buffer(this.dynamicData, false, false);
         // static //
-        var staticOffset = 0;
+        let staticOffset = 0;
+
         this.staticStride = 0;
-        for (var i = 0; i < this.staticProperties.length; ++i) {
+        for (var i = 0; i < this.staticProperties.length; ++i)
+        {
             var property = this.staticProperties[i];
+
             property.offset = staticOffset;
             staticOffset += property.size;
             this.staticStride += property.size;
         }
-        var statBuffer = new ArrayBuffer(this.size * this.staticStride * 4 * 4);
+        const statBuffer = new ArrayBuffer(this.size * this.staticStride * 4 * 4);
+
         this.staticData = new Float32Array(statBuffer);
         this.staticDataUint32 = new Uint32Array(statBuffer);
         this.staticBuffer = new core.Buffer(this.staticData, true, false);
-        for (var i = 0; i < this.dynamicProperties.length; ++i) {
+        for (var i = 0; i < this.dynamicProperties.length; ++i)
+        {
             var property = this.dynamicProperties[i];
+
             geometry.addAttribute(property.attributeName, this.dynamicBuffer, 0, property.type === constants.TYPES.UNSIGNED_BYTE, property.type, this.dynamicStride * 4, property.offset * 4);
         }
-        for (var i = 0; i < this.staticProperties.length; ++i) {
+        for (var i = 0; i < this.staticProperties.length; ++i)
+        {
             var property = this.staticProperties[i];
+
             geometry.addAttribute(property.attributeName, this.staticBuffer, 0, property.type === constants.TYPES.UNSIGNED_BYTE, property.type, this.staticStride * 4, property.offset * 4);
         }
     };
@@ -425,9 +469,12 @@ var ParticleBuffer = /** @class */ (function () {
      * @param {number} startIndex - The index to start at.
      * @param {number} amount - The number to upload.
      */
-    ParticleBuffer.prototype.uploadDynamic = function (children, startIndex, amount) {
-        for (var i = 0; i < this.dynamicProperties.length; i++) {
-            var property = this.dynamicProperties[i];
+    ParticleBuffer.prototype.uploadDynamic = function (children, startIndex, amount)
+    {
+        for (let i = 0; i < this.dynamicProperties.length; i++)
+        {
+            const property = this.dynamicProperties[i];
+
             property.uploadFunction(children, startIndex, amount, property.type === constants.TYPES.UNSIGNED_BYTE ? this.dynamicDataUint32 : this.dynamicData, this.dynamicStride, property.offset);
         }
         this.dynamicBuffer._updateID++;
@@ -440,9 +487,12 @@ var ParticleBuffer = /** @class */ (function () {
      * @param {number} startIndex - The index to start at.
      * @param {number} amount - The number to upload.
      */
-    ParticleBuffer.prototype.uploadStatic = function (children, startIndex, amount) {
-        for (var i = 0; i < this.staticProperties.length; i++) {
-            var property = this.staticProperties[i];
+    ParticleBuffer.prototype.uploadStatic = function (children, startIndex, amount)
+    {
+        for (let i = 0; i < this.staticProperties.length; i++)
+        {
+            const property = this.staticProperties[i];
+
             property.uploadFunction(children, startIndex, amount, property.type === constants.TYPES.UNSIGNED_BYTE ? this.staticDataUint32 : this.staticData, this.staticStride, property.offset);
         }
         this.staticBuffer._updateID++;
@@ -452,7 +502,8 @@ var ParticleBuffer = /** @class */ (function () {
      *
      * @private
      */
-    ParticleBuffer.prototype.destroy = function () {
+    ParticleBuffer.prototype.destroy = function ()
+    {
         this.indexBuffer = null;
         this.dynamicProperties = null;
         this.dynamicBuffer = null;
@@ -465,12 +516,13 @@ var ParticleBuffer = /** @class */ (function () {
         // all buffers are destroyed inside geometry
         this.geometry.destroy();
     };
+
     return ParticleBuffer;
-}());
+})();
 
-var fragment = "varying vec2 vTextureCoord;\r\nvarying vec4 vColor;\r\n\r\nuniform sampler2D uSampler;\r\n\r\nvoid main(void){\r\n    vec4 color = texture2D(uSampler, vTextureCoord) * vColor;\r\n    gl_FragColor = color;\r\n}";
+const fragment = 'varying vec2 vTextureCoord;\r\nvarying vec4 vColor;\r\n\r\nuniform sampler2D uSampler;\r\n\r\nvoid main(void){\r\n    vec4 color = texture2D(uSampler, vTextureCoord) * vColor;\r\n    gl_FragColor = color;\r\n}';
 
-var vertex = "attribute vec2 aVertexPosition;\r\nattribute vec2 aTextureCoord;\r\nattribute vec4 aColor;\r\n\r\nattribute vec2 aPositionCoord;\r\nattribute float aRotation;\r\n\r\nuniform mat3 translationMatrix;\r\nuniform vec4 uColor;\r\n\r\nvarying vec2 vTextureCoord;\r\nvarying vec4 vColor;\r\n\r\nvoid main(void){\r\n    float x = (aVertexPosition.x) * cos(aRotation) - (aVertexPosition.y) * sin(aRotation);\r\n    float y = (aVertexPosition.x) * sin(aRotation) + (aVertexPosition.y) * cos(aRotation);\r\n\r\n    vec2 v = vec2(x, y);\r\n    v = v + aPositionCoord;\r\n\r\n    gl_Position = vec4((translationMatrix * vec3(v, 1.0)).xy, 0.0, 1.0);\r\n\r\n    vTextureCoord = aTextureCoord;\r\n    vColor = aColor * uColor;\r\n}\r\n";
+const vertex = 'attribute vec2 aVertexPosition;\r\nattribute vec2 aTextureCoord;\r\nattribute vec4 aColor;\r\n\r\nattribute vec2 aPositionCoord;\r\nattribute float aRotation;\r\n\r\nuniform mat3 translationMatrix;\r\nuniform vec4 uColor;\r\n\r\nvarying vec2 vTextureCoord;\r\nvarying vec4 vColor;\r\n\r\nvoid main(void){\r\n    float x = (aVertexPosition.x) * cos(aRotation) - (aVertexPosition.y) * sin(aRotation);\r\n    float y = (aVertexPosition.x) * sin(aRotation) + (aVertexPosition.y) * cos(aRotation);\r\n\r\n    vec2 v = vec2(x, y);\r\n    v = v + aPositionCoord;\r\n\r\n    gl_Position = vec4((translationMatrix * vec3(v, 1.0)).xy, 0.0, 1.0);\r\n\r\n    vTextureCoord = aTextureCoord;\r\n    vColor = aColor * uColor;\r\n}\r\n';
 
 /**
  * @author Mat Groves
@@ -489,13 +541,15 @@ var vertex = "attribute vec2 aVertexPosition;\r\nattribute vec2 aTextureCoord;\r
  * @class
  * @memberof PIXI
  */
-var ParticleRenderer = /** @class */ (function (_super) {
+const ParticleRenderer = /** @class */ (function (_super)
+{
     __extends(ParticleRenderer, _super);
     /**
      * @param {PIXI.Renderer} renderer - The renderer this sprite batch works for.
      */
-    function ParticleRenderer(renderer) {
-        var _this = _super.call(this, renderer) || this;
+    function ParticleRenderer(renderer)
+    {
+        const _this = _super.call(this, renderer) || this;
         // 65535 is max vertex index in the index buffer (see ParticleRenderer)
         // so max number of particles is 65536 / 4 = 16384
         // and max number of element in the index buffer is 16384 * 6 = 98304
@@ -506,6 +560,7 @@ var ParticleRenderer = /** @class */ (function (_super) {
          *
          * @member {PIXI.Shader}
          */
+
         _this.shader = null;
         _this.properties = null;
         _this.tempMatrix = new math.Matrix();
@@ -545,7 +600,7 @@ var ParticleRenderer = /** @class */ (function (_super) {
                 type: constants.TYPES.UNSIGNED_BYTE,
                 uploadFunction: _this.uploadTint,
                 offset: 0,
-            } ];
+            }];
         _this.shader = core.Shader.from(vertex, fragment, {});
         /**
          * The WebGL state in which this renderer will work.
@@ -554,6 +609,7 @@ var ParticleRenderer = /** @class */ (function (_super) {
          * @readonly
          */
         _this.state = core.State.for2d();
+
         return _this;
     }
     /**
@@ -561,50 +617,66 @@ var ParticleRenderer = /** @class */ (function (_super) {
      *
      * @param {PIXI.ParticleContainer} container - The container to render using this ParticleRenderer
      */
-    ParticleRenderer.prototype.render = function (container) {
-        var children = container.children;
-        var maxSize = container._maxSize;
-        var batchSize = container._batchSize;
-        var renderer = this.renderer;
-        var totalChildren = children.length;
-        if (totalChildren === 0) {
+    ParticleRenderer.prototype.render = function (container)
+    {
+        const children = container.children;
+        const maxSize = container._maxSize;
+        const batchSize = container._batchSize;
+        const renderer = this.renderer;
+        let totalChildren = children.length;
+
+        if (totalChildren === 0)
+        {
             return;
         }
-        else if (totalChildren > maxSize && !container.autoResize) {
+        else if (totalChildren > maxSize && !container.autoResize)
+        {
             totalChildren = maxSize;
         }
-        var buffers = container._buffers;
-        if (!buffers) {
+        let buffers = container._buffers;
+
+        if (!buffers)
+        {
             buffers = container._buffers = this.generateBuffers(container);
         }
-        var baseTexture = children[0]._texture.baseTexture;
+        const baseTexture = children[0]._texture.baseTexture;
         // if the uvs have not updated then no point rendering just yet!
+
         this.state.blendMode = utils.correctBlendMode(container.blendMode, baseTexture.alphaMode);
         renderer.state.set(this.state);
-        var gl = renderer.gl;
-        var m = container.worldTransform.copyTo(this.tempMatrix);
+        const gl = renderer.gl;
+        const m = container.worldTransform.copyTo(this.tempMatrix);
+
         m.prepend(renderer.globalUniforms.uniforms.projectionMatrix);
         this.shader.uniforms.translationMatrix = m.toArray(true);
         this.shader.uniforms.uColor = utils.premultiplyRgba(container.tintRgb, container.worldAlpha, this.shader.uniforms.uColor, baseTexture.alphaMode);
         this.shader.uniforms.uSampler = baseTexture;
         this.renderer.shader.bind(this.shader);
-        var updateStatic = false;
+        let updateStatic = false;
         // now lets upload and render the buffers..
-        for (var i = 0, j = 0; i < totalChildren; i += batchSize, j += 1) {
-            var amount = (totalChildren - i);
-            if (amount > batchSize) {
+
+        for (let i = 0, j = 0; i < totalChildren; i += batchSize, j += 1)
+        {
+            let amount = (totalChildren - i);
+
+            if (amount > batchSize)
+            {
                 amount = batchSize;
             }
-            if (j >= buffers.length) {
+            if (j >= buffers.length)
+            {
                 buffers.push(this._generateOneMoreBuffer(container));
             }
-            var buffer = buffers[j];
+            const buffer = buffers[j];
             // we always upload the dynamic
+
             buffer.uploadDynamic(children, i, amount);
-            var bid = container._bufferUpdateIDs[j] || 0;
+            const bid = container._bufferUpdateIDs[j] || 0;
+
             updateStatic = updateStatic || (buffer._updateID < bid);
             // we only upload the static content when we have to!
-            if (updateStatic) {
+            if (updateStatic)
+            {
                 buffer._updateID = container._updateID;
                 buffer.uploadStatic(children, i, amount);
             }
@@ -620,14 +692,18 @@ var ParticleRenderer = /** @class */ (function (_super) {
      * @return {PIXI.ParticleBuffer[]} The buffers
      * @private
      */
-    ParticleRenderer.prototype.generateBuffers = function (container) {
-        var buffers = [];
-        var size = container._maxSize;
-        var batchSize = container._batchSize;
-        var dynamicPropertyFlags = container._properties;
-        for (var i = 0; i < size; i += batchSize) {
+    ParticleRenderer.prototype.generateBuffers = function (container)
+    {
+        const buffers = [];
+        const size = container._maxSize;
+        const batchSize = container._batchSize;
+        const dynamicPropertyFlags = container._properties;
+
+        for (let i = 0; i < size; i += batchSize)
+        {
             buffers.push(new ParticleBuffer(this.properties, dynamicPropertyFlags, batchSize));
         }
+
         return buffers;
     };
     /**
@@ -637,9 +713,11 @@ var ParticleRenderer = /** @class */ (function (_super) {
      * @return {PIXI.ParticleBuffer} generated buffer
      * @private
      */
-    ParticleRenderer.prototype._generateOneMoreBuffer = function (container) {
-        var batchSize = container._batchSize;
-        var dynamicPropertyFlags = container._properties;
+    ParticleRenderer.prototype._generateOneMoreBuffer = function (container)
+    {
+        const batchSize = container._batchSize;
+        const dynamicPropertyFlags = container._properties;
+
         return new ParticleBuffer(this.properties, dynamicPropertyFlags, batchSize);
     };
     /**
@@ -652,19 +730,24 @@ var ParticleRenderer = /** @class */ (function (_super) {
      * @param {number} stride - Stride to use for iteration.
      * @param {number} offset - Offset to start at.
      */
-    ParticleRenderer.prototype.uploadVertices = function (children, startIndex, amount, array, stride, offset) {
-        var w0 = 0;
-        var w1 = 0;
-        var h0 = 0;
-        var h1 = 0;
-        for (var i = 0; i < amount; ++i) {
-            var sprite = children[startIndex + i];
-            var texture = sprite._texture;
-            var sx = sprite.scale.x;
-            var sy = sprite.scale.y;
-            var trim = texture.trim;
-            var orig = texture.orig;
-            if (trim) {
+    ParticleRenderer.prototype.uploadVertices = function (children, startIndex, amount, array, stride, offset)
+    {
+        let w0 = 0;
+        let w1 = 0;
+        let h0 = 0;
+        let h1 = 0;
+
+        for (let i = 0; i < amount; ++i)
+        {
+            const sprite = children[startIndex + i];
+            const texture = sprite._texture;
+            const sx = sprite.scale.x;
+            const sy = sprite.scale.y;
+            const trim = texture.trim;
+            const orig = texture.orig;
+
+            if (trim)
+            {
                 // if the sprite is trimmed and is not a tilingsprite then we need to add the
                 // extra space before transforming the sprite coords..
                 w1 = trim.x - (sprite.anchor.x * orig.width);
@@ -672,7 +755,8 @@ var ParticleRenderer = /** @class */ (function (_super) {
                 h1 = trim.y - (sprite.anchor.y * orig.height);
                 h0 = h1 + trim.height;
             }
-            else {
+            else
+            {
                 w0 = (orig.width) * (1 - sprite.anchor.x);
                 w1 = (orig.width) * -sprite.anchor.x;
                 h0 = orig.height * (1 - sprite.anchor.y);
@@ -699,9 +783,12 @@ var ParticleRenderer = /** @class */ (function (_super) {
      * @param {number} stride - Stride to use for iteration.
      * @param {number} offset - Offset to start at.
      */
-    ParticleRenderer.prototype.uploadPosition = function (children, startIndex, amount, array, stride, offset) {
-        for (var i = 0; i < amount; i++) {
-            var spritePosition = children[startIndex + i].position;
+    ParticleRenderer.prototype.uploadPosition = function (children, startIndex, amount, array, stride, offset)
+    {
+        for (let i = 0; i < amount; i++)
+        {
+            const spritePosition = children[startIndex + i].position;
+
             array[offset] = spritePosition.x;
             array[offset + 1] = spritePosition.y;
             array[offset + stride] = spritePosition.x;
@@ -723,9 +810,12 @@ var ParticleRenderer = /** @class */ (function (_super) {
      * @param {number} stride - Stride to use for iteration.
      * @param {number} offset - Offset to start at.
      */
-    ParticleRenderer.prototype.uploadRotation = function (children, startIndex, amount, array, stride, offset) {
-        for (var i = 0; i < amount; i++) {
-            var spriteRotation = children[startIndex + i].rotation;
+    ParticleRenderer.prototype.uploadRotation = function (children, startIndex, amount, array, stride, offset)
+    {
+        for (let i = 0; i < amount; i++)
+        {
+            const spriteRotation = children[startIndex + i].rotation;
+
             array[offset] = spriteRotation;
             array[offset + stride] = spriteRotation;
             array[offset + (stride * 2)] = spriteRotation;
@@ -743,10 +833,14 @@ var ParticleRenderer = /** @class */ (function (_super) {
      * @param {number} stride - Stride to use for iteration.
      * @param {number} offset - Offset to start at.
      */
-    ParticleRenderer.prototype.uploadUvs = function (children, startIndex, amount, array, stride, offset) {
-        for (var i = 0; i < amount; ++i) {
-            var textureUvs = children[startIndex + i]._texture._uvs;
-            if (textureUvs) {
+    ParticleRenderer.prototype.uploadUvs = function (children, startIndex, amount, array, stride, offset)
+    {
+        for (let i = 0; i < amount; ++i)
+        {
+            const textureUvs = children[startIndex + i]._texture._uvs;
+
+            if (textureUvs)
+            {
                 array[offset] = textureUvs.x0;
                 array[offset + 1] = textureUvs.y0;
                 array[offset + stride] = textureUvs.x1;
@@ -757,7 +851,8 @@ var ParticleRenderer = /** @class */ (function (_super) {
                 array[offset + (stride * 3) + 1] = textureUvs.y3;
                 offset += stride * 4;
             }
-            else {
+            else
+            {
                 // TODO you know this can be easier!
                 array[offset] = 0;
                 array[offset + 1] = 0;
@@ -781,14 +876,17 @@ var ParticleRenderer = /** @class */ (function (_super) {
      * @param {number} stride - Stride to use for iteration.
      * @param {number} offset - Offset to start at.
      */
-    ParticleRenderer.prototype.uploadTint = function (children, startIndex, amount, array, stride, offset) {
-        for (var i = 0; i < amount; ++i) {
-            var sprite = children[startIndex + i];
-            var premultiplied = sprite._texture.baseTexture.alphaMode > 0;
-            var alpha = sprite.alpha;
+    ParticleRenderer.prototype.uploadTint = function (children, startIndex, amount, array, stride, offset)
+    {
+        for (let i = 0; i < amount; ++i)
+        {
+            const sprite = children[startIndex + i];
+            const premultiplied = sprite._texture.baseTexture.alphaMode > 0;
+            const alpha = sprite.alpha;
             // we dont call extra function if alpha is 1.0, that's faster
-            var argb = alpha < 1.0 && premultiplied
+            const argb = alpha < 1.0 && premultiplied
                 ? utils.premultiplyTint(sprite._tintRGB, alpha) : sprite._tintRGB + (alpha * 255 << 24);
+
             array[offset] = argb;
             array[offset + stride] = argb;
             array[offset + (stride * 2)] = argb;
@@ -799,17 +897,20 @@ var ParticleRenderer = /** @class */ (function (_super) {
     /**
      * Destroys the ParticleRenderer.
      */
-    ParticleRenderer.prototype.destroy = function () {
+    ParticleRenderer.prototype.destroy = function ()
+    {
         _super.prototype.destroy.call(this);
-        if (this.shader) {
+        if (this.shader)
+        {
             this.shader.destroy();
             this.shader = null;
         }
         this.tempMatrix = null;
     };
+
     return ParticleRenderer;
-}(core.ObjectRenderer));
+})(core.ObjectRenderer);
 
 exports.ParticleContainer = ParticleContainer;
 exports.ParticleRenderer = ParticleRenderer;
-//# sourceMappingURL=particles.js.map
+// # sourceMappingURL=particles.js.map

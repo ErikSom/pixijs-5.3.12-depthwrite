@@ -1,4 +1,4 @@
-/*!
+/* !
  * pixi.js-legacy - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
@@ -31,4 +31,4 @@ CanvasRenderer.registerPlugin('interaction', InteractionManager);
 CanvasRenderer.registerPlugin('mesh', CanvasMeshRenderer);
 CanvasRenderer.registerPlugin('prepare', CanvasPrepare);
 CanvasRenderer.registerPlugin('sprite', CanvasSpriteRenderer);
-//# sourceMappingURL=pixi-legacy.es.js.map
+// # sourceMappingURL=pixi-legacy.es.js.map

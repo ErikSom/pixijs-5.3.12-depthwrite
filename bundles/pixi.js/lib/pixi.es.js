@@ -1,4 +1,4 @@
-/*!
+/* !
  * pixi.js - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
@@ -54,7 +54,7 @@ export * from '@pixi/sprite-animated';
 export * from '@pixi/text';
 export * from '@pixi/settings';
 
-/*! *****************************************************************************
+/* ! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -70,20 +70,23 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+var extendStatics = function (d, b)
+{
+    extendStatics = Object.setPrototypeOf
+        || ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; })
+        || function (d, b) { for (const p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+
     return extendStatics(d, b);
 };
 
-function __extends(d, b) {
+function __extends(d, b)
+{
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var v5 = '5.0.0';
+const v5 = '5.0.0';
 /**
  * Deprecations (backward compatibilities) are automatically applied for browser bundles
  * in the UMD module format. If using Webpack or Rollup, you'll need to apply these
@@ -95,9 +98,12 @@ var v5 = '5.0.0';
  * @function useDeprecated
  */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-function useDeprecated() {
+
+function useDeprecated()
+{
     // eslint-disable-next-line @typescript-eslint/no-this-alias
-    var PIXI = this;
+    const PIXI = this;
+
     Object.defineProperties(PIXI, {
         /**
          * @constant {RegExp|string} SVG_SIZE
@@ -106,8 +112,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         SVG_SIZE: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.utils.SVG_SIZE property has moved to PIXI.resources.SVGResource.SVG_SIZE');
+
                 return PIXI.SVGResource.SVG_SIZE;
             },
         },
@@ -117,8 +125,10 @@ function useDeprecated() {
          * @see PIXI.Transform
          */
         TransformStatic: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.TransformStatic class has been removed, use PIXI.Transform');
+
                 return PIXI.Transform;
             },
         },
@@ -128,8 +138,10 @@ function useDeprecated() {
          * @see PIXI.Transform
          */
         TransformBase: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.TransformBase class has been removed, use PIXI.Transform');
+
                 return PIXI.Transform;
             },
         },
@@ -146,8 +158,10 @@ function useDeprecated() {
          * @property {number} DYNAMIC
          */
         TRANSFORM_MODE: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.TRANSFORM_MODE property has been removed');
+
                 return { STATIC: 0, DYNAMIC: 1 };
             },
         },
@@ -157,8 +171,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         WebGLRenderer: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.WebGLRenderer class has moved to PIXI.Renderer');
+
                 return PIXI.Renderer;
             },
         },
@@ -168,8 +184,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         CanvasRenderTarget: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.CanvasRenderTarget class has moved to PIXI.utils.CanvasRenderTarget');
+
                 return PIXI.utils.CanvasRenderTarget;
             },
         },
@@ -181,8 +199,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         loader: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.loader instance has moved to PIXI.Loader.shared');
+
                 return PIXI.Loader.shared;
             },
         },
@@ -192,8 +212,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         FilterManager: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.FilterManager class has moved to PIXI.systems.FilterSystem');
+
                 return PIXI.systems.FilterSystem;
             },
         },
@@ -203,8 +225,10 @@ function useDeprecated() {
          * @deprecated since 5.2.0
          */
         CanvasTinter: {
-            get: function () {
+            get()
+            {
                 deprecation('5.2.0', 'PIXI.CanvasTinter namespace has moved to PIXI.canvasUtils');
+
                 return PIXI.canvasUtils;
             },
         },
@@ -214,8 +238,10 @@ function useDeprecated() {
          * @deprecated since 5.2.0
          */
         GroupD8: {
-            get: function () {
+            get()
+            {
                 deprecation('5.2.0', 'PIXI.GroupD8 namespace has moved to PIXI.groupD8');
+
                 return PIXI.groupD8;
             },
         },
@@ -233,8 +259,10 @@ function useDeprecated() {
          * @see PIXI.AccessibilityManager
          */
         AccessibilityManager: {
-            get: function () {
+            get()
+            {
                 deprecation('5.3.0', 'PIXI.accessibility.AccessibilityManager moved to PIXI.AccessibilityManager');
+
                 return PIXI.AccessibilityManager;
             },
         },
@@ -252,8 +280,10 @@ function useDeprecated() {
          * @see PIXI.InteractionManager
          */
         InteractionManager: {
-            get: function () {
+            get()
+            {
                 deprecation('5.3.0', 'PIXI.interaction.InteractionManager moved to PIXI.InteractionManager');
+
                 return PIXI.InteractionManager;
             },
         },
@@ -263,8 +293,10 @@ function useDeprecated() {
          * @see PIXI.InteractionData
          */
         InteractionData: {
-            get: function () {
+            get()
+            {
                 deprecation('5.3.0', 'PIXI.interaction.InteractionData moved to PIXI.InteractionData');
+
                 return PIXI.InteractionData;
             },
         },
@@ -274,8 +306,10 @@ function useDeprecated() {
          * @see PIXI.InteractionEvent
          */
         InteractionEvent: {
-            get: function () {
+            get()
+            {
                 deprecation('5.3.0', 'PIXI.interaction.InteractionEvent moved to PIXI.InteractionEvent');
+
                 return PIXI.InteractionEvent;
             },
         },
@@ -293,8 +327,10 @@ function useDeprecated() {
          * @see PIXI.BasePrepare
          */
         BasePrepare: {
-            get: function () {
+            get()
+            {
                 deprecation('5.2.1', 'PIXI.prepare.BasePrepare moved to PIXI.BasePrepare');
+
                 return PIXI.BasePrepare;
             },
         },
@@ -304,8 +340,10 @@ function useDeprecated() {
          * @see PIXI.Prepare
          */
         Prepare: {
-            get: function () {
+            get()
+            {
                 deprecation('5.2.1', 'PIXI.prepare.Prepare moved to PIXI.Prepare');
+
                 return PIXI.Prepare;
             },
         },
@@ -315,8 +353,10 @@ function useDeprecated() {
          * @see PIXI.CanvasPrepare
          */
         CanvasPrepare: {
-            get: function () {
+            get()
+            {
                 deprecation('5.2.1', 'PIXI.prepare.CanvasPrepare moved to PIXI.CanvasPrepare');
+
                 return PIXI.CanvasPrepare;
             },
         },
@@ -334,8 +374,10 @@ function useDeprecated() {
          * @see PIXI.Extract
          */
         Extract: {
-            get: function () {
+            get()
+            {
                 deprecation('5.2.1', 'PIXI.extract.Extract moved to PIXI.Extract');
+
                 return PIXI.Extract;
             },
         },
@@ -345,8 +387,10 @@ function useDeprecated() {
          * @see PIXI.CanvasExtract
          */
         CanvasExtract: {
-            get: function () {
+            get()
+            {
                 deprecation('5.2.1', 'PIXI.extract.CanvasExtract moved to PIXI.CanvasExtract');
+
                 return PIXI.CanvasExtract;
             },
         },
@@ -365,8 +409,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         TilingSprite: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.extras.TilingSprite class has moved to PIXI.TilingSprite');
+
                 return PIXI.TilingSprite;
             },
         },
@@ -376,8 +422,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         TilingSpriteRenderer: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.extras.TilingSpriteRenderer class has moved to PIXI.TilingSpriteRenderer');
+
                 return PIXI.TilingSpriteRenderer;
             },
         },
@@ -387,8 +435,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         AnimatedSprite: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.extras.AnimatedSprite class has moved to PIXI.AnimatedSprite');
+
                 return PIXI.AnimatedSprite;
             },
         },
@@ -398,8 +448,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         BitmapText: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.extras.BitmapText class has moved to PIXI.BitmapText');
+
                 return PIXI.BitmapText;
             },
         },
@@ -410,9 +462,11 @@ function useDeprecated() {
      * @deprecated since 5.3.0
      * @see PIXI.TilingSprite.from
      */
-    PIXI.TilingSprite.fromFrame = function fromFrame(frameId, width, height) {
+    PIXI.TilingSprite.fromFrame = function fromFrame(frameId, width, height)
+    {
         deprecation('5.3.0', 'TilingSprite.fromFrame is deprecated, use TilingSprite.from');
-        return PIXI.TilingSprite.from(frameId, { width: width, height: height });
+
+        return PIXI.TilingSprite.from(frameId, { width, height });
     };
     /**
      * @static
@@ -420,11 +474,13 @@ function useDeprecated() {
      * @deprecated since 5.3.0
      * @see PIXI.TilingSprite.from
      */
-    PIXI.TilingSprite.fromImage = function fromImage(imageId, width, height, options) {
+    PIXI.TilingSprite.fromImage = function fromImage(imageId, width, height, options)
+    {
         if (options === void 0) { options = {}; }
         deprecation('5.3.0', 'TilingSprite.fromImage is deprecated, use TilingSprite.from');
         // Fallback support for crossorigin, scaleMode parameters
-        if (options && typeof options !== 'object') {
+        if (options && typeof options !== 'object')
+        {
             options = {
                 // eslint-disable-next-line prefer-rest-params
                 scaleMode: arguments[4],
@@ -436,6 +492,7 @@ function useDeprecated() {
         }
         options.width = width;
         options.height = height;
+
         return PIXI.TilingSprite.from(imageId, options);
     };
     Object.defineProperties(PIXI.utils, {
@@ -445,8 +502,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         getSvgSize: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.utils.getSvgSize function has moved to PIXI.resources.SVGResource.getSize');
+
                 return PIXI.resources.SVGResource.getSize;
             },
         },
@@ -464,8 +523,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         Mesh: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.mesh.Mesh class has moved to PIXI.SimpleMesh');
+
                 return PIXI.SimpleMesh;
             },
         },
@@ -475,8 +536,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         NineSlicePlane: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.mesh.NineSlicePlane class has moved to PIXI.NineSlicePlane');
+
                 return PIXI.NineSlicePlane;
             },
         },
@@ -486,8 +549,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         Plane: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.mesh.Plane class has moved to PIXI.SimplePlane');
+
                 return PIXI.SimplePlane;
             },
         },
@@ -497,8 +562,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         Rope: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.mesh.Rope class has moved to PIXI.SimpleRope');
+
                 return PIXI.SimpleRope;
             },
         },
@@ -508,8 +575,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         RawMesh: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.mesh.RawMesh class has moved to PIXI.Mesh');
+
                 return PIXI.Mesh;
             },
         },
@@ -519,8 +588,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         CanvasMeshRenderer: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.mesh.CanvasMeshRenderer class has moved to PIXI.CanvasMeshRenderer');
+
                 return PIXI.CanvasMeshRenderer;
             },
         },
@@ -530,8 +601,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         MeshRenderer: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.mesh.MeshRenderer class has moved to PIXI.MeshRenderer');
+
                 return PIXI.MeshRenderer;
             },
         },
@@ -550,8 +623,10 @@ function useDeprecated() {
          * @see PIXI.ParticleContainer
          */
         ParticleContainer: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.particles.ParticleContainer class has moved to PIXI.ParticleContainer');
+
                 return PIXI.ParticleContainer;
             },
         },
@@ -561,8 +636,10 @@ function useDeprecated() {
          * @see PIXI.ParticleRenderer
          */
         ParticleRenderer: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.particles.ParticleRenderer class has moved to PIXI.ParticleRenderer');
+
                 return PIXI.ParticleRenderer;
             },
         },
@@ -581,8 +658,10 @@ function useDeprecated() {
          * @see PIXI.Ticker
          */
         Ticker: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.ticker.Ticker class has moved to PIXI.Ticker');
+
                 return PIXI.Ticker;
             },
         },
@@ -593,8 +672,10 @@ function useDeprecated() {
          * @see PIXI.Ticker.shared
          */
         shared: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.ticker.shared instance has moved to PIXI.Ticker.shared');
+
                 return PIXI.Ticker.shared;
             },
         },
@@ -612,8 +693,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         Loader: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.loaders.Loader class has moved to PIXI.Loader');
+
                 return PIXI.Loader;
             },
         },
@@ -623,8 +706,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         Resource: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.loaders.Resource class has moved to PIXI.LoaderResource');
+
                 return PIXI.LoaderResource;
             },
         },
@@ -634,8 +719,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         bitmapFontParser: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.loaders.bitmapFontParser function has moved to PIXI.BitmapFontLoader.use');
+
                 return PIXI.BitmapFontLoader.use;
             },
         },
@@ -644,7 +731,8 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         parseBitmapFontData: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.loaders.parseBitmapFontData function has removed');
             },
         },
@@ -654,8 +742,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         spritesheetParser: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.loaders.spritesheetParser function has moved to PIXI.SpritesheetLoader.use');
+
                 return PIXI.SpritesheetLoader.use;
             },
         },
@@ -665,8 +755,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          */
         getResourcePath: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.loaders.getResourcePath property has moved to PIXI.SpritesheetLoader.getResourcePath');
+
                 return PIXI.SpritesheetLoader.getResourcePath;
             },
         },
@@ -677,41 +769,51 @@ function useDeprecated() {
      * @deprecated since 5.0.0
      * @param {function} middleware
      */
-    PIXI.Loader.addPixiMiddleware = function addPixiMiddleware(middleware) {
+    PIXI.Loader.addPixiMiddleware = function addPixiMiddleware(middleware)
+    {
         deprecation(v5, 'PIXI.loaders.Loader.addPixiMiddleware function is deprecated, use PIXI.loaders.Loader.registerPlugin');
+
         return PIXI.loaders.Loader.registerPlugin({ use: middleware() });
     };
     // convenience for converting event name to signal name
-    var eventToSignal = function (event) {
-        return "on" + event.charAt(0).toUpperCase() + event.slice(1);
+    const eventToSignal = function (event)
+    {
+        return `on${event.charAt(0).toUpperCase()}${event.slice(1)}`;
     };
+
     Object.assign(PIXI.Loader.prototype, {
         /**
          * Use the corresponding signal, e.g., event `start`` is signal `onStart`.
          * @method PIXI.Loader#on
          * @deprecated since 5.0.0
          */
-        on: function (event) {
-            var signal = eventToSignal(event);
-            deprecation(v5, "PIXI.Loader#on is completely deprecated, use PIXI.Loader#" + signal + ".add");
+        on(event)
+        {
+            const signal = eventToSignal(event);
+
+            deprecation(v5, `PIXI.Loader#on is completely deprecated, use PIXI.Loader#${signal}.add`);
         },
         /**
          * Use the corresponding signal, e.g., event `start`` is signal `onStart`.
          * @method PIXI.Loader#once
          * @deprecated since 5.0.0
          */
-        once: function (event) {
-            var signal = eventToSignal(event);
-            deprecation(v5, "PIXI.Loader#once is completely deprecated, use PIXI.Loader#" + signal + ".once");
+        once(event)
+        {
+            const signal = eventToSignal(event);
+
+            deprecation(v5, `PIXI.Loader#once is completely deprecated, use PIXI.Loader#${signal}.once`);
         },
         /**
          * Use the corresponding signal, e.g., event `start`` is signal `onStart`.
          * @method PIXI.Loader#off
          * @deprecated since 5.0.0
          */
-        off: function (event) {
-            var signal = eventToSignal(event);
-            deprecation(v5, "PIXI.Loader#off is completely deprecated, use PIXI.Loader#" + signal + ".detach");
+        off(event)
+        {
+            const signal = eventToSignal(event);
+
+            deprecation(v5, `PIXI.Loader#off is completely deprecated, use PIXI.Loader#${signal}.detach`);
         },
     });
     /**
@@ -720,8 +822,10 @@ function useDeprecated() {
      * @see PIXI.Extract
      */
     Object.defineProperty(PIXI.extract, 'WebGLExtract', {
-        get: function () {
+        get()
+        {
             deprecation(v5, 'PIXI.extract.WebGLExtract method has moved to PIXI.Extract');
+
             return PIXI.Extract;
         },
     });
@@ -731,8 +835,10 @@ function useDeprecated() {
      * @see PIXI.Prepare
      */
     Object.defineProperty(PIXI.prepare, 'WebGLPrepare', {
-        get: function () {
+        get()
+        {
             deprecation(v5, 'PIXI.prepare.WebGLPrepare class has moved to PIXI.Prepare');
+
             return PIXI.Prepare;
         },
     });
@@ -743,7 +849,8 @@ function useDeprecated() {
      * @see PIXI.Container#render
      * @param {PIXI.Renderer} renderer Instance of renderer
      */
-    PIXI.Container.prototype._renderWebGL = function _renderWebGL(renderer) {
+    PIXI.Container.prototype._renderWebGL = function _renderWebGL(renderer)
+    {
         deprecation(v5, 'PIXI.Container._renderWebGL method has moved to PIXI.Container._render');
         this._render(renderer);
     };
@@ -753,7 +860,8 @@ function useDeprecated() {
      * @see PIXI.Container#render
      * @param {PIXI.Renderer} renderer Instance of renderer
      */
-    PIXI.Container.prototype.renderWebGL = function renderWebGL(renderer) {
+    PIXI.Container.prototype.renderWebGL = function renderWebGL(renderer)
+    {
         deprecation(v5, 'PIXI.Container.renderWebGL method has moved to PIXI.Container.render');
         this.render(renderer);
     };
@@ -763,7 +871,8 @@ function useDeprecated() {
      * @see PIXI.DisplayObject#render
      * @param {PIXI.Renderer} renderer Instance of renderer
      */
-    PIXI.DisplayObject.prototype.renderWebGL = function renderWebGL(renderer) {
+    PIXI.DisplayObject.prototype.renderWebGL = function renderWebGL(renderer)
+    {
         deprecation(v5, 'PIXI.DisplayObject.renderWebGL method has moved to PIXI.DisplayObject.render');
         this.render(renderer);
     };
@@ -773,7 +882,8 @@ function useDeprecated() {
      * @see PIXI.Container#renderAdvanced
      * @param {PIXI.Renderer} renderer Instance of renderer
      */
-    PIXI.Container.prototype.renderAdvancedWebGL = function renderAdvancedWebGL(renderer) {
+    PIXI.Container.prototype.renderAdvancedWebGL = function renderAdvancedWebGL(renderer)
+    {
         deprecation(v5, 'PIXI.Container.renderAdvancedWebGL method has moved to PIXI.Container.renderAdvanced');
         this.renderAdvanced(renderer);
     };
@@ -788,29 +898,36 @@ function useDeprecated() {
          * @default PIXI.TRANSFORM_MODE.STATIC
          */
         TRANSFORM_MODE: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.settings.TRANSFORM_MODE property has been removed');
+
                 return 0;
             },
-            set: function () {
+            set()
+            {
                 deprecation(v5, 'PIXI.settings.TRANSFORM_MODE property has been removed');
             },
         },
     });
-    var BaseTextureAny = PIXI.BaseTexture;
+    const BaseTextureAny = PIXI.BaseTexture;
     /**
      * @method loadSource
      * @memberof PIXI.BaseTexture#
      * @deprecated since 5.0.0
      */
-    BaseTextureAny.prototype.loadSource = function loadSource(image) {
+
+    BaseTextureAny.prototype.loadSource = function loadSource(image)
+    {
         deprecation(v5, 'PIXI.BaseTexture.loadSource method has been deprecated');
-        var resource = PIXI.resources.autoDetectResource(image);
+        const resource = PIXI.resources.autoDetectResource(image);
+
         resource.internal = true;
         this.setResource(resource);
         this.update();
     };
-    var baseTextureIdDeprecation = false;
+    let baseTextureIdDeprecation = false;
+
     Object.defineProperties(BaseTextureAny.prototype, {
         /**
          * @name PIXI.BaseTexture#hasLoaded
@@ -820,8 +937,10 @@ function useDeprecated() {
          * @see PIXI.BaseTexture#valid
          */
         hasLoaded: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.BaseTexture.hasLoaded property has been removed, use PIXI.BaseTexture.valid');
+
                 return this.valid;
             },
         },
@@ -832,14 +951,19 @@ function useDeprecated() {
          * @see PIXI.resources.ImageResource#url
          */
         imageUrl: {
-            get: function () {
-                var _a;
+            get()
+            {
+                let _a;
+
                 deprecation(v5, 'PIXI.BaseTexture.imageUrl property has been removed, use PIXI.BaseTexture.resource.url');
+
                 return (_a = this.resource) === null || _a === void 0 ? void 0 : _a.url;
             },
-            set: function (imageUrl) {
+            set(imageUrl)
+            {
                 deprecation(v5, 'PIXI.BaseTexture.imageUrl property has been removed, use PIXI.BaseTexture.resource.url');
-                if (this.resource) {
+                if (this.resource)
+                {
                     this.resource.url = imageUrl;
                 }
             },
@@ -852,14 +976,18 @@ function useDeprecated() {
          * @see PIXI.resources.BaseImageResource#source
          */
         source: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.BaseTexture.source property has been moved, use `PIXI.BaseTexture.resource.source`');
+
                 return this.resource.source;
             },
-            set: function (source) {
+            set(source)
+            {
                 deprecation(v5, 'PIXI.BaseTexture.source property has been moved, use `PIXI.BaseTexture.resource.source` '
                     + 'if you want to set HTMLCanvasElement. Otherwise, create new BaseTexture.');
-                if (this.resource) {
+                if (this.resource)
+                {
                     this.resource.source = source;
                 }
             },
@@ -872,12 +1000,15 @@ function useDeprecated() {
          * @see PIXI.BaseTexture#alphaMode
          */
         premultiplyAlpha: {
-            get: function () {
+            get()
+            {
                 deprecation('5.2.0', 'PIXI.BaseTexture.premultiplyAlpha property has been changed to `alphaMode`'
                     + ', see `PIXI.ALPHA_MODES`');
+
                 return this.alphaMode !== 0;
             },
-            set: function (value) {
+            set(value)
+            {
                 deprecation('5.2.0', 'PIXI.BaseTexture.premultiplyAlpha property has been changed to `alphaMode`'
                     + ', see `PIXI.ALPHA_MODES`');
                 this.alphaMode = Number(value);
@@ -892,15 +1023,19 @@ function useDeprecated() {
          * @see PIXI.BaseTexture#_batchLocation
          */
         _id: {
-            get: function () {
-                if (!baseTextureIdDeprecation) {
+            get()
+            {
+                if (!baseTextureIdDeprecation)
+                {
                     // #popelyshev: That property was a hot place, I don't want to call deprecation method on it if possible
                     deprecation('5.2.0', 'PIXI.BaseTexture._id batch local field has been changed to `_batchLocation`');
                     baseTextureIdDeprecation = true;
                 }
+
                 return this._batchLocation;
             },
-            set: function (value) {
+            set(value)
+            {
                 this._batchLocation = value;
             },
         },
@@ -912,10 +1047,12 @@ function useDeprecated() {
      * @deprecated since 5.0.0
      * @see PIXI.BaseTexture.from
      */
-    BaseTextureAny.fromImage = function fromImage(canvas, crossorigin, scaleMode, scale) {
+    BaseTextureAny.fromImage = function fromImage(canvas, crossorigin, scaleMode, scale)
+    {
         deprecation(v5, 'PIXI.BaseTexture.fromImage method has been replaced with PIXI.BaseTexture.from');
-        var resourceOptions = { scale: scale, crossorigin: crossorigin };
-        return BaseTextureAny.from(canvas, { scaleMode: scaleMode, resourceOptions: resourceOptions });
+        const resourceOptions = { scale, crossorigin };
+
+        return BaseTextureAny.from(canvas, { scaleMode, resourceOptions });
     };
     /**
      * @method fromCanvas
@@ -924,9 +1061,11 @@ function useDeprecated() {
      * @deprecated since 5.0.0
      * @see PIXI.BaseTexture.from
      */
-    BaseTextureAny.fromCanvas = function fromCanvas(canvas, scaleMode) {
+    BaseTextureAny.fromCanvas = function fromCanvas(canvas, scaleMode)
+    {
         deprecation(v5, 'PIXI.BaseTexture.fromCanvas method has been replaced with PIXI.BaseTexture.from');
-        return BaseTextureAny.from(canvas, { scaleMode: scaleMode });
+
+        return BaseTextureAny.from(canvas, { scaleMode });
     };
     /**
      * @method fromSVG
@@ -935,10 +1074,12 @@ function useDeprecated() {
      * @deprecated since 5.0.0
      * @see PIXI.BaseTexture.from
      */
-    BaseTextureAny.fromSVG = function fromSVG(canvas, crossorigin, scaleMode, scale) {
+    BaseTextureAny.fromSVG = function fromSVG(canvas, crossorigin, scaleMode, scale)
+    {
         deprecation(v5, 'PIXI.BaseTexture.fromSVG method has been replaced with PIXI.BaseTexture.from');
-        var resourceOptions = { scale: scale, crossorigin: crossorigin };
-        return BaseTextureAny.from(canvas, { scaleMode: scaleMode, resourceOptions: resourceOptions });
+        const resourceOptions = { scale, crossorigin };
+
+        return BaseTextureAny.from(canvas, { scaleMode, resourceOptions });
     };
     Object.defineProperties(PIXI.resources.ImageResource.prototype, {
         /**
@@ -949,12 +1090,15 @@ function useDeprecated() {
          * @see PIXI.resources.ImageResource#alphaMode
          */
         premultiplyAlpha: {
-            get: function () {
+            get()
+            {
                 deprecation('5.2.0', 'PIXI.resources.ImageResource.premultiplyAlpha property '
                     + 'has been changed to `alphaMode`, see `PIXI.ALPHA_MODES`');
+
                 return this.alphaMode !== 0;
             },
-            set: function (value) {
+            set(value)
+            {
                 deprecation('5.2.0', 'PIXI.resources.ImageResource.premultiplyAlpha property '
                     + 'has been changed to `alphaMode`, see `PIXI.ALPHA_MODES`');
                 this.alphaMode = Number(value);
@@ -966,8 +1110,10 @@ function useDeprecated() {
      * @deprecated since 5.0.0
      * @see PIXI.Point#copyFrom
      */
-    PIXI.Point.prototype.copy = function copy(p) {
+    PIXI.Point.prototype.copy = function copy(p)
+    {
         deprecation(v5, 'PIXI.Point.copy method has been replaced with PIXI.Point.copyFrom');
+
         return this.copyFrom(p);
     };
     /**
@@ -975,8 +1121,10 @@ function useDeprecated() {
      * @deprecated since 5.0.0
      * @see PIXI.ObservablePoint#copyFrom
      */
-    PIXI.ObservablePoint.prototype.copy = function copy(p) {
+    PIXI.ObservablePoint.prototype.copy = function copy(p)
+    {
         deprecation(v5, 'PIXI.ObservablePoint.copy method has been replaced with PIXI.ObservablePoint.copyFrom');
+
         return this.copyFrom(p);
     };
     /**
@@ -984,8 +1132,10 @@ function useDeprecated() {
      * @deprecated since 5.0.0
      * @see PIXI.Rectangle#copyFrom
      */
-    PIXI.Rectangle.prototype.copy = function copy(p) {
+    PIXI.Rectangle.prototype.copy = function copy(p)
+    {
         deprecation(v5, 'PIXI.Rectangle.copy method has been replaced with PIXI.Rectangle.copyFrom');
+
         return this.copyFrom(p);
     };
     /**
@@ -993,8 +1143,10 @@ function useDeprecated() {
      * @deprecated since 5.0.0
      * @see PIXI.Matrix#copyTo
      */
-    PIXI.Matrix.prototype.copy = function copy(p) {
+    PIXI.Matrix.prototype.copy = function copy(p)
+    {
         deprecation(v5, 'PIXI.Matrix.copy method has been replaced with PIXI.Matrix.copyTo');
+
         return this.copyTo(p);
     };
     /**
@@ -1002,8 +1154,10 @@ function useDeprecated() {
      * @deprecated since 5.1.0
      * @see PIXI.systems.StateSystem#set
      */
-    PIXI.systems.StateSystem.prototype.setState = function setState(s) {
+    PIXI.systems.StateSystem.prototype.setState = function setState(s)
+    {
         deprecation('v5.1.0', 'StateSystem.setState has been renamed to StateSystem.set');
+
         return this.set(s);
     };
     Object.assign(PIXI.systems.FilterSystem.prototype, {
@@ -1012,8 +1166,10 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          * @see PIXI.systems.FilterSystem#getFilterTexture
          */
-        getRenderTarget: function (_clear, resolution) {
+        getRenderTarget(_clear, resolution)
+        {
             deprecation(v5, 'PIXI.FilterManager.getRenderTarget method has been replaced with PIXI.systems.FilterSystem#getFilterTexture');
+
             return this.getFilterTexture(null, resolution);
         },
         /**
@@ -1021,7 +1177,8 @@ function useDeprecated() {
          * @deprecated since 5.0.0
          * @see PIXI.systems.FilterSystem#returnFilterTexture
          */
-        returnRenderTarget: function (renderTexture) {
+        returnRenderTarget(renderTexture)
+        {
             deprecation(v5, 'PIXI.FilterManager.returnRenderTarget method has been replaced with '
                 + 'PIXI.systems.FilterSystem.returnFilterTexture');
             this.returnFilterTexture(renderTexture);
@@ -1032,13 +1189,17 @@ function useDeprecated() {
          * @param {PIXI.Matrix} outputMatrix - the matrix to output to.
          * @return {PIXI.Matrix} The mapped matrix.
          */
-        calculateScreenSpaceMatrix: function (outputMatrix) {
+        calculateScreenSpaceMatrix(outputMatrix)
+        {
             deprecation(v5, 'PIXI.systems.FilterSystem.calculateScreenSpaceMatrix method is removed, '
                 + 'use `(vTextureCoord * inputSize.xy) + outputFrame.xy` instead');
-            var mappedMatrix = outputMatrix.identity();
-            var _a = this.activeState, sourceFrame = _a.sourceFrame, destinationFrame = _a.destinationFrame;
+            const mappedMatrix = outputMatrix.identity();
+            const _a = this.activeState; const sourceFrame = _a.sourceFrame; const
+                destinationFrame = _a.destinationFrame;
+
             mappedMatrix.translate(sourceFrame.x / destinationFrame.width, sourceFrame.y / destinationFrame.height);
             mappedMatrix.scale(destinationFrame.width, destinationFrame.height);
+
             return mappedMatrix;
         },
         /**
@@ -1047,15 +1208,20 @@ function useDeprecated() {
          * @param {PIXI.Matrix} outputMatrix - The matrix to output to.
          * @return {PIXI.Matrix} The mapped matrix.
          */
-        calculateNormalizedScreenSpaceMatrix: function (outputMatrix) {
+        calculateNormalizedScreenSpaceMatrix(outputMatrix)
+        {
             deprecation(v5, 'PIXI.systems.FilterManager.calculateNormalizedScreenSpaceMatrix method is removed, '
                 + 'use `((vTextureCoord * inputSize.xy) + outputFrame.xy) / outputFrame.zw` instead.');
-            var _a = this.activeState, sourceFrame = _a.sourceFrame, destinationFrame = _a.destinationFrame;
-            var mappedMatrix = outputMatrix.identity();
+            const _a = this.activeState; const sourceFrame = _a.sourceFrame; const
+                destinationFrame = _a.destinationFrame;
+            const mappedMatrix = outputMatrix.identity();
+
             mappedMatrix.translate(sourceFrame.x / destinationFrame.width, sourceFrame.y / destinationFrame.height);
-            var translateScaleX = (destinationFrame.width / sourceFrame.width);
-            var translateScaleY = (destinationFrame.height / sourceFrame.height);
+            const translateScaleX = (destinationFrame.width / sourceFrame.width);
+            const translateScaleY = (destinationFrame.height / sourceFrame.height);
+
             mappedMatrix.scale(translateScaleX, translateScaleY);
+
             return mappedMatrix;
         },
     });
@@ -1067,8 +1233,10 @@ function useDeprecated() {
          * @readonly
          */
         sourceFrame: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.RenderTexture.sourceFrame property has been removed');
+
                 return this.filterFrame;
             },
         },
@@ -1079,8 +1247,10 @@ function useDeprecated() {
          * @readonly
          */
         size: {
-            get: function () {
+            get()
+            {
                 deprecation(v5, 'PIXI.RenderTexture.size property has been removed');
+
                 return this._frame;
             },
         },
@@ -1091,41 +1261,56 @@ function useDeprecated() {
      * @deprecated since 5.0.0
      * @see PIXI.filters.BlurFilterPass
      */
-    var BlurXFilter = /** @class */ (function (_super) {
+    const BlurXFilter = /** @class */ (function (_super)
+    {
         __extends(BlurXFilter, _super);
-        function BlurXFilter(strength, quality, resolution, kernelSize) {
-            var _this = this;
+        function BlurXFilter(strength, quality, resolution, kernelSize)
+        {
+            let _this = this;
+
             deprecation(v5, 'PIXI.filters.BlurXFilter class is deprecated, use PIXI.filters.BlurFilterPass');
             _this = _super.call(this, true, strength, quality, resolution, kernelSize) || this;
+
             return _this;
         }
+
         return BlurXFilter;
-    }(PIXI.filters.BlurFilterPass));
+    })(PIXI.filters.BlurFilterPass);
     /**
      * @class BlurYFilter
      * @memberof PIXI.filters
      * @deprecated since 5.0.0
      * @see PIXI.filters.BlurFilterPass
      */
-    var BlurYFilter = /** @class */ (function (_super) {
+    const BlurYFilter = /** @class */ (function (_super)
+    {
         __extends(BlurYFilter, _super);
-        function BlurYFilter(strength, quality, resolution, kernelSize) {
-            var _this = this;
+        function BlurYFilter(strength, quality, resolution, kernelSize)
+        {
+            let _this = this;
+
             deprecation(v5, 'PIXI.filters.BlurYFilter class is deprecated, use PIXI.filters.BlurFilterPass');
             _this = _super.call(this, false, strength, quality, resolution, kernelSize) || this;
+
             return _this;
         }
+
         return BlurYFilter;
-    }(PIXI.filters.BlurFilterPass));
+    })(PIXI.filters.BlurFilterPass);
+
     Object.assign(PIXI.filters, {
-        BlurXFilter: BlurXFilter,
-        BlurYFilter: BlurYFilter,
+        BlurXFilter,
+        BlurYFilter,
     });
-    var SpriteAny = PIXI.Sprite, TextureAny = PIXI.Texture, GraphicsAny = PIXI.Graphics;
+    const SpriteAny = PIXI.Sprite; const TextureAny = PIXI.Texture; const
+        GraphicsAny = PIXI.Graphics;
     // Support for pixi.js-legacy bifurcation
     // give users a friendly assist to use legacy
-    if (!GraphicsAny.prototype.generateCanvasTexture) {
-        GraphicsAny.prototype.generateCanvasTexture = function generateCanvasTexture() {
+
+    if (!GraphicsAny.prototype.generateCanvasTexture)
+    {
+        GraphicsAny.prototype.generateCanvasTexture = function generateCanvasTexture()
+        {
             deprecation(v5, 'PIXI.Graphics.generateCanvasTexture method is only available in "pixi.js-legacy"');
         };
     }
@@ -1136,18 +1321,22 @@ function useDeprecated() {
      * @readonly
      */
     Object.defineProperty(GraphicsAny.prototype, 'graphicsData', {
-        get: function () {
+        get()
+        {
             deprecation(v5, 'PIXI.Graphics.graphicsData property is deprecated, use PIXI.Graphics.geometry.graphicsData');
+
             return this.geometry.graphicsData;
         },
     });
     // Use these to deprecate all the Sprite from* methods
-    function spriteFrom(name, source, crossorigin, scaleMode) {
-        deprecation(v5, "PIXI.Sprite." + name + " method is deprecated, use PIXI.Sprite.from");
+    function spriteFrom(name, source, crossorigin, scaleMode)
+    {
+        deprecation(v5, `PIXI.Sprite.${name} method is deprecated, use PIXI.Sprite.from`);
+
         return SpriteAny.from(source, {
             resourceOptions: {
                 scale: scaleMode,
-                crossorigin: crossorigin,
+                crossorigin,
             },
         });
     }
@@ -1187,12 +1376,14 @@ function useDeprecated() {
      */
     SpriteAny.fromFrame = spriteFrom.bind(null, 'fromFrame');
     // Use these to deprecate all the Texture from* methods
-    function textureFrom(name, source, crossorigin, scaleMode) {
-        deprecation(v5, "PIXI.Texture." + name + " method is deprecated, use PIXI.Texture.from");
+    function textureFrom(name, source, crossorigin, scaleMode)
+    {
+        deprecation(v5, `PIXI.Texture.${name} method is deprecated, use PIXI.Texture.from`);
+
         return TextureAny.from(source, {
             resourceOptions: {
                 scale: scaleMode,
-                crossorigin: crossorigin,
+                crossorigin,
             },
         });
     }
@@ -1237,12 +1428,15 @@ function useDeprecated() {
      * @see PIXI.AbstractRenderer#autoDensity
      */
     Object.defineProperty(PIXI.AbstractRenderer.prototype, 'autoResize', {
-        get: function () {
+        get()
+        {
             deprecation(v5, 'PIXI.AbstractRenderer.autoResize property is deprecated, '
                 + 'use PIXI.AbstractRenderer.autoDensity');
+
             return this.autoDensity;
         },
-        set: function (value) {
+        set(value)
+        {
             deprecation(v5, 'PIXI.AbstractRenderer.autoResize property is deprecated, '
                 + 'use PIXI.AbstractRenderer.autoDensity');
             this.autoDensity = value;
@@ -1254,8 +1448,10 @@ function useDeprecated() {
      * @see PIXI.Renderer#texture
      */
     Object.defineProperty(PIXI.Renderer.prototype, 'textureManager', {
-        get: function () {
+        get()
+        {
             deprecation(v5, 'PIXI.Renderer.textureManager property is deprecated, use PIXI.Renderer.texture');
+
             return this.texture;
         },
     });
@@ -1269,7 +1465,8 @@ function useDeprecated() {
          * @function mixin
          * @deprecated since 5.0.0
          */
-        mixin: function () {
+        mixin()
+        {
             deprecation(v5, 'PIXI.utils.mixins.mixin function is no longer available');
         },
         /**
@@ -1277,7 +1474,8 @@ function useDeprecated() {
          * @function delayMixin
          * @deprecated since 5.0.0
          */
-        delayMixin: function () {
+        delayMixin()
+        {
             deprecation(v5, 'PIXI.utils.mixins.delayMixin function is no longer available');
         },
         /**
@@ -1285,7 +1483,8 @@ function useDeprecated() {
          * @function performMixins
          * @deprecated since 5.0.0
          */
-        performMixins: function () {
+        performMixins()
+        {
             deprecation(v5, 'PIXI.utils.mixins.performMixins function is no longer available');
         },
     };
@@ -1295,9 +1494,11 @@ function useDeprecated() {
      * @deprecated since 5.3.0
      */
     Object.defineProperty(PIXI.BitmapText.prototype, 'font', {
-        get: function () {
+        get()
+        {
             deprecation('5.3.0', 'PIXI.BitmapText.font property is deprecated, '
                 + 'use fontName, fontSize, tint or align properties');
+
             return {
                 name: this._fontName,
                 size: this._fontSize,
@@ -1305,13 +1506,16 @@ function useDeprecated() {
                 align: this._align,
             };
         },
-        set: function (value) {
+        set(value)
+        {
             deprecation('5.3.0', 'PIXI.BitmapText.font property is deprecated, '
                 + 'use fontName, fontSize, tint or align properties');
-            if (!value) {
+            if (!value)
+            {
                 return;
             }
-            var style = { font: value };
+            const style = { font: value };
+
             this._upgradeStyle(style);
             style.fontSize = style.fontSize || PIXI.BitmapFont.available[style.fontName].size;
             this._fontName = style.fontName;
@@ -1342,7 +1546,7 @@ Application.registerPlugin(AppLoaderPlugin);
  * @name VERSION
  * @type {string}
  */
-var VERSION = '5.3.7';
+const VERSION = '5.3.7';
 /**
  * @namespace PIXI
  */
@@ -1373,15 +1577,15 @@ var VERSION = '5.3.7';
  * document.body.appendChild(app.view);
  * @namespace PIXI.filters
  */
-var filters = {
-    AlphaFilter: AlphaFilter,
-    BlurFilter: BlurFilter,
-    BlurFilterPass: BlurFilterPass,
-    ColorMatrixFilter: ColorMatrixFilter,
-    DisplacementFilter: DisplacementFilter,
-    FXAAFilter: FXAAFilter,
-    NoiseFilter: NoiseFilter,
+const filters = {
+    AlphaFilter,
+    BlurFilter,
+    BlurFilterPass,
+    ColorMatrixFilter,
+    DisplacementFilter,
+    FXAAFilter,
+    NoiseFilter,
 };
 
 export { VERSION, filters, useDeprecated };
-//# sourceMappingURL=pixi.es.js.map
+// # sourceMappingURL=pixi.es.js.map

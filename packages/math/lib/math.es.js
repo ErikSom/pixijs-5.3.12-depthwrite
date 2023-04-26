@@ -1,4 +1,4 @@
-/*!
+/* !
  * @pixi/math - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
@@ -12,7 +12,7 @@
  * @constant {number} PI_2
  * @memberof PIXI
  */
-var PI_2 = Math.PI * 2;
+const PI_2 = Math.PI * 2;
 /**
  * Conversion factor for converting radians to degrees.
  *
@@ -20,7 +20,7 @@ var PI_2 = Math.PI * 2;
  * @constant {number} RAD_TO_DEG
  * @memberof PIXI
  */
-var RAD_TO_DEG = 180 / Math.PI;
+const RAD_TO_DEG = 180 / Math.PI;
 /**
  * Conversion factor for converting degrees to radians.
  *
@@ -28,14 +28,16 @@ var RAD_TO_DEG = 180 / Math.PI;
  * @constant {number} DEG_TO_RAD
  * @memberof PIXI
  */
-var DEG_TO_RAD = Math.PI / 180;
-var SHAPES;
-(function (SHAPES) {
-    SHAPES[SHAPES["POLY"] = 0] = "POLY";
-    SHAPES[SHAPES["RECT"] = 1] = "RECT";
-    SHAPES[SHAPES["CIRC"] = 2] = "CIRC";
-    SHAPES[SHAPES["ELIP"] = 3] = "ELIP";
-    SHAPES[SHAPES["RREC"] = 4] = "RREC";
+const DEG_TO_RAD = Math.PI / 180;
+let SHAPES;
+
+(function (SHAPES)
+{
+    SHAPES[SHAPES.POLY = 0] = 'POLY';
+    SHAPES[SHAPES.RECT = 1] = 'RECT';
+    SHAPES[SHAPES.CIRC = 2] = 'CIRC';
+    SHAPES[SHAPES.ELIP = 3] = 'ELIP';
+    SHAPES[SHAPES.RREC = 4] = 'RREC';
 })(SHAPES || (SHAPES = {}));
 /**
  * Constants that identify shapes, mainly to prevent `instanceof` calls.
@@ -68,14 +70,16 @@ var SHAPES;
  * @class
  * @memberof PIXI
  */
-var Rectangle = /** @class */ (function () {
+const Rectangle = /** @class */ (function ()
+{
     /**
      * @param {number} [x=0] - The X coordinate of the upper-left corner of the rectangle
      * @param {number} [y=0] - The Y coordinate of the upper-left corner of the rectangle
      * @param {number} [width=0] - The overall width of this rectangle
      * @param {number} [height=0] - The overall height of this rectangle
      */
-    function Rectangle(x, y, width, height) {
+    function Rectangle(x, y, width, height)
+    {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         if (width === void 0) { width = 0; }
@@ -110,55 +114,59 @@ var Rectangle = /** @class */ (function () {
          */
         this.type = SHAPES.RECT;
     }
-    Object.defineProperty(Rectangle.prototype, "left", {
+    Object.defineProperty(Rectangle.prototype, 'left', {
         /**
          * returns the left edge of the rectangle
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this.x;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Rectangle.prototype, "right", {
+    Object.defineProperty(Rectangle.prototype, 'right', {
         /**
          * returns the right edge of the rectangle
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this.x + this.width;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Rectangle.prototype, "top", {
+    Object.defineProperty(Rectangle.prototype, 'top', {
         /**
          * returns the top edge of the rectangle
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this.y;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Rectangle.prototype, "bottom", {
+    Object.defineProperty(Rectangle.prototype, 'bottom', {
         /**
          * returns the bottom edge of the rectangle
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this.y + this.height;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Rectangle, "EMPTY", {
+    Object.defineProperty(Rectangle, 'EMPTY', {
         /**
          * A constant empty rectangle.
          *
@@ -167,7 +175,8 @@ var Rectangle = /** @class */ (function () {
          * @member {PIXI.Rectangle}
          * @return {PIXI.Rectangle} An empty rectangle
          */
-        get: function () {
+        get()
+        {
             return new Rectangle(0, 0, 0, 0);
         },
         enumerable: false,
@@ -178,7 +187,8 @@ var Rectangle = /** @class */ (function () {
      *
      * @return {PIXI.Rectangle} a copy of the rectangle
      */
-    Rectangle.prototype.clone = function () {
+    Rectangle.prototype.clone = function ()
+    {
         return new Rectangle(this.x, this.y, this.width, this.height);
     };
     /**
@@ -187,11 +197,13 @@ var Rectangle = /** @class */ (function () {
      * @param {PIXI.Rectangle} rectangle - The rectangle to copy from.
      * @return {PIXI.Rectangle} Returns itself.
      */
-    Rectangle.prototype.copyFrom = function (rectangle) {
+    Rectangle.prototype.copyFrom = function (rectangle)
+    {
         this.x = rectangle.x;
         this.y = rectangle.y;
         this.width = rectangle.width;
         this.height = rectangle.height;
+
         return this;
     };
     /**
@@ -200,11 +212,13 @@ var Rectangle = /** @class */ (function () {
      * @param {PIXI.Rectangle} rectangle - The rectangle to copy to.
      * @return {PIXI.Rectangle} Returns given parameter.
      */
-    Rectangle.prototype.copyTo = function (rectangle) {
+    Rectangle.prototype.copyTo = function (rectangle)
+    {
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = this.width;
         rectangle.height = this.height;
+
         return rectangle;
     };
     /**
@@ -214,15 +228,20 @@ var Rectangle = /** @class */ (function () {
      * @param {number} y - The Y coordinate of the point to test
      * @return {boolean} Whether the x/y coordinates are within this Rectangle
      */
-    Rectangle.prototype.contains = function (x, y) {
-        if (this.width <= 0 || this.height <= 0) {
+    Rectangle.prototype.contains = function (x, y)
+    {
+        if (this.width <= 0 || this.height <= 0)
+        {
             return false;
         }
-        if (x >= this.x && x < this.x + this.width) {
-            if (y >= this.y && y < this.y + this.height) {
+        if (x >= this.x && x < this.x + this.width)
+        {
+            if (y >= this.y && y < this.y + this.height)
+            {
                 return true;
             }
         }
+
         return false;
     };
     /**
@@ -233,13 +252,15 @@ var Rectangle = /** @class */ (function () {
      * @param {number} [paddingY=0] - The vertical padding amount.
      * @return {PIXI.Rectangle} Returns itself.
      */
-    Rectangle.prototype.pad = function (paddingX, paddingY) {
+    Rectangle.prototype.pad = function (paddingX, paddingY)
+    {
         if (paddingX === void 0) { paddingX = 0; }
         if (paddingY === void 0) { paddingY = paddingX; }
         this.x -= paddingX;
         this.y -= paddingY;
         this.width += paddingX * 2;
         this.height += paddingY * 2;
+
         return this;
     };
     /**
@@ -248,15 +269,18 @@ var Rectangle = /** @class */ (function () {
      * @param {PIXI.Rectangle} rectangle - The rectangle to fit.
      * @return {PIXI.Rectangle} Returns itself.
      */
-    Rectangle.prototype.fit = function (rectangle) {
-        var x1 = Math.max(this.x, rectangle.x);
-        var x2 = Math.min(this.x + this.width, rectangle.x + rectangle.width);
-        var y1 = Math.max(this.y, rectangle.y);
-        var y2 = Math.min(this.y + this.height, rectangle.y + rectangle.height);
+    Rectangle.prototype.fit = function (rectangle)
+    {
+        const x1 = Math.max(this.x, rectangle.x);
+        const x2 = Math.min(this.x + this.width, rectangle.x + rectangle.width);
+        const y1 = Math.max(this.y, rectangle.y);
+        const y2 = Math.min(this.y + this.height, rectangle.y + rectangle.height);
+
         this.x = x1;
         this.width = Math.max(x2 - x1, 0);
         this.y = y1;
         this.height = Math.max(y2 - y1, 0);
+
         return this;
     };
     /**
@@ -266,15 +290,18 @@ var Rectangle = /** @class */ (function () {
      * @param {number} [eps=0.001] precision
      * @return {PIXI.Rectangle} Returns itself.
      */
-    Rectangle.prototype.ceil = function (resolution, eps) {
+    Rectangle.prototype.ceil = function (resolution, eps)
+    {
         if (resolution === void 0) { resolution = 1; }
         if (eps === void 0) { eps = 0.001; }
-        var x2 = Math.ceil((this.x + this.width - eps) * resolution) / resolution;
-        var y2 = Math.ceil((this.y + this.height - eps) * resolution) / resolution;
+        const x2 = Math.ceil((this.x + this.width - eps) * resolution) / resolution;
+        const y2 = Math.ceil((this.y + this.height - eps) * resolution) / resolution;
+
         this.x = Math.floor((this.x + eps) * resolution) / resolution;
         this.y = Math.floor((this.y + eps) * resolution) / resolution;
         this.width = x2 - this.x;
         this.height = y2 - this.y;
+
         return this;
     };
     /**
@@ -283,19 +310,23 @@ var Rectangle = /** @class */ (function () {
      * @param {PIXI.Rectangle} rectangle - The rectangle to include.
      * @return {PIXI.Rectangle} Returns itself.
      */
-    Rectangle.prototype.enlarge = function (rectangle) {
-        var x1 = Math.min(this.x, rectangle.x);
-        var x2 = Math.max(this.x + this.width, rectangle.x + rectangle.width);
-        var y1 = Math.min(this.y, rectangle.y);
-        var y2 = Math.max(this.y + this.height, rectangle.y + rectangle.height);
+    Rectangle.prototype.enlarge = function (rectangle)
+    {
+        const x1 = Math.min(this.x, rectangle.x);
+        const x2 = Math.max(this.x + this.width, rectangle.x + rectangle.width);
+        const y1 = Math.min(this.y, rectangle.y);
+        const y2 = Math.max(this.y + this.height, rectangle.y + rectangle.height);
+
         this.x = x1;
         this.width = x2 - x1;
         this.y = y1;
         this.height = y2 - y1;
+
         return this;
     };
+
     return Rectangle;
-}());
+})();
 
 /**
  * The Circle object is used to help draw graphics and can also be used to specify a hit area for displayObjects.
@@ -303,13 +334,15 @@ var Rectangle = /** @class */ (function () {
  * @class
  * @memberof PIXI
  */
-var Circle = /** @class */ (function () {
+const Circle = /** @class */ (function ()
+{
     /**
      * @param {number} [x=0] - The X coordinate of the center of this circle
      * @param {number} [y=0] - The Y coordinate of the center of this circle
      * @param {number} [radius=0] - The radius of the circle
      */
-    function Circle(x, y, radius) {
+    function Circle(x, y, radius)
+    {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         if (radius === void 0) { radius = 0; }
@@ -343,7 +376,8 @@ var Circle = /** @class */ (function () {
      *
      * @return {PIXI.Circle} a copy of the Circle
      */
-    Circle.prototype.clone = function () {
+    Circle.prototype.clone = function ()
+    {
         return new Circle(this.x, this.y, this.radius);
     };
     /**
@@ -353,15 +387,19 @@ var Circle = /** @class */ (function () {
      * @param {number} y - The Y coordinate of the point to test
      * @return {boolean} Whether the x/y coordinates are within this Circle
      */
-    Circle.prototype.contains = function (x, y) {
-        if (this.radius <= 0) {
+    Circle.prototype.contains = function (x, y)
+    {
+        if (this.radius <= 0)
+        {
             return false;
         }
-        var r2 = this.radius * this.radius;
-        var dx = (this.x - x);
-        var dy = (this.y - y);
+        const r2 = this.radius * this.radius;
+        let dx = (this.x - x);
+        let dy = (this.y - y);
+
         dx *= dx;
         dy *= dy;
+
         return (dx + dy <= r2);
     };
     /**
@@ -369,11 +407,13 @@ var Circle = /** @class */ (function () {
     *
     * @return {PIXI.Rectangle} the framing rectangle
     */
-    Circle.prototype.getBounds = function () {
+    Circle.prototype.getBounds = function ()
+    {
         return new Rectangle(this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
     };
+
     return Circle;
-}());
+})();
 
 /**
  * The Ellipse object is used to help draw graphics and can also be used to specify a hit area for displayObjects.
@@ -381,14 +421,16 @@ var Circle = /** @class */ (function () {
  * @class
  * @memberof PIXI
  */
-var Ellipse = /** @class */ (function () {
+const Ellipse = /** @class */ (function ()
+{
     /**
      * @param {number} [x=0] - The X coordinate of the center of this ellipse
      * @param {number} [y=0] - The Y coordinate of the center of this ellipse
      * @param {number} [halfWidth=0] - The half width of this ellipse
      * @param {number} [halfHeight=0] - The half height of this ellipse
      */
-    function Ellipse(x, y, halfWidth, halfHeight) {
+    function Ellipse(x, y, halfWidth, halfHeight)
+    {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         if (halfWidth === void 0) { halfWidth = 0; }
@@ -428,7 +470,8 @@ var Ellipse = /** @class */ (function () {
      *
      * @return {PIXI.Ellipse} a copy of the ellipse
      */
-    Ellipse.prototype.clone = function () {
+    Ellipse.prototype.clone = function ()
+    {
         return new Ellipse(this.x, this.y, this.width, this.height);
     };
     /**
@@ -438,15 +481,19 @@ var Ellipse = /** @class */ (function () {
      * @param {number} y - The Y coordinate of the point to test
      * @return {boolean} Whether the x/y coords are within this ellipse
      */
-    Ellipse.prototype.contains = function (x, y) {
-        if (this.width <= 0 || this.height <= 0) {
+    Ellipse.prototype.contains = function (x, y)
+    {
+        if (this.width <= 0 || this.height <= 0)
+        {
             return false;
         }
         // normalize the coords to an ellipse with center 0,0
-        var normx = ((x - this.x) / this.width);
-        var normy = ((y - this.y) / this.height);
+        let normx = ((x - this.x) / this.width);
+        let normy = ((y - this.y) / this.height);
+
         normx *= normx;
         normy *= normy;
+
         return (normx + normy <= 1);
     };
     /**
@@ -454,11 +501,13 @@ var Ellipse = /** @class */ (function () {
      *
      * @return {PIXI.Rectangle} the framing rectangle
      */
-    Ellipse.prototype.getBounds = function () {
+    Ellipse.prototype.getBounds = function ()
+    {
         return new Rectangle(this.x - this.width, this.y - this.height, this.width, this.height);
     };
+
     return Ellipse;
-}());
+})();
 
 /**
  * A class to define a shape via user defined co-orinates.
@@ -466,7 +515,8 @@ var Ellipse = /** @class */ (function () {
  * @class
  * @memberof PIXI
  */
-var Polygon = /** @class */ (function () {
+const Polygon = /** @class */ (function ()
+{
     /**
      * @param {PIXI.IPoint[]|number[]} points - This can be an array of Points
      *  that form the polygon, a flat array of numbers that will be interpreted as [x,y, x,y, ...], or
@@ -474,18 +524,25 @@ var Polygon = /** @class */ (function () {
      *  `new PIXI.Polygon(new PIXI.Point(), new PIXI.Point(), ...)`, or the arguments passed can be flat
      *  x,y values e.g. `new Polygon(x,y, x,y, x,y, ...)` where `x` and `y` are Numbers.
      */
-    function Polygon() {
-        var arguments$1 = arguments;
+    function Polygon()
+    {
+        const arguments$1 = arguments;
 
-        var points = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        const points = [];
+
+        for (let _i = 0; _i < arguments.length; _i++)
+        {
             points[_i] = arguments$1[_i];
         }
-        var flat = Array.isArray(points[0]) ? points[0] : points;
+        let flat = Array.isArray(points[0]) ? points[0] : points;
         // if this is an array of points, convert it to a flat array of numbers
-        if (typeof flat[0] !== 'number') {
-            var p = [];
-            for (var i = 0, il = flat.length; i < il; i++) {
+
+        if (typeof flat[0] !== 'number')
+        {
+            const p = [];
+
+            for (let i = 0, il = flat.length; i < il; i++)
+            {
                 p.push(flat[i].x, flat[i].y);
             }
             flat = p;
@@ -517,10 +574,13 @@ var Polygon = /** @class */ (function () {
      *
      * @return {PIXI.Polygon} a copy of the polygon
      */
-    Polygon.prototype.clone = function () {
-        var points = this.points.slice();
-        var polygon = new Polygon(points);
+    Polygon.prototype.clone = function ()
+    {
+        const points = this.points.slice();
+        const polygon = new Polygon(points);
+
         polygon.closeStroke = this.closeStroke;
+
         return polygon;
     };
     /**
@@ -530,25 +590,32 @@ var Polygon = /** @class */ (function () {
      * @param {number} y - The Y coordinate of the point to test
      * @return {boolean} Whether the x/y coordinates are within this polygon
      */
-    Polygon.prototype.contains = function (x, y) {
-        var inside = false;
+    Polygon.prototype.contains = function (x, y)
+    {
+        let inside = false;
         // use some raycasting to test hits
         // https://github.com/substack/point-in-polygon/blob/master/index.js
-        var length = this.points.length / 2;
-        for (var i = 0, j = length - 1; i < length; j = i++) {
-            var xi = this.points[i * 2];
-            var yi = this.points[(i * 2) + 1];
-            var xj = this.points[j * 2];
-            var yj = this.points[(j * 2) + 1];
-            var intersect = ((yi > y) !== (yj > y)) && (x < ((xj - xi) * ((y - yi) / (yj - yi))) + xi);
-            if (intersect) {
+        const length = this.points.length / 2;
+
+        for (let i = 0, j = length - 1; i < length; j = i++)
+        {
+            const xi = this.points[i * 2];
+            const yi = this.points[(i * 2) + 1];
+            const xj = this.points[j * 2];
+            const yj = this.points[(j * 2) + 1];
+            const intersect = ((yi > y) !== (yj > y)) && (x < ((xj - xi) * ((y - yi) / (yj - yi))) + xi);
+
+            if (intersect)
+            {
                 inside = !inside;
             }
         }
+
         return inside;
     };
+
     return Polygon;
-}());
+})();
 
 /**
  * The Rounded Rectangle object is an area that has nice rounded corners, as indicated by its
@@ -557,7 +624,8 @@ var Polygon = /** @class */ (function () {
  * @class
  * @memberof PIXI
  */
-var RoundedRectangle = /** @class */ (function () {
+const RoundedRectangle = /** @class */ (function ()
+{
     /**
      * @param {number} [x=0] - The X coordinate of the upper-left corner of the rounded rectangle
      * @param {number} [y=0] - The Y coordinate of the upper-left corner of the rounded rectangle
@@ -565,7 +633,8 @@ var RoundedRectangle = /** @class */ (function () {
      * @param {number} [height=0] - The overall height of this rounded rectangle
      * @param {number} [radius=20] - Controls the radius of the rounded corners
      */
-    function RoundedRectangle(x, y, width, height, radius) {
+    function RoundedRectangle(x, y, width, height, radius)
+    {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         if (width === void 0) { width = 0; }
@@ -611,7 +680,8 @@ var RoundedRectangle = /** @class */ (function () {
      *
      * @return {PIXI.RoundedRectangle} a copy of the rounded rectangle
      */
-    RoundedRectangle.prototype.clone = function () {
+    RoundedRectangle.prototype.clone = function ()
+    {
         return new RoundedRectangle(this.x, this.y, this.width, this.height, this.radius);
     };
     /**
@@ -621,40 +691,52 @@ var RoundedRectangle = /** @class */ (function () {
      * @param {number} y - The Y coordinate of the point to test
      * @return {boolean} Whether the x/y coordinates are within this Rounded Rectangle
      */
-    RoundedRectangle.prototype.contains = function (x, y) {
-        if (this.width <= 0 || this.height <= 0) {
+    RoundedRectangle.prototype.contains = function (x, y)
+    {
+        if (this.width <= 0 || this.height <= 0)
+        {
             return false;
         }
-        if (x >= this.x && x <= this.x + this.width) {
-            if (y >= this.y && y <= this.y + this.height) {
+        if (x >= this.x && x <= this.x + this.width)
+        {
+            if (y >= this.y && y <= this.y + this.height)
+            {
                 if ((y >= this.y + this.radius && y <= this.y + this.height - this.radius)
-                    || (x >= this.x + this.radius && x <= this.x + this.width - this.radius)) {
+                    || (x >= this.x + this.radius && x <= this.x + this.width - this.radius))
+                {
                     return true;
                 }
-                var dx = x - (this.x + this.radius);
-                var dy = y - (this.y + this.radius);
-                var radius2 = this.radius * this.radius;
-                if ((dx * dx) + (dy * dy) <= radius2) {
+                let dx = x - (this.x + this.radius);
+                let dy = y - (this.y + this.radius);
+                const radius2 = this.radius * this.radius;
+
+                if ((dx * dx) + (dy * dy) <= radius2)
+                {
                     return true;
                 }
                 dx = x - (this.x + this.width - this.radius);
-                if ((dx * dx) + (dy * dy) <= radius2) {
+                if ((dx * dx) + (dy * dy) <= radius2)
+                {
                     return true;
                 }
                 dy = y - (this.y + this.height - this.radius);
-                if ((dx * dx) + (dy * dy) <= radius2) {
+                if ((dx * dx) + (dy * dy) <= radius2)
+                {
                     return true;
                 }
                 dx = x - (this.x + this.radius);
-                if ((dx * dx) + (dy * dy) <= radius2) {
+                if ((dx * dx) + (dy * dy) <= radius2)
+                {
                     return true;
                 }
             }
         }
+
         return false;
     };
+
     return RoundedRectangle;
-}());
+})();
 
 /**
  * Common interface for points. Both Point and ObservablePoint implement it
@@ -718,12 +800,14 @@ var RoundedRectangle = /** @class */ (function () {
  * @memberof PIXI
  * @implements IPoint
  */
-var Point = /** @class */ (function () {
+const Point = /** @class */ (function ()
+{
     /**
      * @param {number} [x=0] - position of the point on the x axis
      * @param {number} [y=0] - position of the point on the y axis
      */
-    function Point(x, y) {
+    function Point(x, y)
+    {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         /**
@@ -742,7 +826,8 @@ var Point = /** @class */ (function () {
      *
      * @return {PIXI.Point} a copy of the point
      */
-    Point.prototype.clone = function () {
+    Point.prototype.clone = function ()
+    {
         return new Point(this.x, this.y);
     };
     /**
@@ -751,8 +836,10 @@ var Point = /** @class */ (function () {
      * @param {PIXI.IPointData} p - The point to copy from
      * @returns {this} Returns itself.
      */
-    Point.prototype.copyFrom = function (p) {
+    Point.prototype.copyFrom = function (p)
+    {
         this.set(p.x, p.y);
+
         return this;
     };
     /**
@@ -761,8 +848,10 @@ var Point = /** @class */ (function () {
      * @param {PIXI.IPoint} p - The point to copy.
      * @returns {PIXI.IPoint} Given point with values updated
      */
-    Point.prototype.copyTo = function (p) {
+    Point.prototype.copyTo = function (p)
+    {
         p.set(this.x, this.y);
+
         return p;
     };
     /**
@@ -771,7 +860,8 @@ var Point = /** @class */ (function () {
      * @param {PIXI.IPointData} p - The point to check
      * @returns {boolean} Whether the given point equal to this point
      */
-    Point.prototype.equals = function (p) {
+    Point.prototype.equals = function (p)
+    {
         return (p.x === this.x) && (p.y === this.y);
     };
     /**
@@ -782,15 +872,18 @@ var Point = /** @class */ (function () {
      * @param {number} [y=x] - position of the point on the y axis
      * @returns {this} Returns itself.
      */
-    Point.prototype.set = function (x, y) {
+    Point.prototype.set = function (x, y)
+    {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = x; }
         this.x = x;
         this.y = y;
+
         return this;
     };
+
     return Point;
-}());
+})();
 
 /**
  * The Point object represents a location in a two-dimensional coordinate system, where x represents
@@ -802,14 +895,16 @@ var Point = /** @class */ (function () {
  * @memberof PIXI
  * @implements IPoint
  */
-var ObservablePoint = /** @class */ (function () {
+const ObservablePoint = /** @class */ (function ()
+{
     /**
      * @param {Function} cb - callback when changed
      * @param {object} scope - owner of callback
      * @param {number} [x=0] - position of the point on the x axis
      * @param {number} [y=0] - position of the point on the y axis
      */
-    function ObservablePoint(cb, scope, x, y) {
+    function ObservablePoint(cb, scope, x, y)
+    {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = 0; }
         this._x = x;
@@ -827,9 +922,11 @@ var ObservablePoint = /** @class */ (function () {
      * @param {object} [scope=null] - owner of callback
      * @return {PIXI.ObservablePoint} a copy of the point
      */
-    ObservablePoint.prototype.clone = function (cb, scope) {
+    ObservablePoint.prototype.clone = function (cb, scope)
+    {
         if (cb === void 0) { cb = this.cb; }
         if (scope === void 0) { scope = this.scope; }
+
         return new ObservablePoint(cb, scope, this._x, this._y);
     };
     /**
@@ -840,14 +937,17 @@ var ObservablePoint = /** @class */ (function () {
      * @param {number} [y=x] - position of the point on the y axis
      * @returns {this} Returns itself.
      */
-    ObservablePoint.prototype.set = function (x, y) {
+    ObservablePoint.prototype.set = function (x, y)
+    {
         if (x === void 0) { x = 0; }
         if (y === void 0) { y = x; }
-        if (this._x !== x || this._y !== y) {
+        if (this._x !== x || this._y !== y)
+        {
             this._x = x;
             this._y = y;
             this.cb.call(this.scope);
         }
+
         return this;
     };
     /**
@@ -856,12 +956,15 @@ var ObservablePoint = /** @class */ (function () {
      * @param {PIXI.IPointData} p - The point to copy from.
      * @returns {this} Returns itself.
      */
-    ObservablePoint.prototype.copyFrom = function (p) {
-        if (this._x !== p.x || this._y !== p.y) {
+    ObservablePoint.prototype.copyFrom = function (p)
+    {
+        if (this._x !== p.x || this._y !== p.y)
+        {
             this._x = p.x;
             this._y = p.y;
             this.cb.call(this.scope);
         }
+
         return this;
     };
     /**
@@ -870,8 +973,10 @@ var ObservablePoint = /** @class */ (function () {
      * @param {PIXI.IPoint} p - The point to copy.
      * @returns {PIXI.IPoint} Given point with values updated
      */
-    ObservablePoint.prototype.copyTo = function (p) {
+    ObservablePoint.prototype.copyTo = function (p)
+    {
         p.set(this._x, this._y);
+
         return p;
     };
     /**
@@ -880,20 +985,24 @@ var ObservablePoint = /** @class */ (function () {
      * @param {PIXI.IPointData} p - The point to check
      * @returns {boolean} Whether the given point equal to this point
      */
-    ObservablePoint.prototype.equals = function (p) {
+    ObservablePoint.prototype.equals = function (p)
+    {
         return (p.x === this._x) && (p.y === this._y);
     };
-    Object.defineProperty(ObservablePoint.prototype, "x", {
+    Object.defineProperty(ObservablePoint.prototype, 'x', {
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this._x;
         },
-        set: function (value) {
-            if (this._x !== value) {
+        set(value)
+        {
+            if (this._x !== value)
+            {
                 this._x = value;
                 this.cb.call(this.scope);
             }
@@ -901,17 +1010,20 @@ var ObservablePoint = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(ObservablePoint.prototype, "y", {
+    Object.defineProperty(ObservablePoint.prototype, 'y', {
         /**
          * The position of the displayObject on the x axis relative to the local coordinates of the parent.
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this._y;
         },
-        set: function (value) {
-            if (this._y !== value) {
+        set(value)
+        {
+            if (this._y !== value)
+            {
                 this._y = value;
                 this.cb.call(this.scope);
             }
@@ -919,8 +1031,9 @@ var ObservablePoint = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+
     return ObservablePoint;
-}());
+})();
 
 /**
  * The PixiJS Matrix as a class makes it a lot faster.
@@ -934,7 +1047,8 @@ var ObservablePoint = /** @class */ (function () {
  * @class
  * @memberof PIXI
  */
-var Matrix = /** @class */ (function () {
+const Matrix = /** @class */ (function ()
+{
     /**
      * @param {number} [a=1] - x scale
      * @param {number} [b=0] - x skew
@@ -943,7 +1057,8 @@ var Matrix = /** @class */ (function () {
      * @param {number} [tx=0] - x translation
      * @param {number} [ty=0] - y translation
      */
-    function Matrix(a, b, c, d, tx, ty) {
+    function Matrix(a, b, c, d, tx, ty)
+    {
         if (a === void 0) { a = 1; }
         if (b === void 0) { b = 0; }
         if (c === void 0) { c = 0; }
@@ -994,7 +1109,8 @@ var Matrix = /** @class */ (function () {
      *
      * @param {number[]} array - The array that the matrix will be populated from.
      */
-    Matrix.prototype.fromArray = function (array) {
+    Matrix.prototype.fromArray = function (array)
+    {
         this.a = array[0];
         this.b = array[1];
         this.c = array[3];
@@ -1014,13 +1130,15 @@ var Matrix = /** @class */ (function () {
      *
      * @return {PIXI.Matrix} This matrix. Good for chaining method calls.
      */
-    Matrix.prototype.set = function (a, b, c, d, tx, ty) {
+    Matrix.prototype.set = function (a, b, c, d, tx, ty)
+    {
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
         this.tx = tx;
         this.ty = ty;
+
         return this;
     };
     /**
@@ -1030,12 +1148,16 @@ var Matrix = /** @class */ (function () {
      * @param {Float32Array} [out=new Float32Array(9)] - If provided the array will be assigned to out
      * @return {number[]} the newly created array which contains the matrix
      */
-    Matrix.prototype.toArray = function (transpose, out) {
-        if (!this.array) {
+    Matrix.prototype.toArray = function (transpose, out)
+    {
+        if (!this.array)
+        {
             this.array = new Float32Array(9);
         }
-        var array = out || this.array;
-        if (transpose) {
+        const array = out || this.array;
+
+        if (transpose)
+        {
             array[0] = this.a;
             array[1] = this.b;
             array[2] = 0;
@@ -1046,7 +1168,8 @@ var Matrix = /** @class */ (function () {
             array[7] = this.ty;
             array[8] = 1;
         }
-        else {
+        else
+        {
             array[0] = this.a;
             array[1] = this.c;
             array[2] = this.tx;
@@ -1057,6 +1180,7 @@ var Matrix = /** @class */ (function () {
             array[7] = 0;
             array[8] = 1;
         }
+
         return array;
     };
     /**
@@ -1067,12 +1191,15 @@ var Matrix = /** @class */ (function () {
      * @param {PIXI.Point} [newPos] - The point that the new position is assigned to (allowed to be same as input)
      * @return {PIXI.Point} The new point, transformed through this matrix
      */
-    Matrix.prototype.apply = function (pos, newPos) {
+    Matrix.prototype.apply = function (pos, newPos)
+    {
         newPos = (newPos || new Point());
-        var x = pos.x;
-        var y = pos.y;
+        const x = pos.x;
+        const y = pos.y;
+
         newPos.x = (this.a * x) + (this.c * y) + this.tx;
         newPos.y = (this.b * x) + (this.d * y) + this.ty;
+
         return newPos;
     };
     /**
@@ -1083,13 +1210,16 @@ var Matrix = /** @class */ (function () {
      * @param {PIXI.Point} [newPos] - The point that the new position is assigned to (allowed to be same as input)
      * @return {PIXI.Point} The new point, inverse-transformed through this matrix
      */
-    Matrix.prototype.applyInverse = function (pos, newPos) {
+    Matrix.prototype.applyInverse = function (pos, newPos)
+    {
         newPos = (newPos || new Point());
-        var id = 1 / ((this.a * this.d) + (this.c * -this.b));
-        var x = pos.x;
-        var y = pos.y;
+        const id = 1 / ((this.a * this.d) + (this.c * -this.b));
+        const x = pos.x;
+        const y = pos.y;
+
         newPos.x = (this.d * id * x) + (-this.c * id * y) + (((this.ty * this.c) - (this.tx * this.d)) * id);
         newPos.y = (this.a * id * y) + (-this.b * id * x) + (((-this.ty * this.a) + (this.tx * this.b)) * id);
+
         return newPos;
     };
     /**
@@ -1099,9 +1229,11 @@ var Matrix = /** @class */ (function () {
      * @param {number} y - How much to translate y by
      * @return {PIXI.Matrix} This matrix. Good for chaining method calls.
      */
-    Matrix.prototype.translate = function (x, y) {
+    Matrix.prototype.translate = function (x, y)
+    {
         this.tx += x;
         this.ty += y;
+
         return this;
     };
     /**
@@ -1111,13 +1243,15 @@ var Matrix = /** @class */ (function () {
      * @param {number} y - The amount to scale vertically
      * @return {PIXI.Matrix} This matrix. Good for chaining method calls.
      */
-    Matrix.prototype.scale = function (x, y) {
+    Matrix.prototype.scale = function (x, y)
+    {
         this.a *= x;
         this.d *= y;
         this.c *= x;
         this.b *= y;
         this.tx *= x;
         this.ty *= y;
+
         return this;
     };
     /**
@@ -1126,18 +1260,21 @@ var Matrix = /** @class */ (function () {
      * @param {number} angle - The angle in radians.
      * @return {PIXI.Matrix} This matrix. Good for chaining method calls.
      */
-    Matrix.prototype.rotate = function (angle) {
-        var cos = Math.cos(angle);
-        var sin = Math.sin(angle);
-        var a1 = this.a;
-        var c1 = this.c;
-        var tx1 = this.tx;
+    Matrix.prototype.rotate = function (angle)
+    {
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        const a1 = this.a;
+        const c1 = this.c;
+        const tx1 = this.tx;
+
         this.a = (a1 * cos) - (this.b * sin);
         this.b = (a1 * sin) + (this.b * cos);
         this.c = (c1 * cos) - (this.d * sin);
         this.d = (c1 * sin) + (this.d * cos);
         this.tx = (tx1 * cos) - (this.ty * sin);
         this.ty = (tx1 * sin) + (this.ty * cos);
+
         return this;
     };
     /**
@@ -1146,17 +1283,20 @@ var Matrix = /** @class */ (function () {
      * @param {PIXI.Matrix} matrix - The matrix to append.
      * @return {PIXI.Matrix} This matrix. Good for chaining method calls.
      */
-    Matrix.prototype.append = function (matrix) {
-        var a1 = this.a;
-        var b1 = this.b;
-        var c1 = this.c;
-        var d1 = this.d;
+    Matrix.prototype.append = function (matrix)
+    {
+        const a1 = this.a;
+        const b1 = this.b;
+        const c1 = this.c;
+        const d1 = this.d;
+
         this.a = (matrix.a * a1) + (matrix.b * c1);
         this.b = (matrix.a * b1) + (matrix.b * d1);
         this.c = (matrix.c * a1) + (matrix.d * c1);
         this.d = (matrix.c * b1) + (matrix.d * d1);
         this.tx = (matrix.tx * a1) + (matrix.ty * c1) + this.tx;
         this.ty = (matrix.tx * b1) + (matrix.ty * d1) + this.ty;
+
         return this;
     };
     /**
@@ -1173,13 +1313,15 @@ var Matrix = /** @class */ (function () {
      * @param {number} skewY - Skew on the y axis
      * @return {PIXI.Matrix} This matrix. Good for chaining method calls.
      */
-    Matrix.prototype.setTransform = function (x, y, pivotX, pivotY, scaleX, scaleY, rotation, skewX, skewY) {
+    Matrix.prototype.setTransform = function (x, y, pivotX, pivotY, scaleX, scaleY, rotation, skewX, skewY)
+    {
         this.a = Math.cos(rotation + skewY) * scaleX;
         this.b = Math.sin(rotation + skewY) * scaleX;
         this.c = -Math.sin(rotation - skewX) * scaleY;
         this.d = Math.cos(rotation - skewX) * scaleY;
         this.tx = x - ((pivotX * this.a) + (pivotY * this.c));
         this.ty = y - ((pivotX * this.b) + (pivotY * this.d));
+
         return this;
     };
     /**
@@ -1188,11 +1330,15 @@ var Matrix = /** @class */ (function () {
      * @param {PIXI.Matrix} matrix - The matrix to prepend
      * @return {PIXI.Matrix} This matrix. Good for chaining method calls.
      */
-    Matrix.prototype.prepend = function (matrix) {
-        var tx1 = this.tx;
-        if (matrix.a !== 1 || matrix.b !== 0 || matrix.c !== 0 || matrix.d !== 1) {
-            var a1 = this.a;
-            var c1 = this.c;
+    Matrix.prototype.prepend = function (matrix)
+    {
+        const tx1 = this.tx;
+
+        if (matrix.a !== 1 || matrix.b !== 0 || matrix.c !== 0 || matrix.d !== 1)
+        {
+            const a1 = this.a;
+            const c1 = this.c;
+
             this.a = (a1 * matrix.a) + (this.b * matrix.c);
             this.b = (a1 * matrix.b) + (this.b * matrix.d);
             this.c = (c1 * matrix.a) + (this.d * matrix.c);
@@ -1200,6 +1346,7 @@ var Matrix = /** @class */ (function () {
         }
         this.tx = (tx1 * matrix.a) + (this.ty * matrix.c) + matrix.tx;
         this.ty = (tx1 * matrix.b) + (this.ty * matrix.d) + matrix.ty;
+
         return this;
     };
     /**
@@ -1208,20 +1355,24 @@ var Matrix = /** @class */ (function () {
      * @param {PIXI.Transform} transform - The transform to apply the properties to.
      * @return {PIXI.Transform} The transform with the newly applied properties
      */
-    Matrix.prototype.decompose = function (transform) {
+    Matrix.prototype.decompose = function (transform)
+    {
         // sort out rotation / skew..
-        var a = this.a;
-        var b = this.b;
-        var c = this.c;
-        var d = this.d;
-        var skewX = -Math.atan2(-c, d);
-        var skewY = Math.atan2(b, a);
-        var delta = Math.abs(skewX + skewY);
-        if (delta < 0.00001 || Math.abs(PI_2 - delta) < 0.00001) {
+        const a = this.a;
+        const b = this.b;
+        const c = this.c;
+        const d = this.d;
+        const skewX = -Math.atan2(-c, d);
+        const skewY = Math.atan2(b, a);
+        const delta = Math.abs(skewX + skewY);
+
+        if (delta < 0.00001 || Math.abs(PI_2 - delta) < 0.00001)
+        {
             transform.rotation = skewY;
             transform.skew.x = transform.skew.y = 0;
         }
-        else {
+        else
+        {
             transform.rotation = 0;
             transform.skew.x = skewX;
             transform.skew.y = skewY;
@@ -1232,6 +1383,7 @@ var Matrix = /** @class */ (function () {
         // next set position
         transform.position.x = this.tx;
         transform.position.y = this.ty;
+
         return transform;
     };
     /**
@@ -1239,19 +1391,22 @@ var Matrix = /** @class */ (function () {
      *
      * @return {PIXI.Matrix} This matrix. Good for chaining method calls.
      */
-    Matrix.prototype.invert = function () {
-        var a1 = this.a;
-        var b1 = this.b;
-        var c1 = this.c;
-        var d1 = this.d;
-        var tx1 = this.tx;
-        var n = (a1 * d1) - (b1 * c1);
+    Matrix.prototype.invert = function ()
+    {
+        const a1 = this.a;
+        const b1 = this.b;
+        const c1 = this.c;
+        const d1 = this.d;
+        const tx1 = this.tx;
+        const n = (a1 * d1) - (b1 * c1);
+
         this.a = d1 / n;
         this.b = -b1 / n;
         this.c = -c1 / n;
         this.d = a1 / n;
         this.tx = ((c1 * this.ty) - (d1 * tx1)) / n;
         this.ty = -((a1 * this.ty) - (b1 * tx1)) / n;
+
         return this;
     };
     /**
@@ -1259,13 +1414,15 @@ var Matrix = /** @class */ (function () {
      *
      * @return {PIXI.Matrix} This matrix. Good for chaining method calls.
      */
-    Matrix.prototype.identity = function () {
+    Matrix.prototype.identity = function ()
+    {
         this.a = 1;
         this.b = 0;
         this.c = 0;
         this.d = 1;
         this.tx = 0;
         this.ty = 0;
+
         return this;
     };
     /**
@@ -1273,14 +1430,17 @@ var Matrix = /** @class */ (function () {
      *
      * @return {PIXI.Matrix} A copy of this matrix. Good for chaining method calls.
      */
-    Matrix.prototype.clone = function () {
-        var matrix = new Matrix();
+    Matrix.prototype.clone = function ()
+    {
+        const matrix = new Matrix();
+
         matrix.a = this.a;
         matrix.b = this.b;
         matrix.c = this.c;
         matrix.d = this.d;
         matrix.tx = this.tx;
         matrix.ty = this.ty;
+
         return matrix;
     };
     /**
@@ -1289,13 +1449,15 @@ var Matrix = /** @class */ (function () {
      * @param {PIXI.Matrix} matrix - The matrix to copy to.
      * @return {PIXI.Matrix} The matrix given in parameter with its values updated.
      */
-    Matrix.prototype.copyTo = function (matrix) {
+    Matrix.prototype.copyTo = function (matrix)
+    {
         matrix.a = this.a;
         matrix.b = this.b;
         matrix.c = this.c;
         matrix.d = this.d;
         matrix.tx = this.tx;
         matrix.ty = this.ty;
+
         return matrix;
     };
     /**
@@ -1304,16 +1466,18 @@ var Matrix = /** @class */ (function () {
      * @param {PIXI.Matrix} matrix - The matrix to copy from.
      * @return {PIXI.Matrix} this
      */
-    Matrix.prototype.copyFrom = function (matrix) {
+    Matrix.prototype.copyFrom = function (matrix)
+    {
         this.a = matrix.a;
         this.b = matrix.b;
         this.c = matrix.c;
         this.d = matrix.d;
         this.tx = matrix.tx;
         this.ty = matrix.ty;
+
         return this;
     };
-    Object.defineProperty(Matrix, "IDENTITY", {
+    Object.defineProperty(Matrix, 'IDENTITY', {
         /**
          * A default (identity) matrix
          *
@@ -1321,13 +1485,14 @@ var Matrix = /** @class */ (function () {
          * @const
          * @member {PIXI.Matrix}
          */
-        get: function () {
+        get()
+        {
             return new Matrix();
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Matrix, "TEMP_MATRIX", {
+    Object.defineProperty(Matrix, 'TEMP_MATRIX', {
         /**
          * A temp matrix
          *
@@ -1335,14 +1500,16 @@ var Matrix = /** @class */ (function () {
          * @const
          * @member {PIXI.Matrix}
          */
-        get: function () {
+        get()
+        {
             return new Matrix();
         },
         enumerable: false,
         configurable: true
     });
+
     return Matrix;
-}());
+})();
 
 // Your friendly neighbour https://en.wikipedia.org/wiki/Dihedral_group
 /*
@@ -1350,10 +1517,10 @@ var Matrix = /** @class */ (function () {
  * | ux | vx |
  * | uy | vy |
  */
-var ux = [1, 1, 0, -1, -1, -1, 0, 1, 1, 1, 0, -1, -1, -1, 0, 1];
-var uy = [0, 1, 1, 1, 0, -1, -1, -1, 0, 1, 1, 1, 0, -1, -1, -1];
-var vx = [0, -1, -1, -1, 0, 1, 1, 1, 0, 1, 1, 1, 0, -1, -1, -1];
-var vy = [1, 1, 0, -1, -1, -1, 0, 1, -1, -1, 0, 1, 1, 1, 0, -1];
+const ux = [1, 1, 0, -1, -1, -1, 0, 1, 1, 1, 0, -1, -1, -1, 0, 1];
+const uy = [0, 1, 1, 1, 0, -1, -1, -1, 0, 1, 1, 1, 0, -1, -1, -1];
+const vx = [0, -1, -1, -1, 0, 1, 1, 1, 0, 1, 1, 1, 0, -1, -1, -1];
+const vy = [1, 1, 0, -1, -1, -1, 0, 1, -1, -1, 0, 1, 1, 1, 0, -1];
 /**
  * [Cayley Table]{@link https://en.wikipedia.org/wiki/Cayley_table}
  * for the composition of each rotation in the dihederal group D8.
@@ -1361,44 +1528,54 @@ var vy = [1, 1, 0, -1, -1, -1, 0, 1, -1, -1, 0, 1, 1, 1, 0, -1];
  * @type number[][]
  * @private
  */
-var rotationCayley = [];
+const rotationCayley = [];
 /**
  * Matrices for each `GD8Symmetry` rotation.
  *
  * @type Matrix[]
  * @private
  */
-var rotationMatrices = [];
+const rotationMatrices = [];
 /*
  * Alias for {@code Math.sign}.
  */
-var signum = Math.sign;
+const signum = Math.sign;
 /*
  * Initializes `rotationCayley` and `rotationMatrices`. It is called
  * only once below.
  */
-function init() {
-    for (var i = 0; i < 16; i++) {
-        var row = [];
+
+function init()
+{
+    for (var i = 0; i < 16; i++)
+    {
+        const row = [];
+
         rotationCayley.push(row);
-        for (var j = 0; j < 16; j++) {
+        for (let j = 0; j < 16; j++)
+        {
             /* Multiplies rotation matrices i and j. */
-            var _ux = signum((ux[i] * ux[j]) + (vx[i] * uy[j]));
-            var _uy = signum((uy[i] * ux[j]) + (vy[i] * uy[j]));
-            var _vx = signum((ux[i] * vx[j]) + (vx[i] * vy[j]));
-            var _vy = signum((uy[i] * vx[j]) + (vy[i] * vy[j]));
+            const _ux = signum((ux[i] * ux[j]) + (vx[i] * uy[j]));
+            const _uy = signum((uy[i] * ux[j]) + (vy[i] * uy[j]));
+            const _vx = signum((ux[i] * vx[j]) + (vx[i] * vy[j]));
+            const _vy = signum((uy[i] * vx[j]) + (vy[i] * vy[j]));
             /* Finds rotation matrix matching the product and pushes it. */
-            for (var k = 0; k < 16; k++) {
+
+            for (let k = 0; k < 16; k++)
+            {
                 if (ux[k] === _ux && uy[k] === _uy
-                    && vx[k] === _vx && vy[k] === _vy) {
+                    && vx[k] === _vx && vy[k] === _vy)
+                {
                     row.push(k);
                     break;
                 }
             }
         }
     }
-    for (var i = 0; i < 16; i++) {
-        var mat = new Matrix();
+    for (var i = 0; i < 16; i++)
+    {
+        const mat = new Matrix();
+
         mat.set(ux[i], uy[i], vx[i], vy[i], 0, 0);
         rotationMatrices.push(mat);
     }
@@ -1541,28 +1718,28 @@ var groupD8 = {
      * @return {PIXI.GD8Symmetry} The X-component of the U-axis
      *    after rotating the axes.
      */
-    uX: function (ind) { return ux[ind]; },
+    uX(ind) { return ux[ind]; },
     /**
      * @memberof PIXI.groupD8
      * @param {PIXI.GD8Symmetry} ind - sprite rotation angle.
      * @return {PIXI.GD8Symmetry} The Y-component of the U-axis
      *    after rotating the axes.
      */
-    uY: function (ind) { return uy[ind]; },
+    uY(ind) { return uy[ind]; },
     /**
      * @memberof PIXI.groupD8
      * @param {PIXI.GD8Symmetry} ind - sprite rotation angle.
      * @return {PIXI.GD8Symmetry} The X-component of the V-axis
      *    after rotating the axes.
      */
-    vX: function (ind) { return vx[ind]; },
+    vX(ind) { return vx[ind]; },
     /**
      * @memberof PIXI.groupD8
      * @param {PIXI.GD8Symmetry} ind - sprite rotation angle.
      * @return {PIXI.GD8Symmetry} The Y-component of the V-axis
      *    after rotating the axes.
      */
-    vY: function (ind) { return vy[ind]; },
+    vY(ind) { return vy[ind]; },
     /**
      * @memberof PIXI.groupD8
      * @param {PIXI.GD8Symmetry} rotation - symmetry whose opposite
@@ -1570,11 +1747,13 @@ var groupD8 = {
      *   reflections don't.
      * @return {PIXI.GD8Symmetry} The opposite symmetry of `rotation`
      */
-    inv: function (rotation) {
+    inv(rotation)
+    {
         if (rotation & 8) // true only if between 8 & 15 (reflections)
-         {
+        {
             return rotation & 15; // or rotation % 16
         }
+
         return (-rotation) & 7; // or (8 - rotation) % 8
     },
     /**
@@ -1601,7 +1780,7 @@ var groupD8 = {
      *   is the column in the above cayley table.
      * @return {PIXI.GD8Symmetry} Composed operation
      */
-    add: function (rotationSecond, rotationFirst) { return (rotationCayley[rotationSecond][rotationFirst]); },
+    add(rotationSecond, rotationFirst) { return (rotationCayley[rotationSecond][rotationFirst]); },
     /**
      * Reverse of `add`.
      *
@@ -1610,7 +1789,7 @@ var groupD8 = {
      * @param {PIXI.GD8Symmetry} rotationFirst - First operation
      * @return {PIXI.GD8Symmetry} Result
      */
-    sub: function (rotationSecond, rotationFirst) { return (rotationCayley[rotationSecond][groupD8.inv(rotationFirst)]); },
+    sub(rotationSecond, rotationFirst) { return (rotationCayley[rotationSecond][groupD8.inv(rotationFirst)]); },
     /**
      * Adds 180 degrees to rotation, which is a commutative
      * operation.
@@ -1619,7 +1798,7 @@ var groupD8 = {
      * @param {number} rotation - The number to rotate.
      * @returns {number} Rotated number
      */
-    rotate180: function (rotation) { return rotation ^ 4; },
+    rotate180(rotation) { return rotation ^ 4; },
     /**
      * Checks if the rotation angle is vertical, i.e. south
      * or north. It doesn't work for reflections.
@@ -1628,7 +1807,7 @@ var groupD8 = {
      * @param {PIXI.GD8Symmetry} rotation - The number to check.
      * @returns {boolean} Whether or not the direction is vertical
      */
-    isVertical: function (rotation) { return (rotation & 3) === 2; },
+    isVertical(rotation) { return (rotation & 3) === 2; },
     /**
      * Approximates the vector `V(dx,dy)` into one of the
      * eight directions provided by `groupD8`.
@@ -1639,28 +1818,40 @@ var groupD8 = {
      * @return {PIXI.GD8Symmetry} Approximation of the vector into
      *  one of the eight symmetries.
      */
-    byDirection: function (dx, dy) {
-        if (Math.abs(dx) * 2 <= Math.abs(dy)) {
-            if (dy >= 0) {
+    byDirection(dx, dy)
+    {
+        if (Math.abs(dx) * 2 <= Math.abs(dy))
+        {
+            if (dy >= 0)
+            {
                 return groupD8.S;
             }
+
             return groupD8.N;
         }
-        else if (Math.abs(dy) * 2 <= Math.abs(dx)) {
-            if (dx > 0) {
+        else if (Math.abs(dy) * 2 <= Math.abs(dx))
+        {
+            if (dx > 0)
+            {
                 return groupD8.E;
             }
+
             return groupD8.W;
         }
-        else if (dy > 0) {
-            if (dx > 0) {
+        else if (dy > 0)
+        {
+            if (dx > 0)
+            {
                 return groupD8.SE;
             }
+
             return groupD8.SW;
         }
-        else if (dx > 0) {
+        else if (dx > 0)
+        {
             return groupD8.NE;
         }
+
         return groupD8.NW;
     },
     /**
@@ -1672,11 +1863,13 @@ var groupD8 = {
      * @param {number} tx - sprite anchoring
      * @param {number} ty - sprite anchoring
      */
-    matrixAppendRotationInv: function (matrix, rotation, tx, ty) {
+    matrixAppendRotationInv(matrix, rotation, tx, ty)
+    {
         if (tx === void 0) { tx = 0; }
         if (ty === void 0) { ty = 0; }
         // Packer used "rotation", we use "inv(rotation)"
-        var mat = rotationMatrices[groupD8.inv(rotation)];
+        const mat = rotationMatrices[groupD8.inv(rotation)];
+
         mat.tx = tx;
         mat.ty = ty;
         matrix.append(mat);
@@ -1689,8 +1882,10 @@ var groupD8 = {
  * @class
  * @memberof PIXI
  */
-var Transform = /** @class */ (function () {
-    function Transform() {
+const Transform = /** @class */ (function ()
+{
+    function Transform()
+    {
         /**
          * The world transformation matrix.
          *
@@ -1802,7 +1997,8 @@ var Transform = /** @class */ (function () {
      *
      * @protected
      */
-    Transform.prototype.onChange = function () {
+    Transform.prototype.onChange = function ()
+    {
         this._localID++;
     };
     /**
@@ -1810,7 +2006,8 @@ var Transform = /** @class */ (function () {
      *
      * @protected
      */
-    Transform.prototype.updateSkew = function () {
+    Transform.prototype.updateSkew = function ()
+    {
         this._cx = Math.cos(this._rotation + this.skew.y);
         this._sx = Math.sin(this._rotation + this.skew.y);
         this._cy = -Math.sin(this._rotation - this.skew.x); // cos, added PI/2
@@ -1820,9 +2017,12 @@ var Transform = /** @class */ (function () {
     /**
      * Updates the local transformation matrix.
      */
-    Transform.prototype.updateLocalTransform = function () {
-        var lt = this.localTransform;
-        if (this._localID !== this._currentLocalID) {
+    Transform.prototype.updateLocalTransform = function ()
+    {
+        const lt = this.localTransform;
+
+        if (this._localID !== this._currentLocalID)
+        {
             // get the matrix values of the displayobject based on its transform properties..
             lt.a = this._cx * this.scale.x;
             lt.b = this._sx * this.scale.x;
@@ -1840,9 +2040,12 @@ var Transform = /** @class */ (function () {
      *
      * @param {PIXI.Transform} parentTransform - The parent transform
      */
-    Transform.prototype.updateTransform = function (parentTransform) {
-        var lt = this.localTransform;
-        if (this._localID !== this._currentLocalID) {
+    Transform.prototype.updateTransform = function (parentTransform)
+    {
+        const lt = this.localTransform;
+
+        if (this._localID !== this._currentLocalID)
+        {
             // get the matrix values of the displayobject based on its transform properties..
             lt.a = this._cx * this.scale.x;
             lt.b = this._sx * this.scale.x;
@@ -1854,10 +2057,12 @@ var Transform = /** @class */ (function () {
             // force an update..
             this._parentID = -1;
         }
-        if (this._parentID !== parentTransform._worldID) {
+        if (this._parentID !== parentTransform._worldID)
+        {
             // concat the parent matrix with the objects transform.
-            var pt = parentTransform.worldTransform;
-            var wt = this.worldTransform;
+            const pt = parentTransform.worldTransform;
+            const wt = this.worldTransform;
+
             wt.a = (lt.a * pt.a) + (lt.b * pt.c);
             wt.b = (lt.a * pt.b) + (lt.b * pt.d);
             wt.c = (lt.c * pt.a) + (lt.d * pt.c);
@@ -1874,21 +2079,25 @@ var Transform = /** @class */ (function () {
      *
      * @param {PIXI.Matrix} matrix - The matrix to decompose
      */
-    Transform.prototype.setFromMatrix = function (matrix) {
+    Transform.prototype.setFromMatrix = function (matrix)
+    {
         matrix.decompose(this);
         this._localID++;
     };
-    Object.defineProperty(Transform.prototype, "rotation", {
+    Object.defineProperty(Transform.prototype, 'rotation', {
         /**
          * The rotation of the object in radians.
          *
          * @member {number}
          */
-        get: function () {
+        get()
+        {
             return this._rotation;
         },
-        set: function (value) {
-            if (this._rotation !== value) {
+        set(value)
+        {
+            if (this._rotation !== value)
+            {
                 this._rotation = value;
                 this.updateSkew();
             }
@@ -1904,8 +2113,9 @@ var Transform = /** @class */ (function () {
      * @member {PIXI.Transform}
      */
     Transform.IDENTITY = new Transform();
+
     return Transform;
-}());
+})();
 
 /**
  * Math classes and utilities mixed into PIXI namespace.
@@ -1914,4 +2124,4 @@ var Transform = /** @class */ (function () {
  */
 
 export { Circle, DEG_TO_RAD, Ellipse, Matrix, ObservablePoint, PI_2, Point, Polygon, RAD_TO_DEG, Rectangle, RoundedRectangle, SHAPES, Transform, groupD8 };
-//# sourceMappingURL=math.es.js.map
+// # sourceMappingURL=math.es.js.map

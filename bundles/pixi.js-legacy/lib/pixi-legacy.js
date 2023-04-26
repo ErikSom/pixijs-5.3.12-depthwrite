@@ -1,21 +1,21 @@
-/*!
+/* !
  * pixi.js-legacy - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
  * pixi.js-legacy is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
  */
-'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var pixi_js = require('pixi.js');
-var canvasRenderer = require('@pixi/canvas-renderer');
-var canvasMesh = require('@pixi/canvas-mesh');
-var canvasGraphics = require('@pixi/canvas-graphics');
-var canvasSprite = require('@pixi/canvas-sprite');
-var canvasExtract = require('@pixi/canvas-extract');
-var canvasPrepare = require('@pixi/canvas-prepare');
+const pixi_js = require('pixi.js');
+const canvasRenderer = require('@pixi/canvas-renderer');
+const canvasMesh = require('@pixi/canvas-mesh');
+const canvasGraphics = require('@pixi/canvas-graphics');
+const canvasSprite = require('@pixi/canvas-sprite');
+const canvasExtract = require('@pixi/canvas-extract');
+const canvasPrepare = require('@pixi/canvas-prepare');
+
 require('@pixi/canvas-sprite-tiling');
 require('@pixi/canvas-particles');
 require('@pixi/canvas-display');
@@ -29,54 +29,63 @@ canvasRenderer.CanvasRenderer.registerPlugin('mesh', canvasMesh.CanvasMeshRender
 canvasRenderer.CanvasRenderer.registerPlugin('prepare', canvasPrepare.CanvasPrepare);
 canvasRenderer.CanvasRenderer.registerPlugin('sprite', canvasSprite.CanvasSpriteRenderer);
 
-Object.keys(pixi_js).forEach(function (key) {
+Object.keys(pixi_js).forEach(function (key)
+{
     Object.defineProperty(exports, key, {
         enumerable: true,
-        get: function () {
+        get()
+        {
             return pixi_js[key];
         }
     });
 });
 Object.defineProperty(exports, 'CanvasRenderer', {
     enumerable: true,
-    get: function () {
+    get()
+    {
         return canvasRenderer.CanvasRenderer;
     }
 });
 Object.defineProperty(exports, 'canvasUtils', {
     enumerable: true,
-    get: function () {
+    get()
+    {
         return canvasRenderer.canvasUtils;
     }
 });
 Object.defineProperty(exports, 'CanvasMeshRenderer', {
     enumerable: true,
-    get: function () {
+    get()
+    {
         return canvasMesh.CanvasMeshRenderer;
     }
 });
 Object.defineProperty(exports, 'CanvasGraphicsRenderer', {
     enumerable: true,
-    get: function () {
+    get()
+    {
         return canvasGraphics.CanvasGraphicsRenderer;
     }
 });
 Object.defineProperty(exports, 'CanvasSpriteRenderer', {
     enumerable: true,
-    get: function () {
+    get()
+    {
         return canvasSprite.CanvasSpriteRenderer;
     }
 });
 Object.defineProperty(exports, 'CanvasExtract', {
     enumerable: true,
-    get: function () {
+    get()
+    {
         return canvasExtract.CanvasExtract;
     }
 });
 Object.defineProperty(exports, 'CanvasPrepare', {
     enumerable: true,
-    get: function () {
+    get()
+    {
         return canvasPrepare.CanvasPrepare;
     }
 });
-//# sourceMappingURL=pixi-legacy.js.map
+// # sourceMappingURL=pixi-legacy.js.map

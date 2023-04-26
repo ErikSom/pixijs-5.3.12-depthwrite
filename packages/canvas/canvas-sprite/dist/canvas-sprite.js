@@ -1,4 +1,4 @@
-/*!
+/* !
  * @pixi/canvas-sprite - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
@@ -6,10 +6,9 @@
  * http://www.opensource.org/licenses/mit-license
  */
 this.PIXI = this.PIXI || {};
-var _pixi_canvas_sprite = (function (exports, constants, math, canvasRenderer, sprite) {
-    'use strict';
-
-    var canvasRenderWorldTransform = new math.Matrix();
+const _pixi_canvas_sprite = (function (exports, constants, math, canvasRenderer, sprite)
+{
+    const canvasRenderWorldTransform = new math.Matrix();
     /**
      * Types that can be passed to drawImage
      * @typedef {HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap} ICanvasImageSource
@@ -33,11 +32,13 @@ var _pixi_canvas_sprite = (function (exports, constants, math, canvasRenderer, s
      * @protected
      * @memberof PIXI
      */
-    var CanvasSpriteRenderer = /** @class */ (function () {
+    const CanvasSpriteRenderer = /** @class */ (function ()
+    {
         /**
          * @param {PIXI.Renderer} renderer -The renderer sprite this batch works for.
          */
-        function CanvasSpriteRenderer(renderer) {
+        function CanvasSpriteRenderer(renderer)
+        {
             this.renderer = renderer;
         }
         /**
@@ -45,39 +46,48 @@ var _pixi_canvas_sprite = (function (exports, constants, math, canvasRenderer, s
          *
          * @param {PIXI.Sprite} sprite - the sprite to render when using this spritebatch
          */
-        CanvasSpriteRenderer.prototype.render = function (sprite) {
-            var texture = sprite._texture;
-            var renderer = this.renderer;
-            var context = renderer.context;
-            var width = texture._frame.width;
-            var height = texture._frame.height;
-            var wt = sprite.transform.worldTransform;
-            var dx = 0;
-            var dy = 0;
-            var source = texture.baseTexture.getDrawableSource();
-            if (texture.orig.width <= 0 || texture.orig.height <= 0 || !texture.valid || !source) {
+        CanvasSpriteRenderer.prototype.render = function (sprite)
+        {
+            const texture = sprite._texture;
+            const renderer = this.renderer;
+            const context = renderer.context;
+            const width = texture._frame.width;
+            const height = texture._frame.height;
+            let wt = sprite.transform.worldTransform;
+            let dx = 0;
+            let dy = 0;
+            const source = texture.baseTexture.getDrawableSource();
+
+            if (texture.orig.width <= 0 || texture.orig.height <= 0 || !texture.valid || !source)
+            {
                 return;
             }
-            if (!texture.valid) {
+            if (!texture.valid)
+            {
                 return;
             }
             renderer.setBlendMode(sprite.blendMode, true);
             renderer.context.globalAlpha = sprite.worldAlpha;
             // If smoothingEnabled is supported and we need to change the smoothing property for sprite texture
-            var smoothingEnabled = texture.baseTexture.scaleMode === constants.SCALE_MODES.LINEAR;
+            const smoothingEnabled = texture.baseTexture.scaleMode === constants.SCALE_MODES.LINEAR;
+
             if (renderer.smoothProperty
-                && renderer.context[renderer.smoothProperty] !== smoothingEnabled) {
+                && renderer.context[renderer.smoothProperty] !== smoothingEnabled)
+            {
                 context[renderer.smoothProperty] = smoothingEnabled;
             }
-            if (texture.trim) {
+            if (texture.trim)
+            {
                 dx = (texture.trim.width / 2) + texture.trim.x - (sprite.anchor.x * texture.orig.width);
                 dy = (texture.trim.height / 2) + texture.trim.y - (sprite.anchor.y * texture.orig.height);
             }
-            else {
+            else
+            {
                 dx = (0.5 - sprite.anchor.x) * texture.orig.width;
                 dy = (0.5 - sprite.anchor.y) * texture.orig.height;
             }
-            if (texture.rotate) {
+            if (texture.rotate)
+            {
                 wt.copyTo(canvasRenderWorldTransform);
                 wt = canvasRenderWorldTransform;
                 math.groupD8.matrixAppendRotationInv(wt, texture.rotate, dx, dy);
@@ -89,30 +99,37 @@ var _pixi_canvas_sprite = (function (exports, constants, math, canvasRenderer, s
             dy -= height / 2;
             renderer.setContextTransform(wt, sprite.roundPixels, 1);
             // Allow for pixel rounding
-            if (sprite.roundPixels) {
+            if (sprite.roundPixels)
+            {
                 dx = dx | 0;
                 dy = dy | 0;
             }
-            var resolution = texture.baseTexture.resolution;
-            var outerBlend = renderer._outerBlend;
-            if (outerBlend) {
+            const resolution = texture.baseTexture.resolution;
+            const outerBlend = renderer._outerBlend;
+
+            if (outerBlend)
+            {
                 context.save();
                 context.beginPath();
                 context.rect(dx * renderer.resolution, dy * renderer.resolution, width * renderer.resolution, height * renderer.resolution);
                 context.clip();
             }
-            if (sprite.tint !== 0xFFFFFF) {
-                if (sprite._cachedTint !== sprite.tint || sprite._tintedCanvas.tintId !== sprite._texture._updateID) {
+            if (sprite.tint !== 0xFFFFFF)
+            {
+                if (sprite._cachedTint !== sprite.tint || sprite._tintedCanvas.tintId !== sprite._texture._updateID)
+                {
                     sprite._cachedTint = sprite.tint;
                     // TODO clean up caching - how to clean up the caches?
                     sprite._tintedCanvas = canvasRenderer.canvasUtils.getTintedCanvas(sprite, sprite.tint);
                 }
                 context.drawImage(sprite._tintedCanvas, 0, 0, Math.floor(width * resolution), Math.floor(height * resolution), Math.floor(dx * renderer.resolution), Math.floor(dy * renderer.resolution), Math.floor(width * renderer.resolution), Math.floor(height * renderer.resolution));
             }
-            else {
+            else
+            {
                 context.drawImage(source, texture._frame.x * resolution, texture._frame.y * resolution, Math.floor(width * resolution), Math.floor(height * resolution), Math.floor(dx * renderer.resolution), Math.floor(dy * renderer.resolution), Math.floor(width * renderer.resolution), Math.floor(height * renderer.resolution));
             }
-            if (outerBlend) {
+            if (outerBlend)
+            {
                 context.restore();
             }
             // just in case, leaking outer blend here will be catastrophic!
@@ -122,11 +139,13 @@ var _pixi_canvas_sprite = (function (exports, constants, math, canvasRenderer, s
          * destroy the sprite object.
          *
          */
-        CanvasSpriteRenderer.prototype.destroy = function () {
+        CanvasSpriteRenderer.prototype.destroy = function ()
+        {
             this.renderer = null;
         };
+
         return CanvasSpriteRenderer;
-    }());
+    })();
 
     /**
      * Cached tinted texture.
@@ -143,14 +162,15 @@ var _pixi_canvas_sprite = (function (exports, constants, math, canvasRenderer, s
     * @memberof PIXI.Sprite#
     * @param {PIXI.CanvasRenderer} renderer - The renderer
     */
-    sprite.Sprite.prototype._renderCanvas = function _renderCanvas(renderer) {
+    sprite.Sprite.prototype._renderCanvas = function _renderCanvas(renderer)
+    {
         renderer.plugins.sprite.render(this);
     };
 
     exports.CanvasSpriteRenderer = CanvasSpriteRenderer;
 
     return exports;
+})({}, PIXI, PIXI, PIXI, PIXI);
 
-}({}, PIXI, PIXI, PIXI, PIXI));
 Object.assign(this.PIXI, _pixi_canvas_sprite);
-//# sourceMappingURL=canvas-sprite.js.map
+// # sourceMappingURL=canvas-sprite.js.map

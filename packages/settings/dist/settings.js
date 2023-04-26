@@ -1,4 +1,4 @@
-/*!
+/* !
  * @pixi/settings - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
@@ -6,81 +6,91 @@
  * http://www.opensource.org/licenses/mit-license
  */
 this.PIXI = this.PIXI || {};
-var _pixi_settings = (function (exports) {
-    'use strict';
-
-    var appleIphone = /iPhone/i;
-    var appleIpod = /iPod/i;
-    var appleTablet = /iPad/i;
-    var appleUniversal = /\biOS-universal(?:.+)Mac\b/i;
-    var androidPhone = /\bAndroid(?:.+)Mobile\b/i;
-    var androidTablet = /Android/i;
-    var amazonPhone = /(?:SD4930UR|\bSilk(?:.+)Mobile\b)/i;
-    var amazonTablet = /Silk/i;
-    var windowsPhone = /Windows Phone/i;
-    var windowsTablet = /\bWindows(?:.+)ARM\b/i;
-    var otherBlackBerry = /BlackBerry/i;
-    var otherBlackBerry10 = /BB10/i;
-    var otherOpera = /Opera Mini/i;
-    var otherChrome = /\b(CriOS|Chrome)(?:.+)Mobile/i;
-    var otherFirefox = /Mobile(?:.+)Firefox\b/i;
-    var isAppleTabletOnIos13 = function (navigator) {
-        return (typeof navigator !== 'undefined' &&
-            navigator.platform === 'MacIntel' &&
-            typeof navigator.maxTouchPoints === 'number' &&
-            navigator.maxTouchPoints > 1 &&
-            typeof MSStream === 'undefined');
+const _pixi_settings = (function (exports)
+{
+    const appleIphone = /iPhone/i;
+    const appleIpod = /iPod/i;
+    const appleTablet = /iPad/i;
+    const appleUniversal = /\biOS-universal(?:.+)Mac\b/i;
+    const androidPhone = /\bAndroid(?:.+)Mobile\b/i;
+    const androidTablet = /Android/i;
+    const amazonPhone = /(?:SD4930UR|\bSilk(?:.+)Mobile\b)/i;
+    const amazonTablet = /Silk/i;
+    const windowsPhone = /Windows Phone/i;
+    const windowsTablet = /\bWindows(?:.+)ARM\b/i;
+    const otherBlackBerry = /BlackBerry/i;
+    const otherBlackBerry10 = /BB10/i;
+    const otherOpera = /Opera Mini/i;
+    const otherChrome = /\b(CriOS|Chrome)(?:.+)Mobile/i;
+    const otherFirefox = /Mobile(?:.+)Firefox\b/i;
+    const isAppleTabletOnIos13 = function (navigator)
+    {
+        return (typeof navigator !== 'undefined'
+            && navigator.platform === 'MacIntel'
+            && typeof navigator.maxTouchPoints === 'number'
+            && navigator.maxTouchPoints > 1
+            && typeof MSStream === 'undefined');
     };
-    function createMatch(userAgent) {
+
+    function createMatch(userAgent)
+    {
         return function (regex) { return regex.test(userAgent); };
     }
-    function isMobile(param) {
-        var nav = {
+    function isMobile(param)
+    {
+        let nav = {
             userAgent: '',
             platform: '',
             maxTouchPoints: 0
         };
-        if (!param && typeof navigator !== 'undefined') {
+
+        if (!param && typeof navigator !== 'undefined')
+        {
             nav = {
                 userAgent: navigator.userAgent,
                 platform: navigator.platform,
                 maxTouchPoints: navigator.maxTouchPoints || 0
             };
         }
-        else if (typeof param === 'string') {
+        else if (typeof param === 'string')
+        {
             nav.userAgent = param;
         }
-        else if (param && param.userAgent) {
+        else if (param && param.userAgent)
+        {
             nav = {
                 userAgent: param.userAgent,
                 platform: param.platform,
                 maxTouchPoints: param.maxTouchPoints || 0
             };
         }
-        var userAgent = nav.userAgent;
-        var tmp = userAgent.split('[FBAN');
-        if (typeof tmp[1] !== 'undefined') {
+        let userAgent = nav.userAgent;
+        let tmp = userAgent.split('[FBAN');
+
+        if (typeof tmp[1] !== 'undefined')
+        {
             userAgent = tmp[0];
         }
         tmp = userAgent.split('Twitter');
-        if (typeof tmp[1] !== 'undefined') {
+        if (typeof tmp[1] !== 'undefined')
+        {
             userAgent = tmp[0];
         }
-        var match = createMatch(userAgent);
-        var result = {
+        const match = createMatch(userAgent);
+        const result = {
             apple: {
                 phone: match(appleIphone) && !match(windowsPhone),
                 ipod: match(appleIpod),
-                tablet: !match(appleIphone) &&
-                    (match(appleTablet) || isAppleTabletOnIos13(nav)) &&
-                    !match(windowsPhone),
+                tablet: !match(appleIphone)
+                    && (match(appleTablet) || isAppleTabletOnIos13(nav))
+                    && !match(windowsPhone),
                 universal: match(appleUniversal),
-                device: (match(appleIphone) ||
-                    match(appleIpod) ||
-                    match(appleTablet) ||
-                    match(appleUniversal) ||
-                    isAppleTabletOnIos13(nav)) &&
-                    !match(windowsPhone)
+                device: (match(appleIphone)
+                    || match(appleIpod)
+                    || match(appleTablet)
+                    || match(appleUniversal)
+                    || isAppleTabletOnIos13(nav))
+                    && !match(windowsPhone)
             },
             amazon: {
                 phone: match(amazonPhone),
@@ -88,18 +98,18 @@ var _pixi_settings = (function (exports) {
                 device: match(amazonPhone) || match(amazonTablet)
             },
             android: {
-                phone: (!match(windowsPhone) && match(amazonPhone)) ||
-                    (!match(windowsPhone) && match(androidPhone)),
-                tablet: !match(windowsPhone) &&
-                    !match(amazonPhone) &&
-                    !match(androidPhone) &&
-                    (match(amazonTablet) || match(androidTablet)),
-                device: (!match(windowsPhone) &&
-                    (match(amazonPhone) ||
-                        match(amazonTablet) ||
-                        match(androidPhone) ||
-                        match(androidTablet))) ||
-                    match(/\bokhttp\b/i)
+                phone: (!match(windowsPhone) && match(amazonPhone))
+                    || (!match(windowsPhone) && match(androidPhone)),
+                tablet: !match(windowsPhone)
+                    && !match(amazonPhone)
+                    && !match(androidPhone)
+                    && (match(amazonTablet) || match(androidTablet)),
+                device: (!match(windowsPhone)
+                    && (match(amazonPhone)
+                        || match(amazonTablet)
+                        || match(androidPhone)
+                        || match(androidTablet)))
+                    || match(/\bokhttp\b/i)
             },
             windows: {
                 phone: match(windowsPhone),
@@ -112,30 +122,32 @@ var _pixi_settings = (function (exports) {
                 opera: match(otherOpera),
                 firefox: match(otherFirefox),
                 chrome: match(otherChrome),
-                device: match(otherBlackBerry) ||
-                    match(otherBlackBerry10) ||
-                    match(otherOpera) ||
-                    match(otherFirefox) ||
-                    match(otherChrome)
+                device: match(otherBlackBerry)
+                    || match(otherBlackBerry10)
+                    || match(otherOpera)
+                    || match(otherFirefox)
+                    || match(otherChrome)
             },
             any: false,
             phone: false,
             tablet: false
         };
-        result.any =
-            result.apple.device ||
-                result.android.device ||
-                result.windows.device ||
-                result.other.device;
-        result.phone =
-            result.apple.phone || result.android.phone || result.windows.phone;
-        result.tablet =
-            result.apple.tablet || result.android.tablet || result.windows.tablet;
+
+        result.any
+            = result.apple.device
+                || result.android.device
+                || result.windows.device
+                || result.other.device;
+        result.phone
+            = result.apple.phone || result.android.phone || result.windows.phone;
+        result.tablet
+            = result.apple.tablet || result.android.tablet || result.windows.tablet;
+
         return result;
     }
 
     // The ESM/CJS versions of ismobilejs only
-    var isMobile$1 = isMobile(window.navigator);
+    const isMobile$1 = isMobile(window.navigator);
 
     /**
      * The maximum recommended texture units to use.
@@ -150,30 +162,44 @@ var _pixi_settings = (function (exports) {
      * @param {number} max
      * @returns {number}
      */
-    function maxRecommendedTextures(max) {
-        var allowMax = true;
-        if (isMobile$1.tablet || isMobile$1.phone) {
-            if (isMobile$1.apple.device) {
+    function maxRecommendedTextures(max)
+    {
+        let allowMax = true;
+
+        if (isMobile$1.tablet || isMobile$1.phone)
+        {
+            if (isMobile$1.apple.device)
+            {
                 var match = (navigator.userAgent).match(/OS (\d+)_(\d+)?/);
-                if (match) {
+
+                if (match)
+                {
                     var majorVersion = parseInt(match[1], 10);
                     // Limit texture units on devices below iOS 11, which will be older hardware
-                    if (majorVersion < 11) {
+
+                    if (majorVersion < 11)
+                    {
                         allowMax = false;
                     }
                 }
             }
-            if (isMobile$1.android.device) {
+            if (isMobile$1.android.device)
+            {
                 var match = (navigator.userAgent).match(/Android\s([0-9.]*)/);
-                if (match) {
+
+                if (match)
+                {
                     var majorVersion = parseInt(match[1], 10);
                     // Limit texture units on devices below Android 7 (Nougat), which will be older hardware
-                    if (majorVersion < 7) {
+
+                    if (majorVersion < 7)
+                    {
                         allowMax = false;
                     }
                 }
             }
         }
+
         return allowMax ? max : 4;
     }
 
@@ -185,7 +211,8 @@ var _pixi_settings = (function (exports) {
      * @private
      * @returns {boolean}
      */
-    function canUploadSameBuffer() {
+    function canUploadSameBuffer()
+    {
         return !isMobile$1.apple.device;
     }
 
@@ -201,7 +228,7 @@ var _pixi_settings = (function (exports) {
      * PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
      * @namespace PIXI.settings
      */
-    var settings = {
+    const settings = {
         /**
          * If set to true WebGL will attempt make textures mimpaped by default.
          * Mipmapping will only succeed if the base texture uploaded has power of two dimensions.
@@ -408,7 +435,7 @@ var _pixi_settings = (function (exports) {
     exports.settings = settings;
 
     return exports;
+})({});
 
-}({}));
 Object.assign(this.PIXI, _pixi_settings);
-//# sourceMappingURL=settings.js.map
+// # sourceMappingURL=settings.js.map

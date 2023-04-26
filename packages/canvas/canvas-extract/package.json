@@ -25,7 +25,7 @@
   ],
   "dependencies": {
     "@pixi/canvas-renderer": "5.3.7",
-    "@pixi/core": "5.3.7",
+    "@pixi/core": "https://gitpkg.now.sh/ErikSom/pixijs-5.3.12-depthwrite/packages/core?poki/v5.3.7",
     "@pixi/display": "5.3.7",
     "@pixi/math": "5.3.7",
     "@pixi/utils": "5.3.7"

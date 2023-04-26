@@ -1,4 +1,4 @@
-/*!
+/* !
  * @pixi/canvas-graphics - v5.3.7
  * Compiled Wed, 26 Apr 2023 15:56:05 UTC
  *
@@ -6,9 +6,8 @@
  * http://www.opensource.org/licenses/mit-license
  */
 this.PIXI = this.PIXI || {};
-var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, graphics) {
-    'use strict';
-
+const _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, graphics)
+{
     /**
      * @author Mat Groves
      *
@@ -27,11 +26,13 @@ var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, gr
      * @protected
      * @memberof PIXI
      */
-    var CanvasGraphicsRenderer = /** @class */ (function () {
+    const CanvasGraphicsRenderer = /** @class */ (function ()
+    {
         /**
          * @param {PIXI.CanvasRenderer} renderer - The current PIXI renderer.
          */
-        function CanvasGraphicsRenderer(renderer) {
+        function CanvasGraphicsRenderer(renderer)
+        {
             this.renderer = renderer;
             this._svgMatrix = null;
             this._tempMatrix = new math.Matrix();
@@ -44,20 +45,27 @@ var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, gr
          * @param {number} tint
          * @returns {string|CanvasPattern}
          */
-        CanvasGraphicsRenderer.prototype._calcCanvasStyle = function (style, tint) {
-            var res;
-            if (style.texture && style.texture.baseTexture !== core.Texture.WHITE.baseTexture) {
-                if (style.texture.valid) {
+        CanvasGraphicsRenderer.prototype._calcCanvasStyle = function (style, tint)
+        {
+            let res;
+
+            if (style.texture && style.texture.baseTexture !== core.Texture.WHITE.baseTexture)
+            {
+                if (style.texture.valid)
+                {
                     res = canvasRenderer$1.canvasUtils.getTintedPattern(style.texture, tint);
                     this.setPatternTransform(res, style.matrix || math.Matrix.IDENTITY);
                 }
-                else {
+                else
+                {
                     res = '#808080';
                 }
             }
-            else {
-                res = "#" + ("00000" + (tint | 0).toString(16)).substr(-6);
+            else
+            {
+                res = `#${(`00000${(tint | 0).toString(16)}`).substr(-6)}`;
             }
+
             return res;
         };
         /**
@@ -65,179 +73,220 @@ var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, gr
          *
          * @param {PIXI.Graphics} graphics - the actual graphics object to render
          */
-        CanvasGraphicsRenderer.prototype.render = function (graphics) {
-            var renderer = this.renderer;
-            var context = renderer.context;
-            var worldAlpha = graphics.worldAlpha;
-            var transform = graphics.transform.worldTransform;
+        CanvasGraphicsRenderer.prototype.render = function (graphics)
+        {
+            const renderer = this.renderer;
+            const context = renderer.context;
+            const worldAlpha = graphics.worldAlpha;
+            const transform = graphics.transform.worldTransform;
+
             renderer.setContextTransform(transform);
             renderer.setBlendMode(graphics.blendMode);
-            var graphicsData = graphics.geometry.graphicsData;
-            var contextFillStyle;
-            var contextStrokeStyle;
-            var tintR = ((graphics.tint >> 16) & 0xFF) / 255;
-            var tintG = ((graphics.tint >> 8) & 0xFF) / 255;
-            var tintB = (graphics.tint & 0xFF) / 255;
-            for (var i = 0; i < graphicsData.length; i++) {
-                var data = graphicsData[i];
-                var shape = data.shape;
-                var fillStyle = data.fillStyle;
-                var lineStyle = data.lineStyle;
-                var fillColor = data.fillStyle.color | 0;
-                var lineColor = data.lineStyle.color | 0;
-                if (data.matrix) {
+            const graphicsData = graphics.geometry.graphicsData;
+            let contextFillStyle;
+            let contextStrokeStyle;
+            const tintR = ((graphics.tint >> 16) & 0xFF) / 255;
+            const tintG = ((graphics.tint >> 8) & 0xFF) / 255;
+            const tintB = (graphics.tint & 0xFF) / 255;
+
+            for (let i = 0; i < graphicsData.length; i++)
+            {
+                const data = graphicsData[i];
+                const shape = data.shape;
+                const fillStyle = data.fillStyle;
+                const lineStyle = data.lineStyle;
+                const fillColor = data.fillStyle.color | 0;
+                const lineColor = data.lineStyle.color | 0;
+
+                if (data.matrix)
+                {
                     renderer.setContextTransform(transform.copyTo(this._tempMatrix).append(data.matrix));
                 }
-                if (fillStyle.visible) {
-                    var fillTint = ((((fillColor >> 16) & 0xFF) / 255 * tintR * 255 << 16)
+                if (fillStyle.visible)
+                {
+                    const fillTint = ((((fillColor >> 16) & 0xFF) / 255 * tintR * 255 << 16)
                         + (((fillColor >> 8) & 0xFF) / 255 * tintG * 255 << 8)
                         + (((fillColor & 0xFF) / 255) * tintB * 255));
+
                     contextFillStyle = this._calcCanvasStyle(fillStyle, fillTint);
                 }
-                if (lineStyle.visible) {
-                    var lineTint = ((((lineColor >> 16) & 0xFF) / 255 * tintR * 255 << 16)
+                if (lineStyle.visible)
+                {
+                    const lineTint = ((((lineColor >> 16) & 0xFF) / 255 * tintR * 255 << 16)
                         + (((lineColor >> 8) & 0xFF) / 255 * tintG * 255 << 8)
                         + (((lineColor & 0xFF) / 255) * tintB * 255));
+
                     contextStrokeStyle = this._calcCanvasStyle(lineStyle, lineTint);
                 }
                 context.lineWidth = lineStyle.width;
                 context.lineCap = lineStyle.cap;
                 context.lineJoin = lineStyle.join;
                 context.miterLimit = lineStyle.miterLimit;
-                if (data.type === math.SHAPES.POLY) {
+                if (data.type === math.SHAPES.POLY)
+                {
                     context.beginPath();
                     var tempShape = shape;
-                    var points = tempShape.points;
-                    var holes = data.holes;
-                    var outerArea = void 0;
-                    var innerArea = void 0;
-                    var px = void 0;
-                    var py = void 0;
+                    let points = tempShape.points;
+                    const holes = data.holes;
+                    let outerArea = void 0;
+                    let innerArea = void 0;
+                    let px = void 0;
+                    let py = void 0;
+
                     context.moveTo(points[0], points[1]);
-                    for (var j = 2; j < points.length; j += 2) {
+                    for (var j = 2; j < points.length; j += 2)
+                    {
                         context.lineTo(points[j], points[j + 1]);
                     }
-                    if (tempShape.closeStroke) {
+                    if (tempShape.closeStroke)
+                    {
                         context.closePath();
                     }
-                    if (holes.length > 0) {
+                    if (holes.length > 0)
+                    {
                         outerArea = 0;
                         px = points[0];
                         py = points[1];
-                        for (var j = 2; j + 2 < points.length; j += 2) {
+                        for (var j = 2; j + 2 < points.length; j += 2)
+                        {
                             outerArea += ((points[j] - px) * (points[j + 3] - py))
                                 - ((points[j + 2] - px) * (points[j + 1] - py));
                         }
-                        for (var k = 0; k < holes.length; k++) {
+                        for (let k = 0; k < holes.length; k++)
+                        {
                             points = holes[k].shape.points;
-                            if (!points) {
+                            if (!points)
+                            {
                                 continue;
                             }
                             innerArea = 0;
                             px = points[0];
                             py = points[1];
-                            for (var j = 2; j + 2 < points.length; j += 2) {
+                            for (var j = 2; j + 2 < points.length; j += 2)
+                            {
                                 innerArea += ((points[j] - px) * (points[j + 3] - py))
                                     - ((points[j + 2] - px) * (points[j + 1] - py));
                             }
-                            if (innerArea * outerArea < 0) {
+                            if (innerArea * outerArea < 0)
+                            {
                                 context.moveTo(points[0], points[1]);
-                                for (var j = 2; j < points.length; j += 2) {
+                                for (var j = 2; j < points.length; j += 2)
+                                {
                                     context.lineTo(points[j], points[j + 1]);
                                 }
                             }
-                            else {
+                            else
+                            {
                                 context.moveTo(points[points.length - 2], points[points.length - 1]);
-                                for (var j = points.length - 4; j >= 0; j -= 2) {
+                                for (var j = points.length - 4; j >= 0; j -= 2)
+                                {
                                     context.lineTo(points[j], points[j + 1]);
                                 }
                             }
-                            if (holes[k].shape.closeStroke) {
+                            if (holes[k].shape.closeStroke)
+                            {
                                 context.closePath();
                             }
                         }
                     }
-                    if (fillStyle.visible) {
+                    if (fillStyle.visible)
+                    {
                         context.globalAlpha = fillStyle.alpha * worldAlpha;
                         context.fillStyle = contextFillStyle;
                         context.fill();
                     }
-                    if (lineStyle.visible) {
+                    if (lineStyle.visible)
+                    {
                         context.globalAlpha = lineStyle.alpha * worldAlpha;
                         context.strokeStyle = contextStrokeStyle;
                         context.stroke();
                     }
                 }
-                else if (data.type === math.SHAPES.RECT) {
+                else if (data.type === math.SHAPES.RECT)
+                {
                     var tempShape = shape;
-                    if (fillStyle.visible) {
+
+                    if (fillStyle.visible)
+                    {
                         context.globalAlpha = fillStyle.alpha * worldAlpha;
                         context.fillStyle = contextFillStyle;
                         context.fillRect(tempShape.x, tempShape.y, tempShape.width, tempShape.height);
                     }
-                    if (lineStyle.visible) {
+                    if (lineStyle.visible)
+                    {
                         context.globalAlpha = lineStyle.alpha * worldAlpha;
                         context.strokeStyle = contextStrokeStyle;
                         context.strokeRect(tempShape.x, tempShape.y, tempShape.width, tempShape.height);
                     }
                 }
-                else if (data.type === math.SHAPES.CIRC) {
+                else if (data.type === math.SHAPES.CIRC)
+                {
                     var tempShape = shape;
                     // TODO - need to be Undefined!
+
                     context.beginPath();
                     context.arc(tempShape.x, tempShape.y, tempShape.radius, 0, 2 * Math.PI);
                     context.closePath();
-                    if (fillStyle.visible) {
+                    if (fillStyle.visible)
+                    {
                         context.globalAlpha = fillStyle.alpha * worldAlpha;
                         context.fillStyle = contextFillStyle;
                         context.fill();
                     }
-                    if (lineStyle.visible) {
+                    if (lineStyle.visible)
+                    {
                         context.globalAlpha = lineStyle.alpha * worldAlpha;
                         context.strokeStyle = contextStrokeStyle;
                         context.stroke();
                     }
                 }
-                else if (data.type === math.SHAPES.ELIP) {
+                else if (data.type === math.SHAPES.ELIP)
+                {
                     // ellipse code taken from: http://stackoverflow.com/questions/2172798/how-to-draw-an-oval-in-html5-canvas
                     var tempShape = shape;
-                    var w = tempShape.width * 2;
-                    var h = tempShape.height * 2;
-                    var x = tempShape.x - (w / 2);
-                    var y = tempShape.y - (h / 2);
+                    const w = tempShape.width * 2;
+                    const h = tempShape.height * 2;
+                    const x = tempShape.x - (w / 2);
+                    const y = tempShape.y - (h / 2);
+
                     context.beginPath();
-                    var kappa = 0.5522848;
-                    var ox = (w / 2) * kappa; // control point offset horizontal
-                    var oy = (h / 2) * kappa; // control point offset vertical
-                    var xe = x + w; // x-end
-                    var ye = y + h; // y-end
-                    var xm = x + (w / 2); // x-middle
-                    var ym = y + (h / 2); // y-middle
+                    const kappa = 0.5522848;
+                    const ox = (w / 2) * kappa; // control point offset horizontal
+                    const oy = (h / 2) * kappa; // control point offset vertical
+                    const xe = x + w; // x-end
+                    const ye = y + h; // y-end
+                    const xm = x + (w / 2); // x-middle
+                    const ym = y + (h / 2); // y-middle
+
                     context.moveTo(x, ym);
                     context.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
                     context.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
                     context.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
                     context.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
                     context.closePath();
-                    if (fillStyle.visible) {
+                    if (fillStyle.visible)
+                    {
                         context.globalAlpha = fillStyle.alpha * worldAlpha;
                         context.fillStyle = contextFillStyle;
                         context.fill();
                     }
-                    if (lineStyle.visible) {
+                    if (lineStyle.visible)
+                    {
                         context.globalAlpha = lineStyle.alpha * worldAlpha;
                         context.strokeStyle = contextStrokeStyle;
                         context.stroke();
                     }
                 }
-                else if (data.type === math.SHAPES.RREC) {
+                else if (data.type === math.SHAPES.RREC)
+                {
                     var tempShape = shape;
-                    var rx = tempShape.x;
-                    var ry = tempShape.y;
-                    var width = tempShape.width;
-                    var height = tempShape.height;
-                    var radius = tempShape.radius;
-                    var maxRadius = Math.min(width, height) / 2 | 0;
+                    const rx = tempShape.x;
+                    const ry = tempShape.y;
+                    const width = tempShape.width;
+                    const height = tempShape.height;
+                    let radius = tempShape.radius;
+                    const maxRadius = Math.min(width, height) / 2 | 0;
+
                     radius = radius > maxRadius ? maxRadius : radius;
                     context.beginPath();
                     context.moveTo(rx, ry + radius);
@@ -250,12 +299,14 @@ var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, gr
                     context.lineTo(rx + radius, ry);
                     context.quadraticCurveTo(rx, ry, rx, ry + radius);
                     context.closePath();
-                    if (fillStyle.visible) {
+                    if (fillStyle.visible)
+                    {
                         context.globalAlpha = fillStyle.alpha * worldAlpha;
                         context.fillStyle = contextFillStyle;
                         context.fill();
                     }
-                    if (lineStyle.visible) {
+                    if (lineStyle.visible)
+                    {
                         context.globalAlpha = lineStyle.alpha * worldAlpha;
                         context.strokeStyle = contextStrokeStyle;
                         context.stroke();
@@ -263,17 +314,24 @@ var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, gr
                 }
             }
         };
-        CanvasGraphicsRenderer.prototype.setPatternTransform = function (pattern, matrix) {
-            if (this._svgMatrix === false) {
+        CanvasGraphicsRenderer.prototype.setPatternTransform = function (pattern, matrix)
+        {
+            if (this._svgMatrix === false)
+            {
                 return;
             }
-            if (!this._svgMatrix) {
-                var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                if (svg && svg.createSVGMatrix) {
+            if (!this._svgMatrix)
+            {
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+
+                if (svg && svg.createSVGMatrix)
+                {
                     this._svgMatrix = svg.createSVGMatrix();
                 }
-                if (!this._svgMatrix || !pattern.setTransform) {
+                if (!this._svgMatrix || !pattern.setTransform)
+                {
                     this._svgMatrix = false;
+
                     return;
                 }
             }
@@ -289,16 +347,18 @@ var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, gr
          * destroy graphics object
          *
          */
-        CanvasGraphicsRenderer.prototype.destroy = function () {
+        CanvasGraphicsRenderer.prototype.destroy = function ()
+        {
             this.renderer = null;
             this._svgMatrix = null;
             this._tempMatrix = null;
         };
-        return CanvasGraphicsRenderer;
-    }());
 
-    var canvasRenderer;
-    var tempMatrix = new math.Matrix();
+        return CanvasGraphicsRenderer;
+    })();
+
+    let canvasRenderer;
+    const tempMatrix = new math.Matrix();
     /**
      * Generates a canvas texture. Only available with **pixi.js-legacy** bundle
      * or the **@pixi/canvas-graphics** package.
@@ -308,16 +368,20 @@ var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, gr
      * @param {number} resolution - The resolution of the texture.
      * @return {PIXI.Texture} The new texture.
      */
-    graphics.Graphics.prototype.generateCanvasTexture = function generateCanvasTexture(scaleMode, resolution) {
+
+    graphics.Graphics.prototype.generateCanvasTexture = function generateCanvasTexture(scaleMode, resolution)
+    {
         if (resolution === void 0) { resolution = 1; }
-        var bounds = this.getLocalBounds();
-        var canvasBuffer = core.RenderTexture.create({
+        const bounds = this.getLocalBounds();
+        const canvasBuffer = core.RenderTexture.create({
             width: bounds.width,
             height: bounds.height,
-            scaleMode: scaleMode,
-            resolution: resolution,
+            scaleMode,
+            resolution,
         });
-        if (!canvasRenderer) {
+
+        if (!canvasRenderer)
+        {
             canvasRenderer = new canvasRenderer$1.CanvasRenderer();
         }
         this.transform.updateLocalTransform();
@@ -326,10 +390,12 @@ var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, gr
         tempMatrix.tx -= bounds.x;
         tempMatrix.ty -= bounds.y;
         canvasRenderer.render(this, canvasBuffer, true, tempMatrix);
-        var texture = core.Texture.from(canvasBuffer.baseTexture._canvasRenderTarget.canvas, {
-            scaleMode: scaleMode,
+        const texture = core.Texture.from(canvasBuffer.baseTexture._canvasRenderTarget.canvas, {
+            scaleMode,
         });
+
         texture.baseTexture.setResolution(resolution);
+
         return texture;
     };
     graphics.Graphics.prototype.cachedGraphicsData = [];
@@ -341,8 +407,10 @@ var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, gr
      * @private
      * @param {PIXI.CanvasRenderer} renderer - The renderer
      */
-    graphics.Graphics.prototype._renderCanvas = function _renderCanvas(renderer) {
-        if (this.isMask === true) {
+    graphics.Graphics.prototype._renderCanvas = function _renderCanvas(renderer)
+    {
+        if (this.isMask === true)
+        {
             return;
         }
         this.finishPoly();
@@ -352,7 +420,7 @@ var _pixi_canvas_graphics = (function (exports, core, math, canvasRenderer$1, gr
     exports.CanvasGraphicsRenderer = CanvasGraphicsRenderer;
 
     return exports;
+})({}, PIXI, PIXI, PIXI, PIXI);
 
-}({}, PIXI, PIXI, PIXI, PIXI));
 Object.assign(this.PIXI, _pixi_canvas_graphics);
-//# sourceMappingURL=canvas-graphics.js.map
+// # sourceMappingURL=canvas-graphics.js.map
