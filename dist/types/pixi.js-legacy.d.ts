@@ -4716,6 +4716,14 @@ declare namespace PIXI {
          * @default 0
          */
         polygonOffset: number;
+        /**
+         * The polygon offset factor. Setting this property to anything other than 0 will automatically enable polygon
+         * offset fill.
+         *
+         * @member {number}
+         * @default 0
+         */
+        polygonOffsetFactor: number;
     }
     /**
      * System is a base class used for extending systems used by the {@link PIXI.Renderer}

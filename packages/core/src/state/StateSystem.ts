@@ -348,6 +348,6 @@ export class StateSystem extends System
      */
     static checkPolygonOffset(system: StateSystem, state: State): void
     {
-        system.setPolygonOffset(1, state.polygonOffset);
+        system.setPolygonOffset(state.polygonOffsetFactor, state.polygonOffset);
     }
 }

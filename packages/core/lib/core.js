@@ -1,6 +1,6 @@
 /* !
  * @pixi/core - v5.3.7
- * Compiled Wed, 26 Apr 2023 15:56:05 UTC
+ * Compiled Wed, 02 Aug 2023 13:53:13 UTC
  *
  * @pixi/core is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -8106,6 +8106,7 @@ const State = /** @class */ (function ()
         this.data = 0;
         this.blendMode = constants.BLEND_MODES.NORMAL;
         this.polygonOffset = 0;
+        this.polygonOffsetFactor = 1;
         this.blend = true;
         this.depthMask = true;
     }
@@ -8267,6 +8268,25 @@ const State = /** @class */ (function ()
         {
             this.offsets = !!value;
             this._polygonOffset = value;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(State.prototype, 'polygonOffsetFactor', {
+        /**
+         * The polygon offset factor. Setting this property to anything other than 0 will automatically enable polygon
+         * offset fill.
+         *
+         * @member {number}
+         * @default 0
+         */
+        get()
+        {
+            return this._polygonOffsetFactor;
+        },
+        set(value)
+        {
+            this._polygonOffsetFactor = value;
         },
         enumerable: false,
         configurable: true
@@ -10241,7 +10261,7 @@ const StateSystem = /** @class */ (function (_super)
      */
     StateSystem.checkPolygonOffset = function (system, state)
     {
-        system.setPolygonOffset(1, state.polygonOffset);
+        system.setPolygonOffset(state.polygonOffsetFactor, state.polygonOffset);
     };
 
     return StateSystem;
@@ -12529,7 +12549,7 @@ const BatchShaderGenerator = /** @class */ (function ()
             this.defaultGroupCache[maxTextures] = UniformGroup.from({ uSamplers: sampleValues }, true);
             let fragmentSrc = this.fragTemplate;
 
-            fragmentSrc = fragmentSrc.replace(/%count%/gi, `${maxTextures}`);
+            fragmentSrc = fragmentSrc.replace(/%count%/gi, String(maxTextures));
             fragmentSrc = fragmentSrc.replace(/%forloop%/gi, this.generateSampleSrc(maxTextures));
             this.programCache[maxTextures] = new Program(this.vertexSrc, fragmentSrc);
         }
