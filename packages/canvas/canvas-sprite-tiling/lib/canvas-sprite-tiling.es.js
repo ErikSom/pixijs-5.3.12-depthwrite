@@ -1,6 +1,6 @@
 /*!
  * @pixi/canvas-sprite-tiling - v5.3.12
- * Compiled Wed, 26 Apr 2023 14:26:40 UTC
+ * Compiled Wed, 02 Aug 2023 14:32:51 UTC
  *
  * @pixi/canvas-sprite-tiling is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license

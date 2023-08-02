@@ -1,6 +1,6 @@
 /*!
  * @pixi/mixin-cache-as-bitmap - v5.3.12
- * Compiled Wed, 26 Apr 2023 14:26:40 UTC
+ * Compiled Wed, 02 Aug 2023 14:32:51 UTC
  *
  * @pixi/mixin-cache-as-bitmap is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license

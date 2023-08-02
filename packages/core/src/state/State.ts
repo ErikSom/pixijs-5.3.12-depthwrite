@@ -23,6 +23,7 @@ export class State
     data: number;
     _blendMode: BLEND_MODES;
     _polygonOffset: number;
+    _polygonOffsetFactor: number;
 
     constructor()
     {
@@ -30,6 +31,7 @@ export class State
 
         this.blendMode = BLEND_MODES.NORMAL;
         this.polygonOffset = 0;
+        this.polygonOffsetFactor = 1;
 
         this.blend = true;
         this.depthMask = true;
@@ -179,6 +181,22 @@ export class State
     {
         this.offsets = !!value;
         this._polygonOffset = value;
+    }
+
+    /**
+     * The polygon offset factor.
+     *
+     * @member {number}
+     * @default 1
+     */
+    get polygonOffsetFactor(): number
+    {
+        return this._polygonOffsetFactor;
+    }
+
+    set polygonOffsetFactor(value: number)
+    {
+        this._polygonOffsetFactor = value;
     }
 
     static for2d(): State

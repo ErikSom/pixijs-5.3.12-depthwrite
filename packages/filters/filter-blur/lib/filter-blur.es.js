@@ -1,6 +1,6 @@
 /*!
  * @pixi/filter-blur - v5.3.12
- * Compiled Wed, 26 Apr 2023 14:26:40 UTC
+ * Compiled Wed, 02 Aug 2023 14:32:51 UTC
  *
  * @pixi/filter-blur is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -98,6 +98,13 @@ function generateBlurFragSource(kernelSize) {
     return fragSource;
 }
 
+/*!
+ * @pixi/constants - v5.3.7
+ * Compiled Tue, 29 Dec 2020 19:30:11 UTC
+ *
+ * @pixi/constants is licensed under the MIT License.
+ * http://www.opensource.org/licenses/mit-license
+ */
 /**
  * Different types of environments for WebGL.
  *

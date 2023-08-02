@@ -1,6 +1,6 @@
 /*!
  * @pixi/core - v5.3.12
- * Compiled Wed, 26 Apr 2023 14:26:40 UTC
+ * Compiled Wed, 02 Aug 2023 14:32:51 UTC
  *
  * @pixi/core is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -7100,6 +7100,7 @@ var _pixi_core = (function (exports, settings, constants, utils, runner, ticker,
             this.data = 0;
             this.blendMode = constants.BLEND_MODES.NORMAL;
             this.polygonOffset = 0;
+            this.polygonOffsetFactor = 1;
             this.blend = true;
             this.depthMask = true;
         }
@@ -7239,6 +7240,22 @@ var _pixi_core = (function (exports, settings, constants, utils, runner, ticker,
             set: function (value) {
                 this.offsets = !!value;
                 this._polygonOffset = value;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(State.prototype, "polygonOffsetFactor", {
+            /**
+             * The polygon offset factor.
+             *
+             * @member {number}
+             * @default 1
+             */
+            get: function () {
+                return this._polygonOffsetFactor;
+            },
+            set: function (value) {
+                this._polygonOffsetFactor = value;
             },
             enumerable: false,
             configurable: true
@@ -8966,7 +8983,7 @@ var _pixi_core = (function (exports, settings, constants, utils, runner, ticker,
          * @param {PIXI.State} state - the state that the blendMode will pulled from
          */
         StateSystem.checkPolygonOffset = function (system, state) {
-            system.setPolygonOffset(1, state.polygonOffset);
+            system.setPolygonOffset(state.polygonOffsetFactor, state.polygonOffset);
         };
         return StateSystem;
     }(System));

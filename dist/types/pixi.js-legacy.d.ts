@@ -4716,6 +4716,13 @@ declare namespace PIXI {
          * @default 0
          */
         polygonOffset: number;
+        /**
+         * The polygon offset factor.
+         *
+         * @member {number}
+         * @default 1
+         */
+        polygonOffsetFactor: number;
     }
     /**
      * System is a base class used for extending systems used by the {@link PIXI.Renderer}
